@@ -7,7 +7,7 @@ import { Pagination, POSTS_PER_PAGE } from '@/components/elements/Pagination';
 import Post from '@/components/elements/Post';
 import Search from '@/components/elements/Search';
 
-export default function ListLayout({ posts, listTitle, linkAllPosts = false, baseURL, paginationURL, currentPage, totalPages }) {
+export default function ListLayout({ posts, listTitle, linkAllPosts = false, filter = true, baseURL, paginationURL, currentPage, totalPages }) {
 
   const [ searchValue, setSearchValue ] = useState('');
   const initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE);
@@ -23,13 +23,13 @@ export default function ListLayout({ posts, listTitle, linkAllPosts = false, bas
 
   return (
     <>
-      <div className='divide-y divide-gray-200 dark:divide-gray-700'>
+      <div className={ filter && 'divide-y divide-gray-200 dark:divide-gray-700' }>
         <div className='space-y-2 pt-6 md:space-y-5'>
           <h1 className='font-extrabold capitalize leading-9 tracking-tight text-gray-900 dark:text-gray-100 text-3xl sm:text-3xl sm:leading-10 md:text-4xl md:leading-14'>
             {listTitle}
           </h1>
         </div>
-        <Search setSearchValue={ setSearchValue }></Search>
+        { filter && <Search setSearchValue={ setSearchValue }></Search> }
         <ul className='pt-8'>
           {!filteredBlogPosts.length && 'No posts found'}
           {displayPosts.map((frontMatter) => (

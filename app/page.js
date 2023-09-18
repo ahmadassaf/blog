@@ -31,7 +31,7 @@ export default function Home() {
           <h1 className='pb-6 text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14'>Featured from the blog</h1>
         </div>
         <FeaturedPostsLayout />
-        <ListLayout posts={ displayPosts.slice(0, 3) } linkAllPosts={ true } listTitle='Latest Posts' />
+        <ListLayout posts={ displayPosts.slice(0, 3) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
       </div>
     </>
   );

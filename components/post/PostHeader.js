@@ -36,7 +36,7 @@ const PostHeader = ({ frontMatter, siteMetadata }) => (
         ))}
       </div>
     )}
-    <PostSharing siteMetadata={ siteMetadata } slug={ frontMatter.slug } title={ frontMatter.title } fileName={ frontMatter.fileName }></PostSharing>
+    <PostSharing siteMetadata={ siteMetadata } slug={ frontMatter.slug } title={ frontMatter.title } fileName={ frontMatter.fileName } externalLink={ frontMatter.externalLink }></PostSharing>
   </div>
 );
 

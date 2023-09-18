@@ -1,6 +1,7 @@
 const SiteMetadata = {
   'language': 'en-us',
   'locale': 'en-US',
+  'postsRepo': 'https://github.com/ahmadassaf/blog-posts',
   'siteLogo': '/static/images/logo.svg',
   'siteRepo': 'https://github.com/ahmadassaf/blog',
   'siteUrl': 'https://assaf.website',

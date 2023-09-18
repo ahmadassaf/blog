@@ -24,7 +24,7 @@ export default function Page({ params }) {
   return (
     <>
       <div>
-        <ListLayout className='capitalize' posts={ filteredPosts } listTitle={ `${title} Posts` } paginationURL={ `blog/categories/${category}/page` } baseURL={ `blog/category/${category}` }/>
+        <ListLayout className='capitalize' posts={ filteredPosts } listTitle={ `${title} Posts` } paginationURL={ `blog/categories/${category}/page` } baseURL={ `blog/categories/${category}` }/>
       </div>
     </>
   );

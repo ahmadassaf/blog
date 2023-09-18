@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         <ThemeProviders>
           <Analytics/>
           <div className='relative isolate overflow-x-hidden'>
-            <div className='mx-auto px-4 sm:px-6 xl:max-w-7xl xl:px-0'>
+            <div className='mx-auto px-4 sm:px-6 xl:max-w-6xl xl:px-0'>
               <ShapeContainer></ShapeContainer>
               <div className='flex h-screen flex-col justify-between'>
                 <Header />

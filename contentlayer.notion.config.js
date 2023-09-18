@@ -1,7 +1,7 @@
 import { Client } from '@notionhq/client';
 import { defineDatabase, makeSource as notionMakeSource } from 'contentlayer-source-notion';
 
-const client = new Client({ 'auth': 'secret_umqBiUvYgxi2AXNUeNzHZQUnY46AFLu1Qb0KsA92JmI' });
+const client = new Client({ 'auth': process.env.NOTION_TOKEN });
 
 export const Plant = defineDatabase(() => {
   return {
@@ -15,7 +15,7 @@ export const Plant = defineDatabase(() => {
         'type': 'string'
       }
     },
-    'databaseId': '94152ca0b4224319bfbdadec211c4074',
+    'databaseId': '4254c8cbc3904e288ce6def8237d82e0',
     'name': 'Plant'
   };
 });

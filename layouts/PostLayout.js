@@ -6,7 +6,6 @@ import PostNavigation from '@/components/post/PostNavigation';
 import siteMetadata from '@/data/meta/metadata';
 
 export default function PostLayout({ content, next, prev, toc, children }) {
-  console.log('=>', content);
 
   return (
     <SectionContainer>

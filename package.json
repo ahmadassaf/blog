@@ -10,7 +10,9 @@
     "serve": "cross-env INIT_CWD=$PWD next start",
     "analyze": "cross-env INIT_CWD=$PWD ANALYZE=true next build",
     "lint": "cross-env INIT_CWD=$PWD next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pull": "git subtree pull --prefix data/blog git@github.com:ahmadassaf/blog-posts.git master --squash",
+    "push": "git subtree push --prefix data/blog git@github.com:ahmadassaf/blog-posts.git master"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.0.8",

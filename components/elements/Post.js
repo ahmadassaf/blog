@@ -18,7 +18,7 @@ const Post = ({ frontMatter }) => (
             </dd>
           </div>
         </Link>
-        <div className='prose max-w-none text-gray-500 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-white max-sm:hidden'>
+        <div className='prose dark:prose-invert max-w-none text-gray-500 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-white max-sm:hidden'>
           {frontMatter.summary}
         </div>
       </div>

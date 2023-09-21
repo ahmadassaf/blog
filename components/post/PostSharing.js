@@ -10,7 +10,7 @@ const PostSharing = ({ siteMetadata, slug, externalLink, title }) => {
   ${encodeURIComponent(`${siteMetadata.siteUrl}/blog/${slug}`)}`;
 
   return (
-    <div className='flex border-y py-6 text-sm text-gray-700 dark:text-gray-300'>
+    <div className='flex text-sm text-gray-700 dark:text-gray-300'>
       <div className='mr-4 flex space-x-2 hover:text-blue-700'>
         <SocialIcon kind='twitter' href={ siteMetadata.github }/>
         <Link href={ discussUrl(slug) } rel='nofollow'>

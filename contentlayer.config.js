@@ -69,7 +69,7 @@ export default makeSource({
       rehypeSlug,
       rehypeAutolinkHeadings,
       rehypeKatex,
-      [ rehypeCitation, { 'path': path.join(root, 'data') }],
+      [ rehypeCitation, { 'csl': 'https://raw.githubusercontent.com/citation-style-language/styles/master/chicago-fullnote-bibliography.csl', 'path': path.join(root, 'data'), 'suppressBibliography': true }],
       [ rehypePrismPlus, { 'defaultLanguage': 'js', 'ignoreMissing': true }],
       rehypePresetMinify
     ],

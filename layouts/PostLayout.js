@@ -23,7 +23,7 @@ export default function PostLayout({ content, next, prev, toc, children }) {
               </div>
 
             </div>
-            { toc.length > 3 && <TableOfContents toc={ toc } date={ content.date } readingTime={ content.readingTime.text }/>}
+            { toc.length > 3 && <TableOfContents toc={ toc }/>}
           </div>
           <PostNavigation next={ next } prev={ prev }></PostNavigation>
           <Comments frontMatter={ content } />

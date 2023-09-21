@@ -75,7 +75,7 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
             'children': 'Posts',
             'closeOnSelect': false,
             'icon': 'RectangleStackIcon',
-            'id': 'posts',
+            'id': 'posts_list',
             'onClick': () => {
               setPage('posts');
               setSearch('');
@@ -105,19 +105,19 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
       },
       {
         'heading': 'Other',
-        'id': 'advanced',
+        'id': 'other',
         'items': [
           {
             'children': 'About me',
             'href': '/about',
             'icon': 'FingerPrintIcon',
-            'id': 'privacy-policy'
+            'id': 'about_me'
           },
           {
             'children': 'Reach out',
             'closeOnSelect': false,
             'icon': 'IdentificationIcon',
-            'id': 'contact',
+            'id': 'reach_out',
             'onClick': () => {
               setPage('contact');
               setSearch('');
@@ -127,7 +127,7 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
             'children': 'Switch Theme',
             'closeOnSelect': false,
             'icon': 'ArrowRightOnRectangleIcon',
-            'id': 'theme',
+            'id': 'switch_theme',
             'onClick': () => {
               setTheme(theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark');
             }
@@ -137,28 +137,28 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
       {
         'heading': 'Posts',
         'hidden': true,
-        'id': 'posts',
+        'id': 'posts_fullTextSearch',
         'items': posts,
         'options': { 'filterOnListHeading': true }
       },
       {
         'heading': 'Projects',
         'hidden': true,
-        'id': 'projects',
+        'id': 'projects_fullTextSearch',
         'items': projects,
         'options': { 'filterOnListHeading': true }
       },
       {
         'heading': 'Publications',
         'hidden': true,
-        'id': 'publications',
+        'id': 'publications_fullTextSearch',
         'items': publications,
         'options': { 'filterOnListHeading': true }
       },
       {
         'heading': 'Tags',
         'hidden': true,
-        'id': 'tags',
+        'id': 'tags_fullTextSearch',
         'items': tags,
         'options': { 'filterOnListHeading': true }
       }
@@ -182,15 +182,11 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
         <CommandPalette.Page id='root' searchPrefix={ [ 'General' ] }>
           {filteredItems.length ? (
             filteredItems.map((list) => (
-              <div key={ list.id } className={ search.toLowerCase() === list.heading.toLowerCase() ? 'hidden' : '' }>
+              <div key={ `cmd-${list.id}` } className={ search.toLowerCase() === list.heading.toLowerCase() ? 'hidden' : '' }>
                 <div className={ list.hidden && !search.length ? 'hidden' : 'visible' }>
-                  <CommandPalette.List key={ list.id } heading={ list.heading } >
+                  <CommandPalette.List key={ `cmdPalette-${list.id}` } heading={ list.heading } >
                     {list.items.map(({ id, title, subtitle, category, count, type, children, ...rest }) => (
-                      <CommandPalette.ListItem
-                        key={ id }
-                        index={ getItemIndex(filteredItems, id) }
-                        { ...rest }
-                      >
+                      <CommandPalette.ListItem key={ `cmdPaletteItem-${list.id}` } index={ getItemIndex(filteredItems, id) } { ...rest }>
                         {(() => {
                           switch (type) {
                           case 'post':

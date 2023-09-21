@@ -4,7 +4,7 @@ import IconPaper from '@/static/icons/paper.svg';
 
 export default function Publications() {
   return (
-    <div className='px-4 sm:px-6 lg:px-8'>
+    <div>
       <div className='sm:flex sm:items-center'>
         <div className='sm:flex-auto'>
           <h1 className='text-4xl font-bold leading-6 text-gray-900 py-4'>Publications</h1>

@@ -11,7 +11,7 @@ export default function PostLayout({ content, next, prev, toc, children }) {
     <SectionContainer>
       <article>
         <div>
-          <PostHeader frontMatter={ content } siteMetadata={ siteMetadata }/>
+          <PostHeader frontMatter={ content } siteMetadata={ siteMetadata } toc={ toc }/>
 
           <div
             className={ `divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:gap-x-6 xl:divide-y-0 ${toc.length > 3 ? 'xl:grid-cols-9' : 'xl:grid-cols-1'}` }
@@ -23,7 +23,7 @@ export default function PostLayout({ content, next, prev, toc, children }) {
               </div>
 
             </div>
-            { toc.length > 3 && <TableOfContents toc={ toc }/>}
+            { toc.length > 3 && <TableOfContents toc={ toc } />}
           </div>
           <PostNavigation next={ next } prev={ prev }></PostNavigation>
           <Comments frontMatter={ content } />

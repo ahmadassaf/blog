@@ -8,7 +8,7 @@ import IconSettings from '@/static/icons/callout/settings.svg';
 import IconSuccess from '@/static/icons/callout/success.svg';
 import IconWarning from '@/static/icons/callout/warning.svg';
 
-const Callout = ({ text, type }) => {
+const Callout = ({ type, children }) => {
   let calloutBackgroundColor;
   let calloutIcon;
   let calloutTextColour;
@@ -25,7 +25,7 @@ const Callout = ({ text, type }) => {
     {
       calloutIcon = <IconInfo className='h-5 w-5 fill-blue-600'/>;
       calloutBackgroundColor = 'bg-blue-50';
-      calloutTextColour = 'text-blue-700';
+      calloutTextColour = 'text-gray-700';
     }
     break;
   case 'success':
@@ -68,8 +68,8 @@ const Callout = ({ text, type }) => {
       <div className='flex items-center'>
         <div className='flex-shrink-0'>{calloutIcon}</div>
         <div className='ml-3'>
-          <div className={ `mt-2 text-sm ${calloutTextColour}` }>
-            <p>{text}</p>
+          <div className={ `mt-2 text-md ${calloutTextColour}` }>
+            <p>{children}</p>
           </div>
         </div>
       </div>

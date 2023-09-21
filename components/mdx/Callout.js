@@ -16,7 +16,7 @@ const Callout = ({ type, children }) => {
   switch (type) {
   case 'warning':
     {
-      calloutIcon = <IconWarning className='h-5 w-5 fill-yellow-400'/>;
+      calloutIcon = <IconWarning className='h-5 w-5'/>;
       calloutBackgroundColor = 'bg-yellow-50';
       calloutTextColour = 'text-yellow-700';
     }

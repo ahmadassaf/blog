@@ -78,7 +78,8 @@ module.exports = {
               'h1': {
                 'color': theme('colors.gray.900'),
                 'fontWeight': '700',
-                'letterSpacing': theme('letterSpacing.tight')
+                'letterSpacing': theme('letterSpacing.tight'),
+                'marginTop': '2rem'
               },
               'h2': {
                 'color': theme('colors.gray.900'),

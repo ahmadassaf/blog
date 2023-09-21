@@ -1,6 +1,6 @@
 const NavigationMetadata = {
   'categoriesMetadata': {
-    'data': 'Everything AI, ML and Semantic Web',
+    'data': 'Everything AI, ML and Data',
     'development': 'Development, programming and code',
     'productivity': 'Productivity, tools and tips',
     'semantic-web': 'Linked Data, RDF, SPARQL, etc.'

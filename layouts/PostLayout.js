@@ -1,6 +1,6 @@
 import SectionContainer from '@/components/containers/SectionContainer';
 import TableOfContents from '@/components/elements/TableOfContents';
-import Comments from '@/components/post/comments';
+import PostComments from '@/components/post/PostComments';
 import PostHeader from '@/components/post/PostHeader';
 import PostNavigation from '@/components/post/PostNavigation';
 import siteMetadata from '@/data/meta/metadata';
@@ -26,7 +26,7 @@ export default function PostLayout({ content, next, prev, toc, children }) {
             { toc.length > 3 && <TableOfContents toc={ toc } />}
           </div>
           <PostNavigation next={ next } prev={ prev }></PostNavigation>
-          <Comments frontMatter={ content } />
+          <PostComments/>
         </div>
       </article>
     </SectionContainer>

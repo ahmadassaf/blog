@@ -5,6 +5,16 @@ import { POSTS_PER_PAGE } from '@/components/elements/Pagination';
 import ListLayout from '@/layouts/ListLayout';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
 
+export async function generateMetadata({ params }) {
+  const tag = decodeURI(params.tag);
+  const title = tag.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const pageNumber = parseInt(params.page);
+
+  return {
+    'title': `Tag: ${title} | Page ${pageNumber}`
+  };
+}
+
 export const generateStaticParams = async() => {
   const paths = tags.map((tag) => {
     const tagPages = Math.ceil(allPosts.filter(

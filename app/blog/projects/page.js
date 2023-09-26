@@ -2,6 +2,13 @@ import { allProjects } from 'contentlayer/generated';
 
 import Card from '@/components/elements/Card';
 
+export async function generateMetadata() {
+
+  return {
+    'title': `Projects`
+  };
+}
+
 export default function Projects() {
   return (
     <>

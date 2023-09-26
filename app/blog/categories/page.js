@@ -2,6 +2,13 @@ import categories from '@/app/content/categories';
 import Category from '@/components/elements/Category';
 import Link from '@/components/elements/Link';
 
+export async function generateMetadata() {
+
+  return {
+    'title': `Categories`
+  };
+}
+
 export default function Categories() {
   return (
     <>

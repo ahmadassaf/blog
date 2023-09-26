@@ -26,6 +26,11 @@ const NavigationMetadata = {
       'href': '/blog/projects',
       'showInPath': '*',
       'title': 'Projects'
+    },
+    {
+      'hideInPath': '*',
+      'href': '/blog/categories',
+      'title': 'Categories'
     }
   ]
 };

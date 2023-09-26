@@ -3,8 +3,17 @@ import { allPosts } from 'contentlayer/generated';
 import tags from '@/app/content/tags';
 import ListLayout from '@/layouts/ListLayout';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
-export const generateStaticParams = async() => {
 
+export async function generateMetadata({ params }) {
+  const tag = decodeURI(params.tag);
+  const title = tag.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
+  return {
+    'title': `Tag: ${title}`
+  };
+}
+
+export const generateStaticParams = async() => {
   const paths = tags.map((tag) => {
     return {
       'tag': tag.slug

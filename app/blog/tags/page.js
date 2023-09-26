@@ -2,6 +2,12 @@ import tags from '@/app/content/tags';
 import Link from '@/components/elements/Link';
 import Tag from '@/components/elements/Tag';
 
+export async function generateMetadata() {
+  return {
+    'title': 'Tags'
+  };
+}
+
 export default function Tags() {
   return (
     <>

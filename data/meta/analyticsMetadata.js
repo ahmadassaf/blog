@@ -4,7 +4,7 @@ const AnalyticsMetadata = {
     'plausibleDataDomain': '',
     'posthogAnalyticsId': '',
     'simpleAnalytics': false,
-    'umamiWebsiteId': ''
+    'umamiWebsiteId': process.env.UMAMI_WEBSITE_ID || ''
   }
 };
 

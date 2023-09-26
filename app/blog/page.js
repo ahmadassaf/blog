@@ -3,6 +3,12 @@ import { allPosts } from 'contentlayer/generated';
 import ListLayout from '@/layouts/ListLayout';
 import { sortPosts } from '@/lib/utils/contentlayer';
 
+export async function generateMetadata() {
+  return {
+    'title': 'Blog'
+  };
+}
+
 export default function Blog() {
   return (
     <>

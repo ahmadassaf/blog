@@ -18,7 +18,7 @@ const CmdLauncherFooter = () => (
         to navigate
     </span>
     <span className='flex items-center mx-2'>
-      <span className='bg-gray-200 px-1 py-1 rounded mx-1 text-xs'>esc</span>to close / go back
+      <span className='bg-gray-200 px-1 py-1 rounded mx-1 text-xs dark:text-gray-800'>esc</span>to close / go back
     </span>
   </div>
 );

@@ -4,12 +4,7 @@ import siteMetadata from '@/data/meta/metadata';
 
 const UmamiScript = () => (
   <>
-    <Script
-      async
-      defer
-      data-website-id={ siteMetadata.analytics.umamiWebsiteId }
-      src='https://umami.example.com/umami.js'
-    />
+    <Script async defer data-website-id={ siteMetadata.analytics.umamiWebsiteId } src='https://analytics.eu.umami.is/script.js'/>
   </>
 );
 

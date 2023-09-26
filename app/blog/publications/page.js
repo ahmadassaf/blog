@@ -2,6 +2,13 @@ import publications from '@/app/content/publications.json';
 import Link from '@/components/elements/Link';
 import IconPaper from '@/static/icons/paper.svg';
 
+export async function generateMetadata() {
+
+  return {
+    'title': `Publications`
+  };
+}
+
 export default function Publications() {
   return (
     <div>

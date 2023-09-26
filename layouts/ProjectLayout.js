@@ -24,16 +24,11 @@ export default function PostLayout({ content, next, prev, children }) {
                 </div>
               </dl>
               <div>
-                <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14'>
-                  {title}
-                </h1>
+                <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14'>{title}</h1>
               </div>
             </div>
           </header>
-          <div
-            className='divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:divide-y-0 '
-            style={{ 'gridTemplateRows': 'auto 1fr' }}
-          >
+          <div className='divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:divide-y-0 ' style={{ 'gridTemplateRows': 'auto 1fr' }}>
             <div className='divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0'>
               <div className='prose max-w-none pt-10 pb-8 dark:prose-dark'>{children}</div>
             </div>
@@ -42,22 +37,12 @@ export default function PostLayout({ content, next, prev, children }) {
               <div className='flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base'>
                 {prev && (
                   <div className='pt-4 xl:pt-8'>
-                    <Link
-                      href={ `/blog/${prev.slug}` }
-                      className='text-primary-500 hover:text-primary-600 dark:hover:text-primary-400'
-                    >
-                      &larr; {prev.title}
-                    </Link>
+                    <Link href={ `/blog/${prev.slug}` } className='text-primary-500 hover:text-primary-600 dark:hover:text-primary-400'>&larr; {prev.title}</Link>
                   </div>
                 )}
                 {next && (
                   <div className='pt-4 xl:pt-8'>
-                    <Link
-                      href={ `/blog/${next.slug}` }
-                      className='text-primary-500 hover:text-primary-600 dark:hover:text-primary-400'
-                    >
-                      {next.title} &rarr;
-                    </Link>
+                    <Link href={ `/blog/${next.slug}` } className='text-primary-500 hover:text-primary-600 dark:hover:text-primary-400'>{next.title} &rarr;</Link>
                   </div>
                 )}
               </div>

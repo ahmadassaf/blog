@@ -6,10 +6,16 @@ import ShapeContainer from '@/components/containers/ShapeContainer';
 import Footer from '@/components/elements/Footer';
 import Header from '@/components/elements/Header';
 import { ThemeProviders } from '@/components/utils/ThemeProviders';
+import { metadataGenertaor } from '@/data/meta/generator/blog';
+import { website } from '@/data/meta/JSON-LD/website';
 
 import '@/css/tailwind.css';
 import '@/css/prism.css';
 import 'katex/dist/katex.css';
+
+export async function generateMetadata() {
+  return metadataGenertaor();
+}
 
 // eslint-disable-next-line quote-props, sort-keys, sort-keys-fix/sort-keys-fix
 export const font = Inter({ subsets: [ 'latin' ], weight: [ '400', '500', '600', '700', '800' ], variable: '--font-space-inter' });
@@ -35,6 +41,7 @@ export default function RootLayout({ children }) {
               <ShapeContainer></ShapeContainer>
               <div className='flex h-screen flex-col justify-between'>
                 <Header />
+                <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(website()) }} key='jsonld'/>
                 <main className='mb-8'>{children}</main>
                 <Footer />
               </div>

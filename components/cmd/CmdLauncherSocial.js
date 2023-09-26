@@ -1,10 +1,10 @@
 
 import CommandPalette, { filterItems, getItemIndex } from '@tmikeladze/react-cmdk';
 
-import IconEmail from '@/static/icons/email-light.svg';
-import IconGithub from '@/static/icons/socials/github-light.svg';
-import IconLinkedin from '@/static/icons/socials/linkedin-light.svg';
-import IconTwitter from '@/static/icons/socials/twitter-light.svg';
+import IconEmail from '@/static/icons/email.svg';
+import IconGithub from '@/static/icons/socials/github.svg';
+import IconLinkedin from '@/static/icons/socials/linkedin.svg';
+import IconTwitter from '@/static/icons/socials/twitter.svg';
 
 import '@tmikeladze/react-cmdk/dist/cmdk.css';
 
@@ -19,7 +19,7 @@ function PostsCmd({ setPage, search }) {
           {
             'children': 'Linkedin',
             'closeOnSelect': false,
-            'heroIcon': <IconLinkedin className='h-5 w-5'/>,
+            'heroIcon': <IconLinkedin className='h-5 w-5 dark:fill-white fill-gray-700'/>,
             'id': 'linkedin',
             'onClick': () => {
               window.open('https://linkedin.com/in/ahmadassaf', '_blank').focus();
@@ -29,7 +29,7 @@ function PostsCmd({ setPage, search }) {
           {
             'children': 'Twitter',
             'closeOnSelect': false,
-            'heroIcon': <IconTwitter className='h-5 w-5'/>,
+            'heroIcon': <IconTwitter className='h-5 w-5 dark:fill-white fill-gray-700'/>,
             'id': 'twitter',
             'onClick': () => {
               window.open('https://twitter.com/ahmadaassaf', '_blank').focus();
@@ -39,7 +39,7 @@ function PostsCmd({ setPage, search }) {
           {
             'children': 'Github',
             'closeOnSelect': false,
-            'heroIcon': <IconGithub className='h-5 w-5'/>,
+            'heroIcon': <IconGithub className='h-5 w-5 dark:fill-white fill-gray-700'/>,
             'id': 'github',
             'onClick': () => {
               window.open('https://github.com/ahmadassaf', '_blank').focus();
@@ -49,7 +49,7 @@ function PostsCmd({ setPage, search }) {
           {
             'children': 'Mail',
             'closeOnSelect': false,
-            'heroIcon': <IconEmail className='h-5 w-5'/>,
+            'heroIcon': <IconEmail className='h-5 w-5 dark:fill-white fill-gray-700'/>,
             'id': 'mail',
             'onClick': () => {
               window.open('mailto:ahmad@assaf.website', '_blank').focus();

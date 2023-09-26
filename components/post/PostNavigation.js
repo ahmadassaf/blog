@@ -3,9 +3,9 @@ import Link from '@/components/elements/Link';
 const PostNavigation = ({ next, prev }) => (
   <div className='divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700'>
     {(next || prev) && (
-      <div className='flex justify-between py-4'>
+      <div className='flex justify-between max-sm:flex-col py-4'>
         {prev && (
-          <div>
+          <div className='max-sm:py-2'>
             <h2 className='text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
                 Previous Article
             </h2>
@@ -15,7 +15,7 @@ const PostNavigation = ({ next, prev }) => (
           </div>
         )}
         {next && (
-          <div>
+          <div className='max-sm:py-2'>
             <h2 className='text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
                 Next Article
             </h2>

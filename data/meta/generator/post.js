@@ -1,20 +1,19 @@
 import { blog } from '../JSON-LD/blog';
 import siteMetadata from '../metadata';
 
-export function metadataGenertaor(slug, allPosts) {
-  const title = decodeURI(slug.join('/'));
-  const postIndex = allPosts.findIndex((_post) => _post.slug.replace('category/', '') === title);
+export function metadataGenertaor(params, allPosts) {
+  const slug = decodeURI(params.slug.join('/'));
+  const postIndex = allPosts.findIndex((_post) => _post.slug.replace('category/', '') === slug);
   const post = allPosts[postIndex];
-  const publishedAt = new Date(post.date).toISOString();
 
-  return {
+  if (post) return {
     'description': post.summary,
     'openGraph': {
       'authors': [ siteMetadata.author ],
       'description': post.summary,
       'images': [ `${siteMetadata.siteUrl}/static/images/logo.png` ],
       'locale': 'en_US',
-      'publishedTime': publishedAt,
+      'publishedTime': new Date(post.date).toISOString(),
       'siteName': siteMetadata.title,
       'title': post.title,
       'type': 'article',
@@ -28,21 +27,28 @@ export function metadataGenertaor(slug, allPosts) {
       'title': post.title
     }
   };
+
 }
 
 export function linkedDataGenerator(post) {
   return {
-    '__html': {
-      '@context': 'http://schema.org',
-      '@type': 'BlogPosting',
-      'datePublished': post.date,
-      'genre': post.category,
-      'headline': post.title,
-      'isPartOf': blog(),
-      'keywords': post.tags,
-      'thumbnailUrl': `${siteMetadata.siteUrl}/static/images/logo.png`,
-      'url': `${siteMetadata.url}/blog/${post.slug}`,
-      'wordCount': post.readingTime.words
-    }
+    '@context': 'http://schema.org',
+    '@type': 'BlogPosting',
+    'about': post.tags.map((tag) => {
+      return {
+        '@id': `${siteMetadata.siteUrl}${tag.href}`,
+        '@type': 'Thing',
+        'name': tag.title,
+        'sameAs': tag.sameAs
+      };
+    }),
+    'datePublished': post.date,
+    'genre': post.category,
+    'headline': post.title,
+    'isPartOf': blog(),
+    'keywords': post.tags,
+    'thumbnailUrl': `${siteMetadata.siteUrl}/static/images/logo.png`,
+    'url': `${siteMetadata.siteUrl}/blog/${post.slug}`,
+    'wordCount': post.readingTime.words
   };
 }

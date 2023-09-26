@@ -6,7 +6,7 @@ import PostLayout from '@/layouts/PostLayout';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
 
 export async function generateMetadata({ params }) {
-  return metadataGenertaor(params.slug, allPosts);
+  return metadataGenertaor(params, allPosts);
 }
 
 export const generateStaticParams = async() => {
@@ -42,7 +42,7 @@ export default async function Page({ params }) {
   return post ? (
     <>
 
-      <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(linkedDataGenerator(post)) }} key='product-jsonld'/>
+      <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(linkedDataGenerator(post)) }} key='post-jsonld'/>
 
       <PostLayout content={ coreContent(post) } next={ posts[postIndex - 1] || null } prev={ posts[postIndex + 1] || null } toc={ post.toc }>
         <MDXLayoutRenderer code={ post.body.code } components={ MDXComponents } />

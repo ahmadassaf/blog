@@ -39,15 +39,8 @@ strong.highlight {
 
 sup a[aria-describedby="footnote-label"] {
   text-decoration: none;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #17a34a;
-}
+  color: #1d4ed8;
 
-sup a[aria-describedby="footnote-label"]:hover {
-  color: #fff !important;
-  background-color: #4078f2;
 }
 
 a[aria-label="Back to content"] {

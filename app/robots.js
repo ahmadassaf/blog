@@ -1,12 +1,10 @@
-import siteMetadata from '@/data/siteMetadata';
-
 export default function robots() {
   return {
-    'host': siteMetadata.siteUrl,
+    'host': `https://assaf.website`,
     'rules': {
       'allow': '/',
       'userAgent': '*'
     },
-    'sitemap': `${siteMetadata.siteUrl}/sitemap.xml`
+    'sitemap': `https://assaf.website/sitemap.xml`
   };
 }

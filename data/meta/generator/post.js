@@ -1,4 +1,6 @@
+import { author } from '../JSON-LD/author';
 import { blog } from '../JSON-LD/blog';
+import knowledgeBase from '../knowledgeBase.mjs';
 import siteMetadata from '../metadata';
 
 export function metadataGenertaor(params, allPosts) {
@@ -36,15 +38,23 @@ export function linkedDataGenerator(post) {
     '@type': 'BlogPosting',
     'about': post.tags.map((tag) => {
       return {
-        '@id': `${siteMetadata.siteUrl}${tag.href}`,
+        '@id': `${siteMetadata.siteUrl}/blog/tags/${tag.replace(' ', '-').toLowerCase()}`,
         '@type': 'Thing',
-        'name': tag.title,
-        'sameAs': tag.sameAs
+        'name': tag,
+        'sameAs': knowledgeBase[tag].sameAs
       };
     }),
+    'author': author(),
     'datePublished': post.date,
     'genre': post.category,
     'headline': post.title,
+    'image': {
+      '@id': `${siteMetadata.siteUrl}/static/images/logo.png`,
+      '@type': 'ImageObject',
+      'height': '362',
+      'url': `${siteMetadata.siteUrl}/static/images/logo.png`,
+      'width': '388'
+    },
     'isPartOf': blog(),
     'keywords': post.tags,
     'thumbnailUrl': `${siteMetadata.siteUrl}/static/images/logo.png`,

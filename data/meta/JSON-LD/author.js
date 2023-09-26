@@ -1,7 +1,5 @@
 import { alumni } from './alumni';
-import { occupation } from './occupation';
 import { organisation } from './organisation';
-import { roles } from './roles';
 
 export function author() {
   return {
@@ -19,10 +17,6 @@ export function author() {
     'email': 'me@assaf.website',
     'familyName': 'Assaf',
     'givenName': 'Ahmad',
-    'hasOccupation': [
-      ...occupation(),
-      ...roles()
-    ],
     'jobTitle': 'VP of AI & Data',
     'name': 'Ahmad Assaf',
     'sameAs': [

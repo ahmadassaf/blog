@@ -69,7 +69,7 @@ export default makeSource({
       rehypeSlug,
       rehypeAutolinkHeadings,
       rehypeKatex,
-      [ rehypeCitation, { 'csl': 'https://raw.githubusercontent.com/citation-style-language/styles/master/chicago-fullnote-bibliography.csl', 'path': path.join(root, 'data'), 'suppressBibliography': true }],
+      [ rehypeCitation, { 'csl': 'https://raw.githubusercontent.com/citation-style-language/styles/master/acm-sig-proceedings.csl', 'linkCitations': true, 'path': path.join(root, 'data') }],
       [ rehypePrismPlus, { 'defaultLanguage': 'js', 'ignoreMissing': true }],
       rehypePresetMinify
     ],

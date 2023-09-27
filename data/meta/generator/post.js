@@ -41,7 +41,7 @@ export function linkedDataGenerator(post) {
         '@id': `${siteMetadata.siteUrl}/blog/tags/${tag.replace(' ', '-').toLowerCase()}`,
         '@type': 'Thing',
         'name': tag,
-        'sameAs': knowledgeBase[tag].sameAs
+        'sameAs': knowledgeBase[tag]?.sameAs
       };
     }),
     'author': author(),

@@ -1,7 +1,6 @@
 
 import { Inter } from 'next/font/google';
 
-import Analytics from '@/components/analytics';
 import ShapeContainer from '@/components/containers/ShapeContainer';
 import Footer from '@/components/elements/Footer';
 import Header from '@/components/elements/Header';
@@ -11,6 +10,7 @@ import { website } from '@/data/meta/JSON-LD/website';
 
 import '@/css/tailwind.css';
 import '@/css/prism.css';
+import '@/css/overrides.css';
 import 'katex/dist/katex.css';
 
 export async function generateMetadata() {
@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
       <link rel='alternate' type='application/rss+xml' href='/feed.xml' />
       <body className='bg-white text-black antialiased dark:bg-gray-900 dark:text-white min-w-[414px]'>
         <ThemeProviders>
-          <Analytics/>
+          <script async defer data-website-id={ process.env.UMAMI_WEBSITE_ID } src='https://analytics.eu.umami.is/script.js'/>
           <div className='relative isolate overflow-x-hidden'>
             <div className='mx-auto px-4 sm:px-6 xl:max-w-6xl xl:px-0'>
               <ShapeContainer></ShapeContainer>

@@ -57,7 +57,7 @@ const Footer = () => (
           </div>
         </div>
 
-        {siteMetadata.newsletter.provider !== '' && <NewsletterForm />}
+        <NewsletterForm />
 
       </div>
       <div className='mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between max-sm:border-none max-sm:p-0 max-sm:m-0 max-md:border-0'>

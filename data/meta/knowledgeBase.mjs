@@ -18,6 +18,18 @@ const knowledgeBase = {
       'http://www.wikidata.org/entity/Q1757694'
     ]
   },
+  'Data Warehouse': {
+    'sameAs': [
+      'https://en.wikipedia.org/wiki/Data_warehouse',
+      'http://www.wikidata.org/entity/Q193351'
+    ]
+  },
+  'Databases': {
+    'sameAs': [
+      'https://en.wikipedia.org/wiki/Database',
+      'http://www.wikidata.org/entity/Q8513'
+    ]
+  },
   'Jekyll': {
     'sameAs': [
       'https://en.wikipedia.org/wiki/Jekyll_(software)',
@@ -36,6 +48,12 @@ const knowledgeBase = {
       'http://www.wikidata.org/entity/Q109642276'
     ]
   },
+  'LOD': {
+    'sameAs': [
+      'https://en.wikipedia.org/wiki/Linked_data',
+      'http://www.wikidata.org/entity/Q18692990'
+    ]
+  },
   'LaTEX': {
     'sameAs': [
       'https://en.wikipedia.org/wiki/LaTeX',
@@ -52,6 +70,12 @@ const knowledgeBase = {
     'sameAs': [
       'https://en.wikipedia.org/wiki/Microservices',
       'http://www.wikidata.org/entity/Q18344624'
+    ]
+  },
+  'Multimodal Databases': {
+    'sameAs': [
+      'https://en.wikipedia.org/wiki/Multi-model_database',
+      'http://www.wikidata.org/entity/Q8513'
     ]
   },
   'NPM': {

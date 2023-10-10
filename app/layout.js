@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 
 import ShapeContainer from '@/components/containers/ShapeContainer';
 import Footer from '@/components/elements/Footer';
-import Header from '@/components/elements/Header';
+import Menu from '@/components/navigation/Menu';
 import { ThemeProviders } from '@/components/utils/ThemeProviders';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
 import { website } from '@/data/meta/JSON-LD/website';
@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
             <div className='mx-auto px-4 sm:px-6 xl:max-w-6xl xl:px-0'>
               <ShapeContainer></ShapeContainer>
               <div className='flex h-screen flex-col justify-between'>
-                <Header />
+                <Menu />
                 <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(website()) }} key='jsonld'/>
                 <main className='mb-8'>{children}</main>
                 <Footer />

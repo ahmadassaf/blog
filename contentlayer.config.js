@@ -9,8 +9,9 @@ import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 
-import ComputedFields  from './lib/contentLayer/computedFields';
+import computedFields  from './lib/contentLayer/computedFields';
 import contentFields from './lib/contentLayer/contentFields';
+import projectFields  from './lib/contentLayer/projectFields';
 import structuredData from './lib/contentLayer/structuredData';
 import { remarkCodeTitles,
   remarkExtractFrontmatter,
@@ -18,10 +19,27 @@ import { remarkCodeTitles,
 
 const root = process.cwd();
 
+export const Project = defineDocumentType(() => {
+  return {
+    'computedFields': {
+      ...computedFields,
+      ...projectFields,
+      'structuredData': {
+        'resolve': structuredData.post,
+        'type': 'json'
+      }
+    },
+    'contentType': 'mdx',
+    'fields': contentFields.project,
+    'filePathPattern': 'blog/**/*.mdx',
+    'name': 'Project'
+  };
+});
+
 export const Post = defineDocumentType(() => {
   return {
     'computedFields': {
-      ...ComputedFields,
+      ...computedFields,
       'structuredData': {
         'resolve': structuredData.post,
         'type': 'json'
@@ -34,25 +52,8 @@ export const Post = defineDocumentType(() => {
   };
 });
 
-export const Project = defineDocumentType(() => {
-  return {
-    'computedFields': {
-      ...ComputedFields,
-      'structuredData': {
-        'resolve': structuredData.project,
-        'type': 'json'
-      }
-    },
-    'contentType': 'mdx',
-    'fields': contentFields.project,
-    'filePathPattern': 'blog/**/*.mdx',
-    'name': 'Project'
-  };
-});
-
 export const Author = defineDocumentType(() => {
   return {
-    ComputedFields,
     'contentType': 'mdx',
     'fields': contentFields.author,
     'filePathPattern': 'authors/**/*.mdx',
@@ -62,7 +63,7 @@ export const Author = defineDocumentType(() => {
 
 export default makeSource({
   'contentDirPath': 'data',
-  'documentTypes': [ Post, Author, Project ],
+  'documentTypes': [ Author, Project, Post ],
   'mdx': {
     'cwd': process.cwd(),
     'rehypePlugins': [

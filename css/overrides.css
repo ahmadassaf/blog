@@ -30,3 +30,13 @@ strong.highlight {
 a {
     text-decoration: none !important;
 }
+
+span.github-lang:before {
+    content: ' ';
+    height: 10px;
+    width: 10px;
+    background: hsl(221, 87%, 60%);
+    display: inline-block;
+    margin: 0 5px 0 0;
+    border-radius: 50%;
+}

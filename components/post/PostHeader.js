@@ -1,3 +1,4 @@
+import Card from '@/components/elements/Card';
 import Category from '@/components/elements/Category';
 import Tag from '@/components/elements/Tag';
 import PostSeriesBox from '@/components/post/postSeriesBox';
@@ -36,7 +37,10 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
         ))}
       </div>
     )}
+
     <PostSharing siteMetadata={ siteMetadata } slug={ frontMatter.slug } title={ frontMatter.title } fileName={ frontMatter.fileName } externalLink={ frontMatter.externalLink }></PostSharing>
+
+    { frontMatter.meta && <Card key={ frontMatter.title } title={ frontMatter.title } subtitle={ frontMatter.meta.description } href={ `/blog/${frontMatter.externalLink}` } meta={ frontMatter.meta } /> }
   </div>
 );
 

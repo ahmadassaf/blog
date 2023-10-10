@@ -1,6 +1,6 @@
 
 import Link from '@/components/elements/Link';
-import IconGitMerge from '@/static/icons/gitMerge.svg';
+import IconGitMerge from '@/static/icons/git/merge.svg';
 
 const Preview = ({ link, title }) => (
   <Link href={ link } className='group inline-flex align-center align-middle mr-2 text-gray-800 no-underline'>

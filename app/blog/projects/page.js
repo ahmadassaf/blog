@@ -19,9 +19,9 @@ export default function Projects() {
           </h1>
         </div>
         <div className='py-12'>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+          <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
             {allProjects.map((project) => (
-              <Card key={ project.title } title={ project.title } subtitle={ project.subtitle } description={ project.summary } href={ `/blog/${project.slug}` } />
+              <Card key={ project.title } title={ project.title } subtitle={ project.subtitle } href={ `/blog/${project.externalLink}` } meta={ project.meta } />
             ))}
           </div>
         </div>

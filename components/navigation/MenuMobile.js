@@ -5,7 +5,6 @@ import Link from '@/components/elements/Link';
 import NewsletterForm from '@/components/forms/NewsletterForm';
 import ThemeLogo from '@/components/navigation/MenuLogo';
 import MenuSearch from '@/components/navigation/MenuSearch';
-import siteMetadata from '@/data/meta/metadata';
 
 const MenuMobile = ({ categories, links, setMobileMenuOpen, setLauncherOpen }) => (
   <div className='lg:hidden' role='dialog' aria-modal='true'>
@@ -24,7 +23,7 @@ const MenuMobile = ({ categories, links, setMobileMenuOpen, setLauncherOpen }) =
       </div>
       <div className='flow-root'>
         <div className='-my-6 divide-y divide-gray-500/10'>
-          <div className='space-y-2 py-6'>
+          <div className='space-y-2 pb-6'>
 
             <div className='hidden max-sm:flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end mt-4'>
               <MenuSearch setOpen={ setLauncherOpen }></MenuSearch>
@@ -50,7 +49,7 @@ const MenuMobile = ({ categories, links, setMobileMenuOpen, setLauncherOpen }) =
           </div>
 
           <div>
-            {siteMetadata.newsletter.provider !== '' && <NewsletterForm />}
+            <NewsletterForm />
           </div>
 
         </div>

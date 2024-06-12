@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import CommandPalette, { getItemIndex } from '@tmikeladze/react-cmdk';
 import { allPosts } from 'contentlayer/generated';
-import { Index } from 'flexsearch';
+import pkg from 'flexsearch';
+const { Index } = pkg;
 
 import CmdPost from '@/components/cmd/types/CmdPost';
 import CmdProject from '@/components/cmd/types/CmdProject';

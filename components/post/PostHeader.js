@@ -6,7 +6,7 @@ import PostSharing from '@/components/post/PostSharing';
 const postDateTemplate = { 'day': 'numeric', 'month': 'long', 'weekday': 'long', 'year': 'numeric' };
 
 const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
-  <div className={ `pt-6 xl:pb-6 max-xl:w-[100%] ${(toc.length > 3 && !frontMatter.hideToC) ? 'w-[60%]' : 'w-[100%]'}` }>
+  <div className={ `pt-6 max-xl:w-[100%] ${(toc.length > 3 && !frontMatter.hideToC) ? 'w-[60%]' : 'w-[100%]'}` }>
     <Category text={ frontMatter.category }></Category>
     <div className='py-4 xl:py-4'>
       <dt className='sr-only'>Published on</dt>

@@ -72,6 +72,7 @@ module.exports = {
       },
       'colors': {
         'gray': colors.neutral,
+        'icon': '#6b7280',
         'primary': colors.blue
       },
       'fontFamily': {

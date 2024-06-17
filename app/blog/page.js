@@ -1,5 +1,6 @@
 import { allPosts } from 'contentlayer/generated';
 
+import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import ListLayout from '@/layouts/ListLayout';
 import { sortPosts } from '@/lib/utils/contentlayer';
 
@@ -12,7 +13,8 @@ export async function generateMetadata() {
 export default function Blog() {
   return (
     <>
-      <ListLayout posts={ sortPosts(allPosts, 'date') } listTitle='Blog Posts' paginationURL='blog/page' baseURL='blog'/>
+      <FeaturedPostsLayout />
+      <ListLayout posts={ sortPosts(allPosts, 'date') } paginationURL='blog/page' baseURL='blog'/>
     </>
   );
 }

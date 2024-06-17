@@ -1,9 +1,9 @@
 const NavigationMetadata = {
   'categoriesMetadata': {
     'data': 'Everything AI, ML and Data',
-    'development': 'Development, programming and code',
+    'engineering': 'Development, programming and code',
     'productivity': 'Productivity, tools and tips',
-    'semantic-web': 'Linked Data, RDF, SPARQL, etc.'
+    'leadership': 'Engineering management and leadership',
   },
   'links': [
     {

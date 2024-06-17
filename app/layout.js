@@ -1,12 +1,8 @@
 
 import { Inter } from 'next/font/google';
 
-import ShapeContainer from '@/components/containers/ShapeContainer';
-import Footer from '@/components/elements/Footer';
-import Menu from '@/components/navigation/Menu';
-import { ThemeProviders } from '@/components/utils/ThemeProviders';
+import LayoutContainer from '@/components/containers/layoutContainer';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
-import { website } from '@/data/meta/JSON-LD/website';
 
 import '@/css/tailwind.css';
 import '@/css/prism.css';
@@ -33,21 +29,10 @@ export default function RootLayout({ children }) {
       <meta name='theme-color' media='(prefers-color-scheme: light)' content='#fff' />
       <meta name='theme-color' media='(prefers-color-scheme: dark)' content='#000' />
       <link rel='alternate' type='application/rss+xml' href='/feed.xml' />
-      <body className='bg-white text-black antialiased dark:bg-gray-900 dark:text-white min-w-[414px]'>
-        <ThemeProviders>
-          <script async defer data-website-id={ process.env.UMAMI_WEBSITE_ID } src='https://analytics.eu.umami.is/script.js'/>
-          <div className='relative isolate overflow-x-hidden'>
-            <div className='mx-auto px-4 sm:px-6 xl:max-w-6xl xl:px-0'>
-              <ShapeContainer></ShapeContainer>
-              <div className='flex h-screen flex-col justify-between'>
-                <Menu />
-                <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(website()) }} key='jsonld'/>
-                <main className='mb-8'>{children}</main>
-                <Footer />
-              </div>
-            </div>
-          </div>
-        </ThemeProviders>
+      <body>
+        <LayoutContainer>
+          {children}
+        </LayoutContainer>
       </body>
     </html>
   );

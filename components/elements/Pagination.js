@@ -1,6 +1,6 @@
 import Link from '@/components/elements/Link';
 
-const POSTS_PER_PAGE = 5;
+const POSTS_PER_PAGE = 7;
 
 const Pagination = ({ totalPages, currentPage, baseURL, paginationURL }) => {
   const prevPage = parseInt(currentPage) - 1 > 0;

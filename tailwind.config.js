@@ -1,5 +1,22 @@
+const svgToDataUri = require('mini-svg-data-uri');
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
+
+const {
+  'default': flattenColorPalette
+} = require('tailwindcss/lib/util/flattenColorPalette');
+
+// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
+const addVariablesForColors = ({ addBase, theme }) => {
+  const allColors = flattenColorPalette(theme('colors'));
+  const newVars = Object.fromEntries(
+    Object.entries(allColors).map(([ key, val ]) => [ `--${key}`, val ])
+  );
+
+  addBase({
+    ':root': newVars
+  });
+};
 
 module.exports = {
   'content': [
@@ -11,9 +28,42 @@ module.exports = {
     './data/**/*.mdx'
   ],
   'darkMode': 'class',
-  'plugins': [ require('@tailwindcss/typography') ],
+  'plugins': [
+    require('@tailwindcss/typography'),
+    addVariablesForColors,
+    function tailwindGrid({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'bg-dot': (value) => {
+            return {
+              'backgroundImage': `url("${svgToDataUri(
+                `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="1.6257413380501518"></circle></svg>`
+              )}")`
+            };
+          },
+          'bg-grid': (value) => {
+            return {
+              'backgroundImage': `url("${svgToDataUri(
+                `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
+              )}")`
+            };
+          },
+          'bg-grid-small': (value) => {
+            return {
+              'backgroundImage': `url("${svgToDataUri(
+                `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
+              )}")`
+            };
+          }
+        }, { 'type': 'color', 'values': flattenColorPalette(theme('backgroundColor')) }
+      );
+    }
+  ],
   'theme': {
     'extend': {
+      'animation': {
+        'aurora': 'aurora 60s linear infinite'
+      },
       'borderWidth': {
         '10': '10px'
       },
@@ -26,6 +76,16 @@ module.exports = {
       },
       'fontFamily': {
         'sans': [ 'var(--font-space-inter)', ...defaultTheme.fontFamily.sans ]
+      },
+      'keyframes': {
+        'aurora': {
+          'from': {
+            'backgroundPosition': '50% 50%, 50% 50%'
+          },
+          'to': {
+            'backgroundPosition': '350% 50%, 350% 50%'
+          }
+        }
       },
       'lineHeight': {
         '11': '2.75rem',

@@ -1,6 +1,7 @@
 import { allPosts } from 'contentlayer/generated';
 
 import LauncherShortcut from '@/components/cmd/CmdLauncherShortcut';
+import { Highlight } from '@/components/elements/Highlight';
 import Link from '@/components/elements/Link';
 import siteMetadata from '@/data/meta/metadata';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
@@ -14,11 +15,16 @@ export default function Home() {
     <>
       <div className='divide-y divide-gray-200 dark:divide-gray-700'>
         <div className='space-y-2 pt-6 pb-8 md:space-y-5'>
-          <h1 className='pb-6 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14'>
+          <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14'>
                 Hi, I'm{' '}
             <span className='text-primary-color-500 dark:text-primary-color-dark-500'>
               {siteMetadata.author}
             </span>
+          </h1>
+          <h1 className='text-xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-xl sm:leading-10 md:text-2xl md:leading-14'>
+            <Highlight className='text-black dark:text-white'>
+              AI and Machine Learning Leader, Mentor and Advisor
+            </Highlight>
           </h1>
           <h2 className='text-xl leading-8 max-sm:py-4'>{`${siteMetadata.description}`}</h2>
           <h2>A driven AI and Machine Learning (ML) leader with a passion for discovering solutions to create the future of work through my current role as <strong >VP of AI and Data <Link className='text-blue-600' href='https://beamery.com'>@Beamery</Link></strong>. As one of the founding engineers, I have built and scaled engineering and data science teams and helped Beamery become one of the latest tech unicorns.</h2>

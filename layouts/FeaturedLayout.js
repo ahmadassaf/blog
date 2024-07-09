@@ -17,7 +17,7 @@ export default function ListLayout() {
           Featured Posts
         </h1>
       </div>
-      <div className='mx-auto grid grid-cols-1  lg:grid-cols-2 border-none py-10 md:py-0'>
+      <div className='mx-auto grid grid-cols-1 gap-8 lg:grid-cols-2 border-none py-10 md:py-0'>
         <article className='mx-auto w-full lg:mx-0 lg:max-w-lg py-2'>
           <time dateTime={ formatDate(featuredPost.date) } className='block text-sm leading-6 text-gray-600 dark:text-white'>
             {formatDate(featuredPost.date)}

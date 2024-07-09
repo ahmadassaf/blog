@@ -1,18 +1,22 @@
-import GithubMeta from '@/components/elements/GithubMeta';
-import Link from '@/components/elements/Link';
+import { cn } from '@/components/utils/TailwindUtils';
 
-const Card = ({ title, subtitle, href, meta }) => (
-  <div className='group border-2 border-gray-200 border-opacity-60 hover:border-[#ddd] dark:border-gray-700 dark:hover:border-blue-700'>
-    <Link href={ href }>
-      <div className='p-6 pb-2'>
-        <h2 className='mb-3 text-xl font-bold leading-8 tracking-tight group-hover:text-blue-700'>{title}</h2>
-        <h4 className='group-hover:text-blue-400 text-sm'>{subtitle}</h4>
+const Card = ({ title, subtitle, meta, className, children }) => (
+  <div
+    className={ cn('rounded-2xl h-full w-full p-2 overflow-hidden bg-white border dark:bg-gray-900 border-grey-400 dark:border-white/[0.2] group-hover:border-grey-700 relative z-20', className) }
+  >
+    <div className='relative z-50'>
+      <div className='p-2'>
+        <h4 className={ cn('text-black dark:text-white font-bold tracking-wide mt-4', className) }>
+          {title}
+        </h4>
+        <p className={ cn('mt-8 text-black dark:text-white tracking-wide leading-relaxed text-sm', className) }>
+          {subtitle}
+        </p>
+        { children }
       </div>
-    </Link>
-
-    { meta && <GithubMeta meta={ meta }/> }
-
+    </div>
   </div>
 );
 
 export default Card;
+

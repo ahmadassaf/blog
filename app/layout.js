@@ -2,7 +2,7 @@
 import { Inter } from 'next/font/google';
 
 import LayoutContainer from '@/components/containers/layoutContainer';
-import PrismThemeProvider from '@/components/elements/PrismThemes';
+import PrismThemeProvider from '@/components/utils/PrismThemes';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
 
 import '@/css/tailwind.css';

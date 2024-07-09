@@ -13,9 +13,11 @@ export default function ListLayout() {
   return (
     <div>
       <div className='pt-10'>
-        <h1 className='pb-6 text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14'>Featured Posts</h1>
+        <h1 className='pb-6 text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14'>
+          Featured Posts
+        </h1>
       </div>
-      <div className='mx-auto grid grid-cols-1  lg:grid-cols-2 border-none py-10'>
+      <div className='mx-auto grid grid-cols-1  lg:grid-cols-2 border-none py-10 md:py-0'>
         <article className='mx-auto w-full lg:mx-0 lg:max-w-lg py-2'>
           <time dateTime={ formatDate(featuredPost.date) } className='block text-sm leading-6 text-gray-600 dark:text-white'>
             {formatDate(featuredPost.date)}
@@ -33,7 +35,7 @@ export default function ListLayout() {
         <div className='mx-auto w-full border-t border-gray-900/10 dark:border-gray-300/10 pt-12 sm:pt-16 lg:mx-0 lg:max-w-none lg:border-t-0 lg:pt-0 mt-10'>
           <div className='-my-12 divide-y divide-gray-900/10 dark:border-gray-300/10'>
             {displayPosts.map((post) => (
-              <article key={ post.slug } className='py-10'>
+              <article key={ post.slug } className='py-10 md:py-5'>
                 <div className='group relative'>
                   <time dateTime={ post.datetime } className='block text-sm leading-6 text-gray-600 dark:text-white'>
                     {formatDate(post.date)}

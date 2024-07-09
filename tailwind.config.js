@@ -155,9 +155,15 @@ module.exports = {
                 'color': theme('colors.gray.900')
               },
               'hr': { 'borderColor': theme('colors.gray.200') },
+              'li': {
+                'color': theme('colors.black')
+              },
               'ol li::marker': {
-                'color': theme('colors.gray.500'),
+                'color': theme('colors.black'),
                 'fontWeight': '600'
+              },
+              'p': {
+                'color': theme('colors.black')
               },
               'pre': {
                 'backgroundColor': theme('colors.gray.800')
@@ -206,9 +212,15 @@ module.exports = {
                 'color': theme('colors.gray.100')
               },
               'hr': { 'borderColor': theme('colors.gray.700') },
+              'li': {
+                'color': theme('colors.white')
+              },
               'ol li::marker': {
-                'color': theme('colors.gray.400'),
+                'color': theme('colors.white'),
                 'fontWeight': '600'
+              },
+              'p': {
+                'color': theme('colors.white')
               },
               'pre': {
                 'backgroundColor': theme('colors.gray.800')

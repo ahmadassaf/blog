@@ -1,8 +1,8 @@
 import SectionContainer from '@/components/containers/SectionContainer';
-import TableOfContents from '@/components/elements/TableOfContents';
 import PostComments from '@/components/post/PostComments';
 import PostHeader from '@/components/post/PostHeader';
 import PostNavigation from '@/components/post/PostNavigation';
+import TableOfContents from '@/components/post/TableOfContents';
 import siteMetadata from '@/data/meta/metadata';
 
 export default function PostLayout({ content, next, prev, toc, children }) {

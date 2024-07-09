@@ -54,3 +54,8 @@ span.github-lang:before {
         background-image: linear-gradient(to bottom, rgba(255,255,255, 0), rgba(255,255,255, 1) 75%);
     }
   }
+
+.prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+    margin-top: 0 !important;
+    margin-bottom: .5em !important;
+}

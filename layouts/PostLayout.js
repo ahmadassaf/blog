@@ -1,9 +1,9 @@
 import SectionContainer from '@/components/containers/SectionContainer';
-import Disclaimer from '@/components/elements/Disclaimer';
-import TableOfContents from '@/components/elements/TableOfContents';
+import Disclaimer from '@/components/post/Disclaimer';
 import PostComments from '@/components/post/PostComments';
 import PostHeader from '@/components/post/PostHeader';
 import PostNavigation from '@/components/post/PostNavigation';
+import TableOfContents from '@/components/post/TableOfContents';
 import siteMetadata from '@/data/meta/metadata';
 
 export default function PostLayout({ content, next, prev, toc, children }) {
@@ -18,12 +18,12 @@ export default function PostLayout({ content, next, prev, toc, children }) {
             <div className={ `divide-y divide-gray-200 dark:divide-gray-700 xl:row-span-2 xl:pb-0 ${(toc.length > 3 && !content.hideToC) && 'xl:col-span-6'}` }>
               <div className='prose max-w-none pt-10 pb-8 dark:prose-dark '>
                 {children}
+                <Disclaimer/>
               </div>
             </div>
             { (toc.length > 3 && !content.hideToC) && <TableOfContents toc={ toc } />}
           </div>
           <PostNavigation next={ next } prev={ prev }></PostNavigation>
-          <Disclaimer/>
           <PostComments/>
         </div>
       </article>

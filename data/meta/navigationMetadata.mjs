@@ -7,15 +7,15 @@ const NavigationMetadata = {
   },
   'links': [
     {
+      'hideInPath': '*',
+      'href': '/blog/',
+      'showInPath': '/blog',
+      'title': 'Blog'
+    },
+    {
       'hideInPath': '/blog',
       'href': '/about',
       'title': 'About'
-    },
-    {
-      'hideInPath': '*',
-      'href': '/blog/tags',
-      'showInPath': '/blog',
-      'title': 'Tags'
     },
     {
       'href': '/blog/publications',

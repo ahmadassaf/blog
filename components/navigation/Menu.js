@@ -54,7 +54,7 @@ const Menu = () => {
         <div className='flex h-16 justify-between'>
           <div className='flex px-2 lg:px-0 relative'>
             <div className='hidden lg:ml-6 lg:flex lg:space-x-8'>
-              <ul className='invisible lg:visible flex-row-reverse sm:flex items-center'>
+              <ul className='invisible lg:visible sm:flex items-center'>
                 {NavigationMetadata.links.map((link) => {
                   if (
                     (link.hideInPath === '*' && !path.includes(link.showInPath)) || path.includes(link.hideInPath)) return true;

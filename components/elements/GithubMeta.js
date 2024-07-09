@@ -1,10 +1,9 @@
 import { GoRepoForked, GoStar } from 'react-icons/go';
 
-import Link from '@/components/elements/Link';
 import GithubColors from '@/data/meta/githubMetaColors';
 
 const GithubMeta = ({ meta }) => (
-  <Link href={ meta.html_url }>
+  <>
     <div className='flex group/meta mt-4'>
       <div className='flex items-center space-x-3 pr-4'>
         <GoStar className='group-hover/meta:stroke-blue-700 dark:outline-white'/>
@@ -19,7 +18,7 @@ const GithubMeta = ({ meta }) => (
         <span className='text-xs font-medium text-gray-90 dark:text-gray-100 group-hover/meta:text-blue-700'>{meta.language}</span>
       </div>
     </div>
-  </Link>
+  </>
 
 );
 

@@ -71,7 +71,6 @@ module.exports = {
         'dark': '0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05)'
       },
       'colors': {
-        'dark': '#121212',
         'gray': colors.neutral,
         'icon': '#6b7280',
         'primary': colors.blue
@@ -128,7 +127,7 @@ module.exports = {
               'code::before': {
                 'content': 'none'
               },
-              'color': theme('colors.gray.700'),
+              'color': theme('colors.black'),
               'details': {
                 'backgroundColor': theme('colors.gray.100'),
                 'borderRadius': '0.25rem',

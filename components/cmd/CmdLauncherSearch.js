@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
+import { TbFaceIdError } from 'react-icons/tb';
 import CommandPalette, { getItemIndex } from '@tmikeladze/react-cmdk';
 import { allPosts } from 'contentlayer/generated';
 import pkg from 'flexsearch';
-const { Index } = pkg;
 
 import CmdPost from '@/components/cmd/types/CmdPost';
 import CmdProject from '@/components/cmd/types/CmdProject';
-import IconSearchError from '@/static/icons/searchError.svg';
 
 import '@tmikeladze/react-cmdk/dist/cmdk.css';
+
+const { Index } = pkg;
 
 const index = new Index({
   'cache': true,
@@ -64,7 +65,7 @@ function SearchCmd({ search, setShowType, content }) {
         </div>
       ) : (
         <div className='flex flex-column items-center'>
-          <IconSearchError className='m-2'/>
+          <TbFaceIdError className='m-2'/>
           <p>Cannot find any match (Full-text search enabled)</p>
         </div>
       )}

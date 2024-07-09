@@ -1,4 +1,5 @@
 import SectionContainer from '@/components/containers/SectionContainer';
+import Disclaimer from '@/components/elements/Disclaimer';
 import TableOfContents from '@/components/elements/TableOfContents';
 import PostComments from '@/components/post/PostComments';
 import PostHeader from '@/components/post/PostHeader';
@@ -22,6 +23,7 @@ export default function PostLayout({ content, next, prev, toc, children }) {
             { (toc.length > 3 && !content.hideToC) && <TableOfContents toc={ toc } />}
           </div>
           <PostNavigation next={ next } prev={ prev }></PostNavigation>
+          <Disclaimer/>
           <PostComments/>
         </div>
       </article>

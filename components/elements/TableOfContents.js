@@ -49,7 +49,7 @@ const TableOfContents = ({ toc, indentDepth = 3, fromHeading = 1, toHeading = 6,
 
   return (
     <>
-      <div className='rounded p-4 sticky top-10 text-gray-800 col-span-3 max-xl:hidden !border mt-[-350px] max-h-[850px] overflow-y-scroll'>
+      <div className='bg-white dark:bg-gray-900 rounded p-4 sticky top-20 text-gray-800 col-span-3 max-xl:hidden !border mt-[-250px] max-h-[750px] overflow-y-scroll'>
         <h1 className='pt-2 pb-2 text-xl font-bold dark:text-white'>Table of Contents</h1>
         <div>{tocList}</div>
       </div>

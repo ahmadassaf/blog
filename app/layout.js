@@ -2,12 +2,13 @@
 import { Inter } from 'next/font/google';
 
 import LayoutContainer from '@/components/containers/layoutContainer';
+import PrismThemeProvider from '@/components/elements/PrismThemes';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
 
 import '@/css/tailwind.css';
-import '@/css/prism.css';
 import '@/css/overrides.css';
 import 'katex/dist/katex.css';
+import 'remark-github-blockquote-alert/alert.css';
 
 export async function generateMetadata() {
   return metadataGenertaor();
@@ -29,7 +30,8 @@ export default function RootLayout({ children }) {
       <meta name='theme-color' media='(prefers-color-scheme: light)' content='#fff' />
       <meta name='theme-color' media='(prefers-color-scheme: dark)' content='#000' />
       <link rel='alternate' type='application/rss+xml' href='/feed.xml' />
-      <body>
+      <body className='dark:bg-gray-900 bg-white'>
+        <PrismThemeProvider theme='xonokai'/>
         <LayoutContainer>
           {children}
         </LayoutContainer>

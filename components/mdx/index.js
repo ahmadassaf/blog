@@ -8,7 +8,6 @@ import ReactDOM from 'react-dom';
 
 import CustomLink from '@/components/elements/Link';
 import { BlogNewsletterForm } from '@/components/forms/NewsletterForm';
-import Callout from '@/components/mdx/Callout';
 import Faq from '@/components/mdx/Faq';
 import Highlight from '@/components/mdx/Highlight';
 import Image from '@/components/mdx/Image';
@@ -17,7 +16,7 @@ import Preview from '@/components/mdx/Preview';
 import Quote from '@/components/mdx/Quote';
 import Stats from '@/components/mdx/Stats';
 
-export const MDXComponents = { BlogNewsletterForm, Callout, Faq, Highlight, Image, Preview, Quote, Stats, 'a': CustomLink, 'pre': Pre };
+export const MDXComponents = { BlogNewsletterForm, Faq, Highlight, Image, Preview, Quote, Stats, 'a': CustomLink, 'pre': Pre };
 
 const getMDXComponent = (code, globals = {}) => {
   const scope = { React, ReactDOM, _jsx_runtime, ...globals };

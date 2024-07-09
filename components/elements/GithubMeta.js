@@ -1,17 +1,17 @@
+import { GoRepoForked, GoStar } from 'react-icons/go';
+
 import Link from '@/components/elements/Link';
 import GithubColors from '@/data/meta/githubMetaColors';
-import IconGitFork from '@/static/icons/git/fork.svg';
-import IconGitStar from '@/static/icons/git/star.svg';
 
 const GithubMeta = ({ meta }) => (
   <Link href={ meta.html_url }>
     <div className='flex group/meta mt-4'>
       <div className='flex items-center space-x-3 pr-4'>
-        <IconGitStar className='group-hover/meta:stroke-blue-700 dark:outline-white'/>
+        <GoStar className='group-hover/meta:stroke-blue-700 dark:outline-white'/>
         <span className='text-xs font-medium text-gray-900 dark:text-gray-100 group-hover/meta:text-blue-700'>{meta.stargazers_count}</span>
       </div>
       <div className='flex items-center space-x-3 pr-4'>
-        <IconGitFork className='group-hover/meta:stroke-blue-700'/>
+        <GoRepoForked className='group-hover/meta:stroke-blue-700'/>
         <span className='text-xs font-medium text-gray-900 dark:text-gray-100 group-hover/meta:text-blue-700'>{meta.forks_count}</span>
       </div>
       <div className='flex items-center space-x-3 pr-4'>

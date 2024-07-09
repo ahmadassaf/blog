@@ -10,10 +10,10 @@ import { website } from '@/data/meta/JSON-LD/website';
 export default function LayoutContainer({ children }) {
 
   return (
-    <div className='bg-white text-black antialiased dark:bg-dark dark:text-white min-w-[414px]'>
+    <div className='bg-white text-black antialiased dark:bg-gray-900 dark:text-white min-w-[414px]'>
       <Aurora>
-        <div className='hidden dark:absolute min-h-[50rem] w-full dark:bg-dark dark:bg-dot-white/[0.25] dark:flex items-center justify-center'>
-          <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-dark bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
+        <div className='hidden dark:absolute min-h-[50rem] w-full dark:bg-gray-900 dark:bg-dot-white/[0.15] dark:flex items-center justify-center'>
+          <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-gray-900 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
         </div>
         <ThemeProviders>
           <script async defer data-website-id={ process.env.UMAMI_WEBSITE_ID } src='https://analytics.eu.umami.is/script.js'/>

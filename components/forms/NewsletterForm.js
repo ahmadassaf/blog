@@ -39,7 +39,7 @@ const NewsletterForm = ({ title = 'Subscribe to the newsletter' }) => {
 
   return (
     <div className='mt-8 xl:col-span-2 xl:mt-0'>
-      <h3 className='text-base font-medium text-gray-900'>Subscribe to my newsletter</h3>
+      <h3 className='text-base font-medium text-gray-900 dark:text-white'>Subscribe to my newsletter</h3>
       <p className='mt-4 text-base md:text-sm text-gray-400'>
         The latest articles, readings, and resources, sent to your inbox monthly
       </p>

@@ -1,15 +1,13 @@
-import IconEmail from '@/static/icons/email.svg';
-import IconGithub from '@/static/icons/socials/github.svg';
-import IconLinkedin from '@/static/icons/socials/linkedin.svg';
-import IconTwitter from '@/static/icons/socials/twitter.svg';
-import IconYoutube from '@/static/icons/socials/youtube.svg';
+import { FaLinkedin, FaYoutube } from 'react-icons/fa';
+import { RiMailOpenFill, RiTwitterXFill } from 'react-icons/ri';
+import { VscGithub } from 'react-icons/vsc';
 
 const components = {
-  'github': IconGithub,
-  'linkedin': IconLinkedin,
-  'mail': IconEmail,
-  'twitter': IconTwitter,
-  'youtube': IconYoutube
+  'github': VscGithub,
+  'linkedin': FaLinkedin,
+  'mail': RiMailOpenFill,
+  'twitter': RiTwitterXFill,
+  'youtube': FaYoutube
 };
 
 const Icon = ({ kind, href }) => {

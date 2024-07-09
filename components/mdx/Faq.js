@@ -1,8 +1,8 @@
 
 'use client';
 
+import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { Disclosure } from '@headlessui/react';
-import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline';
 
 const Faq = ({ questions }) => (
   <div className='mx-auto divide-y divide-gray-900/10'>
@@ -17,9 +17,9 @@ const Faq = ({ questions }) => (
                   <span className='text-base font-semibold leading-7'>{faq.question}</span>
                   <span className='ml-6 flex h-7 items-center'>
                     {open ? (
-                      <MinusSmallIcon className='h-6 w-6' aria-hidden='true' />
+                      <FaMinus className='h-4 w-4' aria-hidden='true' />
                     ) : (
-                      <PlusSmallIcon className='h-6 w-6' aria-hidden='true' />
+                      <FaPlus className='h-4 w-4' aria-hidden='true' />
                     )}
                   </span>
                 </Disclosure.Button>

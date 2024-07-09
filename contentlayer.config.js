@@ -7,6 +7,7 @@ import rehypePresetMinify from 'rehype-preset-minify';
 import rehypePrismPlus from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
+import { remarkAlert } from 'remark-github-blockquote-alert';
 import remarkMath from 'remark-math';
 
 import computedFields  from './lib/contentLayer/computedFields';
@@ -79,7 +80,8 @@ export default makeSource({
       remarkGfm,
       remarkCodeTitles,
       remarkMath,
-      remarkImgToJsx
+      remarkImgToJsx,
+      remarkAlert
     ]
   }
 });

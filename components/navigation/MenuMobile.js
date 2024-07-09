@@ -10,7 +10,7 @@ const MenuMobile = ({ categories, links, setMobileMenuOpen, setLauncherOpen }) =
   <div className='lg:hidden' role='dialog' aria-modal='true'>
 
     <div className='fixed shadow dark:bg-gray-900 inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-between mb-6'>
         <div className='sm:invisible'>
           <ThemeLogo/>
         </div>
@@ -25,7 +25,7 @@ const MenuMobile = ({ categories, links, setMobileMenuOpen, setLauncherOpen }) =
         <div className='-my-6 divide-y divide-gray-500/10'>
           <div className='space-y-2 pb-6'>
 
-            <div className='hidden max-sm:flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end mt-4'>
+            <div className='hidden max-sm:flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end mt-4 max-sm:p-0'>
               <MenuSearch setOpen={ setLauncherOpen }></MenuSearch>
             </div>
 

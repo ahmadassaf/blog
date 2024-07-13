@@ -1,20 +1,26 @@
-import { useEffect, useState } from 'react';
 import { RiMoonClearFill, RiSunFill } from 'react-icons/ri';
 import { useTheme } from 'next-themes';
 
-const ThemeSwitch = () => {
-  const [ mounted, setMounted ] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+import ThemeProvider from '@/components/utils/ThemeProvider';
 
-  useEffect(() => setMounted(true), []);
+function Provider() {
+  const { setTheme, theme } = useTheme();
 
   return (
-    <button aria-label='Toggle Dark Mode' type='button' style={{ 'outline': 'none' }} className='mx-4 h-8 w-8 rounded p-1' onClick={ () => setTheme(theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark') }>
+    <button aria-label='Toggle Dark Mode' type='button' style={{ 'outline': 'none' }} className='mx-4 h-8 w-8 rounded p-1' onClick={ () => setTheme(theme === 'dark' ? 'light' : 'dark') }>
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='text-gray-900 dark:text-gray-100'>
-        {mounted && (theme === 'dark' || resolvedTheme === 'dark') ? (<RiMoonClearFill />) : (<RiSunFill />)}
+        {theme === 'dark' ? (<RiMoonClearFill />) : (<RiSunFill />)}
       </svg>
     </button>
   );
-};
+}
+
+function ThemeSwitch() {
+  return (
+    <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+      <Provider />
+    </ThemeProvider>
+  );
+}
 
 export default ThemeSwitch;

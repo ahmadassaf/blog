@@ -1,6 +1,5 @@
 
 import { Inter } from 'next/font/google';
-import Script from 'next/script';
 
 import LayoutContainer from '@/components/containers/layoutContainer';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
@@ -36,17 +35,6 @@ export default function RootLayout({ children }) {
           {children}
         </LayoutContainer>
       </body>
-      <Script
-      type="module"
-      strategy="afterInteractive"
-      dangerouslySetInnerHTML={{
-        __html: `
-        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.esm.min.mjs";
-        mermaid.initialize({startOnLoad: true});
-        mermaid.contentLoaded();
-`,
-      }}
-    />
     </html>
   );
 }

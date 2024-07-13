@@ -4,9 +4,10 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCitation from 'rehype-citation';
 import rehypeKatex from 'rehype-katex';
 import rehypePresetMinify from 'rehype-preset-minify';
-import rehypePrismPlus from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
+import emoji from 'remark-emoji';
+import rehypePrettyCode from "rehype-pretty-code";
 import { remarkAlert } from 'remark-github-blockquote-alert';
 import remarkMath from 'remark-math';
 
@@ -17,6 +18,7 @@ import structuredData from './lib/contentLayer/structuredData';
 import { remarkCodeTitles,
   remarkExtractFrontmatter,
   remarkImgToJsx } from './lib/mdx/index.js';
+
 
 const root = process.cwd();
 
@@ -72,12 +74,13 @@ export default makeSource({
       rehypeAutolinkHeadings,
       rehypeKatex,
       [ rehypeCitation, { 'csl': 'https://raw.githubusercontent.com/citation-style-language/styles/master/acm-sig-proceedings.csl', 'linkCitations': true, 'path': path.join(root, 'data') }],
-      [ rehypePrismPlus, { 'defaultLanguage': 'js', 'ignoreMissing': true }],
+      rehypePrettyCode,
       rehypePresetMinify
     ],
     'remarkPlugins': [
       remarkExtractFrontmatter,
       remarkGfm,
+      emoji,
       remarkCodeTitles,
       remarkMath,
       remarkImgToJsx,

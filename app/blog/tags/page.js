@@ -1,6 +1,6 @@
 import tags from '@/app/content/tags';
 import Link from '@/components/elements/Link';
-import Tag from '@/components/elements/Tag';
+import Pill from '@/components/elements/Pill';
 
 export async function generateMetadata() {
   return {
@@ -21,10 +21,7 @@ export default function Tags() {
           {tags.length === 0 && 'No tags found.'}
           {tags.length && tags.map((_tag) => (
             <div key={ _tag.id } className='mt-2 mb-2 mr-5'>
-              <Tag text={ _tag.display } slug={ _tag.slug } />
-              <Link href={ `/blog/tag/${_tag.slug}` } className='-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300'>
-                  &nbsp;{` (${_tag.count})`}
-              </Link>
+              <Pill key={ _tag.slug } text={ _tag.display } link={ `/blog/tags/${_tag.slug}` } color='blue' />
             </div>
           ))}
         </div>

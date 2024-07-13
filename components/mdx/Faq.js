@@ -5,7 +5,7 @@ import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { Disclosure } from '@headlessui/react';
 
 const Faq = ({ questions }) => (
-  <div className='mx-auto divide-y divide-gray-900/10'>
+  <div className='mx-auto divide-y divide-gray-900/10 my-8'>
     <h2 className='text-2xl font-bold leading-10 tracking-tight text-gray-900 dark:text-white mt-0'>FAQ</h2>
     <dl className='mt-10 space-y-6 divide-y divide-gray-900/10 dark:divide-white'>
       {questions.map((faq) => (
@@ -24,7 +24,7 @@ const Faq = ({ questions }) => (
                   </span>
                 </Disclosure.Button>
               </dt>
-              <Disclosure.Panel as='dd' className='mt-2 pr-12'>
+              <Disclosure.Panel as='dd' className='mt-2 p-0'>
                 <p className='text-base leading-7 text-gray-600 dark:text-gray-300'>{faq.answer}</p>
               </Disclosure.Panel>
             </>

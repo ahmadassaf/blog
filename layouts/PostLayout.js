@@ -14,14 +14,14 @@ export default function PostLayout({ content, next, prev, toc, children }) {
         <div>
           <PostHeader frontMatter={ content } siteMetadata={ siteMetadata } toc={ toc }/>
 
-          <div className={ `divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:gap-x-6 xl:divide-y-0 ${(toc.length > 3 && !content.hideToC) ? 'xl:grid-cols-9' : 'xl:grid-cols-1'}` } style={{ 'gridTemplateRows': 'auto 1fr' }}>
-            <div className={ `divide-y divide-gray-200 dark:divide-gray-700 xl:row-span-2 xl:pb-0 ${(toc.length > 3 && !content.hideToC) && 'xl:col-span-6'}` }>
-              <div className='prose max-w-none pt-10 pb-8 dark:prose-dark '>
+          <div className={ `divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:gap-x-6 xl:divide-y-0 ${(toc.length > 3 && content.tableOfContents) ? 'xl:grid-cols-9' : 'xl:grid-cols-1'}` } style={{ 'gridTemplateRows': 'auto 1fr' }}>
+            <div className={ `divide-y divide-gray-200 dark:divide-gray-700 xl:row-span-2 xl:pb-0 ${(toc.length > 3 && content.tableOfContents) && 'xl:col-span-6'}` }>
+              <div className='prose max-w-none pt-4 pb-8 dark:prose-dark '>
                 {children}
                 <Disclaimer/>
               </div>
             </div>
-            { (toc.length > 3 && !content.hideToC) && <TableOfContents toc={ toc } />}
+            { (toc.length > 3 && content.tableOfContents) && <TableOfContents toc={ toc } />}
           </div>
           <PostNavigation next={ next } prev={ prev }></PostNavigation>
           <PostComments/>

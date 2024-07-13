@@ -1,0 +1,19 @@
+[data-highlighted-line] {
+  background: #c8c8ff1a;
+  --tw-border-opacity: 1;
+  border-left-color: rgb(96 165 250 / var(--tw-border-opacity))
+}
+
+[data-highlighted-chars] {
+  border-radius: .25rem;
+  background-color: #52525b80;
+  box-shadow: 0 0 0 4px #52525b80
+}
+
+.prose .relative {
+  display: grid;
+}
+
+figure[data-rehype-pretty-code-figure] {
+  margin: 0 !important;
+}

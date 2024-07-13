@@ -1,8 +1,8 @@
 import { allPosts } from 'contentlayer/generated';
 
 import LauncherShortcut from '@/components/cmd/CmdLauncherShortcut';
-import { Highlight } from '@/components/elements/Highlight';
 import Link from '@/components/elements/Link';
+import { TextHighlight } from '@/components/elements/TextHighlight';
 import siteMetadata from '@/data/meta/metadata';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import ListLayout from '@/layouts/ListLayout';
@@ -22,9 +22,9 @@ export default function Home() {
             </span>
           </h1>
           <h1 className='text-xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-xl sm:leading-10 md:text-2xl md:leading-14'>
-            <Highlight className='text-black dark:text-white'>
+            <TextHighlight className='text-black dark:text-white'>
               AI and Machine Learning Leader, Mentor and Advisor
-            </Highlight>
+            </TextHighlight>
           </h1>
           <h2 className='text-xl leading-8 max-sm:py-4'>{`${siteMetadata.description}`}</h2>
           <h2>A driven AI and Machine Learning (ML) leader with a passion for discovering solutions to create the future of work through my current role as <strong >VP of AI and Data <Link className='text-blue-600' href='https://beamery.com'>@Beamery</Link></strong>. As one of the founding engineers, I have built and scaled engineering and data science teams and helped Beamery become one of the latest tech unicorns.</h2>
@@ -36,5 +36,6 @@ export default function Home() {
         <ListLayout posts={ displayPosts.slice(0, 3) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
       </div>
     </>
+    
   );
 }

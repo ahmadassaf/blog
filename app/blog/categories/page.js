@@ -1,6 +1,6 @@
 import categories from '@/app/content/categories';
-import Category from '@/components/elements/Category';
 import Link from '@/components/elements/Link';
+import Pill from '@/components/elements/Pill';
 
 export async function generateMetadata() {
 
@@ -22,13 +22,8 @@ export default function Categories() {
           {categories.length === 0 && 'No Categories found'}
           {categories.map((category) => (
             <div key={ category.id } className='mt-2 mb-2 mr-5'>
-              <Category text={ category.title } slug={ category.slug } />
-              <Link
-                href={ `blog/categories/${category.slug}` }
-                className='-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300'
-              >
+              <Pill text={ category.title } link={ `/blog/categories/${category.slug}` } color='green'/>
                   &nbsp;{` (${category.count})`}
-              </Link>
             </div>
           ))}
         </div>

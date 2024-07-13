@@ -1,12 +1,13 @@
 
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 
 import LayoutContainer from '@/components/containers/layoutContainer';
-import PrismThemeProvider from '@/components/utils/PrismThemes';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
 
 import '@/css/tailwind.css';
 import '@/css/overrides.css';
+import '@/css/highlight.css';
 import 'katex/dist/katex.css';
 import 'remark-github-blockquote-alert/alert.css';
 
@@ -31,11 +32,21 @@ export default function RootLayout({ children }) {
       <meta name='theme-color' media='(prefers-color-scheme: dark)' content='#000' />
       <link rel='alternate' type='application/rss+xml' href='/feed.xml' />
       <body className='dark:bg-gray-900 bg-white'>
-        <PrismThemeProvider theme='xonokai'/>
         <LayoutContainer>
           {children}
         </LayoutContainer>
       </body>
+      <Script
+      type="module"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{
+        __html: `
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.esm.min.mjs";
+        mermaid.initialize({startOnLoad: true});
+        mermaid.contentLoaded();
+`,
+      }}
+    />
     </html>
   );
 }

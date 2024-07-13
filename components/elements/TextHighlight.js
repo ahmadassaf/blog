@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 import { cn } from '@/components/utils/TailwindUtils';
 
-export const Highlight = ({ children, className }) => (
+export const TextHighlight = ({ children, className }) => (
   <motion.span
     initial={{ 'backgroundSize': '0% 100%' }}
     animate={{ 'backgroundSize': '100% 100%' }}

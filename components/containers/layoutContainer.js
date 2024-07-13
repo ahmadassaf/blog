@@ -22,7 +22,7 @@ export default function LayoutContainer({ children }) {
               <FloatingMenu/>
               <Menu />
               <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(website()) }} key='jsonld'/>
-              <main className='mb-8'>{children}</main>
+              <main className='mb-4'>{children}</main>
               <Footer />
             </div>
           </div>

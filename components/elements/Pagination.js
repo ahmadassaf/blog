@@ -1,4 +1,5 @@
 import Link from '@/components/elements/Link';
+import { ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/react/20/solid'
 
 const POSTS_PER_PAGE = 7;
 
@@ -7,30 +8,48 @@ const Pagination = ({ totalPages, currentPage, baseURL, paginationURL }) => {
   const nextPage = parseInt(currentPage) + 1 <= parseInt(totalPages);
 
   return (
-    <div className='space-y-2 pt-6 pb-8 md:space-y-5'>
-      <nav className='flex justify-between'>
-        {!prevPage && (
-          <button rel='previous' className='cursor-auto disabled:opacity-50' disabled={ !prevPage }>Previous</button>
+<nav className="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 mt-4">
+      <div className="-mt-px flex w-0 flex-1">
+      {!prevPage && (
+          <button rel='previous' className='cursor-auto disabled:opacity-50 inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500' disabled={ !prevPage }>Previous</button>
         )}
         {prevPage && (
-          <Link href={ currentPage - 1 === 1 ? `/${baseURL}/` : `/${paginationURL}/${currentPage - 1}` }>
-            <button rel='previous'>Previous</button>
-          </Link>
+        <a
+        href={ currentPage - 1 === 1 ? `/${baseURL}/` : `/${paginationURL}/${currentPage - 1}` }
+        className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+      >
+        <ArrowLongLeftIcon aria-hidden="true" className="mr-3 h-5 w-5 text-gray-400" />
+        Previous
+      </a>
         )}
-        <span>
+
+      </div>
+      <div className="hidden md:-mt-px md:flex">
+        <a
+          href="#"
+          aria-current="page"
+          className="inline-flex items-center border-t-2 border-blue-500 px-4 pt-4 text-sm font-medium text-blue-700"
+        >
           {currentPage} of {totalPages}
-        </span>
-        {!nextPage && (
-          <button rel='next' className='cursor-auto disabled:opacity-50' disabled={ !nextPage }>Next</button>
+        </a>
+      </div>
+      <div className="-mt-px flex w-0 flex-1 justify-end">
+      {!nextPage && (
+        <button rel='previous' className='cursor-auto disabled:opacity-50 inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500' disabled={ !nextPage }>Next</button>
         )}
         {nextPage && (
-          <Link href={ `/${paginationURL}/${currentPage + 1}` }>
-            <button rel='next'>Next</button>
-          </Link>
+        <a
+          href={ `/${paginationURL}/${currentPage + 1}`}
+          className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+        >
+        Next
+        <ArrowLongRightIcon aria-hidden="true" className="ml-3 h-5 w-5 text-gray-400" />
+      </a>
         )}
-      </nav>
-    </div>
-  );
+
+      </div>
+    </nav>
+  )
 };
 
 export { Pagination, POSTS_PER_PAGE };

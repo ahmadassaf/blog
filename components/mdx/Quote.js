@@ -1,19 +1,21 @@
 
-import Link from '@/components/elements/Link';
-
-const Quote = ({ text, author, link }) => (
-  <figure className='border-l border-indigo-600 pl-8'>
-
-    <p className='text-lg font-medium leading-8 tracking-tight text-gray-900'>{text}</p>
-
-    <figcaption className='flex gap-x-4'>
-      <div className='text-sm leading-6'>
-        <div className='font-semibold text-gray-900 capitalize'>{ author }</div>
-        { link && <Link href={ `http://twitter.com/${link}` } className='text-gray-600'>{ link } </Link> }
-      </div>
+const Quote = ({ author, title, image, text }) => (
+<figure class="max-w-screen-md mx-auto text-center">
+    <svg class="w-10 h-10 mx-auto mb-3 text-gray-400 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 14">
+        <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z"/>
+    </svg>
+    <blockquote className="border-none">
+        <p class="text-2xl italic font-medium text-gray-900 dark:text-white">{text}{author}</p>
+    </blockquote>
+    <figcaption class="flex items-center justify-center mt-6 space-x-3 rtl:space-x-reverse">
+        { image && <img class="w-6 h-6 rounded-full" src={image} alt="profile picture"/> }
+        <div class="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500 dark:divide-gray-700">
+            <cite class="pe-3 font-medium text-gray-900 dark:text-white">{author}</cite>
+            <cite class="ps-3 text-sm text-gray-500 dark:text-gray-400">{title}</cite>
+        </div>
     </figcaption>
-  </figure>
+</figure>
 );
 
-export default Quote;
 
+export default Quote;

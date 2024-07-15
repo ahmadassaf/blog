@@ -103,7 +103,7 @@ module.exports = {
             'css': {
               'a': {
                 '&:hover': {
-                  'color': `${theme('colors.primary.600')} !important`
+                  'border': `${theme('colors.green.700')} !important`
                 },
                 'code': { 'color': theme('colors.primary.400') },
                 'color': theme('colors.primary.700')

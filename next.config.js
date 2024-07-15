@@ -76,7 +76,12 @@ module.exports = () => {
       ];
     },
     'images': {
-      'domains': [ 'picsum.photos' ]
+      'remotePatterns': [
+        {
+          'protocol': "https",
+          'hostname': "**",
+        },
+      ],
     },
     'pageExtensions': [ 'ts', 'tsx', 'js', 'jsx', 'md', 'mdx' ],
     'reactStrictMode': true,

@@ -15,9 +15,7 @@ import computedFields  from './lib/contentLayer/computedFields';
 import contentFields from './lib/contentLayer/contentFields';
 import projectFields  from './lib/contentLayer/projectFields';
 import structuredData from './lib/contentLayer/structuredData';
-import { remarkCodeTitles,
-  remarkExtractFrontmatter,
-  remarkImgToJsx } from './lib/mdx/index.js';
+import { remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx, remarkLinks } from './lib/mdx/index.js';
 
 
 const root = process.cwd();
@@ -84,6 +82,7 @@ export default makeSource({
       remarkCodeTitles,
       remarkMath,
       remarkImgToJsx,
+      remarkLinks,
       remarkAlert
     ]
   }

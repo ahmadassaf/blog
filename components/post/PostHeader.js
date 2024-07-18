@@ -24,7 +24,7 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
 
     </div>
     
-    <div className='flex lg:items-center flex-col lg:justify-between lg:flex-row items-start'>
+    <div className={`flex lg:items-center flex-col lg:justify-between lg:flex-row items-start ${frontMatter.tableOfContents ? "!flex-col !items-start" : ""}`}>
       {frontMatter.tags && (
         <div className='my-4 flex flex-wrap'>
           {frontMatter.tags.map((tag) => (

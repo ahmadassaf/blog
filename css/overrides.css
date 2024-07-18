@@ -34,16 +34,6 @@ a {
     text-decoration: none !important;
 }
 
-span.github-lang:before {
-    content: ' ';
-    height: 10px;
-    width: 10px;
-    background: hsl(221, 87%, 60%);
-    display: inline-block;
-    margin: 0 5px 0 0;
-    border-radius: 50%;
-}
-
 @media (prefers-color-scheme: dark) {
     .aurora:after {
         background-image: linear-gradient(to bottom, rgba(23,23,23,0), rgb(23, 23, 23) 75%);
@@ -56,7 +46,6 @@ span.github-lang:before {
     }
   }
 
-.prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
-    margin-top: 0 !important;
-    margin-bottom: .5em !important;
+a[data-state="closed"], a[data-state="open"] {
+    vertical-align: middle;
 }

@@ -137,24 +137,24 @@ module.exports = {
                 'paddingTop': '2px'
               },
               'h1': {
-                'color': theme('colors.gray.900'),
+                'color': theme('colors.black'),
                 'fontWeight': '700',
                 'letterSpacing': theme('letterSpacing.tight'),
                 'marginTop': '2rem'
               },
               'h2': {
-                'color': theme('colors.gray.900'),
+                'color': theme('colors.black'),
                 'fontWeight': '700',
                 'letterSpacing': theme('letterSpacing.tight')
               },
               'h3': {
-                'color': theme('colors.gray.900'),
+                'color': theme('colors.black'),
                 'fontWeight': '600'
               },
               'h4,h5,h6': {
-                'color': theme('colors.gray.900')
+                'color': theme('colors.black')
               },
-              'hr': { 'borderColor': theme('colors.gray.200') },
+              'hr': { 'borderColor': theme('colors.black') },
               'li': {
                 'color': theme('colors.black')
               },
@@ -168,9 +168,9 @@ module.exports = {
               'pre': {
                 'backgroundColor': theme('colors.gray.800')
               },
-              'strong': { 'color': theme('colors.gray.600') },
+              'strong': { 'color': theme('colors.black') },
               'ul li::marker': {
-                'backgroundColor': theme('colors.gray.500')
+                'backgroundColor': theme('colors.black')
               }
             }
           },
@@ -237,7 +237,7 @@ module.exports = {
                 }
               },
               'ul li::marker': {
-                'backgroundColor': theme('colors.gray.400')
+                'backgroundColor': theme('colors.white')
               }
             }
           }

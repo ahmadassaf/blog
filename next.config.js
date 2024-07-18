@@ -81,6 +81,10 @@ module.exports = () => {
           'protocol': "https",
           'hostname': "**",
         },
+        {
+          'protocol': "http",
+          'hostname': "**",
+        },
       ],
     },
     'pageExtensions': [ 'ts', 'tsx', 'js', 'jsx', 'md', 'mdx' ],

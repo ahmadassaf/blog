@@ -17,3 +17,11 @@
 figure[data-rehype-pretty-code-figure] {
   margin: 0 !important;
 }
+
+.prose :where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  margin: 0 !important;
+}
+
+.prose :where(figcaption):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  margin-bottom: 1rem !important;
+}

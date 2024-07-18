@@ -22,6 +22,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
       .then((data) => {
         data = JSON.parse(data)
         setLoading(false)
+        console.log(data)
         title ? data.title = title : data.title;
         setData(data)
     })
@@ -48,7 +49,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
   
         <HoverCardPrimitive.Root openDelay={50} closeDelay={100} onOpenChange={open => { setOpen(open) }} >
           <HoverCardPrimitive.Trigger onMouseMove={handleMouseMove} className={cn("text-black dark:text-white", className)} href={url}>
-          <span className="inline-flex items-baseline mr-1">
+          <span className="inline-flex items-center mr-1">
             { data.favicon ? 
               <img className="h-4 w-4 m-0 mr-1" src={data ? data.favicon : ""} alt={data ? data.title : "Loading..."} />
               : <LinkIcon className="h-4 w-4 m-0 mr-1" />
@@ -59,7 +60,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
           { }
           <HoverCardPrimitive.Content className="[transform-origin:var(--radix-hover-card-content-transform-origin)]" side="top" align="center" sideOffset={10}>
             <AnimatePresence>
-              {isOpen && (
+              {isOpen &&  (
                 <motion.div
                   initial={{ opacity: 0, y: 20, scale: 0.6 }}
                   animate={{ opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 260, damping: 20 } }}

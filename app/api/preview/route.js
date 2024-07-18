@@ -23,7 +23,7 @@ export async function GET (request){
 
         data.title = doc.querySelector('title')?.textContent || '';
         data.description = doc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
-        data.image = doc.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
+        data.image = doc.querySelector('meta[property="og:image"]')?.getAttribute('content') || `https://api.microlink.io/?url=${url}&screenshot=true&meta=false&embed=screenshot.url&colorScheme=dark&viewport.isMobile=true&viewport.deviceScaleFactor=1&viewport.width=600&viewport.height=375`;
         data.favicon = `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=32`
         
         const isYouTubeVideo = isYouTubeURL(url);

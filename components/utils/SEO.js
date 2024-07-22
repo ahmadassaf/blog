@@ -3,9 +3,10 @@ import { useRouter } from 'next/router';
 
 import siteMetadata from '@/data/meta/metadata';
 
-const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl }) => {
+const CommonSEO = ({ title, description, slug, ogType, canonicalUrl }) => {
   const router = useRouter();
-
+  console.log("canonicalUrl", canonicalUrl );
+  console.log("router.asPath", router.asPath );
   return (
     <Head>
       <title>{title}</title>
@@ -16,16 +17,12 @@ const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl 
       <meta property='og:site_name' content={ siteMetadata.title } />
       <meta property='og:description' content={ description } />
       <meta property='og:title' content={ title } />
-      {ogImage.constructor.name === 'Array' ? (
-        ogImage.map(({ url }) => <meta property='og:image' content={ url } key={ url } />)
-      ) : (
-        <meta property='og:image' content={ ogImage } key={ ogImage } />
-      )}
+      <meta property='og:image' content={ `/api/og?slug=${slug}` } key={ url } />
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:site' content={ siteMetadata.twitter } />
       <meta name='twitter:title' content={ title } />
       <meta name='twitter:description' content={ description } />
-      <meta name='twitter:image' content={ twImage } />
+      <meta name='twitter:image' content={ `/api/og?slug=${slug}` } />
       <link
         rel='canonical'
         href={ canonicalUrl || `${siteMetadata.siteUrl}${router.asPath}` }
@@ -34,24 +31,20 @@ const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl 
   );
 };
 
-export const PageSEO = ({ title, description }) => {
-  const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner;
-  const twImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner;
+export const PageSEO = ({ title, description, slug }) => {
 
   return (
     <CommonSEO
       title={ title }
       description={ description }
       ogType='website'
-      ogImage={ ogImageUrl }
-      twImage={ twImageUrl }
+      ogImage={ `/api/og?slug=${slug}` }
+      twImage={ `/api/og?slug=${slug}` }
     />
   );
 };
 
-export const TagSEO = ({ title, description }) => {
-  const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner;
-  const twImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner;
+export const TagSEO = ({ title, description, slug }) => {
   const router = useRouter();
 
   return (
@@ -60,8 +53,8 @@ export const TagSEO = ({ title, description }) => {
         title={ title }
         description={ description }
         ogType='website'
-        ogImage={ ogImageUrl }
-        twImage={ twImageUrl }
+        ogImage={ `/api/og?slug=${slug}` }
+        twImage={ `/api/og?slug=${slug}` }
       />
       <Head>
         <link
@@ -82,23 +75,12 @@ export const BlogSEO = ({
   date,
   lastmod,
   url,
-  images = [],
+  slug,
   canonicalUrl
 }) => {
 
   const publishedAt = new Date(date).toISOString();
   const modifiedAt = new Date(lastmod || date).toISOString();
-  let imagesArr;
-
-  if (images.length === 0) imagesArr = [ siteMetadata.socialBanner ];
-  else imagesArr = typeof images === 'string' ? [ images ] : images;
-
-  const featuredImages = imagesArr.map((img) => {
-    return {
-      '@type': 'ImageObject',
-      'url': img.includes('http') ? img : siteMetadata.siteUrl + img
-    };
-  });
 
   let authorList;
 
@@ -121,7 +103,7 @@ export const BlogSEO = ({
     'datePublished': publishedAt,
     'description': summary,
     'headline': title,
-    'image': featuredImages,
+    'image': `/api/og?slug=${slug}`,
     'mainEntityOfPage': {
       '@id': url,
       '@type': 'WebPage'
@@ -136,16 +118,14 @@ export const BlogSEO = ({
     }
   };
 
-  const twImageUrl = featuredImages[0].url;
-
   return (
     <>
       <CommonSEO
         title={ title }
         description={ summary }
         ogType='article'
-        ogImage={ featuredImages }
-        twImage={ twImageUrl }
+        ogImage={ `/api/og?slug=${slug}` }
+        twImage={ `/api/og?slug=${slug}` }
         canonicalUrl={ canonicalUrl }
       />
       <Head>

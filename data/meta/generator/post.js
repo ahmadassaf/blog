@@ -13,7 +13,7 @@ export function metadataGenertaor(params, allPosts) {
     'openGraph': {
       'authors': [ siteMetadata.author ],
       'description': post.summary,
-      'images': [ `${siteMetadata.siteUrl}/static/images/logo.png` ],
+      'images': [ `/api/og?slug=${post.slug}` ],
       'locale': 'en_US',
       'publishedTime': new Date(post.date).toISOString(),
       'siteName': siteMetadata.title,
@@ -25,7 +25,7 @@ export function metadataGenertaor(params, allPosts) {
     'twitter': {
       'card': 'summary_large_image',
       'description': post.summary,
-      'images': [ `${siteMetadata.siteUrl}/static/images/logo.png` ],
+      'images': [ `/api/og?slug=${post.slug}` ],
       'title': post.title
     }
   };
@@ -49,11 +49,11 @@ export function linkedDataGenerator(post) {
     'genre': post.category,
     'headline': post.title,
     'image': {
-      '@id': `${siteMetadata.siteUrl}/static/images/logo.png`,
+      '@id': `/api/og?slug=${post.slug}`,
       '@type': 'ImageObject',
-      'height': '362',
-      'url': `${siteMetadata.siteUrl}/static/images/logo.png`,
-      'width': '388'
+      'height': '630',
+      'url': `/api/og?slug=${post.slug}`,
+      'width': '1200'
     },
     'isPartOf': blog(),
     'keywords': post.tags,

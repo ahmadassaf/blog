@@ -8,7 +8,6 @@ const SiteMetadata = {
   'siteLogo': '/static/images/logo.svg',
   'siteRepo': 'https://github.com/ahmadassaf/blog',
   'siteUrl': 'https://assaf.website',
-  'socialBanner': '/static/images/twitter-card.png',
   'theme': 'light',
   'title': `Ahmad Assaf's Personal Space`
 };

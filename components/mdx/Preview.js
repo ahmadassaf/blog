@@ -21,9 +21,8 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
       .then((res) => res.json())
       .then((data) => {
         data = JSON.parse(data)
-        setLoading(false)
-        console.log(data)
         title ? data.title = title : data.title;
+        setLoading(false)
         setData(data)
     })
   }, [])
@@ -36,7 +35,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
   const handleMouseMove = event => {
     const targetRect = event.target.getBoundingClientRect()
     const eventOffsetX = event.clientX - targetRect.left
-    const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2 // Reduce the effect to make it subtle
+    const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2
     x.set(offsetFromCenter)
   }
 

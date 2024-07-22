@@ -127,7 +127,7 @@ module.exports = {
               'code::before': {
                 'content': 'none'
               },
-              'color': theme('colors.black'),
+              'color': theme('colors.gray.800'),
               'details': {
                 'backgroundColor': theme('colors.gray.100'),
                 'borderRadius': '0.25rem',
@@ -163,7 +163,7 @@ module.exports = {
                 'fontWeight': '600'
               },
               'p': {
-                'color': theme('colors.black')
+                'color': theme('colors.gray.800')
               },
               'pre': {
                 'backgroundColor': theme('colors.gray.800')

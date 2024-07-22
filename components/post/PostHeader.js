@@ -4,14 +4,13 @@ import Pill from '@/components/elements/Pill';
 import PostSeriesBox from '@/components/post/postSeriesBox';
 import PostSharing from '@/components/post/PostSharing';
 
-
 const postDateTemplate = { 'day': 'numeric', 'month': 'long', 'weekday': 'long', 'year': 'numeric' };
 
 const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
   <div className={ `pt-6 max-xl:w-[100%] ${(toc.length > 3 && frontMatter.tableOfContents) ? 'w-[60%]' : 'w-[100%]'}` }>
 
     <Pill text={ frontMatter.category } link={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` } color='green'/>
-    
+
     <div className='space-y-1 text-left'>
       <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14 py-4'>
         {frontMatter.title}
@@ -19,12 +18,12 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
       <h3 className='text-1xl sm:text-xl tracking-tight text-gray-600 dark:text-gray-100 sm:leading-10 md:text-2xl capitalize'>
         {frontMatter.subtitle}
       </h3>
-      
+
       <PostTimestamps date={ frontMatter.date } locale={ siteMetadata.locale } readingTime={ frontMatter.readingTime.text }/>
 
     </div>
-    
-    <div className={`flex lg:items-center flex-col lg:justify-between lg:flex-row items-start ${frontMatter.tableOfContents ? "!flex-col !items-start" : ""}`}>
+
+    <div className={ `flex lg:items-center flex-col lg:justify-between lg:flex-row items-start ${frontMatter.tableOfContents ? '!flex-col !items-start' : ''}` }>
       {frontMatter.tags && (
         <div className='my-4 flex flex-wrap'>
           {frontMatter.tags.map((tag) => (
@@ -33,12 +32,12 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
         </div>
       )}
       <PostSharing siteMetadata={ siteMetadata } slug={ frontMatter.slug } title={ frontMatter.title } fileName={ frontMatter.fileName } externalLink={ frontMatter.externalLink }></PostSharing>
-    
+
     </div>
     {frontMatter.seriesPosts && (
       <PostSeriesBox series={ frontMatter.seriesPosts } slug={ frontMatter.slug } />
     )}
-  
+
   </div>
 );
 

@@ -1,5 +1,4 @@
 import categories from '@/app/content/categories';
-import Link from '@/components/elements/Link';
 import Pill from '@/components/elements/Pill';
 
 export async function generateMetadata() {

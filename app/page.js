@@ -36,6 +36,5 @@ export default function Home() {
         <ListLayout posts={ displayPosts.slice(0, 3) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
       </div>
     </>
-    
   );
 }

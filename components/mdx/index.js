@@ -17,7 +17,7 @@ import Quote from '@/components/mdx/Quote';
 import Stats from '@/components/mdx/Stats';
 import Tooltip from '@/components/mdx/Tooltip';
 
-export const MDXComponents = { BlogNewsletterForm, Faq, Highlight, Image, Preview, Quote, Stats, 'a': CustomLink, 'pre': Pre, Tooltip };
+export const MDXComponents = { BlogNewsletterForm, Faq, Highlight, Image, Preview, Quote, Stats, Tooltip, 'a': CustomLink, 'pre': Pre };
 
 const getMDXComponent = (code, globals = {}) => {
   const scope = { React, ReactDOM, _jsx_runtime, ...globals };

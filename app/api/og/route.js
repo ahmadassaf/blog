@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 
 import { ImageResponse } from '@vercel/og';
 import { allPosts } from 'contentlayer/generated';
-import Image from 'next/image';
 
 import { coreContent } from '@/lib/utils/contentlayer';
 
@@ -17,7 +17,7 @@ export async function GET(request) {
       (
 
         <div tw='flex flex-col w-[1200px] h-[500]'>
-          <Image tw='absolute top-0 right-0' src='http://localhost:3000/static/images/og-card.jpg' alt='og-bg' height={ 2200 } width={ 1200 }/>
+          <img tw='absolute top-0 right-0' src='http://localhost:3000/static/images/og-card.jpg' alt='og-bg' height={ 2200 } width={ 1200 }/>
           <svg version='1.0' xmlns='http://www.w3.org/2000/svg' width='150px' height='150px' viewBox='0 0 688.000000 688.000000' preserveAspectRatio='xMidYMid meet'>
             <g transform='translate(0.000000,688.000000) scale(0.100000,-0.100000)' fill='currentColor' stroke='none' >
               <path

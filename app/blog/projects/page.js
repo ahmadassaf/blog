@@ -22,7 +22,7 @@ export default function Projects({ className }) {
           </h1>
         </div>
         <div>
-          <div className={ cn('grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10', className) }>
+          <div className={ cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  py-10', className) }>
             {allProjects.map((project, idx) => (
               <Link
                 href={ `/blog/${project.externalLink}` }

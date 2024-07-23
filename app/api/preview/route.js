@@ -18,7 +18,7 @@ export async function GET(request) {
 
   try {
     const data = {};
-    const response = await fetch(url);
+    const response = await fetch(url, { 'cache': 'force-cache' });
     const doc = parse(await response.text(), 'text/html');
 
     data.title = doc.querySelector('title')?.textContent || '';

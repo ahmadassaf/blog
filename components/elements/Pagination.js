@@ -8,16 +8,16 @@ const Pagination = ({ totalPages, currentPage, baseURL, paginationURL }) => {
 
   return (
     <nav className='flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 mt-4'>
-      <div className='-mt-px flex w-0 flex-1'>
+      <div className='-mt-px flex w-0 flex-1 group'>
         {!prevPage && (
           <button rel='previous' className='cursor-auto disabled:opacity-50 inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500' disabled={ !prevPage }>Previous</button>
         )}
         {prevPage && (
           <a
             href={ currentPage - 1 === 1 ? `/${baseURL}/` : `/${paginationURL}/${currentPage - 1}` }
-            className='inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700'
+            className='inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-blue-700 hover:text-blue-700'
           >
-            <ArrowLongLeftIcon aria-hidden='true' className='mr-3 h-5 w-5 text-gray-400' />
+            <ArrowLongLeftIcon aria-hidden='true' className='mr-3 h-5 w-5 text-gray-400 group-hover:fill-blue-700' />
         Previous
           </a>
         )}
@@ -32,17 +32,17 @@ const Pagination = ({ totalPages, currentPage, baseURL, paginationURL }) => {
           {currentPage} of {totalPages}
         </a>
       </div>
-      <div className='-mt-px flex w-0 flex-1 justify-end'>
+      <div className='-mt-px flex w-0 flex-1 justify-end group'>
         {!nextPage && (
           <button rel='previous' className='cursor-auto disabled:opacity-50 inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500' disabled={ !nextPage }>Next</button>
         )}
         {nextPage && (
           <a
             href={ `/${paginationURL}/${currentPage + 1}` }
-            className='inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700'
+            className='inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-blue-700 hover:text-blue-700'
           >
         Next
-            <ArrowLongRightIcon aria-hidden='true' className='ml-3 h-5 w-5 text-gray-400' />
+            <ArrowLongRightIcon aria-hidden='true' className='ml-3 h-5 w-5 text-gray-400 group-hover:fill-blue-700' />
           </a>
         )}
 

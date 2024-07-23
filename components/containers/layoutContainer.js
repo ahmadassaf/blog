@@ -22,7 +22,7 @@ export default function LayoutContainer({ children }) {
         </div>
         <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem/>
         <script async defer data-website-id={ process.env.UMAMI_WEBSITE_ID } src='https://analytics.eu.umami.is/script.js'/>
-        <div className='relative isolate mx-auto px-4 sm:px-6 xl:max-w-7xl w-3.5/5 xl:px-8'>
+        <div className='relative isolate px-4 sm:px-6 xl:max-w-5xl w-3.5/5 xl:px-6'>
           <div className='flex h-screen flex-col justify-between'>
             <FloatingMenu/>
             <Menu />

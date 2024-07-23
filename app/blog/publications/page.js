@@ -13,6 +13,7 @@ import { cn } from '@/components/utils/TailwindUtils';
 export default function Projects({ className }) {
   const [ hoveredIndex, setHoveredIndex ] = useState(null);
 
+  console.log(publications);
   const publicationsGroups = {};
 
   publications.forEach((publication) => {
@@ -22,7 +23,6 @@ export default function Projects({ className }) {
     else publicationsGroups[year] = [ publication ];
 
   });
-  console.log(publicationsGroups);
 
   return (
     <>
@@ -59,13 +59,13 @@ export default function Projects({ className }) {
                           href={ `${publication.href}` }
                           key={ publication?.href }
                           className='relative group block p-2 h-full w-full'
-                          onMouseEnter={ () => setHoveredIndex(idx) }
+                          onMouseEnter={ () => setHoveredIndex(index + idx) }
                           onMouseLeave={ () => setHoveredIndex(null) }
                         >
                           <AnimatePresence>
-                            {hoveredIndex === idx && (
+                            {hoveredIndex === (index + idx) && (
                               <motion.span
-                                className='absolute inset-0 h-full w-full bg-gray-700/[0.4] dark:bg-white/[0.8] block rounded-3xl'
+                                className='absolute inset-0 h-full w-full bg-gradient-to-r from-[#5865d5] to-[#89c6fc] opacity-30 dark:bg-white/[0.8] block rounded-3xl'
                                 layoutId='hoverBackground'
                                 initial={{ 'opacity': 0 }}
                                 animate={{ 'opacity': 1, 'transition': { 'duration': 0.15 } }}

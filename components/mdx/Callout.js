@@ -63,7 +63,7 @@ const Callout = ({ type, children }) => {
         <div className='flex-shrink-0'>{calloutIcon}</div>
         <div className='ml-3'>
           <div className={ `mt-2 text-md ${calloutTextColour}` }>
-            <p>{children}</p>
+            <span>{children}</span>
           </div>
         </div>
       </div>

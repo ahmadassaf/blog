@@ -3,7 +3,7 @@ import { allPosts } from 'contentlayer/generated';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
 import formatDate from '@/lib/utils/formatDate';
 
-export default function ListLayout() {
+export default function ListLayout({ hideTitle }) {
 
   const posts = coreContent(sortPosts(allPosts));
 
@@ -12,17 +12,17 @@ export default function ListLayout() {
 
   return (
     <div>
-      <div className='pt-10'>
+      { !hideTitle && <div className='pt-10'>
         <h1 className='pb-6 text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14'>
           Featured Posts
         </h1>
-      </div>
-      <div className='mx-auto grid grid-cols-1 gap-x-6 lg:grid-cols-2 border-none py-10 md:py-0'>
-        <article className='mx-auto w-full lg:mx-0 lg:max-w-lg py-2'>
+      </div> }
+      <div className={ `mx-auto grid grid-cols-1 gap-x-6 lg:grid-cols-2 border-none py-10 md:py-0 ${hideTitle ? 'mt-10' : ''}` }>
+        <article className='mx-auto w-full lg:mx-0 lg:max-w-lg py-2 mt-[10%]'>
           <time dateTime={ formatDate(featuredPost.date) } className='block text-sm leading-6 text-gray-600 dark:text-gray-400'>
             {formatDate(featuredPost.date)}
           </time>
-          <h2 id='featured-post' className='mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white'>
+          <h2 id='featured-post' className='mt-4 text-3xl font-bold leading-loose text-gray-900 sm:text-4xl dark:text-white'>
             {featuredPost.title}
           </h2>
           <p className='mt-4 text-lg leading-8 text-gray-600 dark:text-gray-300'>{featuredPost.summary}</p>

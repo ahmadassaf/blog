@@ -30,6 +30,10 @@ strong.highlight {
     display: none;
 }
 
+.command-palette .max-w-xl {
+    max-width: 50rem !important;
+}
+
 a {
     text-decoration: none !important;
 }
@@ -48,4 +52,18 @@ a {
 
 a[data-state="closed"], a[data-state="open"] {
     vertical-align: middle;
+}
+
+@media (prefers-color-scheme: dark) {
+    .command-palette .bg-gray-900 {
+        background-color: rgb(36 37 40 / 70%) ; 
+    }
+}
+
+.command-palette .hover\:bg-gray-100:hover:is(.dark *) {
+    background-color: rgb(36 37 40 / 70%) !important;
+}
+
+.command-palette *:is(.dark *){
+    border-color: #404040;
 }

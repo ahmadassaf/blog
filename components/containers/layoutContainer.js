@@ -12,17 +12,24 @@ const ThemeProvider = dynamic(() => import('@/components/utils/ThemeProvider'), 
 });
 
 export default function LayoutContainer({ children }) {
-  const theme = cookies().get('__theme__')?.value || 'system';
+  const theme = cookies().get('__theme__')?.value || 'light';
 
   return (
-    <div className='bg-white text-black antialiased dark:bg-gray-900 dark:text-white min-w-[414px]'>
+    <div className='bg-white text-black dark:bg-gray-900 dark:text-white antialiased min-w-[414px]'>
+
+      {/* This is the Aurora backgrounf animation enabled for light mode. It has to wrap all the content */}
       <Aurora>
-        <div className='hidden dark:absolute min-h-[50rem] w-full dark:bg-gray-900 dark:bg-dot-white/[0.15] dark:flex items-center justify-center'>
-          <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-gray-900 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
+
+        {/* This is the dark shape overlay that appears when the dark mode is enabled */}
+        <div className='hidden min-h-[50rem] w-full items-center justify-center dark:absolute dark:flex dark:bg-gray-900 dark:bg-dot-white/[0.15]'>
+          <div className='absolute flex bg-white items-center justify-center pointer-events-none inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-gray-900'></div>
         </div>
+
         <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem/>
+        {/* Loading the Umami analytics script */}
         <script async defer data-website-id={ process.env.UMAMI_WEBSITE_ID } src='https://analytics.eu.umami.is/script.js'/>
-        <div className='relative isolate px-4 sm:px-6 xl:max-w-5xl w-3.5/5 xl:px-6'>
+
+        <div className='relative w-[90%] isolate xl:max-w-7xl px-8'>
           <div className='flex h-screen flex-col justify-between'>
             <FloatingMenu/>
             <Menu />
@@ -31,7 +38,9 @@ export default function LayoutContainer({ children }) {
             <Footer />
           </div>
         </div>
+
       </Aurora>
+
     </div>
   );
 }

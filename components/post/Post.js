@@ -9,11 +9,11 @@ const Post = ({ frontMatter }) => (
           <div>
             <h3 className='text-2xl font-bold leading-8 tracking-tight max-sm:text-lg'>
               {frontMatter.title}
-              {frontMatter.draft && <span className='bg-yellow-500 text-white p-1 text-sm align-middle mx-2 uppercase'>Draft</span>}
+              {frontMatter.draft && <span className='bg-yellow-500 text-white p-1 text-[12px] align-middle mx-2 uppercase rounded-sm'>Draft</span>}
             </h3>
             <h4 className='group-hover:text-blue-700 text-gray-500 dark:text-gray-300'>{frontMatter.subtitle}</h4>
             <dt className='sr-only'>Published on</dt>
-            <dd className='text-sm leading-6 text-gray-500 dark:text-gray-400 group-hover:text-blue-400'>
+            <dd className='text-sm leading-6 text-gray-400 dark:text-gray-300 group-hover:text-blue-400 mt-2'>
               <time dateTime={ frontMatter.date }>{formatDate(frontMatter.date)}</time>
             </dd>
           </div>

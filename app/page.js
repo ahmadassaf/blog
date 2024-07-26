@@ -34,6 +34,9 @@ export default function Home() {
         </div>
         <FeaturedPostsLayout />
         <ListLayout posts={ displayPosts.slice(0, 3) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
+        <Link href='/blog' className='text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 float-right border-none' aria-label='all posts' >
+                All Posts
+        </Link>
       </div>
     </>
   );

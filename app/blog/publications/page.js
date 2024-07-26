@@ -32,7 +32,7 @@ export default function Projects({ className }) {
             Publications
           </h1>
           <h2 className='text-lg font-semibold text-gray-900 dark:text-white'>
-            A list of all the papers where I am the main author/contributor. The papers span the fields of Semantic Web, Information Retrieval, and Natural Language Processing
+            A list of papers I contributed to/authored. The papers span the fields of Semantic Web, Information Retrieval, and Natural Language Processing
           </h2>
         </div>
         <div>
@@ -54,16 +54,10 @@ export default function Projects({ className }) {
                   </dt>
                   <Disclosure.Panel as='dd' className='mt-2'>
                     <div className={ cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3', className) }>
-                      {publicationsGroups[publicationsGroup].map((publication, idx) => (
-                        <Link
-                          href={ `${publication.href}` }
-                          key={ publication?.href }
-                          className='relative group block p-2 h-full w-full'
-                          onMouseEnter={ () => setHoveredIndex(index + idx) }
-                          onMouseLeave={ () => setHoveredIndex(null) }
-                        >
+                      {publicationsGroups[publicationsGroup].map((publication) => (
+                        <Link href={ `${publication.href}` } key={ publication?.href } className='relative group block p-2 h-full w-full' onMouseEnter={ () => setHoveredIndex(publication.id) } onMouseLeave={ () => setHoveredIndex(null) } >
                           <AnimatePresence>
-                            {hoveredIndex === (index + idx) && (
+                            {hoveredIndex === (publication.id) && (
                               <motion.span
                                 className='absolute inset-0 h-full w-full bg-gradient-to-r from-[#5865d5] to-[#89c6fc] opacity-30 dark:bg-white/[0.8] block rounded-3xl'
                                 layoutId='hoverBackground'

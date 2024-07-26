@@ -9,6 +9,7 @@ const postDateTemplate = { 'day': 'numeric', 'month': 'long', 'weekday': 'long',
 const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
   <div className={ `pt-6 max-xl:w-[100%] ${(toc.length > 3 && frontMatter.tableOfContents) ? 'w-[60%]' : 'w-[100%]'}` }>
 
+    {frontMatter.draft && <span className='bg-yellow-500 text-white font-small max-sm:text-xs my-1 mr-1 inline-flex items-center rounded-sm uppercase px-2'>Draft</span>}
     <Pill text={ frontMatter.category } link={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` } color='green'/>
 
     <div className='space-y-1 text-left'>
@@ -47,7 +48,7 @@ export const PostTimestamps = ({ date, locale, readingTime }) => (
   <div className='flex items-baseline'>
     <div className='pt-4 xl:pt-4 flex items-center'>
       <ClockIcon aria-hidden='true' className='h-4 w-4 mr-2 flex-shrink-0 text-gray-400' />
-      <dt className='sr-only'>Published on</dt>
+      <dt className='sr-only'>Last Edited on</dt>
       <dd className='text-sm font-medium leading-6 text-gray-500 dark:text-gray-400'>
         <time dateTime={ date }>
           {new Date(date).toLocaleDateString(locale, postDateTemplate)}

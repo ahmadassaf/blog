@@ -26,7 +26,7 @@ const Menu = () => {
   const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);
   const [ LauncherOpen, LauncherSetOpen ] = useState(false);
 
-  return (<nav className='flex h-16 items-center justify-between px-0 py-16 first-letter:mx-auto max-w-7xl'>
+  return (<nav className='flex h-16 items-center justify-between px-0 py-16 first-letter:mx-auto'>
 
     <Link href='/' aria-label={ siteMetadata.author.name }>
       <div className='flex items-center justify-between'>
@@ -50,7 +50,7 @@ const Menu = () => {
       <ThemeSwitch />
 
       {mobileMenuOpen ? (<MenuMobile categories={ categories } links={ NavigationMetadata.links } setMobileMenuOpen={ setMobileMenuOpen } setLauncherOpen={ LauncherSetOpen } />) : null}
-      <div className='mx-auto max-w-7xl px-2 lg:px-8'>
+      <div className='mx-auto px-2 lg:px-8'>
         <div className='flex h-16 justify-between'>
           <div className='flex px-2 lg:px-0 relative'>
             <div className='hidden lg:ml-6 lg:flex lg:space-x-8'>

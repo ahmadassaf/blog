@@ -44,7 +44,7 @@ export default function About() {
       <main className='isolate'>
 
         <div className='relative isolate -z-10'>
-          <svg aria-hidden='true' className='absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 dark:stroke-gray-600 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]'>
+          <svg aria-hidden='true' className='absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 dark:stroke-gray-800 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]'>
             <defs>
               <pattern x='50%' y={ -1 } id='1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84' width={ 200 } height={ 200 } patternUnits='userSpaceOnUse'>
                 <path d='M.5 200V.5H200' fill='none' />
@@ -133,7 +133,7 @@ export default function About() {
             As an experienced leader in the technology and SaaS industry, I am committed to helping businesses achieve their full potential. My approach is grounded in core values of collaboration, innovation, and integrity, which guide all aspects of my work. Whether you're an individual, a startup looking to scale or an established company seeking to refine your strategy, I can provide the expertise and guidance you need to succeed.
             </p>
           </div>
-          <dl className='mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3'>
+          <dl className='my-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3'>
             {values.map((value) => (
               <div key={ value.name }>
                 <dt className='flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-white'>

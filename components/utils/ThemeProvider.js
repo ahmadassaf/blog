@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { setCookie } from 'cookies-next';
 import { ThemeProvider, useTheme } from 'next-themes';
 
-// Application theme provider
 function AppThemeProvider({ children, ...props }) {
   return (
     <ThemeProvider enableColorScheme { ...props }>

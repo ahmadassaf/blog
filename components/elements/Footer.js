@@ -8,7 +8,7 @@ import { sortPosts } from '@/lib/utils/contentlayer';
 
 const Footer = () => (
   <footer aria-labelledby='footer-heading' className='border-t border-gray-200'>
-    <div className='mx-auto max-w-7xl py-12 lg:py-16'>
+    <div className='mx-auto py-12 lg:py-16'>
       <div className='xl:grid xl:grid-cols-4 xl:gap-8 max-md:hidden'>
         <div className='grid grid-cols-1 gap-8 xl:col-span-2'>
           <div className='grid md:grid-cols-3 gap-8'>

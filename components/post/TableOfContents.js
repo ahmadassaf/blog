@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { BiChevronRight } from 'react-icons/bi';
 
 const TableOfContents = ({ toc, indentDepth = 3, fromHeading = 1, toHeading = 6, exclude = '' }) => {
   const [ activeSlug, setActiveSlug ] = useState('');
@@ -40,8 +41,9 @@ const TableOfContents = ({ toc, indentDepth = 3, fromHeading = 1, toHeading = 6,
   const tocList = (
     <ul className='list-none'>
       {filteredToc.map((heading) => (
-        <li key={ heading.value } className={ `dark:text-white text-sm py-1 ${activeSlug === heading.id && 'text-blue-600'} ${heading.depth === 1 && '!font-bold'} ${heading.depth === 2 && '!ml-3'} ${heading.depth > 2 ? 'font-light' : 'font-medium'} ${heading.depth >= indentDepth && 'ml-6'}` }>
-          <a href={ heading.url } onClick={ () => setActiveSlug(heading.id) }>{heading.value}</a>
+        <li key={ heading.value } className={ `flex items-center py-2 dark:text-white ${activeSlug === heading.id && 'text-blue-600'} ${heading.depth === 1 && '!font-bold'} ${heading.depth === 2 && '!ml-3'} ${heading.depth > 2 ? 'font-light' : 'font-medium'} ${heading.depth >= indentDepth && 'ml-6'}` }>
+          <BiChevronRight className='mr-2'/>
+          <a className='bolder text-[16px]' href={ heading.url } onClick={ () => setActiveSlug(heading.id) }>{heading.value}</a>
         </li>
       ))}
     </ul>
@@ -49,8 +51,7 @@ const TableOfContents = ({ toc, indentDepth = 3, fromHeading = 1, toHeading = 6,
 
   return (
     <>
-      <div className='bg-white dark:bg-gray-900 rounded p-4 sticky top-20 text-gray-800 col-span-3 max-xl:hidden !border mt-[-250px] max-h-[750px] overflow-y-scroll'>
-        <h1 className='pt-2 pb-2 text-xl font-bold dark:text-white'>Table of Contents</h1>
+      <div className='rounded p-4 sticky top-20 text-gray-800 col-span-3 max-xl:hidden mt-[-250px] max-h-[750px] overflow-y-scroll'>
         <div>{tocList}</div>
       </div>
     </>

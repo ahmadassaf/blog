@@ -5,7 +5,8 @@
     "venue": "Extended Semantic Web Conference (ESWC 2024)",
     "year": 2024,
     "venueType": "Conference",
-    "href": "https://2024.eswc-conferences.org/wp-content/uploads/2024/05/77770139.pdf"
+    "href": "https://2024.eswc-conferences.org/wp-content/uploads/2024/05/77770139.pdf",
+    "id": "1"
   },
   {
     "title": "An Objective Assessment Framework & Tool for Linked Data Quality",
@@ -13,6 +14,7 @@
     "venue": "International Journal on Semantic Web and Information Systems IJSWIS",
     "year": 2015,
     "venueType": "Journal",
+    "id": "2",
     "href": "https://github.com/ahmadassaf/PhD/blob/b8583a70090bf59dcbb0868719029a9bb1feb9fd/Papers/IJSWIS%20-%20Towards%20An%20Objective%20Assessment%20Framework%20for%20Linked%20Data%20Quality%20-%20Enriching%20Dataset%20Profiles%20with%20Quality%20Indicators/DQ.pdf"
   },
   {
@@ -22,6 +24,7 @@
     "award": "Best paper Award",
     "year": 2015,
     "venueType": "Workshop",
+    "id": "3",
     "href": "https://github.com/ahmadassaf/PhD/blob/b8583a70090bf59dcbb0868719029a9bb1feb9fd/Papers/LDQ'15%20-%20What's%20up%20LOD%20Cloud%20-%20Observing%20The%20State%20of%20Linked%20Open%20Data%20Cloud%20Metadata/SUP.pdf"
   },
   {
@@ -30,6 +33,7 @@
     "venue": "2nd International Workshop on Dataset PROFIling & fEderated Search for Linked Data",
     "year": 2015,
     "venueType": "Workshop",
+    "id": "4",
     "href": "https://github.com/ahmadassaf/PhD/blob/master/Papers/PROFILES'15%20-%20HDL%20-%20Towards%20A%20Harmonized%20Dataset%20Model%20for%20Open%20Data%20Portals/HDL.pdf"
   },
   {
@@ -39,6 +43,7 @@
     "award": "Best paper Award",
     "year": 2015,
     "venueType": "Workshop",
+    "id": "5",
     "href": "https://github.com/ahmadassaf/PhD/blob/master/Papers/PROFILES'15%20-%20An%20Extensible%20Framework%20to%20Validate%20and%20Build%20Dataset%20Profiles/SOLD.pdf"
   },
   {
@@ -47,6 +52,7 @@
     "venue": "International World Wide Web Conference (Demo Track) WWW15",
     "year": 2015,
     "venueType": "Demo",
+    "id": "6",
     "href": "https://github.com/ahmadassaf/PhD/blob/b8583a70090bf59dcbb0868719029a9bb1feb9fd/Papers/PROFILES'15%20-%20HDL%20-%20Towards%20A%20Harmonized%20Dataset%20Model%20for%20Open%20Data%20Portals/HDL.pdf"
   },
   {
@@ -55,6 +61,7 @@
     "venue": "European Semantic Web Conference (Demo & Poster Track) ESWC 2014",
     "year": 2014,
     "venueType": "Poster",
+    "id": "7",
     "href": "https://github.com/ahmadassaf/PhD/blob/b8583a70090bf59dcbb0868719029a9bb1feb9fd/Posters/ESWC'14%20-%20What%20are%20the%20Important%20Properties%20of%20an%20Entity%20-%20Comparing%20Users%20and%20Knowledge%20Graph%20Point%20of%20View/eswc2014-poster.pdf"
   },
   {
@@ -63,6 +70,7 @@
     "venue": "10th International Conference, ESWC 2013",
     "year": 2013,
     "venueType": "Conference",
+    "id": "8",
     "href": "https://github.com/ahmadassaf/PhD/blob/b8583a70090bf59dcbb0868719029a9bb1feb9fd/Papers/ESWC'13%20-%20SNARC%20A%20Semantic%20Social%20News%20Aggregator/AI%20Mashup%20ESWC%202013%20-%20SNARC.pdf"
   },
   {
@@ -71,6 +79,7 @@
     "venue": "WOD '12 Proceedings of the First International Workshop on Open Data",
     "year": 2012,
     "venueType": "Workshop",
+    "id": "9",
     "href": "https://github.com/ahmadassaf/PhD/blob/b8583a70090bf59dcbb0868719029a9bb1feb9fd/Papers/WOD'12%20-%20RUBIX%20A%20Framework%20for%20Improving%20Data%20Integration%20with%20Linked%20Data/RUBIX%2C%20A%20Framework%20for%20Improving%20Data%20Integration%20with%20Linked%20Data.pdf"
   },
   {
@@ -79,6 +88,7 @@
     "venue": "International Workshop on Data Quality Management and Semantic Technologies",
     "year": 2012,
     "venueType": "Conference",
+    "id": "10",
     "href": "https://github.com/ahmadassaf/PhD/blob/b8583a70090bf59dcbb0868719029a9bb1feb9fd/Papers/DQMST'12%20-%20Data%20Quality%20Principles%20in%20the%20Semantic%20Web/Data%20Quality%20Principles%20in%20the%20Semantic%20Web%20-%20Camera%20Ready%20Version.pdf"
   }
 ]

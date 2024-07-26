@@ -23,6 +23,6 @@ export default function Page({ params }) {
   };
 
   return (
-    <ListLayout posts={ pagePosts } listTitle='All Posts' currentPage={ pagination.currentPage } totalPages={ pagination.totalPages } paginationURL='blog/page' baseURL='blog'/>
+    <ListLayout posts={ pagePosts } currentPage={ pagination.currentPage } totalPages={ pagination.totalPages } paginationURL='blog/page' baseURL='blog'/>
   );
 }

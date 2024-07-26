@@ -15,7 +15,7 @@ export default function LayoutContainer({ children }) {
   const theme = cookies().get('__theme__')?.value || 'light';
 
   return (
-    <div className='bg-white text-black dark:bg-gray-900 dark:text-white antialiased min-w-[414px]'>
+    <div className='bg-white text-black dark:bg-gray-900 dark:text-white antialiased'>
 
       {/* This is the Aurora backgrounf animation enabled for light mode. It has to wrap all the content */}
       <Aurora>
@@ -29,7 +29,7 @@ export default function LayoutContainer({ children }) {
         {/* Loading the Umami analytics script */}
         <script async defer data-website-id={ process.env.UMAMI_WEBSITE_ID } src='https://analytics.eu.umami.is/script.js'/>
 
-        <div className='relative w-[90%] isolate xl:max-w-7xl px-8'>
+        <div className='relative w-[95%] xl-w[90%] isolate xl:max-w-7xl xl-px-8 px-0 min-w-[410px]'>
           <div className='flex h-screen flex-col justify-between'>
             <FloatingMenu/>
             <Menu />

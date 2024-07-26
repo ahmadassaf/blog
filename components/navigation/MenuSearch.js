@@ -1,6 +1,6 @@
 const MenuSearch = ({ setOpen }) => (
 
-  <div className='w-full max-w-lg lg:max-w-xs'>
+  <div className='w-full lg:max-w-xs max-sm:w-[95%]'>
     <label htmlFor='search' className='sr-only'>Search</label>
     <button className='relative w-full' onClick={ () => setOpen(true) }>
       <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 right-0'>

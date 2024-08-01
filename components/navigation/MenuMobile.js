@@ -8,7 +8,7 @@ import MenuSearch from '@/components/navigation/MenuSearch';
 const MenuMobile = ({ categories, links, setMobileMenuOpen, setLauncherOpen }) => (
   <div className='lg:hidden' role='dialog' aria-modal='true'>
 
-    <div className='fixed shadow dark:bg-gray-900 inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white py-12 px-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
+    <div className='fixed shadow dark:bg-gray-900 inset-y-0 right-0 z-[1000] w-full overflow-y-auto bg-white py-12 px-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
       <div className='flex justify-between align-center mb-12'>
         <div className='hidden max-sm:block items-center justify-center px-2 lg:ml-6 lg:justify-end max-sm:p-0 w-full'>
           <MenuSearch setOpen={ setLauncherOpen }></MenuSearch>
@@ -37,7 +37,7 @@ const MenuMobile = ({ categories, links, setMobileMenuOpen, setLauncherOpen }) =
 
             </div>
 
-            {links.map((link) => (
+            {links.slice(1, links.length).map((link) => (
               <a key={ link.href } href={ link.href } className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-blue-50 dark:text-white dark:hover:text-gray-900'>{link.title}</a>
             ))}
 

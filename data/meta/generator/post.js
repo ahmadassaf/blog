@@ -57,7 +57,7 @@ export function linkedDataGenerator(post) {
     },
     'isPartOf': blog(),
     'keywords': post.tags,
-    'thumbnailUrl': `${siteMetadata.siteUrl}/static/images/logo.png`,
+    'thumbnailUrl': `${siteMetadata.siteUrl}/static/images/logo.svg`,
     'url': `${siteMetadata.siteUrl}/blog/${post.slug}`,
     'wordCount': post.readingTime.words
   };

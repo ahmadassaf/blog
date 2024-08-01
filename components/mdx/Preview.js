@@ -51,7 +51,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
         setOpen(open);
       } } >
         <HoverCardPrimitive.Trigger onMouseMove={ handleMouseMove } className={ cn('text-black dark:text-white', className) } href={ url }>
-          <span className='inline-flex items-center mr-1'>
+          <span className='inline-flex items-center'>
             { data.favicon ? <img className='h-4 w-4 m-0 mr-1' src={ data ? data.favicon : '' } alt={ data ? data.title : 'Loading...' } /> : <LinkIcon className='h-4 w-4 m-0 mr-1' />}
             <a href={ url }>{data.title ? data.title.split(':')[0] : url}</a>
           </span>
@@ -78,7 +78,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
   );
 
   return (
-    <span className='inline-flex items-baseline mr-1'>
+    <span className={ cn('inline-flex items-baseline mr-1', className) }>
       { data.favicon ? <img className='h-4 w-4 m-0 mr-1' src={ data ? data.favicon : '' } alt={ data ? data.title : 'Loading...' } /> : <LinkIcon className='h-4 w-4 m-0 mr-1' />}
       <a href={ url }>{data.title ? data.title.split(':')[0] : url}</a>
     </span>

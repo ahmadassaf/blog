@@ -43,14 +43,14 @@ export default function About() {
 
       <main className='isolate'>
 
-        <div className='relative isolate -z-10'>
-          <svg aria-hidden='true' className='absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 dark:stroke-gray-800 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]'>
+        <div className='relative isolate -z-10 max-md:hidden'>
+          <svg aria-hidden='true' className='absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 max-lg:stroke-gray-200/20 dark:stroke-gray-800 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]'>
             <defs>
               <pattern x='50%' y={ -1 } id='1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84' width={ 200 } height={ 200 } patternUnits='userSpaceOnUse'>
                 <path d='M.5 200V.5H200' fill='none' />
               </pattern>
             </defs>
-            <svg x='50%' y={ -1 } className='overflow-visible fill-gray-50 dark:fill-gray-800'>
+            <svg x='50%' y={ -1 } className='overflow-visible fill-blue-100 dark:fill-gray-800 max-lg:hidden'>
               <path d='M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z' strokeWidth={ 0 } />
             </svg>
             <rect fill='url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)' width='100%' height='100%' strokeWidth={ 0 } />
@@ -104,19 +104,19 @@ export default function About() {
                 <dl className='w-auto space-y-8 xl:w-80'>
                   <div className='flex flex-col-reverse gap-y-4'>
                     <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
-                      <Preview url='https://beamery.com' title='Beamery' />
+                      <Preview url='https://beamery.com' title='Beamery' className='text-lg'/>
                     </dt>
                     <dd className='text-3xl font-semibold tracking-tight text-gray-900 dark:text-white'>VP AI and Data</dd>
                   </div>
                   <div className='flex flex-col-reverse gap-y-4'>
                     <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
-                      <Preview url='https://beamery.com' title='Beamery' />
+                      <Preview url='https://beamery.com' title='Beamery' className='text-lg' />
                     </dt>
                     <dd className='text-3xl font-semibold tracking-tight text-gray-900 dark:text-white'>Head of Engineering</dd>
                   </div>
                   <div className='flex flex-col-reverse gap-y-4'>
                     <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
-                      <Preview url='https://sap.com' title='SAP' />
+                      <Preview url='https://sap.com' title='SAP' className='text-lg' />
                     </dt>
                     <dd className='text-3xl font-semibold tracking-tight text-gray-900 dark:text-white'>Research Scientist</dd>
                   </div>

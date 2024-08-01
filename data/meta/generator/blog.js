@@ -15,7 +15,7 @@ export function metadataGenertaor() {
     'openGraph': {
       'authors': [ siteMetadata.author ],
       'description': siteMetadata.description,
-      'images': [ `${siteMetadata.siteUrl}/static/images/logo.png` ],
+      'images': [ `${siteMetadata.siteUrl}/static/images/logo.svg` ],
       'title': siteMetadata.title,
       'type': 'website'
     },
@@ -28,7 +28,7 @@ export function metadataGenertaor() {
       'creator': '@ahmadaassaf',
       'creatorId': '3696459741',
       'description': siteMetadata.description,
-      'images': [ `${siteMetadata.siteUrl}/static/images/logo.png` ],
+      'images': [ `${siteMetadata.siteUrl}/static/images/logo.svg` ],
       'title': siteMetadata.title
     },
     'viewport': {

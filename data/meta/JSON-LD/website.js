@@ -9,7 +9,7 @@ export function website() {
     'about': metadata.description,
     'author': author(),
     'keywords': metadata.keywords,
-    'thumbnailUrl': `${metadata.siteUrl}/static/images/logo.png`,
+    'thumbnailUrl': `${metadata.siteUrl}/static/images/logo.svg`,
     'url': 'https://assaf.website'
   };
 }

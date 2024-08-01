@@ -13,7 +13,6 @@ import { cn } from '@/components/utils/TailwindUtils';
 export default function Projects({ className }) {
   const [ hoveredIndex, setHoveredIndex ] = useState(null);
 
-  console.log(publications);
   const publicationsGroups = {};
 
   publications.forEach((publication) => {

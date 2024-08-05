@@ -41,9 +41,9 @@ const TableOfContents = ({ toc, indentDepth = 3, fromHeading = 1, toHeading = 6,
   const tocList = (
     <ul className='list-none'>
       {filteredToc.map((heading) => (
-        <li key={ heading.value } className={ `flex items-center py-2 dark:text-white ${activeSlug === heading.id && 'text-blue-600'} ${heading.depth === 1 && '!font-bold'} ${heading.depth === 2 && '!ml-3'} ${heading.depth > 2 ? 'font-light' : 'font-medium'} ${heading.depth >= indentDepth && 'ml-6'}` }>
+        <li key={ heading.value } className={ `flex items-center py-[7px] dark:text-white ${activeSlug === heading.id && '!text-blue-600'} ${heading.depth === 1 && '!font-bold'} ${heading.depth === 2 && '!ml-3'} ${heading.depth > 2 ? 'font-light; text-gray-500' : 'font-medium; text-gray-600'} ${heading.depth >= indentDepth && 'ml-6'}` }>
           <BiChevronRight className='mr-2'/>
-          <a className='bolder text-[16px]' href={ heading.url } onClick={ () => setActiveSlug(heading.id) }>{heading.value}</a>
+          <a className='text-[15px]' href={ heading.url } onClick={ () => setActiveSlug(heading.id) }>{heading.value}</a>
         </li>
       ))}
     </ul>

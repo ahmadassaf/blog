@@ -1,3 +1,4 @@
+import { kv } from '@vercel/kv';
 import { NextResponse } from 'next/server';
 import { parse } from 'node-html-parser';
 
@@ -16,6 +17,13 @@ export async function GET(request) {
 
   if (!url) return NextResponse.json({ 'status': 400 });
 
+  const cachedPreview = await kv.get(`url:${url}`);
+
+  if (cachedPreview) {
+    console.log('Returning cached preview');
+
+    return NextResponse.json(JSON.stringify(cachedPreview), { 'status': 200 });
+  }
   try {
     const data = {};
     const response = await fetch(url, { 'cache': 'force-cache' });
@@ -35,10 +43,13 @@ export async function GET(request) {
       data.image = videoThumbnail;
     }
 
+    await kv.set(`url:${url}`, data);
+
     return NextResponse.json(JSON.stringify(data), { 'status': 200 });
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(JSON.stringify({ error }), { 'status': 500 });
   }
+
 }

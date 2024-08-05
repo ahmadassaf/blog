@@ -1,6 +1,6 @@
 /* eslint-disable no-lone-blocks */
 
-import { BiCheckSquare, BiChip, BiHive, BiInfoCircle, BiShieldQuarter, BiSolidBolt, BiSolidError } from 'react-icons/bi';
+import { BiCheckSquare, BiChip, BiCodeAlt, BiHive, BiInfoCircle, BiShieldQuarter, BiSolidBolt, BiSolidError } from 'react-icons/bi';
 
 const Callout = ({ type, children }) => {
   let calloutBackgroundColor;
@@ -45,6 +45,12 @@ const Callout = ({ type, children }) => {
     calloutIcon = <BiChip className='h-5 w-5 fill-indigo-600'/>;
     calloutBackgroundColor = 'bg-indigo-50';
     calloutTextColour = 'text-indigo-700';
+  }
+    break;
+  case 'code': {
+    calloutIcon = <BiCodeAlt className='h-5 w-5 fill-slate-600'/>;
+    calloutBackgroundColor = 'bg-slate-50';
+    calloutTextColour = 'text-slate-700';
   }
     break;
   case 'secure':

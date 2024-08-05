@@ -3,6 +3,7 @@
 import { ImageResponse } from '@vercel/og';
 import { allPosts } from 'contentlayer/generated';
 
+import siteMetadata from '@/data/meta/metadata';
 import { coreContent } from '@/lib/utils/contentlayer';
 
 async function getFonts() {
@@ -53,15 +54,23 @@ export async function GET(request) {
     const slug = request.nextUrl.searchParams.get('slug').replace('category/', '');
     const posts = coreContent(allPosts);
     const postIndex = posts.findIndex((_post) => _post.slug.replace('category/', '') === slug);
-    const post = allPosts[postIndex];
+    let post = allPosts[postIndex];
+
+    if (!post) post = {
+      'category': slug,
+      'subtitle': siteMetadata.description,
+      'title': siteMetadata.title
+    };
 
     return new ImageResponse(
       (
 
         <div tw='flex flex-col h-[600px] w-[1200px] border-b-[20px] border-green-700 px-24'>
-          <h1 tw='text-2xl leading-[60px] uppercase text-blue-700'>
-            {coreContent(post).category}
-          </h1>
+          {post.category && (
+            <h1 tw='text-2xl leading-[60px] uppercase text-blue-700'>
+              {coreContent(post).category}
+            </h1>
+          )}
           <div tw='flex flex-col'>
             <div tw='flex flex-row justify-between flex-row-reverse'>
               <svg version='1.0' xmlns='http://www.w3.org/2000/svg' width='200px' height='200px' viewBox='0 0 688.000000 688.000000' preserveAspectRatio='xMidYMid meet'>

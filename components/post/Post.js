@@ -6,14 +6,15 @@ const Post = ({ frontMatter }) => (
     <article className='group space-y-2 xl:grid xl:grid-cols-2 xl:items-baseline xl:space-y-0 cursor-pointer'>
       <div className='space-y-3 xl:col-span-3'>
         <Link href={ `/blog/${frontMatter.slug}` } className='text-gray-900 dark:text-gray-100 group-hover:text-blue-700'>
-          <div>
-            <h3 className='text-2xl font-bold leading-8 tracking-tight max-sm:text-lg'>
-              {frontMatter.title}
-              {frontMatter.draft && <span className='bg-yellow-500 text-white p-1 text-[12px] align-middle mx-2 uppercase rounded-sm'>Draft</span>}
-            </h3>
-            <h4 className='group-hover:text-blue-700 text-gray-500 dark:text-gray-300'>{frontMatter.subtitle}</h4>
-            <dt className='sr-only'>Published on</dt>
-            <dd className='text-sm leading-6 text-gray-400 dark:text-gray-300 group-hover:text-blue-400 mt-2'>
+          <div className='flex flex-row justify-between max-md:flex-col items-top'>
+            <div>
+              <h3 className='text-2xl font-bold leading-8 tracking-tight max-sm:text-lg'>
+                {frontMatter.title}
+                {frontMatter.draft && <span className='bg-yellow-500 text-white p-1 text-[12px] align-middle mx-2 uppercase rounded-sm'>Draft</span>}
+              </h3>
+              <h4 className='group-hover:text-blue-700 text-gray-500 dark:text-gray-300'>{frontMatter.subtitle}</h4>
+            </div>
+            <dd className='text-xs leading-6 text-gray-400 dark:text-gray-300 group-hover:text-blue-400 mt-2'>
               <time dateTime={ frontMatter.date }>{formatDate(frontMatter.date)}</time>
             </dd>
           </div>

@@ -6,13 +6,14 @@ import Footer from '@/components/elements/Footer';
 import FloatingMenu from '@/components/navigation/FloatingMenu';
 import Menu from '@/components/navigation/Menu';
 import { website } from '@/data/meta/JSON-LD/website';
+import siteMetadata from '@/data/meta/metadata';
 
 const ThemeProvider = dynamic(() => import('@/components/utils/ThemeProvider'), {
   'ssr': false
 });
 
 export default function LayoutContainer({ children }) {
-  const theme = cookies().get('__theme__')?.value || 'light';
+  const theme = cookies().get('__theme__')?.value || siteMetadata.theme;
 
   return (
     <div className='bg-white text-black dark:bg-gray-900 dark:text-white antialiased'>

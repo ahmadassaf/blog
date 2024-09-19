@@ -4,6 +4,7 @@ import { RiMoonClearFill, RiSunFill } from 'react-icons/ri';
 import { useTheme } from 'next-themes';
 
 import ThemeProvider from '@/components/utils/ThemeProvider';
+import siteMetadata from '@/data/meta/metadata';
 
 function Provider() {
   const { setTheme, theme } = useTheme();
@@ -19,7 +20,7 @@ function Provider() {
 
 function ThemeSwitch() {
   return (
-    <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+    <ThemeProvider attribute='class' defaultTheme={ siteMetadata.theme } enableSystem>
       <Provider />
     </ThemeProvider>
   );

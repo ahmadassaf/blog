@@ -19,11 +19,8 @@ export async function GET(request) {
 
   const cachedPreview = await kv.get(`url:${url}`);
 
-  if (cachedPreview) {
-    console.log('Returning cached preview');
+  if (cachedPreview) return NextResponse.json(JSON.stringify(cachedPreview), { 'status': 200 });
 
-    return NextResponse.json(JSON.stringify(cachedPreview), { 'status': 200 });
-  }
   try {
     const data = {};
     const response = await fetch(url, { 'cache': 'force-cache' });

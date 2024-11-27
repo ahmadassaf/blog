@@ -1,16 +1,20 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { BiChevronRight } from 'react-icons/bi';
 
-const TableOfContents = ({ toc, indentDepth = 3, fromHeading = 1, toHeading = 6, exclude = '' }) => {
+const TableOfContents = ({ toc }) => {
   const [ activeSlug, setActiveSlug ] = useState('');
   const isTableOfContentsLoaded = useRef(false);
-  const re = Array.isArray(exclude) ? new RegExp(`^(${exclude.join('|')})$`, 'i') : new RegExp(`^(${exclude})$`, 'i');
 
-  const filteredToc = toc.filter(
-    (heading) => heading.depth >= fromHeading && heading.depth <= toHeading && !re.test(heading.value)
-  );
+  const observeHeadings = (headings, observer) => {
+    headings.forEach((heading) => {
+      const element = document.getElementById(heading.id);
+
+      if (element) observer.observe(element);
+      if (heading.children.length > 0) observeHeadings(heading.children, observer);
+
+    });
+  };
 
   useEffect(() => {
     if (location.hash && !isTableOfContentsLoaded.current) {
@@ -21,40 +25,43 @@ const TableOfContents = ({ toc, indentDepth = 3, fromHeading = 1, toHeading = 6,
       (entries) => {
         entries.forEach((entry) => {
           if (entry?.isIntersecting) setActiveSlug(entry.target.id);
-
         });
       }, {
         'rootMargin': '-25% 0px -75% 0px'
       }
     );
 
-    filteredToc.forEach((heading) => {
-      const element = document.getElementById(heading.id);
-
-      if (element) observer.observe(element);
-
-    });
+    observeHeadings(toc, observer);
 
     return () => observer.disconnect();
-  }, [ filteredToc ]);
+  }, [ toc, observeHeadings ]);
 
-  const tocList = (
-    <ul className='list-none'>
-      {filteredToc.map((heading) => (
-        <li key={ heading.value } className={ `flex items-center py-[7px] dark:text-white ${activeSlug === heading.id && '!text-blue-600'} ${heading.depth === 1 && '!font-bold'} ${heading.depth === 2 && '!ml-3'} ${heading.depth > 2 ? 'font-light; text-gray-500' : 'font-medium; text-gray-600'} ${heading.depth >= indentDepth && 'ml-6'}` }>
-          <BiChevronRight className='mr-2'/>
-          <a className='text-[15px]' href={ heading.url } onClick={ () => setActiveSlug(heading.id) }>{heading.value}</a>
-        </li>
-      ))}
+  const isDescendantActive = (heading) => {
+    if (heading.id === activeSlug) return true;
+
+    return heading.children.some((child) => isDescendantActive(child));
+  };
+
+  const renderToc = (_toc, parentActive = false) => (
+    <ul>
+      {_toc.map((heading) => {
+        const isActive = activeSlug === heading.id;
+        const shouldShowChildren = isActive || parentActive || isDescendantActive(heading);
+
+        return (
+          <li key={ heading.value } className={ `flex flex-col py-[7px] dark:text-white ${activeSlug === heading.id && '!text-blue-600'} ${heading.depth === 1 && '!font-bold'} ${heading.depth === 2 && '!ml-3'} ${heading.depth > 2 ? 'font-light text-gray-500 !ml-5' : 'font-medium text-gray-600'} ` }>
+            <a className='flex text-[15px]' href={ heading.url } onClick={ () => setActiveSlug(heading.id) }>{heading.value}</a>
+            {heading.children.length > 0 && shouldShowChildren && renderToc(heading.children, shouldShowChildren)}
+          </li>
+        );
+      })}
     </ul>
   );
 
   return (
-    <>
-      <div className='rounded p-4 sticky top-20 text-gray-800 col-span-3 max-xl:hidden mt-[-250px] max-h-[750px] overflow-y-scroll'>
-        <div>{tocList}</div>
-      </div>
-    </>
+    <div className='p-4 sticky top-20 text-gray-800 col-span-3 max-xl:hidden mt-[-250px] max-h-[750px] overflow-y-scroll'>
+      <div>{renderToc(toc)}</div>
+    </div>
   );
 };
 

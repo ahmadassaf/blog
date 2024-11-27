@@ -6,7 +6,7 @@ const { withContentlayer } = require('next-contentlayer');
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.eu.umami.is;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app va.vercel-scripts.com;
   style-src 'self' 'unsafe-inline';
   img-src * blob: data:;
   media-src 'none';
@@ -78,14 +78,14 @@ module.exports = () => {
     'images': {
       'remotePatterns': [
         {
-          'protocol': "https",
-          'hostname': "**",
+          'hostname': '**',
+          'protocol': 'https'
         },
         {
-          'protocol': "http",
-          'hostname': "**",
-        },
-      ],
+          'hostname': '**',
+          'protocol': 'http'
+        }
+      ]
     },
     'pageExtensions': [ 'ts', 'tsx', 'js', 'jsx', 'md', 'mdx' ],
     'reactStrictMode': true,

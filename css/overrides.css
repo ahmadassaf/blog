@@ -19,11 +19,14 @@ input:-webkit-autofill:focus {
 }
 
 strong.highlight {
-    background: linear-gradient(90deg, rgba(23, 163, 74, 0.9) 0%, rgba(23, 163, 74, 0.8) 35%, rgba(23, 163, 74, 0.7) 90%);
-    padding-bottom: 1.5px;
-    color: #fff;
-    padding: 2px 4px;
-    border-radius: 4px;
+
+    margin: 0 -0.2em;
+    padding: 0.1em 0.4em;
+    border-radius: 0.8em 0.3em;
+    background: transparent;
+    background: linear-gradient(90deg, rgba(23, 163, 74, 0.8) 0%, rgba(23, 163, 74, 0.7) 35%, rgba(23, 163, 74, 0.4) 90%);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
 }
 
 .commandPallete-hidden {
@@ -66,4 +69,55 @@ a[data-state="closed"], a[data-state="open"] {
 
 .command-palette *:is(.dark *){
     border-color: #404040;
+}
+
+aside {
+    width: 170px;
+    position: absolute;
+    margin: 0 -20%;
+    font-size: 12px;
+    border-bottom: 1px solid rgb(23, 163, 74);
+    padding: 10px 0;
+}
+
+@media (max-width: 1650px) {
+    aside {
+        width: auto;
+        position: relative;
+        margin: 0;
+        font-size: inherit;
+        border: none;
+        padding: 0;
+    }
+    
+}
+
+.references {
+    margin: 0 0 2em;
+}
+
+.references div{
+    font-size: 14px;
+}
+.references:before {
+    content: "References";
+    font-size: 2.5em;
+    font-weight: bold;
+    font-family: var(--font-space-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    display: block;
+    margin: 0 0 .5em;
+}
+
+.caption {
+    display: table;
+    font-size: 14px;
+    color: #6b7280;
+    text-align: center;
+    width: 100%;
+}
+summary {
+    font-size: 20px;
+    font-weight: bold;
 }

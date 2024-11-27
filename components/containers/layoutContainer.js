@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import dynamic from 'next/dynamic';
 import { cookies } from 'next/headers';
 
@@ -27,10 +28,9 @@ export default function LayoutContainer({ children }) {
         </div>
 
         <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem/>
-        {/* Loading the Umami analytics script */}
-        <script async defer data-website-id={ process.env.UMAMI_WEBSITE_ID } src='https://analytics.eu.umami.is/script.js'/>
+        <Analytics />
 
-        <div className='relative w-[95%] xl-w[90%] isolate xl:max-w-6xl xl-px-8 px-0 min-w-[410px]'>
+        <div className='relative w-[95%] xl-w[90%] isolate xl:max-w-6xl px-8 min-w-[410px]'>
           <div className='flex h-screen flex-col justify-between'>
             <FloatingMenu/>
             <Menu />

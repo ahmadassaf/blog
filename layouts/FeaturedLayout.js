@@ -24,14 +24,11 @@ export default function ListLayout({ className, hideTitle }) {
             {formatDate(featuredPost.date)}
           </time>
           <h2 id='featured-post' className='mt-4 text-3xl font-bold text-gray-900 sm:text-4xl dark:text-white'>
-            {featuredPost.title}
+            <a href={ `/blog/${featuredPost.slug}` } className='hover:text-blue-600' aria-describedby='featured-post'>
+              {featuredPost.title}
+            </a>
           </h2>
           <p className='mt-4 text-lg leading-8 text-gray-600 dark:text-gray-300'>{featuredPost.summary}</p>
-          <div className='mt-4 flex flex-col justify-between gap-6 sm:mt-8 sm:flex-row-reverse sm:gap-8 lg:mt-4 lg:flex-col'>
-            <div className='flex'>
-              <a href={ `/blog/${featuredPost.slug}` } className='text-sm font-semibold leading-6 text-blue-600' aria-describedby='featured-post'>Continue reading <span aria-hidden='true'>&rarr;</span></a>
-            </div>
-          </div>
         </article>
         <div className='mx-auto w-full border-t border-gray-900/10 dark:border-gray-300/10 pt-12 sm:pt-16 lg:mx-0 lg:max-w-none lg:border-t-0 lg:pt-0 mt-10'>
           <div className='-my-12 divide-y divide-gray-900/10 dark:border-gray-300/10'>

@@ -21,6 +21,7 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
       </h3>
 
       <PostTimestamps date={ frontMatter.date } locale={ siteMetadata.locale } readingTime={ frontMatter.readingTime.text }/>
+      { frontMatter.updated && (<time dateTime={ frontMatter.updated }>{new Date(frontMatter.updated).toLocaleDateString(siteMetadata.locale, postDateTemplate)}</time>) }
 
     </div>
 

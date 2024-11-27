@@ -14,7 +14,7 @@ const PostSharing = ({ siteMetadata, slug, externalLink, title }) => {
       <div className='mr-4 flex space-x-2 hover:text-blue-700'>
         <SocialIcon kind='twitter' href={ siteMetadata.github }/>
         <Link href={ discussUrl(slug, title) } rel='nofollow'>
-          {'Discuss on Twitter'}
+          {'Discuss Online'}
         </Link>
       </div>
       <div className='mr-4 flex  space-x-2 hover:text-blue-700'>

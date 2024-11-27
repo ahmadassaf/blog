@@ -11,8 +11,8 @@ const PostSeriesBox = ({ series, slug }) => (
     <h1 className='lg:text-lg text-md font-bold my-2'>{series[0].series}</h1>
     <ul className='flex flex-col'>
       {series.map((_post, index) => (
-        slug === _post.slug ? <li key={ index } className=' text-blue-700 p-1 my-1'>{_post.title}</li> : <li key={ index }>
-          <Link className={ `p-1 hover:text-blue-700` } href={ `/blog/${_post.slug}` }>{_post.title}</Link>
+        slug === _post.slug ? <li key={ index } className=' text-blue-700 p-1'>{_post.title}</li> : <li key={ index } className='p-1'>
+          <Link className={ ` hover:text-blue-700` } href={ `/blog/${_post.slug}` }>{_post.title}</Link>
         </li>
       ))}
     </ul>

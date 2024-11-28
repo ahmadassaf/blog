@@ -2,12 +2,13 @@ import { defineDocumentType, makeSource } from 'contentlayer/source-files';
 import path from 'path';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCitation from 'rehype-citation';
+import rehypeCodeGroup from 'rehype-code-group-next';
 import rehypeKatex from 'rehype-katex';
 import rehypePresetMinify from 'rehype-preset-minify';
+import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
-import remarkGfm from 'remark-gfm';
 import emoji from 'remark-emoji';
-import rehypePrettyCode from "rehype-pretty-code";
+import remarkGfm from 'remark-gfm';
 import { remarkAlert } from 'remark-github-blockquote-alert';
 import remarkMath from 'remark-math';
 
@@ -16,7 +17,6 @@ import contentFields from './lib/contentLayer/contentFields';
 import projectFields  from './lib/contentLayer/projectFields';
 import structuredData from './lib/contentLayer/structuredData';
 import { remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx, remarkLinks } from './lib/mdx/index.js';
-
 
 const root = process.cwd();
 
@@ -71,6 +71,7 @@ export default makeSource({
       rehypeSlug,
       rehypeAutolinkHeadings,
       rehypeKatex,
+      rehypeCodeGroup,
       [ rehypeCitation, { 'csl': 'https://raw.githubusercontent.com/citation-style-language/styles/master/acm-sig-proceedings.csl', 'linkCitations': true, 'path': path.join(root, 'data') }],
       rehypePrettyCode,
       rehypePresetMinify

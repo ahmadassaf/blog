@@ -24,7 +24,7 @@ strong.highlight {
     padding: 0.1em 0.4em;
     border-radius: 0.8em 0.3em;
     background: transparent;
-    background: linear-gradient(90deg, rgba(23, 163, 74, 0.8) 0%, rgba(23, 163, 74, 0.7) 35%, rgba(23, 163, 74, 0.4) 90%);
+    background: linear-gradient(90deg, rgba(0, 229, 255, 0.8) 0%, rgba(1, 217, 255, 0.7) 35%, rgba(5, 234, 255, 0.4) 90%);
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }
@@ -121,3 +121,29 @@ summary {
     font-size: 20px;
     font-weight: bold;
 }
+
+.rehype-code-group {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .rcg-tab-container {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+  }
+  .rcg-tab {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    &.active {
+      border-bottom: 2px solid;
+      font-weight: bold;
+    }
+  }
+  .rcg-block {
+    display: none;
+    overflow-x: auto;
+    &.active {
+      display: block;
+    }
+  }

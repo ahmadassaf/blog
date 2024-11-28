@@ -1,5 +1,6 @@
 
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 
 import LayoutContainer from '@/components/containers/layoutContainer';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
           {children}
         </LayoutContainer>
       </body>
+      <Script src='/static/scripts/tabs.js'></Script>
     </html>
   );
 }

@@ -76,6 +76,7 @@ module.exports = () => {
       ];
     },
     'images': {
+      'dangerouslyAllowSVG': true,
       'remotePatterns': [
         {
           'hostname': '**',

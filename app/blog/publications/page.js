@@ -66,7 +66,7 @@ export default function Projects({ className }) {
                               />
                             )}
                           </AnimatePresence>
-                          <Card title={ publication.title } subtitle={ publication.subtitle } className={ className } >
+                          <Card title={ publication.title } subtitle={ publication.venue } className={ className } >
                             <CardMeta year={ publication.year } type={ publication.venueType }></CardMeta>
                           </Card>
                         </Link>

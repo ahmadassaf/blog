@@ -74,7 +74,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
         <HoverCardPrimitive.Trigger onMouseMove={ handleMouseMove } className={ cn('text-black dark:text-white', className) } href={ url }>
           <span className='inline-flex items-center'>
             { data.favicon ? <ImageFallback className='h-4 w-4 m-0 mr-1' fallback='/static/icons/link.svg' src={ data.favicon } width={ 10 } height={ 10 } alt={ data ? data.title : 'Loading...' } /> : <LinkIcon className='h-4 w-4 m-0 mr-1' />}
-            <button className='text-blue-600' href={ url }>{data.title ? data.title.split(':')[0] : url}</button>
+            <button className='text-blue-600 !text-left' href={ url }>{data.title ? data.title.split(':')[0] : url}</button>
           </span>
         </HoverCardPrimitive.Trigger>
         { }

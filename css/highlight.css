@@ -15,7 +15,7 @@
 }
 
 figure[data-rehype-pretty-code-figure] {
-  margin: 0 !important;
+  margin: 1em 0 !important;
 }
 
 .prose :where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *)) {

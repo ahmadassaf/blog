@@ -24,7 +24,7 @@ strong.highlight {
     padding: 0.1em 0.4em;
     border-radius: 0.8em 0.3em;
     background: transparent;
-    background: linear-gradient(90deg, rgba(0, 229, 255, 0.8) 0%, rgba(1, 217, 255, 0.7) 35%, rgba(5, 234, 255, 0.4) 90%);
+    background: linear-gradient(90deg, rgba(4, 190, 246, 0.8) 0%, rgba(1, 217, 255, 0.7) 35%, rgba(73, 196, 240, 0.4) 90%);
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }

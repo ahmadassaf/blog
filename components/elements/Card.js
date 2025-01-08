@@ -9,7 +9,7 @@ const Card = ({ title, subtitle, meta, className, children }) => (
         <h4 className={ cn('text-black dark:text-white font-bold tracking-wide mt-4', className) }>
           {title}
         </h4>
-        <p className={ cn('mt-8 text-black dark:text-white tracking-wide leading-relaxed text-sm', className) }>
+        <p className={ cn('mt-2 text-black dark:text-white tracking-wide leading-relaxed text-sm', className) }>
           {subtitle}
         </p>
         { children }

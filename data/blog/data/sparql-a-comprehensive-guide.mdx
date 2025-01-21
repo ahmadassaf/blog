@@ -264,6 +264,8 @@ A recommended read to learn more about SPARQL 1.1 is the [W3C Recommendation](ht
 
 SPARQL is more than a query language for RDF data; it is a comprehensive framework with various extensions and enhancements. These extensions significantly expand its capabilities, allowing it to handle complex operations, integrate with diverse data types, and provide advanced querying features. Below, we explore some of the key extensions and their applications.
 
+<Callout type="info">[SPARQL.Anything](https://github.com/SPARQL-Anything/sparql.anything) is a system for Semantic Web re-engineering that allows users to query anything with SPARQL. In [their video about streamlining Knowledge Graph Construction with a façade: the SPARQL Anything project](https://www.youtube.com/watch?v=Ak3bykN2dgI), Enrico Daga one of the key SPARQL Anything developers gives some good background on the philosophy of Facade-X. To summarize, it models things as lists of lists. Blank nodes, play a large role in this system. </Callout>
+
 ## SPARQL UPDATE
 
 [`SPARQL_Update`](https://github.com/blazegraph/database/wiki/SPARQL_Update) introduces write capabilities to the otherwise read-only SPARQL query language. This extension enables users to manipulate RDF data by:
@@ -281,3 +283,4 @@ SPARQL is more than a query language for RDF data; it is a comprehensive framewo
 RDF triplestores have historically been criticized for their inability to attach metadata to graph edges (predicates). This limitation, compared to Property Graphs, has been addressed with [RDF-Star (RDF*) and its querying counterpart SPARQL-Star (SPARQL*)](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html). 
 
 `SPARQL*` allows for querying `RDF*` data, which includes triples with IRIs in the predicate position, enabling metadata-rich graph representations.
+

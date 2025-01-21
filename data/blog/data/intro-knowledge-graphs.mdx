@@ -49,17 +49,6 @@ Knowledge Graphs consists of:
 
 At its core, a knowledge graph is data structure that connects data in a semantic way, allowing both humans and machines to understand the context and meaning of the information. Some live examples of Knowledge Graphs are the [Google Knowledge Graph](https://blog.google/products/search/introducing-knowledge-graph-things-not/) that powers search results with contextual insights and [LinkedIn's Economic Graph](https://economicgraph.linkedin.com/) that models professional connections and job market trends.
 
-<details>
-  <summary>Extended Intro on Knowledge Graphs from the [KG Book](https://kgbook.org/)</summary>  
-  <div>
-Although the term “knowledge graph” has appeared in academic literature since at least 1972 [@Schneider72], its modern usage gained prominence following Google's 2012 announcement of the Google Knowledge Graph [@GoogleKG]. This was soon followed by similar announcements from other major companies, including Airbnb [@AirBnBKG], Amazon [@AmazonKG], eBay [@eBayKG], Facebook [@NoyGJNPT19], IBM [@IBMKG], LinkedIn [@LinkedInKG], Microsoft [@BingKG], and Uber [@UberKG]. The increasing adoption of knowledge graphs in industry has sparked a surge of academic interest, resulting in a growing body of scientific literature on the topic. This includes books (e.g., [@PVGW2017] [@QiCLWJW19] [@FenselSAHKPTUW20] [@KejriwalKS2021]), papers defining the concept (e.g., [@EhrlingerW16]), innovative methodologies (e.g., [@PujaraMGC13] [@wang2014knowledge] [@lin2015learning]), and surveys focusing on specific aspects of knowledge graphs (e.g., [@Paulheim17] [@Wang2017KGEmbedding]).
-
-Central to these developments is the fundamental principle of representing data as graphs, often augmented with explicit mechanisms to encode knowledge [@NoyGJNPT19]. This approach is commonly used in applications that require the integration, management, and extraction of value from large-scale, heterogeneous data sources [@NoyGJNPT19]. Graph-based knowledge representation offers several advantages compared to relational databases or NoSQL alternatives. Graphs provide an intuitive and compact abstraction for modeling diverse domains, with edges naturally capturing potentially cyclical relationships inherent in areas such as social networks, biological systems, bibliographic citations, transport networks, and more [@AnglesG08]. They also enable schema flexibility, allowing data and its scope to evolve dynamically, which is particularly valuable for handling incomplete knowledge [@Abiteboul97]. Unlike other NoSQL approaches, graph-specific query languages support not only traditional relational operations (e.g., joins, unions, projections) but also navigational queries to discover entities linked by paths of arbitrary lengths [@AnglesABHRV17].
-
-Additionally, standard knowledge representation frameworks—such as ontologies [@OWL2] [@RDFS] [@obof] and rule-based systems [@swrl] [@rif]—can define and reason about the semantics of the nodes and edges in the graph. Scalable frameworks for graph analytics [@MalewiczABDHLC10] [@XinGFS13] [@signalcollect] enable tasks like computing centrality, clustering, and summarization to derive insights about the domain. Furthermore, specialized graph representations have been developed to facilitate the application of machine learning techniques, both directly and indirectly, on graph data [@Wang2017KGEmbedding] [@abs-1901-00596].
-  </div>
-</details>
-
 | Definition                                                                                                                                                                                                                                                                                                                                                                                                                                    | Source                           |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
 | "A knowledge graph (i) mainly describes real-world entities and their interrelations, organized in a graph, (ii) defines possible classes and relations of entities in a schema, (iii) allows for potentially interrelating arbitrary entities with each other and (iv) covers various topical domains."                                                                                                   | Paulheim [@Paulheim:SemanticWeb:16]                   |
@@ -70,6 +59,16 @@ Additionally, standard knowledge representation frameworks—such as ontologies 
 
 <div className="caption">Table 1: Selected definitions of knowledge graph - Towards a Definition of Knowledge Graphs [@Ehrlinger:ICSS:16]</div>
 
+<details>
+  <summary>Extended Intro on Knowledge Graphs from the [KG Book](https://kgbook.org/)</summary>  
+  <div>
+Although the term “knowledge graph” has appeared in academic literature since at least 1972 [@Schneider72], its modern usage gained prominence following Google's 2012 announcement of the Google Knowledge Graph [@GoogleKG]. This was soon followed by similar announcements from other major companies, including Airbnb [@AirBnBKG], Amazon [@AmazonKG], eBay [@eBayKG], Facebook [@NoyGJNPT19], IBM [@IBMKG], LinkedIn [@LinkedInKG], Microsoft [@BingKG], and Uber [@UberKG]. The increasing adoption of knowledge graphs in industry has sparked a surge of academic interest, resulting in a growing body of scientific literature on the topic. This includes books (e.g., [@PVGW2017] [@QiCLWJW19] [@FenselSAHKPTUW20] [@KejriwalKS2021]), papers defining the concept (e.g., [@EhrlingerW16]), innovative methodologies (e.g., [@PujaraMGC13] [@wang2014knowledge] [@lin2015learning]), and surveys focusing on specific aspects of knowledge graphs (e.g., [@Paulheim17] [@Wang2017KGEmbedding]).
+
+Central to these developments is the fundamental principle of representing data as graphs, often augmented with explicit mechanisms to encode knowledge [@NoyGJNPT19]. This approach is commonly used in applications that require the integration, management, and extraction of value from large-scale, heterogeneous data sources [@NoyGJNPT19]. Graph-based knowledge representation offers several advantages compared to relational databases or NoSQL alternatives. Graphs provide an intuitive and compact abstraction for modeling diverse domains, with edges naturally capturing potentially cyclical relationships inherent in areas such as social networks, biological systems, bibliographic citations, transport networks, and more [@AnglesG08]. They also enable schema flexibility, allowing data and its scope to evolve dynamically, which is particularly valuable for handling incomplete knowledge [@Abiteboul97]. Unlike other NoSQL approaches, graph-specific query languages support not only traditional relational operations (e.g., joins, unions, projections) but also navigational queries to discover entities linked by paths of arbitrary lengths [@AnglesABHRV17].
+
+Additionally, standard knowledge representation frameworks—such as ontologies [@OWL2] [@RDFS] [@obof] and rule-based systems [@swrl] [@rif]—can define and reason about the semantics of the nodes and edges in the graph. Scalable frameworks for graph analytics [@MalewiczABDHLC10] [@XinGFS13] [@signalcollect] enable tasks like computing centrality, clustering, and summarization to derive insights about the domain. Furthermore, specialized graph representations have been developed to facilitate the application of machine learning techniques, both directly and indirectly, on graph data [@Wang2017KGEmbedding] [@abs-1901-00596].
+  </div>
+</details>
 
 # Different Types of Information Management Systems
 
@@ -201,7 +200,7 @@ There is also [Apache TinkerPop](https://tinkerpop.apache.org/); which is an ope
 
 A key requirement for working with any data model is the ability to reference nodes, properties and relationships (edges). In the case of property graphs, internally, nodes and edges have IDs. IDs are assigned by a database and are internal to a database. Referencing is done by using text strings—node labels, relationship types, and property names.
 
-## [RDF](https://www.w3.org/RDF/) vs. Property Graph
+## RDF vs. Property Graph
 
 | Feature | [RDF](https://www.w3.org/RDF/) | Property Graph |
 | --- | --- | --- |

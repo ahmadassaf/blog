@@ -3,7 +3,7 @@ import { Square3Stack3DIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 
 const PostSeriesBox = ({ series, slug }) => (
-  <div className='mb-4 p-3 my-4 bg-white dark:bg-gray-800 dark:text-white border-2 border-gray-200 rounded-md ring-gray-200'>
+  <div className='mb-4 p-3 my-4 bg-white dark:bg-gray-800 dark:text-white border border-gray-200 rounded-md ring-gray-200'>
     <div className='flex items-center'>
       <Square3Stack3DIcon className='h-4 w-4 text-gray-400 mr-2'/>
       <h3 className='text-sm text-gray-500'>This post is part of</h3>

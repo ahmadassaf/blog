@@ -179,9 +179,9 @@ This is a visual way of modeling RD as a Node-Edge-Node Triple. Its directed as 
 Using XML syntax to represent [RDF](https://www.w3.org/RDF/) triples. We should point out that we do use namespaces in order to minimize the writing that we have to do. So, if we are using many URIs repeatedly throughout our representation then its better to define some global namespace and start referring to these namespaces with a shorthand.
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<rdf:[RDF](https://www.w3.org/RDF/) xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:aa="http://assaf.website/Personal#">
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:aa="http://assaf.website/Personal/">
     <rdf:Description rdf:about="http://assaf.website">
         <aa:hasBlog>
         <rdf:Description rdf:about="http://assaf.website/blog"></rdf:Description>
@@ -193,9 +193,9 @@ Using XML syntax to represent [RDF](https://www.w3.org/RDF/) triples. We should 
 we notice that every [RDF](https://www.w3.org/RDF/) triple is wrapped between the `rdf:RDF` tags. Defining namesapces is done using the `xmlns` (XML namespace) followed by `:` and the name of the namespace and then the URI. URIs are represented with the `<rdf:description>` tag and the URI for that [RDF](https://www.w3.org/RDF/) resource should be identified in the `rdf:about` attribute. In addition to that, custom properties are wrapped in tags named after the namesapce defined on top followed buy the path to the sepccific property `<aa:hasBlog>` We can also define more than one property for each resource:
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<rdf:[RDF](https://www.w3.org/RDF/) xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:aa="http://assaf.website/Personal#">
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:aa="http://assaf.website/Personal/">
     <rdf:Description rdf:about="http://assaf.website" aa:hasEmail="me@assaf.website" >
         <aa:hasBlog rdf:resource="http://assaf.website/blog" />
         <aa:Name rdf:datatype="http://www.w3c.org/2001/XMLSchema#String">
@@ -209,12 +209,11 @@ In an **RDF/XML** document there are two types of XML nodes:
     1. **resource XML nodes**: the subjects and objects of statements, and they usually are `rdf:Description` tags that have an `rdf:about` attribute on them giving the URI of the resource they represent. In this example, the rdf:Description nodes are the resource nodes.
     2. **property XML nodes**: nodes contain within them property XML nodes (and nothing else). 
 
-Each property XML node represents a single statement. The subject of the statement is the outer resource XML node that contains the property. We should also notice that we have used the rdf:datatype in order to specify the usage of certain types like Strings or Integers ... etc. The URL can be shortcut by using namespaces as well. We have the `xml:base` attribute that defines a base URI that will be used globally in the XML representation. So for example, if I have identified a `xml:base` tag as follows:
+Each property XML node represents a single statement. The subject of the statement is the outer resource XML node that contains the property. We should also notice that we have used the `rdf:datatype` in order to specify the usage of certain types like Strings or Integers ... etc. The URL can be shortcut by using namespaces as well. We have the `xml:base` attribute that defines a base URI that will be used globally in the XML representation. So for example, if I have identified a `xml:base` tag as follows:
 
 ```xml
-<rdf:[RDF](https://www.w3.org/RDF/) xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-xmlns:aa="http://assaf.website/Personal#"
-xml:base="http://assaf.website/Administrators">
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:aa="http://assaf.website/Personal/" xml:base="http://assaf.website/Administrators">
 ```
 
 and I have changed my URI from `http://assaf.website` to `http://assaf.website/Administrators#AhmadAssaf` then in the XML [RDF](https://www.w3.org/RDF/) I point out to that as:
@@ -242,13 +241,13 @@ Simple listing of triples. It is a shorthand non-XML serialization of [RDF](http
 **N3**has some syntactic sugar that allows further abbreviations. If many statements repeat the same subject and predicate, just separate the objects with commas:
 
 ```xml
-<http://assaf.website> <http://assaf.website/Personal#hasBlog> <http://assaf.website/blog>, <http://MySecondBlog.com/>, <http://MyThirdBlog.com/> .
+<http://assaf.website> <http://assaf.website/Personal#hasBlog> <http://assaf.website/blog>, <http://overfit.in/> .
 ```
 
 And if the same subject is repeated, but with different predicates, one may use semicolons as in the example:
 
 ```xml
-<http://assaf.website> <http://assaf.website/Personal#hasBlog> <http://assaf.website/blog>; foaf:name "Ahmad Assaf" .
+<http://assaf.website> <http://assaf.website/Personal#hasBlog> <http://assaf.website/blog>; <foaf:name> "Ahmad Assaf" .
 ```
 
 ## Turtle (Terse RDF Triple Language)

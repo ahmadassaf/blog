@@ -4,6 +4,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCitation from 'rehype-citation';
 import rehypeCodeGroup from 'rehype-code-group-next';
 import rehypeKatex from 'rehype-katex';
+import rehypeMermaid from 'rehype-mermaid';
 import rehypePresetMinify from 'rehype-preset-minify';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
@@ -68,6 +69,7 @@ export default makeSource({
   'mdx': {
     'cwd': process.cwd(),
     'rehypePlugins': [
+      rehypeMermaid,
       rehypeSlug,
       rehypeAutolinkHeadings,
       rehypeKatex,

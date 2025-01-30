@@ -7,7 +7,7 @@ import PostSharing from '@/components/post/PostSharing';
 const postDateTemplate = { 'day': 'numeric', 'month': 'long', 'weekday': 'long', 'year': 'numeric' };
 
 const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
-  <div className={ `pt-6 max-xl:w-[100%] border-b pb-5 ${(toc.length > 3 && frontMatter.tableOfContents) ? 'w-[60%]' : 'w-[100%]'}` }>
+  <div className={ `pt-6 max-xl:w-[100%] pb-5 ${(toc.length > 3 && frontMatter.tableOfContents) ? 'w-[60%]' : 'w-[100%]'}` }>
 
     {frontMatter.draft && <Pill text='Draft' color='yellow'/>}
 
@@ -26,6 +26,13 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
     </div>
 
     <div className={ `flex lg:items-center flex-col lg:justify-between lg:flex-row items-start ${frontMatter.tableOfContents ? '!flex-col !items-start' : ''}` }>
+      {/* {frontMatter.tags && (
+        <div className='my-4 flex flex-wrap'>
+          {frontMatter.tags.map((tag) => (
+            <Pill key={ tag } text={ tag } link={ `/blog/tags/${tag.replace(' ', '-').toLowerCase()}` } color='blue' />
+          ))}
+        </div>
+      )} */}
 
     </div>
     {frontMatter.seriesPosts && (

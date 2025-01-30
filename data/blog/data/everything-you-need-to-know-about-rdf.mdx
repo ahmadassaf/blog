@@ -168,8 +168,7 @@ Subjects or Objects can be modeled as blank nodes. They denote the existence of 
 
 This is a visual way of modeling RD as a Node-Edge-Node Triple. Its directed as the direction of the edge is significant and always points towards the object. 
 
-<Image className='dark:hidden mx-auto' width={800} height={800} src="/static/images/posts/everything-rdf-1.svg"/>
-<Image className='hidden dark:block mx-auto' width={800} height={800} src="/static/images/posts/everything-rdf-1-dark.svg"/>
+<PostImage title="everything-rdf-1" dark="true"/>
 
 <Highlight>Directionality matters in RDF triples. Defining reverse relationships is possible, but not always necessary</Highlight> We will see later in my post about [Web Ontology Language (OWL)](), that there is a simple way to define the “opposite” property using the `inverseOf` relationship. Although it's not strictly necessary to define reverse properties.
 
@@ -317,8 +316,7 @@ The Framework is a combination of web based protocols (URI, HTTP, XML ... etc.) 
 
 We have talked earlier about Blank Nodes or B Nodes. They are basically nodes that might not have names and are potentially un-referenceable. [RDF](https://www.w3.org/RDF/) only allows binary relations, so it's necessary to express many-way relations using intermediate nodes, and these nodes are often anonymous.They are used usually to express collections, for example if I want to say that my blog is influenced by other resources, in natural language I can say that my blog at `http://assaf.website/blog` is influenced by Blog A at `http://www.BlogA.com` and Blog B at `http://www.BlogB.com` If I want to represent this as a directed graph it will be difficult to distinguish which URL corresponds to which resources name ?! so now we have to think of a workaround to ensure unique representation and selection of resources. We can make this happen (representing multi valued relation) by introducing additional nodes in the graph:
 
-<Image className='dark:hidden mx-auto' width={800} height={800} src="/static/images/posts/everything-rdf-2.svg"/>
-<Image className='hidden dark:block mx-auto' width={800} height={800} src="/static/images/posts/everything-rdf-2-dark.svg"/>
+<PostImage title="everything-rdf-2" dark="true"/>
 
 The nodes in black are blank nodes that do not have a name and only act as a connection point.
 
@@ -383,8 +381,7 @@ In [RDF](https://www.w3.org/RDF/) there exists some kind of collections (in comp
 
 An open list of elements possibly including duplicate members where new entries (additions) are possible Note that the container resource (which may either be a blank node or a resource with a URIref) denotes the group as a whole. The members of the container can be described by defining a container membership property for each member with the container resource as its subject and the member as its object. These container membership properties have names of the form `rdf:_n` where n is a decimal integer greater than zero, with no leading zeros, e.g.,`rdf:_1, rdf:_2, rdf:_3`and so on, and are used specifically for describing the members of containers. Container resources may also have other properties that describe the container, in addition to the container membership properties and the `rdf:type` property.
 
-<Image className='dark:hidden mx-auto' width={800} height={800} src="/static/images/posts/everything-rdf-3.svg"/>
-<Image className='hidden dark:block mx-auto' width={800} height={800} src="/static/images/posts/everything-rdf-3-dark.svg"/>
+<PostImage title="everything-rdf-3" dark="true"/>
 
 We notice that collection node has a type of rdf:type rdf:seq which means that this is a sequential collection or list and the order of the items is important. Each item in the list have a unique property `rdf:_1, rdf:_2 ...` etc. In **Turtle**, sequential collections are represented as:
 
@@ -453,8 +450,7 @@ In **XML/RDF**
 
 These are closed lists where there is no extension possible. Elements of the list are already predefined. It really resembles the traditional list data structure with the fact that it is closed to insert operations. It is split recursively with **Head** (first) and **Tail** (rest), we end the list by linking to `rdf:nil`
 
-<Image className='dark:hidden mx-auto' width={800} height={800} src="/static/images/posts/everything-rdf-4.svg"/>
-<Image className='hidden dark:block mx-auto' width={800} height={800} src="/static/images/posts/everything-rdf-4-dark.svg"/>
+<PostImage title="everything-rdf-4" dark="true"/>
 
 Each of the blank nodes forming this list structure is implicitly of type `rdf:List` that is, each of these nodes implicitly has an `rdf:type` property whose value is the predefined type `rdf:List` although this is not explicitly shown in the graph.
 

@@ -26,13 +26,18 @@ One feature I love is the ability to preview links seamlessly. Much like Notionâ
 
 # Understanding MDX, Rehype, and Remark
 
-In the modern web development ecosystem, tools like MDX, [Rehype](https://github.com/rehypejs/rehype), and Remark have become essential for creating rich, dynamic content. Each of these tools serves a unique purpose and, when combined, they offer powerful capabilities for content management and rendering. Let's dive deeper into what these tools are, why they are used, and how they fit into the larger picture of web development.
+In the modern web development ecosystem, tools like MDX, [Rehype](https://github.com/rehypejs/rehype), and Remark have become essential for creating rich, dynamic content. Each of these tools serves a unique purpose and, when combined, they offer powerful capabilities for content management and rendering.
 
 ## What is MDX?
 
-MDX is a syntax that combines Markdown with <Tooltip text="JSX is an extension to JavaScript that looks like HTML but makes it convenient to use components (reusable things)">JSX</Tooltip>, enabling you to use React components within your Markdown content. This blend allows for a more dynamic and interactive approach to writing content. MDX is particularly popular in the context of static site generators and documentation sites, where both rich content and interactivity are crucial.
+MDX is a language that's . The easiest way to get started is to use an integration for your bundler
+
+MDX is a language that combines Markdown with <Tooltip text="JSX is an extension to JavaScript that looks like HTML but makes it convenient to use components (reusable things)">JSX</Tooltip>, enabling you to use React components within your Markdown content. This blend allows for a more dynamic and interactive approach to writing content.
+
+MDX is compiled to JavaScript, which can be executed by a JavaScript runtime. This makes it easy to integrate with modern web development tools and frameworks, such as React, Next.js, and Gatsby. MDX is highly extensible and can be customized with plugins to add additional features and functionality making it particularly popular in the context of static site generators and documentation sites, where both rich content and interactivity are crucial.
 
 ## Key Features of MDX:
+
 - **Markdown Syntax**: Write content using the familiar Markdown syntax.
 - **JSX Integration**: Embed React components directly in your Markdown.
 - **Interactivity**: Enhance static content with interactive elements.
@@ -53,7 +58,7 @@ flood conditions in many of the nearby rivers.
 <Chart year={year} color="#fcb32c" />
 ```
 
-What is Rehype?
+## What is Rehype?
 
 Rehype is a powerful HTML processor built on the Unified ecosystem. It allows you to transform HTML content through a series of plugins. Rehype is highly flexible and can be used to manipulate HTML in various ways, such as parsing, transforming, and stringifying.
 

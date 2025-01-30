@@ -148,3 +148,9 @@ summary {
       display: block;
     }
   }
+
+#mermaid-0 .edgeLabel {
+    
+    padding: 3px 8px;
+    border-radius: 3px;
+}

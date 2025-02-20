@@ -18,7 +18,7 @@ input:-webkit-autofill:focus {
     overflow: visible;
 }
 
-strong.highlight {
+/* strong.highlight {
 
     margin: 0 -0.2em;
     padding: 0.1em 0.4em;
@@ -27,7 +27,13 @@ strong.highlight {
     background: linear-gradient(90deg, rgba(4, 190, 246, 0.8) 0%, rgba(1, 217, 255, 0.7) 35%, rgba(73, 196, 240, 0.4) 90%);
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
-}
+} */
+
+strong.highlight {
+    background: url(//s2.svgbox.net/pen-brushes.svg?ic=brush-2&color=a2f4fd);
+        margin: -2px -6px;
+        padding:  2px  6px;
+  }
 
 .commandPallete-hidden {
     display: none;

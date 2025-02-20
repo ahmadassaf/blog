@@ -20,20 +20,19 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
         {frontMatter.subtitle}
       </h3>
 
-      <PostSharing siteMetadata={ siteMetadata } slug={ frontMatter.slug } title={ frontMatter.title } fileName={ frontMatter.fileName } externalLink={ frontMatter.externalLink }></PostSharing>
       <PostTimestamps date={ frontMatter.updated || frontMatter.date } locale={ siteMetadata.locale } readingTime={ frontMatter.readingTime.text }/>
 
     </div>
 
     <div className={ `flex lg:items-center flex-col lg:justify-between lg:flex-row items-start ${frontMatter.tableOfContents ? '!flex-col !items-start' : ''}` }>
-      {/* {frontMatter.tags && (
+      {frontMatter.tags && (
         <div className='my-4 flex flex-wrap'>
           {frontMatter.tags.map((tag) => (
             <Pill key={ tag } text={ tag } link={ `/blog/tags/${tag.replace(' ', '-').toLowerCase()}` } color='blue' />
           ))}
         </div>
-      )} */}
-
+      )}
+      <PostSharing siteMetadata={ siteMetadata } slug={ frontMatter.slug } title={ frontMatter.title } tags={ frontMatter.tags } fileName={ frontMatter.fileName } externalLink={ frontMatter.externalLink }></PostSharing>
     </div>
     {frontMatter.seriesPosts && (
       <PostSeriesBox series={ frontMatter.seriesPosts } slug={ frontMatter.slug } />

@@ -2,7 +2,7 @@
 import SocialIcon from '@/components/elements/Icon';
 import Link from '@/components/elements/Link';
 
-const PostSharing = ({ siteMetadata, slug, externalLink, title }) => {
+const PostSharing = ({ siteMetadata, slug, externalLink, title, tags }) => {
 
   const editUrl = (externalLink) => `${siteMetadata.postsRepo}/blob/master/${externalLink}.mdx`;
   const discussUrl = (slug, title) => `https://twitter.com/intent/tweet?text=${title}
@@ -11,11 +11,9 @@ const PostSharing = ({ siteMetadata, slug, externalLink, title }) => {
 
   return (
     <div className='flex text-sm text-gray-700 dark:text-gray-300 my-4 pt-4 max-sm:text-xs'>
-      <div className='mr-4 flex space-x-2 hover:text-blue-700'>
-        <SocialIcon kind='twitter' href={ siteMetadata.github }/>
-        <Link href={ discussUrl(slug, title) } rel='nofollow'>
-          {'Discuss Online'}
-        </Link>
+      <div className='mr-2 flex space-x-2 hover:text-blue-700'>
+        <SocialIcon kind='twitter' href={ `http://x.com/share?text=${title}&url=${externalLink}&hashtags=${tags.map((t) => t.replaceAll(' ', '')).join(',')}` }/>
+        <Link href={ discussUrl(slug, title) } rel='nofollow'></Link>
       </div>
       <div className='mr-4 flex  space-x-2 hover:text-blue-700'>
         <SocialIcon kind='github' href={ siteMetadata.github }/>

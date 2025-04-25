@@ -34,7 +34,7 @@ export default function Projects({ className }) {
                 <AnimatePresence>
                   {hoveredIndex === idx && (
                     <motion.span
-                      className='absolute inset-0 h-full w-full bg-gradient-to-r from-[#5865d5] to-[#89c6fc] opacity-30 dark:bg-white/[0.8] block rounded-3xl'
+                      className='absolute inset-0 h-full w-full bg-linear-to-r from-[#5865d5] to-[#89c6fc] opacity-30 dark:bg-white/[0.8] block rounded-3xl'
                       layoutId='hoverBackground'
                       initial={{ 'opacity': 0 }}
                       animate={{ 'opacity': 1, 'transition': { 'duration': 0.15 } }}
@@ -65,7 +65,7 @@ export const CardMeta = ({ StargazersCount, ForksCount, Language }) => (
       <span className='text-xs font-medium text-gray-900 dark:text-gray-100 group-hover/meta:text-blue-700'>{ForksCount}</span>
     </div>
     <div className='flex items-center space-x-3'>
-      <span className={ `rounded inline-block h-3 w-3` } style={{ 'background': `${GithubColors[Language]}` }}></span>
+      <span className={ `rounded-sm inline-block h-3 w-3` } style={{ 'background': `${GithubColors[Language]}` }}></span>
       <span className='text-xs font-medium text-gray-90 dark:text-gray-100 group-hover/meta:text-blue-700'>{Language}</span>
     </div>
   </div>

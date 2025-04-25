@@ -34,7 +34,7 @@ const FloatingMenu = ({ className }) => {
         initial={{ 'opacity': 1, 'y': -100 }}
         animate={{ 'opacity': visible ? 1 : 0, 'y': visible ? 0 : -100 }}
         transition={{ 'duration': 0.2 }}
-        className={ cn('flex min-w-[414px] max-sm:py-2 max-sm:w-[90%] max-w-fit fixed top-4 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] rounded-full dark:bg-white bg-black text-white dark:text-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pr-2 pl-8 py-2  items-center justify-center max-sm:!ml-1 space-x-4', className) }
+        className={ cn('flex min-w-[414px] max-sm:py-2 max-sm:w-[90%] max-w-fit fixed top-4 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] rounded-full dark:bg-white bg-black text-white dark:text-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-5000 pr-2 pl-8 py-2  items-center justify-center max-sm:ml-1! space-x-4', className) }
       >
         {NavigationMetadata.links.map((navItem, idx) => (
           <Link key={ `link=${idx}` } href={ navItem.href } className={ cn('relative dark:text-black items-center flex space-x-1 text-white dark:hover:text-blue-600 hover:text-blue-600') }>
@@ -42,9 +42,9 @@ const FloatingMenu = ({ className }) => {
           </Link>
         ))}
         <button onClick={ () => handleScrollTop() } className='border hover:bg-blue-600 hover:text-white text-sm font-medium relative border-neutral-200 dark:border-black/[0.2] text-white dark:text-black px-4 py-2 rounded-full max-sm:p-0 max-sm:border-none'>
-          <IoArrowUpCircleOutline className='h-5 w-5 inline mx-2 align-middle max-sm:!m-0'/>
+          <IoArrowUpCircleOutline className='h-5 w-5 inline mx-2 align-middle max-sm:m-0!'/>
           <span className='max-sm:hidden'>Back Top</span>
-          <span className='absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px' />
+          <span className='absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-linear-to-r from-transparent via-blue-500 to-transparent  h-px' />
         </button>
       </motion.div>
     </AnimatePresence>

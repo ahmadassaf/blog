@@ -48,7 +48,7 @@ const TableOfContents = ({ toc }) => {
         const shouldShowChildren = expandAll || isActive || parentActive || isDescendantActive(heading);
 
         return (
-          <li key={ heading.value } className={ `flex flex-col py-[7px] dark:text-white ${isActive && '!text-blue-600'} ${heading.depth === 1 && '!font-bold'} ${heading.depth === 2 && '!ml-3'} ${heading.depth > 2 ? 'font-light text-gray-500 !ml-5' : 'font-medium text-gray-600'}` }>
+          <li key={ heading.value } className={ `flex flex-col py-[7px] dark:text-white ${isActive && 'text-blue-600!'} ${heading.depth === 1 && 'font-bold!'} ${heading.depth === 2 && 'ml-3!'} ${heading.depth > 2 ? 'font-light text-gray-500 ml-5!' : 'font-medium text-gray-600'}` }>
             <a className='flex text-[15px]' href={ heading.url } onClick={ () => setActiveSlug(heading.id) }>{heading.value}</a>
             {heading.children.length > 0 && shouldShowChildren && renderToc(heading.children, shouldShowChildren, expandAll)}
           </li>

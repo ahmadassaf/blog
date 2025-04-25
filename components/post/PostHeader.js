@@ -24,7 +24,7 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
 
     </div>
 
-    <div className={ `flex lg:items-center flex-col lg:justify-between lg:flex-row items-start ${frontMatter.tableOfContents ? '!flex-col !items-start' : ''}` }>
+    <div className={ `flex lg:items-center flex-col lg:justify-between lg:flex-row items-start ${frontMatter.tableOfContents ? 'flex-col! items-start!' : ''}` }>
       {frontMatter.tags && (
         <div className='my-4 flex flex-wrap'>
           {frontMatter.tags.map((tag) => (
@@ -46,7 +46,7 @@ export default PostHeader;
 export const PostTimestamps = ({ date, locale, readingTime }) => (
   <div className='flex items-baseline max-sm:text-xs text-sm'>
     <div className='flex items-center'>
-      <ClockIcon aria-hidden='true' className='h-4 w-4 mr-2 flex-shrink-0 text-gray-400' />
+      <ClockIcon aria-hidden='true' className='h-4 w-4 mr-2 shrink-0 text-gray-400' />
       <dt className='sr-only'>Last Edited on</dt>
       <dd className='leading-6 text-gray-500 dark:text-gray-400'>
         <time dateTime={ date }>
@@ -55,7 +55,7 @@ export const PostTimestamps = ({ date, locale, readingTime }) => (
       </dd>
     </div>
     <div className='pt-2 flex items-center ml-4'>
-      <BookOpenIcon aria-hidden='true' className='h-4 w-4 mr-2 flex-shrink-0 text-gray-400' />
+      <BookOpenIcon aria-hidden='true' className='h-4 w-4 mr-2 shrink-0 text-gray-400' />
       <h4 className='leading-6 text-gray-500 dark:text-gray-400'>{readingTime}</h4>
     </div>
   </div>

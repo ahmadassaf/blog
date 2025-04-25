@@ -73,8 +73,8 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
       } } >
         <HoverCardPrimitive.Trigger onMouseMove={ handleMouseMove } className={ cn('text-black dark:text-white', className) } href={ url }>
           <span className='inline-flex items-center'>
-            { data.favicon ? <ImageFallback className='h-4 w-4 m-0 mr-1' fallback='/static/icons/link.svg' src={ data.favicon } width={ 10 } height={ 10 } alt={ data ? data.title : 'Loading...' } /> : <LinkIcon className='h-4 w-4 m-0 mr-1' />}
-            <button className='text-blue-600 !text-left' href={ url }>{data.title ? data.title.split(':')[0] : url}</button>
+            { data.favicon ? <ImageFallback className='h-4 w-4 !m-0 !mr-1' fallback='/static/icons/link.svg' src={ data.favicon } width={ 10 } height={ 10 } alt={ data ? data.title : 'Loading...' } /> : <LinkIcon className='h-4 w-4 m-0 mr-1' />}
+            <button className='text-blue-600 text-left!' href={ url }>{data.title ? data.title.split(':')[0] : url}</button>
           </span>
         </HoverCardPrimitive.Trigger>
         { }
@@ -88,7 +88,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
                   exit={{ 'opacity': 0, 'scale': 0.6, 'y': 20 }}
                   className='shadow-xl rounded-xl'
                   style={{ 'x': translateX }} >
-                  <Link href={ url } className='block p-1 bg-white border-2 border-transparent shadow rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800' style={{ 'fontSize': 0 }} >
+                  <Link href={ url } className='block p-1 bg-white border-2 border-transparent shadow-sm rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800' style={{ 'fontSize': 0 }} >
                     <Image src={ data.image } width={ width } height={ height } quality={ quality } className='rounded-lg' alt='preview image' />
                   </Link>
                 </motion.div>

@@ -6,7 +6,7 @@ function CmdProject({ title, subtitle, showType }) {
         <div className='text-xs text-gray-600 dark:text-white dark:font-light'>{ subtitle }</div>
       </div>
       {showType && (
-        <div className='text-xs rounded bg-violet-600 text-white p-2 capitalize h-fit'>Project</div>
+        <div className='text-xs rounded-sm bg-violet-600 text-white p-2 capitalize h-fit'>Project</div>
       )}
     </div>
   );

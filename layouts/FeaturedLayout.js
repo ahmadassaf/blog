@@ -18,7 +18,7 @@ export default function ListLayout({ className, hideTitle }) {
           Featured Posts
         </h1>
       </div> }
-      <div className={ `mx-auto py-10 md:py-0 ${hideTitle ? 'mt-10' : ''}` }>
+      <div className={ `mx-auto pb-10 ${hideTitle ? 'mt-10' : ''}` }>
         <article className='mx-auto w-full py-2'>
           <time dateTime={ formatDate(featuredPost.date) } className='block text-sm leading-6 text-gray-600 dark:text-gray-400'>
             {formatDate(featuredPost.date)}

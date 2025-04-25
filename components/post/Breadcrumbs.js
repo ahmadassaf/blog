@@ -30,7 +30,7 @@ export default function Breadcrumbs({ pages }) {
         <li>
           <div>
             <a href='#' className='text-gray-400 hover:text-gray-500'>
-              <HomeIcon aria-hidden='true' className='h-5 w-5 flex-shrink-0' />
+              <HomeIcon aria-hidden='true' className='h-5 w-5 shrink-0' />
               <span className='sr-only'>Home</span>
             </a>
           </div>
@@ -38,7 +38,7 @@ export default function Breadcrumbs({ pages }) {
         {pages.map((page) => (
           <li key={ page.name }>
             <div className='flex items-center'>
-              <ChevronRightIcon aria-hidden='true' className='h-5 w-5 flex-shrink-0 text-gray-400' />
+              <ChevronRightIcon aria-hidden='true' className='h-5 w-5 shrink-0 text-gray-400' />
               <a
                 href={ page.href }
                 aria-current={ page.current ? 'page' : undefined }

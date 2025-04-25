@@ -58,7 +58,7 @@ export default function Projects({ className }) {
                           <AnimatePresence>
                             {hoveredIndex === (publication.id) && (
                               <motion.span
-                                className='absolute inset-0 h-full w-full bg-gradient-to-r from-[#5865d5] to-[#89c6fc] opacity-30 dark:bg-white/[0.8] block rounded-3xl'
+                                className='absolute inset-0 h-full w-full bg-linear-to-r from-[#5865d5] to-[#89c6fc] opacity-30 dark:bg-white/[0.8] block rounded-3xl'
                                 layoutId='hoverBackground'
                                 initial={{ 'opacity': 0 }}
                                 animate={{ 'opacity': 1, 'transition': { 'duration': 0.15 } }}

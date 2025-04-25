@@ -11,7 +11,7 @@ export const TextHighlight = ({ children, className }) => (
     animate={{ 'backgroundSize': '100% 100%' }}
     transition={{ 'delay': 0.3, 'duration': 2, 'ease': 'linear' }}
     style={{ 'backgroundPosition': 'left center', 'backgroundRepeat': 'no-repeat', 'display': 'inline' }}
-    className={ cn(`relative inline-block pb-1   px-1 rounded-lg bg-gradient-to-r from-blue-100 to-blue-300 dark:from-blue-400 dark:to-blue-800`, className) }>
+    className={ cn(`relative inline-block pb-1   px-1 rounded-lg bg-linear-to-r from-blue-100 to-blue-300 dark:from-blue-400 dark:to-blue-800`, className) }>
 
     {children}
 

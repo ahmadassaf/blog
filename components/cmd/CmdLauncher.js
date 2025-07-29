@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import CommandPalette, { filterItems, getItemIndex } from '@tmikeladze/react-cmdk';
 import { useTheme } from 'next-themes';
@@ -46,8 +45,8 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
   const filteredItems = filterItems(
     [
       {
-        'heading': 'Home',
-        'id': 'home',
+        'heading': 'cmdLauncher',
+        'id': 'cmdLauncher',
         'items': [
           {
             'children': 'Home',
@@ -186,7 +185,7 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
                 <div className={ list.hidden && !search.length ? 'hidden' : 'visible' }>
                   <CommandPalette.List key={ `cmdPalette-${list.id}` } heading={ list.heading } >
                     {list.items.map(({ id, title, subtitle, category, count, type, children, ...rest }) => (
-                      <CommandPalette.ListItem key={ `cmdPaletteItem-${list.id}` } index={ getItemIndex(filteredItems, id) } { ...rest }>
+                      <CommandPalette.ListItem key={ `cmdPaletteItem-${list.id}-${id}` } index={ getItemIndex(filteredItems, id) } { ...rest }>
                         {(() => {
                           switch (type) {
                           case 'post':

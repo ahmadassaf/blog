@@ -2,7 +2,7 @@
 import SocialIcon from '@/components/elements/Icon';
 import Link from '@/components/elements/Link';
 
-const PostSharing = ({ siteMetadata, slug, externalLink, title, tags }) => {
+const PostSharing = ({ siteMetadata, slug, title, tags, externalLink }) => {
 
   const editUrl = (externalLink) => `${siteMetadata.postsRepo}/blob/master/${externalLink}.mdx`;
   const discussUrl = (slug, title) => `https://twitter.com/intent/tweet?text=${title}

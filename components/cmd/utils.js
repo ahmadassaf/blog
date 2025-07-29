@@ -11,7 +11,7 @@ export const prepareLauncherCollection = (collection, type) => {
     item.showType = false;
     item.children = item.title;
 
-    collection[key] = omit(item, [ 'featured', 'filePath', 'readingTime' ]);
+    collection[key] = omit(item, [ 'featured', 'filePath', 'readingTime', 'venueType', 'tableOfContents', 'externalLink', 'sameAs', 'draft' ]);
 
   });
 };

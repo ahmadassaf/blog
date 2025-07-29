@@ -1,6 +1,5 @@
 import { author } from '../JSON-LD/author';
 import { blog } from '../JSON-LD/blog';
-import knowledgeBase from '../knowledgeBase.mjs';
 import siteMetadata from '../metadata';
 
 export function metadataGenertaor(params, allPosts) {
@@ -40,8 +39,7 @@ export function linkedDataGenerator(post) {
       return {
         '@id': `${siteMetadata.siteUrl}/blog/tags/${tag.replace(' ', '-').toLowerCase()}`,
         '@type': 'Thing',
-        'name': tag,
-        'sameAs': knowledgeBase[tag]?.sameAs
+        'name': tag
       };
     }),
     'author': author(),

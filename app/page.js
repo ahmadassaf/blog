@@ -15,11 +15,8 @@ export default function Home() {
     <>
       <div className='divide-y divide-gray-200 dark:divide-gray-700'>
         <div className='space-y-2 pt-12 pb-8 md:space-y-5'>
-          <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-7xl md:leading-14'>
-                Hi, I'm{' '}
-            <span className='text-primary-color-500 dark:text-primary-color-dark-500'>
-              {siteMetadata.author}
-            </span>
+          <h1 className='uppercase text-3xl font-extrabold leading-9 text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-7xl md:leading-14'>
+            {siteMetadata.author}
           </h1>
           <h1 className='text-xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-xl sm:leading-10 md:text-3xl md:leading-14'>
             <TextHighlight className='text-black dark:text-white'>

@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <>
       <div className='divide-y divide-gray-200 dark:divide-gray-700'>
-        <div className='space-y-2 pt-12 pb-8 md:space-y-5'>
+        <div className='space-y-2 pt-12 pb-8 md:space-y-5 mb-12'>
           <h1 className='uppercase text-3xl font-extrabold leading-9 text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-7xl md:leading-14'>
             {siteMetadata.author}
           </h1>

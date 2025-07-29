@@ -59,7 +59,7 @@ export default function ListLayout({ posts, filter = true, baseURL, paginationUR
   const displayPosts = initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts;
 
   return (
-    <div className='mt-10 border-0'>
+    <div className='border-0'>
       <div className={ filter ? 'divide-y divide-gray-200 dark:divide-gray-700' : '' }>
         { filter && <Search setSearchValue={ setSearchValue }></Search> }
         <ul className='pt-8'>

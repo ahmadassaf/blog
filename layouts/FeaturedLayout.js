@@ -13,7 +13,6 @@
 import { allPosts } from 'contentlayer/generated';
 
 // Internal components and utilities
-import { cn } from '@/components/utils/TailwindUtils';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
 import formatDate from '@/lib/utils/formatDate';
 
@@ -56,16 +55,8 @@ export default function ListLayout({ className, hideTitle }) {
 
   return (
     <div>
-      {!hideTitle && (
-        <div className='pt-10'>
-          <h1 className={ cn(
-            'pb-6 text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14', className
-          ) }>
-            Featured Posts
-          </h1>
-        </div>
-      )}
-      <div className={ `mx-auto pb-10 ${hideTitle ? 'mt-10' : ''}` }>
+
+      <div className={ `pb-10` }>
         {/* Hero featured post section */}
         <article className='mx-auto w-full py-2'>
           <time

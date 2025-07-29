@@ -80,6 +80,7 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
   const filteredItems = filterItems(
     [
       {
+        'heading': 'Explore content',
         'id': 'cmdLauncher',
         'items': [
           {

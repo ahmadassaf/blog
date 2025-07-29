@@ -42,23 +42,23 @@ const itemConfigs = {
     'iconColor': 'text-gray-600 dark:text-gray-400'
   },
   'post': {
-    'badgeColor': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400',
-    'iconColor': 'text-emerald-600 dark:text-emerald-400',
+    'badgeColor': 'bg-green-600 text-white hover:bg-green-700',
+    'iconColor': 'text-green-600 dark:text-green-400',
     'showCategory': true
   },
   'project': {
-    'badgeColor': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+    'badgeColor': 'bg-blue-600 text-white hover:bg-blue-700',
     'iconColor': 'text-blue-600 dark:text-blue-400',
     'showSubtitle': true
   },
   'publication': {
-    'badgeColor': 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
-    'iconColor': 'text-purple-600 dark:text-purple-400',
+    'badgeColor': 'bg-yellow-600 text-white hover:bg-yellow-700',
+    'iconColor': 'text-yellow-600 dark:text-yellow-400',
     'showSubtitle': true
   },
   'tag': {
-    'badgeColor': 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400',
-    'iconColor': 'text-amber-600 dark:text-amber-400',
+    'badgeColor': 'bg-blue-600 text-white hover:bg-blue-700',
+    'iconColor': 'text-blue-600 dark:text-blue-400',
     'showCount': true
   }
 };
@@ -121,21 +121,21 @@ const CmdItem = ({ title, subtitle, category, count, type = 'navigation', icon, 
       <div className='flex-shrink-0 flex items-center gap-2'>
         {/* Category badge for posts */}
         {config.showCategory && category && (
-          <span className={ `inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${config.badgeColor} transition-colors duration-200` }>
+          <span className={ `text-xs inline-flex items-center rounded-xs px-2.5 py-0.5 uppercase font-medium ${config.badgeColor} transition-colors duration-200` }>
             {category.replace(/[-_]/g, ' ')}
           </span>
         )}
 
         {/* Count badge for tags */}
         {config.showCount && typeof count !== 'undefined' && (
-          <span className={ `inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${config.badgeColor} transition-colors duration-200` }>
-            {count}
+          <span className={ `text-xs inline-flex items-center rounded-xs px-2.5 py-0.5 uppercase font-medium ${config.badgeColor} transition-colors duration-200` }>
+            {count} posts
           </span>
         )}
 
         {/* Type indicator for projects/publications */}
         {(type === 'project' || type === 'publication') && (
-          <span className={ `inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${config.badgeColor} capitalize transition-colors duration-200` }>
+          <span className={ `text-xs inline-flex items-center rounded-xs px-2.5 py-0.5 uppercase font-medium ${config.badgeColor} capitalize transition-colors duration-200` }>
             {type}
           </span>
         )}

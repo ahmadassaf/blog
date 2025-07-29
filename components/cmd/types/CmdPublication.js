@@ -28,7 +28,7 @@ function CmdPublication({ title, year }) {
   return (
     <div className='contents w-full'>
       <div className='text-sm w-[90%]'>{ title }</div>
-      <span className='text-xs rounded-sm bg-yellow-600 text-white p-2 capitalize'>{ year }</span>
+      <span className='text-xs inline-flex items-center rounded-xs bg-yellow-600 px-2.5 py-0.5 hover:bg-yellow-700 uppercase text-white font-medium transition-colors duration-200'>{ year }</span>
     </div>
   );
 }

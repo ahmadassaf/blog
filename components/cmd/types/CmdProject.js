@@ -33,7 +33,7 @@ function CmdProject({ title, subtitle, showType }) {
         <div className='text-xs text-gray-600 dark:text-white dark:font-light'>{ subtitle }</div>
       </div>
       {showType && (
-        <div className='text-xs inline-flex items-center rounded-md bg-blue-600 px-2 py-1 hover:bg-blue-700 text-white font-medium transition-colors duration-200 h-fit'>Project</div>
+        <div className='text-xs inline-flex items-center rounded bg-blue-600 px-2 py-0.5 hover:bg-blue-700 text-white font-medium transition-colors duration-200 h-fit'>Project</div>
       )}
     </div>
   );

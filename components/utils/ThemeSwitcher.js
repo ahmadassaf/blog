@@ -11,6 +11,7 @@
 
 'use client';
 
+import { useEffect, useState } from 'react';
 import { RiMoonClearFill, RiSunFill } from 'react-icons/ri';
 import { useTheme } from 'next-themes';
 
@@ -28,6 +29,30 @@ import siteMetadata from '@/data/meta/metadata';
  */
 function Provider() {
   const { setTheme, theme } = useTheme();
+  const [ mounted, setMounted ] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Prevent hydration mismatch by not rendering theme-dependent content until mounted
+  if (!mounted) return (
+    <button
+      aria-label='Toggle Dark Mode'
+      type='button'
+      style={{ 'outline': 'none' }}
+      className='mx-4 h-8 w-8 rounded-sm p-1'
+    >
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 20 20'
+        fill='currentColor'
+        className='text-gray-900 dark:text-gray-100'
+      >
+        <RiSunFill />
+      </svg>
+    </button>
+  );
 
   return (
     <button

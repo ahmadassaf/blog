@@ -109,6 +109,7 @@ export async function GET(request) {
             </h1>
           </div>
         </div>
+
       // eslint-disable-next-line function-call-argument-newline
       ), {
         'fonts': await getFonts(),

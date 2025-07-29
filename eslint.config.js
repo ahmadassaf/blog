@@ -422,6 +422,7 @@ module.exports = [
       ],
       'react/jsx-props-no-multi-spaces': 'error',
       'react/no-unescaped-entities': 0,
+      'react/no-unknown-property': [ 'error', { 'ignore': [ 'tw' ] }],
       'react/prop-types': 0,
       'react/react-in-jsx-scope': 'off',
       'react/sort-prop-types': [
@@ -524,6 +525,12 @@ module.exports = [
       'react': {
         'version': 'detect'
       }
+    }
+  },
+  {
+    'files': [ '**/api/og/route.js' ],
+    'rules': {
+      'react/no-unknown-property': 'off'
     }
   },
   {

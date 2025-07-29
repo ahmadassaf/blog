@@ -1,5 +1,5 @@
 /* eslint-disable no-new-func */
-/* eslint-disable react/display-name */
+
 /* eslint-disable camelcase */
 
 import React from 'react';

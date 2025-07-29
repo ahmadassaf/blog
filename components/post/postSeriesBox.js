@@ -1,4 +1,4 @@
-/* eslint-disable no-nested-ternary */
+
 import { Square3Stack3DIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 

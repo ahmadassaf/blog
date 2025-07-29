@@ -28,6 +28,11 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
 }
 
+/* Hide command palette section headings for cleaner appearance */
+[data-cmdk-group-heading] {
+    display: none !important;
+}
+
 [data-cmdk-input] {
     background: transparent;
     border: none;

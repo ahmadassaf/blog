@@ -1,7 +1,38 @@
+/**
+ * Aurora Background Component
+ *
+ * @description A visually striking background component that creates an animated aurora borealis effect.
+ * Features gradient animations, blur effects, and theme-aware styling that adapts to light/dark modes.
+ * Used as a decorative background element to enhance the visual appeal of pages.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 import React from 'react';
 
 import { cn } from '@/components/utils/TailwindUtils';
 
+/**
+ * Aurora background component with animated gradient effects
+ *
+ * @description Creates a full-height container with animated aurora background effects.
+ * Features theme-aware gradients, optional radial gradient overlay, and smooth animations.
+ * The component automatically adapts its appearance based on the current theme.
+ *
+ * @param {Object} props - Component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {React.ReactNode} props.children - Content to render over the aurora background
+ * @param {boolean} [props.showRadialGradient=true] - Whether to show the radial gradient overlay
+ * @param {...Object} props.props - Additional props passed to the container div
+ *
+ * @returns {JSX.Element} The rendered aurora background component
+ *
+ * @example
+ * <AuroraBackground showRadialGradient={true}>
+ *   <h1>Content over aurora background</h1>
+ * </AuroraBackground>
+ */
 const AuroraBackground = ({
   className,
   children,

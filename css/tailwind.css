@@ -1,15 +1,28 @@
+/**
+ * Tailwind CSS Configuration
+ *
+ * @description Main Tailwind CSS import and configuration file for the blog.
+ * Includes Tailwind v4 compatibility styles for border colors to maintain
+ * visual consistency during the migration from v3 to v4.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 @import 'tailwindcss';
 
 @config '../tailwind.config.js';
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+/**
+ * Border Color Compatibility Layer
+ *
+ * @description The default border color has changed to `currentColor` in Tailwind CSS v4,
+ * so we've added these compatibility styles to make sure everything still
+ * looks the same as it did with Tailwind CSS v3.
+ *
+ * @note If we ever want to remove these styles, we need to add an explicit border
+ * color utility to any element that depends on these defaults.
+ */
 @layer base {
   *,
   ::after,

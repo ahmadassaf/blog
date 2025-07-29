@@ -1,3 +1,14 @@
+/**
+ * Command Launcher Component
+ *
+ * @description A powerful command palette interface that provides keyboard-driven navigation and search functionality
+ * across the entire website. Users can quickly access posts, projects, publications, tags, and various site features
+ * using keyboard shortcuts (Cmd/Ctrl + K) or through a searchable interface.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 import React, { useState } from 'react';
 import CommandPalette, { filterItems, getItemIndex } from '@tmikeladze/react-cmdk';
 import { useTheme } from 'next-themes';
@@ -17,6 +28,33 @@ import { prepareLauncherCollection }  from '@/components/cmd/utils';
 
 import '@tmikeladze/react-cmdk/dist/cmdk.css';
 
+/**
+ * Command launcher component that provides a keyboard-driven command palette interface
+ *
+ * @description Creates a searchable command palette that allows users to quickly navigate to different
+ * sections of the website, search through content, and perform various actions. The component supports
+ * keyboard shortcuts, theme switching, and contextual search across posts, projects, publications, and tags.
+ *
+ * @param {Object} props - Component props
+ * @param {Array} props.projects - Array of project objects to be searchable
+ * @param {Array} props.posts - Array of post objects to be searchable
+ * @param {Array} props.publications - Array of publication objects to be searchable
+ * @param {Array} props.tags - Array of tag objects to be searchable
+ * @param {boolean} props.open - Whether the command palette is currently open
+ * @param {Function} props.setOpen - Function to control the open/closed state of the palette
+ *
+ * @returns {JSX.Element} The rendered command launcher component
+ *
+ * @example
+ * <CommandLauncher
+ *   projects={allProjects}
+ *   posts={allPosts}
+ *   publications={allPublications}
+ *   tags={allTags}
+ *   open={isOpen}
+ *   setOpen={setIsOpen}
+ * />
+ */
 const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen }) => {
   const [ page, setPage ] = useState('root');
   const [ search, setSearch ] = useState('');

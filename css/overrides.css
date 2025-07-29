@@ -1,71 +1,141 @@
+/**
+ * CSS Overrides and Custom Styles
+ *
+ * @description Custom CSS overrides and component-specific styles for the blog.
+ * Includes citation formatting, form styling, component theming, and responsive
+ * design adjustments that extend or override base Tailwind styles.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+/**
+ * Citation entry container
+ * Provides flex layout for proper citation formatting
+ */
 .csl-entry {
     display: flex;
     margin: 5px 0;
 }
 
+/**
+ * Left margin for citation numbering
+ * Creates space between citation number and content
+ */
 .csl-left-margin {
     margin: 0 10px 0 0;
 }
 
-/* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
+/**
+ * Webkit autofill background override
+ * Prevents browser autofill from changing input background colors
+ * @see https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied
+ */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
     transition: background-color 600000s 0s, color 600000s 0s;
 }
 
+/**
+ * Foreign object overflow handling for labels
+ * Ensures SVG foreign objects display properly
+ */
 .label foreignObject {
     overflow: visible;
 }
 
-
+/**
+ * Text highlighting with brush effect
+ * Creates a decorative brush stroke background for highlighted text
+ */
 strong.highlight {
     background: url(//s2.svgbox.net/pen-brushes.svg?ic=brush-2&color=a2f4fd);
-        margin: -2px -6px;
-        padding:  2px  6px;
-  }
+    margin: -2px -6px;
+    padding: 2px 6px;
+}
 
+/**
+ * Hidden state for command palette
+ * Used to completely hide the command palette when not active
+ */
 .commandPallete-hidden {
     display: none;
 }
 
+/**
+ * Command palette width override
+ * Increases maximum width for better content display
+ */
 .command-palette .max-w-xl {
     max-width: 50rem !important;
 }
 
+/**
+ * Remove default link underlines globally
+ * Custom link styling is handled by components
+ */
 a {
     text-decoration: none !important;
 }
 
+/**
+ * Dark mode aurora gradient
+ * Creates a fade-to-dark effect for decorative backgrounds
+ */
 @media (prefers-color-scheme: dark) {
     .aurora:after {
-        background-image: linear-gradient(to bottom, rgba(23,23,23,0), rgb(23, 23, 23) 75%);
+        background-image: linear-gradient(to bottom, rgba(23, 23, 23, 0), rgb(23, 23, 23) 75%);
     }
 }
 
+/**
+ * Light mode aurora gradient
+ * Creates a fade-to-light effect for decorative backgrounds
+ */
 @media (prefers-color-scheme: light) {
     .aurora:after {
-        background-image: linear-gradient(to bottom, rgba(255,255,255, 0), rgba(255,255,255, 1) 75%);
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 75%);
     }
-  }
+}
 
+/**
+ * Vertical alignment for stateful links
+ * Ensures proper alignment for expandable/collapsible links
+ */
 a[data-state="closed"], a[data-state="open"] {
     vertical-align: middle;
 }
 
+/**
+ * Dark mode background for command palette
+ * Provides semi-transparent dark background
+ */
 @media (prefers-color-scheme: dark) {
     .command-palette .bg-gray-900 {
-        background-color: rgb(36 37 40 / 70%) ; 
+        background-color: rgb(36 37 40 / 70%);
     }
 }
 
+/**
+ * Dark mode hover state for command palette items
+ * Ensures consistent hover behavior in dark mode
+ */
 .command-palette .hover\:bg-gray-100:hover:is(.dark *) {
     background-color: rgb(36 37 40 / 70%) !important;
 }
 
-.command-palette *:is(.dark *){
+/**
+ * Dark mode border colors for command palette
+ * Provides subtle borders that work well in dark theme
+ */
+.command-palette *:is(.dark *) {
     border-color: #404040;
 }
 
+/**
+ * Desktop aside styling
+ * Positions sidebar content with green accent border
+ */
 aside {
     width: 170px;
     position: absolute;
@@ -75,6 +145,10 @@ aside {
     padding: 10px 0;
 }
 
+/**
+ * Responsive aside styling for smaller screens
+ * Converts absolute positioned aside to normal flow
+ */
 @media (max-width: 1650px) {
     aside {
         width: auto;
@@ -84,16 +158,28 @@ aside {
         border: none;
         padding: 0;
     }
-    
 }
 
+/**
+ * References container styling
+ * Provides consistent spacing for reference sections
+ */
 .references {
     margin: 0 0 2em;
 }
 
-.references div{
+/**
+ * Reference item text sizing
+ * Ensures readable but compact reference entries
+ */
+.references div {
     font-size: 14px;
 }
+
+/**
+ * References section header
+ * Creates a prominent section title with underline
+ */
 .references:before {
     content: "References";
     font-size: 2.5em;
@@ -102,9 +188,13 @@ aside {
     border-bottom: 1px solid #ddd;
     width: 100%;
     display: block;
-    margin: 0 0 .5em;
+    margin: 0 0 0.5em;
 }
 
+/**
+ * Image and content captions
+ * Provides centered, styled captions for images and figures
+ */
 .caption {
     display: table;
     font-size: 14px;
@@ -113,33 +203,59 @@ aside {
     width: 100%;
     margin: 1em 0;
 }
+
+/**
+ * Summary element styling
+ * Makes summary elements more prominent for disclosure widgets
+ */
 summary {
     font-size: 20px;
     font-weight: bold;
 }
 
+/**
+ * Code group container
+ * Provides grid layout for tabbed code blocks
+ */
 .rehype-code-group {
     display: grid;
     gap: 0.6rem;
-  }
-  .rcg-tab-container {
+}
+
+/**
+ * Tab container styling
+ * Creates horizontal tab bar with bottom border
+ */
+.rcg-tab-container {
     display: flex;
     border-bottom: 1px solid #ddd;
-  }
-  .rcg-tab {
+}
+
+/**
+ * Individual tab styling
+ * Provides clickable tabs with active state indicators
+ */
+.rcg-tab {
     padding: 0.5rem 1rem;
     cursor: pointer;
     border: none;
     background: none;
+    
     &.active {
-      border-bottom: 2px solid;
-      font-weight: bold;
+        border-bottom: 2px solid;
+        font-weight: bold;
     }
-  }
-  .rcg-block {
+}
+
+/**
+ * Code block content panels
+ * Shows/hides content based on active tab
+ */
+.rcg-block {
     display: none;
     overflow-x: auto;
+    
     &.active {
-      display: block;
+        display: block;
     }
-  }
+}

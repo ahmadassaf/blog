@@ -1,27 +1,44 @@
+/**
+ * Breadcrumbs Component
+ *
+ * @description Navigation breadcrumb component that displays the current page's location
+ * within the site hierarchy. Features a home icon as the root element and chevron separators
+ * between each breadcrumb level. Provides proper accessibility attributes and semantic markup.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+// External libraries
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/20/solid';
 
-/*
- * Breadcrumbs component
- * Used to display the current page's location in the site's hierarchy
- * pages: array of objects with the following properties:
- *  - current: boolean
- *  - href: string
- *  - name: string
+/**
+ * Renders a breadcrumb navigation trail
  *
- *  Example:
- *  const pages = [
- *    { current: false, href: '#', name: 'Projects' },
- *    { current: true, href: '#', name: 'Project Nero' }
- *  ];
- *  <Breadcrumbs pages={ pages } />
+ * @description Hierarchical navigation component that shows the user's current location
+ * within the site structure. Features a home icon as the starting point, followed by
+ * page links separated by chevron icons. The current page is indicated with aria-current
+ * and styled differently from clickable links.
  *
- * This will render a breadcrumb trail like this:
- * Home > Projects > Project Nero
+ * @param {Object} props - Component props
+ * @param {Array<Object>} props.pages - Array of breadcrumb page objects
+ * @param {boolean} props.pages[].current - Whether this is the current page
+ * @param {string} props.pages[].href - URL for the breadcrumb link
+ * @param {string} props.pages[].name - Display name for the breadcrumb
  *
- * The current page will not be a link, and will be styled differently
+ * @returns {JSX.Element} Breadcrumb navigation with home icon and page links
  *
- * The Home icon will always be present at the start of the trail
- * The ChevronRight icon will be present between each breadcrumb
+ * @example
+ * // Basic usage with multiple levels
+ * const pages = [
+ *   { current: false, href: '/projects', name: 'Projects' },
+ *   { current: true, href: '/projects/nero', name: 'Project Nero' }
+ * ];
+ * <Breadcrumbs pages={pages} />
+ *
+ * @example
+ * // Renders as: Home > Projects > Project Nero
+ * // Where 'Project Nero' is not clickable (current page)
  */
 export default function Breadcrumbs({ pages }) {
   return (

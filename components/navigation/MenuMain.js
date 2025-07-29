@@ -1,9 +1,51 @@
+/**
+ * MenuMain Component
+ *
+ * @description Main navigation dropdown component that displays both blog categories and recent posts.
+ * This comprehensive navigation menu combines category browsing with recent post discovery,
+ * providing users with multiple pathways to explore blog content. Features a two-section layout
+ * with categories at the top and recent posts at the bottom.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 import React from 'react';
 
 import MenuDropDown from '@/components/elements/DropDown';
 import Link from '@/components/elements/Link';
 import formatDate from '@/lib/utils/formatDate';
 
+/**
+ * Renders the main navigation dropdown with categories and recent posts
+ *
+ * @description Comprehensive dropdown menu that displays blog categories in the upper section
+ * and the three most recent blog posts in a highlighted lower section. Each category shows
+ * its title and description, while recent posts display publication date and title with
+ * proper formatting and hover effects.
+ *
+ * @param {Object} props - Component props
+ * @param {Array<Object>} props.categories - Array of blog category objects
+ * @param {string} props.categories[].id - Unique identifier for the category
+ * @param {string} props.categories[].title - Display title of the category
+ * @param {string} props.categories[].description - Brief description of the category
+ * @param {Array<Object>} props.allPosts - Array of all blog post objects (recent 3 will be shown)
+ * @param {string} props.allPosts[].slug - URL slug for the post
+ * @param {string} props.allPosts[].title - Title of the blog post
+ * @param {string} props.allPosts[].date - Publication date of the post (ISO format)
+ *
+ * @returns {JSX.Element} Main navigation dropdown with categories and recent posts
+ *
+ * @example
+ * // Basic usage with categories and posts
+ * const categories = [{ id: 'tech', title: 'Technology', description: 'Tech posts' }];
+ * const posts = [{ slug: 'post-1', title: 'My Post', date: '2024-01-01' }];
+ * <MenuMain categories={categories} allPosts={posts} />
+ *
+ * @example
+ * // Used in main navigation header
+ * <MenuMain categories={blogCategories} allPosts={recentPosts} />
+ */
 const MenuMain = ({ categories, allPosts }) => {
   const [ menuBlogOpen, setMenuBlogOpen ] = React.useState(false);
 

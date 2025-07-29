@@ -1,7 +1,22 @@
+/**
+ * Social Icon Component
+ *
+ * @description Renders social media icons with proper accessibility and validation.
+ * Supports GitHub, LinkedIn, Mail, Twitter/X, and YouTube with hover effects
+ * and email validation for mail links.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+// External imports
 import { FaLinkedin, FaYoutube } from 'react-icons/fa';
 import { RiMailOpenFill, RiTwitterXFill } from 'react-icons/ri';
 import { VscGithub } from 'react-icons/vsc';
 
+/**
+ * Mapping of icon types to their corresponding React Icon components
+ */
 const components = {
   'github': VscGithub,
   'linkedin': FaLinkedin,
@@ -10,6 +25,18 @@ const components = {
   'youtube': FaYoutube
 };
 
+/**
+ * Social media icon component with validation and accessibility
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.kind - Type of social icon (github, linkedin, mail, twitter, youtube)
+ * @param {string} props.href - URL or mailto link for the icon
+ * @returns {JSX.Element|null} Social icon link or null if invalid
+ *
+ * @example
+ * <Icon kind="github" href="https://github.com/username" />
+ * <Icon kind="mail" href="mailto:user@example.com" />
+ */
 const Icon = ({ kind, href }) => {
   // eslint-disable-next-line prefer-named-capture-group
   if (!href || (kind === 'mail' && !/^mailto:\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(href))) return null;

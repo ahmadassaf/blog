@@ -1,3 +1,14 @@
+/**
+ * RSS Feed Generator Script
+ *
+ * @description Script for generating RSS feeds from blog posts. Creates XML feed files
+ * for syndication and consumption by RSS readers. Processes all published posts
+ * and generates appropriately formatted RSS XML.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 import { writeFileSync } from 'fs';
 
 import { allPosts } from '../.contentlayer/generated/index.mjs';
@@ -51,6 +62,7 @@ async function generateRss(posts, page = 'feed.xml') {
 
 const rss = () => {
   generateRss(sortPosts(allPosts));
+  // eslint-disable-next-line no-undef
   console.log('ℹ️ RSS feed generated ✅');
 };
 

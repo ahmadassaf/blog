@@ -1,14 +1,44 @@
+/**
+ * Newsletter Form Component
+ *
+ * @description Newsletter subscription form component that integrates with Buttondown API.
+ * Provides email validation, submission handling, and success/error feedback states.
+ * Features responsive design with inline form layout and disabled state after subscription.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
 
 'use client';
 
 import { useRef, useState } from 'react';
 
+/**
+ * Newsletter subscription form component
+ *
+ * @description Renders a newsletter subscription form with email input and submit button.
+ * Handles form submission to Buttondown API, manages subscription state, and provides
+ * user feedback for success and error cases.
+ *
+ * @param {Object} props - Component props
+ * @param {string} [props.title='Subscribe to the newsletter'] - Form title (currently unused in display)
+ *
+ * @returns {JSX.Element} Newsletter subscription form
+ *
+ * @example
+ * <NewsletterForm title="Join our newsletter" />
+ */
 const NewsletterForm = ({ title = 'Subscribe to the newsletter' }) => {
   const inputEl = useRef(null);
   const [ setError ] = useState(false);
   const [ setMessage ] = useState('');
   const [ subscribed, setSubscribed ] = useState(false);
 
+  /**
+   * Handles newsletter subscription form submission
+   *
+   * @param {Event} _error - Form submission event
+   */
   const subscribe = async(_error) => {
     _error.preventDefault();
 
@@ -76,6 +106,20 @@ const NewsletterForm = ({ title = 'Subscribe to the newsletter' }) => {
 
 export default NewsletterForm;
 
+/**
+ * Blog-specific newsletter form with styled wrapper
+ *
+ * @description Newsletter form variant with additional styling and background for use within blog content.
+ * Wraps the main NewsletterForm component with centered layout and background styling.
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.title - Form title to pass to NewsletterForm
+ *
+ * @returns {JSX.Element} Styled newsletter form for blog context
+ *
+ * @example
+ * <BlogNewsletterForm title="Subscribe for updates" />
+ */
 export const BlogNewsletterForm = ({ title }) => (
   <div className='flex items-center justify-center'>
     <div className='bg-gray-100 p-6 dark:bg-gray-800 sm:px-14 sm:py-8'>

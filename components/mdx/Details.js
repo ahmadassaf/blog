@@ -1,3 +1,13 @@
+/**
+ * Details/FAQ Component
+ *
+ * @description An interactive disclosure component for displaying expandable FAQ sections or details.
+ * Uses Headless UI's Disclosure component to create accessible collapsible content areas with
+ * plus/minus icons indicating the open/closed state.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
 
 'use client';
 
@@ -24,7 +34,7 @@ const Details = ({ title, ...rest }) => (
               </Disclosure.Button>
             </dt>
             <Disclosure.Panel as='dd' className='mt-2 p-0'>
-              <p className='text-base leading-7 text-gray-600 dark:text-gray-300'>{ ...rest }</p>
+              <div className='text-base leading-7 text-gray-600 dark:text-gray-300' { ...rest } />
             </Disclosure.Panel>
           </>
         )}

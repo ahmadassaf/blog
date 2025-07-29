@@ -1,19 +1,54 @@
+/**
+ * Pre Component
+ *
+ * @description Interactive code block wrapper with copy-to-clipboard functionality.
+ * Enhances standard pre elements with hover effects and clipboard integration.
+ * Used within MDX content to display code blocks with enhanced user experience.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 'use client';
 
 import { useRef, useState } from 'react';
 
+/**
+ * Interactive code block component with copy functionality
+ *
+ * @param {Object} props - Component props
+ * @param {React.ReactNode} props.children - The code content to be displayed
+ * @returns {JSX.Element} A div containing the interactive pre element
+ *
+ * @example
+ * // In MDX content (automatically used for code blocks):
+ * ```javascript
+ * const example = 'This will be wrapped in Pre component';
+ * ```
+ */
 const Pre = (props) => {
   const textInput = useRef(null);
   const [ hovered, setHovered ] = useState(false);
   const [ copied, setCopied ] = useState(false);
 
+  /**
+   * Handles mouse enter event to show copy button
+   */
   const onEnter = () => {
     setHovered(true);
   };
+
+  /**
+   * Handles mouse leave event to hide copy button and reset state
+   */
   const onExit = () => {
     setHovered(false);
     setCopied(false);
   };
+
+  /**
+   * Copies code content to clipboard and shows success feedback
+   */
   const onCopy = () => {
     setCopied(true);
     navigator.clipboard.writeText(textInput.current.textContent);

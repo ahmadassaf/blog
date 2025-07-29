@@ -1,5 +1,30 @@
+/**
+ * Grid Components
+ *
+ * @description Grid layout components for responsive content organization.
+ * Includes main Grid container and GridItem components with hover animations
+ * and responsive breakpoints.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+// Internal imports
 import { cn } from '@/components/utils/TailwindUtils';
 
+/**
+ * Main grid container component with responsive layout
+ *
+ * @param {Object} props - Component props
+ * @param {string} [props.className] - Additional CSS classes
+ * @param {React.ReactNode} props.children - Grid items to display
+ * @returns {JSX.Element} Responsive grid container
+ *
+ * @example
+ * <Grid className="custom-gap">
+ *   <GridItem title="Item 1" description="Description" />
+ * </Grid>
+ */
 export const Grid = ({ className, children }) => (
   <div
     className={ cn(
@@ -10,6 +35,25 @@ export const Grid = ({ className, children }) => (
   </div>
 );
 
+/**
+ * Individual grid item component with hover animations
+ *
+ * @param {Object} props - Component props
+ * @param {string} [props.className] - Additional CSS classes
+ * @param {string} props.title - Item title
+ * @param {string} props.description - Item description
+ * @param {React.ReactNode} [props.header] - Optional header content
+ * @param {React.ReactNode} [props.icon] - Optional icon element
+ * @returns {JSX.Element} Animated grid item
+ *
+ * @example
+ * <GridItem
+ *   title="Feature Title"
+ *   description="Feature description"
+ *   icon={<SomeIcon />}
+ *   header={<div>Header content</div>}
+ * />
+ */
 export const GridItem = ({ className, title, description, header, icon }) => (
   <div
     className={ cn(

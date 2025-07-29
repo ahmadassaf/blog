@@ -1,4 +1,15 @@
 
+/**
+ * Link Preview Component
+ *
+ * @description An interactive link preview component that fetches and displays metadata for external URLs.
+ * It shows a hover card with preview images, titles, and favicons, providing rich link previews
+ * similar to social media platforms. Includes loading states and error handling for unreachable URLs.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 'use client';
 
 import React from 'react';
@@ -11,6 +22,33 @@ import Link from 'next/link';
 import ImageFallback from '@/components/elements/ImageFallback';
 import { cn } from '@/components/utils/TailwindUtils';
 
+/**
+ * Interactive link preview component with hover card functionality
+ *
+ * @description Fetches metadata for external URLs and displays rich previews with images, titles, and favicons.
+ * Features smooth animations, loading states, error handling, and responsive hover interactions.
+ * The component automatically handles protocol normalization and fallback states.
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.url - The URL to preview and link to
+ * @param {string} [props.title] - Optional custom title to override the fetched title
+ * @param {string} [props.className] - Additional CSS classes for styling
+ * @param {number} [props.width=200] - Width of the preview image in pixels
+ * @param {number} [props.height=125] - Height of the preview image in pixels
+ * @param {number} [props.quality=50] - Image quality setting (1-100)
+ * @param {boolean} [props.preview=true] - Whether to show preview functionality
+ *
+ * @returns {JSX.Element} The rendered preview component
+ *
+ * @example
+ * <Preview
+ *   url="https://example.com"
+ *   title="Custom Title"
+ *   width={300}
+ *   height={200}
+ *   quality={75}
+ * />
+ */
 const Preview = ({ url, title, className, width = 200, height = 125, quality = 50, preview = true }) => {
   const [ data, setData ] = React.useState(null);
   const [ loading, setLoading ] = React.useState(true);
@@ -35,6 +73,15 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
   const x = useMotionValue(0);
   const translateX = useSpring(x, springConfig);
 
+  /**
+   * Handles mouse movement for interactive hover animations
+   *
+   * @description Calculates the mouse position relative to the target element and updates
+   * the motion value for smooth hover animations. Creates a parallax-like effect where
+   * the preview card follows the mouse movement.
+   *
+   * @param {MouseEvent} event - The mouse move event
+   */
   const handleMouseMove = (event) => {
     const targetRect = event.target.getBoundingClientRect();
     const eventOffsetX = event.clientX - targetRect.left;

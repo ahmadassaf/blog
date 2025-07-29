@@ -1,5 +1,25 @@
+/**
+ * 404 Not Found Page Component
+ *
+ * @description Custom 404 error page component that displays a user-friendly
+ * message when a page is not found, along with navigation back to homepage.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+// Internal imports
 import Link from '@/components/elements/Link';
 
+/**
+ * 404 error page component
+ *
+ * @returns {JSX.Element} 404 error page with message and navigation
+ *
+ * @example
+ * // Automatically rendered by Next.js for non-existent routes
+ * <FourZeroFour />
+ */
 export default function FourZeroFour() {
   return (
     <>

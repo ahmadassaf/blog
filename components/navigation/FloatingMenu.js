@@ -1,14 +1,54 @@
+/**
+ * FloatingMenu Component
+ *
+ * @description Floating/sticky navigation component that appears and disappears based on scroll behavior.
+ * This component provides quick access to main navigation links and a "scroll to top" button.
+ * Features smooth animations, responsive design, and intelligent scroll-based visibility logic.
+ * The menu appears when scrolling up and hides when scrolling down, with a minimum scroll threshold.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
 
 'use client';
 
+// External libraries
 import React, { useState } from 'react';
 import { IoArrowUpCircleOutline } from 'react-icons/io5';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import Link from 'next/link';
 
+// Internal utilities and data
 import { cn } from '@/components/utils/TailwindUtils';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
 
+/**
+ * Renders a floating navigation menu with scroll-based visibility
+ *
+ * @description Animated floating menu that tracks scroll position and direction to show/hide intelligently.
+ * Displays main navigation links and a scroll-to-top button. The component uses Framer Motion for
+ * smooth animations and adapts its styling for both light and dark themes. Mobile responsive with
+ * adjusted sizing and spacing.
+ *
+ * @param {Object} props - Component props
+ * @param {string} [props.className] - Additional CSS classes to apply to the menu container
+ *
+ * @returns {JSX.Element} Floating navigation menu with scroll-based animations
+ *
+ * @example
+ * // Basic usage
+ * <FloatingMenu />
+ *
+ * @example
+ * // With custom styling
+ * <FloatingMenu className="custom-floating-menu" />
+ *
+ * @example
+ * // The menu automatically shows/hides based on scroll:
+ * // - Hidden when at top of page (scrollYProgress < 0.05)
+ * // - Shows when scrolling up
+ * // - Hides when scrolling down
+ */
 const FloatingMenu = ({ className }) => {
   const { scrollYProgress } = useScroll();
 
@@ -24,6 +64,14 @@ const FloatingMenu = ({ className }) => {
     }
   });
 
+  /**
+   * Scrolls the page to the top smoothly
+   *
+   * @description Handler function that smoothly scrolls the page to the top when the
+   * "Back Top" button is clicked. Uses the native window.scrollTo method.
+   *
+   * @returns {void}
+   */
   const handleScrollTop = () => {
     window.scrollTo({ 'top': 0 });
   };

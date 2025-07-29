@@ -1,7 +1,38 @@
+/**
+ * Callout Component
+ *
+ * @description Versatile callout boxes for highlighting different types of content.
+ * Supports multiple predefined styles (warning, info, success, error, formal, settings, code, secure)
+ * with appropriate icons and color schemes. Used within MDX content to draw attention to important information.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 /* eslint-disable no-lone-blocks */
 
 import { BiBraille, BiCheckSquare, BiChip, BiCodeAlt, BiInfoCircle, BiShieldQuarter, BiSolidBolt, BiSolidError } from 'react-icons/bi';
 
+/**
+ * Renders a styled callout box with type-specific styling
+ *
+ * @param {Object} props - Component props
+ * @param {('warning'|'info'|'success'|'error'|'formal'|'settings'|'code'|'secure')} props.type - The callout type that determines styling
+ * @param {React.ReactNode} props.children - The content to display within the callout
+ * @returns {JSX.Element|null} A div containing the styled callout, or null for invalid types
+ *
+ * @example
+ * // In MDX content - Info callout:
+ * <Callout type="info">
+ *   This is important information for readers to note.
+ * </Callout>
+ *
+ * @example
+ * // In MDX content - Warning callout:
+ * <Callout type="warning">
+ *   Be careful when following these steps!
+ * </Callout>
+ */
 const Callout = ({ type, children }) => {
   let calloutBackgroundColor;
   let calloutIcon;

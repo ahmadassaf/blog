@@ -1,31 +1,22 @@
-/*
- * Avatar component
+/**
+ * Avatar Component
  *
- * @param {string} label - The label to display in the avatar
- * @param {string} size - The size of the avatar
- * @param {string} color - The color of the avatar
- * @param {string} image - The image URL to display in the avatar
- * @param {boolean} rounded - Whether the avatar should be rounded or not
- * @returns {ReactElement} - The Avatar component
+ * @description A flexible avatar component that can display either an image or initials with customizable
+ * size, color, and shape options. Provides fallback functionality when images fail to load and supports
+ * various color schemes and sizes for different use cases.
  *
- * @example
- * <Avatar label="AA" size="large" image="https://www.example.com/image.jpg" rounded />
- * -> This will render an avatar with the image from the URL
- * <Avatar label="AA" color="yellow" size="large" rounded />
- * -> This will render an avatar with the label AA and the color yellow
- * <Avatar label="AA" color="yellow" size="large" image="invalid" />
- * -> This will render an avatar with the a placeholder icon
- *
- * The sizes are:
+ * Supported sizes:
  * - small: h-4 w-4
  * - medium: h-8 w-8
  * - large: h-10 w-10
  * - xlarge: h-14 w-14
  *
- * The colors are any supported Tailwind CSS color of the 500 variant
- * The avatar will reder a placeholder icon if no valid image url is provided
- * If no image parameter is passed then an Avatar with a label (Initials) will be rendered
+ * The colors are any supported Tailwind CSS color of the 500 variant.
+ * The avatar will render a placeholder icon if no valid image url is provided.
+ * If no image parameter is passed then an Avatar with a label (Initials) will be rendered.
  *
+ * @author Ahmad Assaf
+ * @version 1.0.0
  */
 
 import Image from 'next/image';

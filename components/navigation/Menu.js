@@ -1,3 +1,14 @@
+/**
+ * Main Navigation Menu Component
+ *
+ * @description The primary navigation component that renders the main menu bar with logo, navigation links,
+ * theme switcher, search functionality, and mobile menu. Adapts its content based on the current route
+ * and provides access to the command launcher interface.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 'use client';
 
 import { React, useState } from 'react';
@@ -19,6 +30,18 @@ import siteMetadata from '@/data/meta/metadata';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
 
+/**
+ * Main navigation menu component
+ *
+ * @description Renders the primary navigation bar with responsive design, including logo, navigation links,
+ * theme switcher, search functionality, and mobile menu. The component adapts its menu items based on
+ * the current route and integrates with the command launcher for enhanced navigation.
+ *
+ * @returns {JSX.Element} The rendered navigation menu component
+ *
+ * @example
+ * <Menu />
+ */
 const Menu = () => {
   const path = usePathname();
   const sortedPosts = sortPosts(allPosts);

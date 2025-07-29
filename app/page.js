@@ -1,3 +1,14 @@
+/**
+ * Home Page Component
+ *
+ * @description The main homepage component that displays the author's profile, featured posts, and latest blog posts.
+ * This serves as the entry point for the blog/portfolio website, showcasing the author's expertise in AI and ML
+ * along with their latest content.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 import { allPosts } from 'contentlayer/generated';
 
 import LauncherShortcut from '@/components/cmd/CmdLauncherShortcut';
@@ -8,6 +19,19 @@ import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import ListLayout from '@/layouts/ListLayout';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
 
+/**
+ * Home page component that renders the main landing page
+ *
+ * @description Displays the author's profile information, featured posts section, and a selection of the latest posts.
+ * The page includes a hero section with the author's name, title, description, and a brief bio highlighting their
+ * AI/ML expertise and current role at Beamery.
+ *
+ * @returns {JSX.Element} The rendered home page component
+ *
+ * @example
+ * // This component is automatically rendered for the root route "/"
+ * <Home />
+ */
 export default function Home() {
   const displayPosts = coreContent(sortPosts(allPosts)).filter((post) => !post.featured);
 

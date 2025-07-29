@@ -1,13 +1,23 @@
-/*
- * Banner component
+/**
+ * Banner Component
  *
- * This component is used to display a banner at the top of the page. It is used to display a message to the user, such as a promotion or a special offer.
+ * @description Promotional banner component with gradient background effects.
+ * Displays at the top of pages for announcements, special offers, or important messages
+ * with visual gradient overlays and decorative elements.
  *
- * Props:
- * - title: The title of the banner
- * - text: The text of the banner
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+/**
+ * Banner component for displaying promotional messages
  *
- * Usage:
+ * @param {Object} props - Component props
+ * @param {string} props.title - Bold title text for the banner
+ * @param {string} props.text - Descriptive text content
+ * @returns {JSX.Element} Promotional banner with gradient effects
+ *
+ * @example
  * <Banner title="Special Offer" text="Get 20% off on all products this weekend" />
  */
 const Banner = ({ title, text }) => (

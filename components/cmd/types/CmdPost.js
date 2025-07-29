@@ -28,7 +28,7 @@ function CmdPost({ title, category }) {
   return (
     <div className='contents w-full'>
       <div className='text-md w-[100%]'>{ title }</div>
-      <span className='text-xs inline-flex items-center rounded-xs bg-green-600 px-2.5 py-0.5 hover:bg-green-700 uppercase text-white font-medium transition-colors duration-200'>{ category.replace('-', ' ') }</span>
+      <span className='text-xs inline-flex items-center rounded bg-green-600 px-1.5 py-0.5 hover:bg-green-700 text-white font-medium transition-colors duration-200'>{ category.replace('-', ' ') }</span>
     </div>
   );
 }

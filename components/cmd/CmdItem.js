@@ -105,37 +105,37 @@ const CmdItem = ({ title, subtitle, category, count, type = 'navigation', icon, 
       {/* Content */}
       <div className='flex-1 min-w-0'>
         {/* Title */}
-        <div className='font-medium text-gray-900 dark:text-gray-100 truncate'>
+        <div className='text-sm font-medium text-gray-900 dark:text-gray-100 truncate'>
           {title || children}
         </div>
 
         {/* Subtitle for projects/publications */}
         {config.showSubtitle && subtitle && (
-          <div className='text-sm text-gray-500 dark:text-gray-400 truncate mt-0.5'>
+          <div className='text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5'>
             {subtitle}
           </div>
         )}
       </div>
 
-      {/* Badges and indicators */}
-      <div className='flex-shrink-0 flex items-center gap-2'>
-        {/* Category badge for posts */}
+      {/* Data indicators */}
+      <div className='flex-shrink-0 flex items-center gap-3'>
+        {/* Category for posts */}
         {config.showCategory && category && (
-          <span className={ `text-xs inline-flex items-center rounded px-2 py-0.5 font-medium ${config.badgeColor} transition-colors duration-200` }>
+          <span className='text-xs text-gray-500 dark:text-gray-400 capitalize'>
             {category.replace(/[-_]/g, ' ')}
           </span>
         )}
 
-        {/* Count badge for tags */}
+        {/* Count for tags */}
         {config.showCount && typeof count !== 'undefined' && (
-          <span className={ `text-xs inline-flex items-center rounded px-2 py-0.5 font-medium ${config.badgeColor} transition-colors duration-200` }>
-            {count}
+          <span className='text-xs text-gray-500 dark:text-gray-400'>
+            {count} {count === 1 ? 'post' : 'posts'}
           </span>
         )}
 
         {/* Type indicator for projects/publications */}
         {(type === 'project' || type === 'publication') && (
-          <span className={ `text-xs inline-flex items-center rounded px-2 py-0.5 font-medium ${config.badgeColor} capitalize transition-colors duration-200` }>
+          <span className='text-xs text-gray-500 dark:text-gray-400 capitalize'>
             {type}
           </span>
         )}

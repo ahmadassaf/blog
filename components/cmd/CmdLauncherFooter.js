@@ -1,3 +1,23 @@
+/**
+ * CmdLauncherFooter
+ *
+ * @description Footer component for the command palette that displays keyboard shortcuts and
+ * navigation instructions. This component provides visual cues for users on how to interact
+ * with the command palette, including selection (Enter), navigation (Arrow keys), and
+ * closing/going back (Escape). It's responsive and hides some elements on small screens.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+/**
+ * CmdLauncherFooter component renders the footer with keyboard shortcuts guide
+ *
+ * @returns {JSX.Element} Footer with keyboard navigation instructions and icons
+ *
+ * @example
+ * <CmdLauncherFooter />
+ */
 const CmdLauncherFooter = () => (
   <div className='text-sm p-2 flex flex-row'>
     <span className='flex items-center mx-2 max-sm:hidden!'>

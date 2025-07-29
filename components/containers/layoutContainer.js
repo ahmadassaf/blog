@@ -1,3 +1,14 @@
+/**
+ * Layout Container Component
+ *
+ * @description The main layout wrapper component that provides the overall structure and visual design for all pages.
+ * It includes the Aurora background animation, theme provider, navigation components, analytics, and structured data.
+ * This component serves as the root layout for the entire application.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 import { Analytics } from '@vercel/analytics/react';
 import dynamic from 'next/dynamic';
 import { cookies } from 'next/headers';
@@ -11,6 +22,23 @@ import siteMetadata from '@/data/meta/metadata';
 
 const ThemeProvider = dynamic(() => import('@/components/utils/ThemeProvider'));
 
+/**
+ * Main layout container component that wraps all page content
+ *
+ * @description Provides the foundational layout structure including theme management, background animations,
+ * navigation components, analytics integration, and structured data. The component handles both light and dark
+ * mode themes with appropriate background animations and overlays.
+ *
+ * @param {Object} props - Component props
+ * @param {React.ReactNode} props.children - The page content to be rendered within the layout
+ *
+ * @returns {Promise<JSX.Element>} The rendered layout container component
+ *
+ * @example
+ * <LayoutContainer>
+ *   <HomePage />
+ * </LayoutContainer>
+ */
 export default async function LayoutContainer({ children }) {
   const themeCookie = await cookies();
   const theme = themeCookie.get('__theme__')?.value || siteMetadata.theme;

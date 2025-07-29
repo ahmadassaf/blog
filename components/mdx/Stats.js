@@ -1,24 +1,61 @@
+/**
+ * Stats Component
+ *
+ * @description Interactive statistics display component with trend indicators.
+ * Shows statistical data in a responsive grid with change indicators and visual trend arrows.
+ * Used within MDX content to present data metrics, analytics, or performance indicators.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
 
-/*
- * This component is used to display statistics in a grid format.
+/**
+ * Utility function to combine CSS class names
  *
- * @param {Array} stats - An array of objects containing the statistics to display.
- * @param {String} text - The title of the statistics.
- *
- * @returns {JSX.Element} - The component to display the statistics.
- *
- * @example
- * <Stats stats={[
- * { name: 'Total Subscribers', stat: '71,897', previousStat: '70,946', change: '12%', changeType: 'increase' },
- * { name: 'Avg. Open Rate', stat: '58.16%', previousStat: '56.14%', change: '2.02%', changeType: 'increase' },
- * { name: 'Avg. Click Rate', stat: '24.57%', previousStat: '28.62%', change: '4.05%', changeType: 'decrease' },
- * ]} text='Statistics' />
- *
+ * @param {...string} classes - CSS class names to combine
+ * @returns {string} Combined class names string
  */
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
+
+/**
+ * Renders a statistics grid with trend indicators
+ *
+ * @param {Object} props - Component props
+ * @param {Array<Object>} props.stats - Array of statistic objects
+ * @param {string} props.stats[].name - The name/label of the statistic
+ * @param {string} props.stats[].stat - The current statistical value
+ * @param {string} props.stats[].previousStat - The previous statistical value for comparison
+ * @param {string} props.stats[].change - The change amount/percentage
+ * @param {('increase'|'decrease')} props.stats[].changeType - Whether the change is positive or negative
+ * @param {string} props.text - The title/heading for the statistics section
+ * @returns {JSX.Element} A div containing the statistics grid
+ *
+ * @example
+ * // In MDX content:
+ * <Stats
+ *   text="Monthly Analytics"
+ *   stats={[
+ *     {
+ *       name: 'Total Subscribers',
+ *       stat: '71,897',
+ *       previousStat: '70,946',
+ *       change: '12%',
+ *       changeType: 'increase'
+ *     },
+ *     {
+ *       name: 'Avg. Open Rate',
+ *       stat: '58.16%',
+ *       previousStat: '56.14%',
+ *       change: '2.02%',
+ *       changeType: 'increase'
+ *     }
+ *   ]}
+ * />
+ */
 const Stats = ({ stats, text }) => (
   <div>
     <h2 className='text-2xl font-bold leading-10 tracking-tight text-gray-900 dark:text-white'>{ text }</h2>

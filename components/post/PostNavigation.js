@@ -1,5 +1,44 @@
+/**
+ * PostNavigation Component
+ *
+ * @description Navigation component that provides links to previous and next blog posts.
+ * Features responsive design that stacks vertically on mobile devices and displays
+ * side-by-side on larger screens. Only renders when there are adjacent posts available.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+// Internal components
 import Link from '@/components/elements/Link';
 
+/**
+ * Renders navigation links to adjacent blog posts
+ *
+ * @description Contextual navigation component that displays links to the previous and next
+ * blog posts in the chronological sequence. Features responsive layout that adapts to
+ * different screen sizes and only renders when adjacent posts exist.
+ *
+ * @param {Object} props - Component props
+ * @param {Object|null} props.next - Next blog post object
+ * @param {string} props.next.slug - URL slug for the next post
+ * @param {string} props.next.title - Title of the next post
+ * @param {Object|null} props.prev - Previous blog post object
+ * @param {string} props.prev.slug - URL slug for the previous post
+ * @param {string} props.prev.title - Title of the previous post
+ *
+ * @returns {JSX.Element} Post navigation links with responsive layout
+ *
+ * @example
+ * // Basic usage with both posts
+ * const nextPost = { slug: 'next-post', title: 'Next Post Title' };
+ * const prevPost = { slug: 'prev-post', title: 'Previous Post Title' };
+ * <PostNavigation next={nextPost} prev={prevPost} />
+ *
+ * @example
+ * // Usage with only one adjacent post
+ * <PostNavigation next={null} prev={prevPost} />
+ */
 const PostNavigation = ({ next, prev }) => (
   <div className='divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700'>
     {(next || prev) && (
@@ -7,7 +46,7 @@ const PostNavigation = ({ next, prev }) => (
         {prev && (
           <div className='max-sm:py-2'>
             <h2 className='text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
-                Previous Article
+              Previous Article
             </h2>
             <div className='text-primary-500 hover:text-primary-600 dark:hover:text-primary-400'>
               <Link href={ `/blog/${prev.slug}` }>{prev.title}</Link>
@@ -17,7 +56,7 @@ const PostNavigation = ({ next, prev }) => (
         {next && (
           <div className='max-sm:py-2'>
             <h2 className='text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
-                Next Article
+              Next Article
             </h2>
             <div className='text-primary-500 hover:text-primary-600 dark:hover:text-primary-400'>
               <Link href={ `/blog/${next.slug}` }>{next.title}</Link>

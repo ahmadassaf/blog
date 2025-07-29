@@ -1,3 +1,25 @@
+/**
+ * Search Component
+ *
+ * @description Input field component for filtering/searching articles with
+ * integrated search icon and dark mode support. Provides real-time search
+ * functionality through callback function.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+/**
+ * Search input component for article filtering
+ *
+ * @param {Object} props - Component props
+ * @param {Function} props.setSearchValue - Callback function to handle search value changes
+ * @returns {JSX.Element} Search input with icon
+ *
+ * @example
+ * const [searchTerm, setSearchTerm] = useState('');
+ * <Search setSearchValue={setSearchTerm} />
+ */
 const Search = ({ setSearchValue }) => (
   <div className='relative mt-8 border-none'>
     <input

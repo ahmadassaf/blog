@@ -1,3 +1,33 @@
+/**
+ * MenuLogo Component
+ *
+ * @description Site logo/branding component that renders a custom SVG logo for the navigation header.
+ * The logo is a stylized geometric design that adapts to the current theme using 'currentColor' fill.
+ * This component is used across all navigation contexts to maintain consistent branding.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+/**
+ * Renders the site logo as an SVG element
+ *
+ * @description Custom vector logo that uses currentColor to inherit text color from parent elements,
+ * making it theme-aware and adaptable to different navigation contexts (light/dark modes).
+ * The logo maintains aspect ratio and is optimized for 50x50px display size.
+ *
+ * @returns {JSX.Element} SVG logo element with geometric design
+ *
+ * @example
+ * // Basic usage in navigation header
+ * <MenuLogo />
+ *
+ * @example
+ * // Logo inherits color from parent
+ * <div className="text-blue-600">
+ *   <MenuLogo />
+ * </div>
+ */
 const Logo = () => (
   <svg
     version='1.0' xmlns='http://www.w3.org/2000/svg' width='50px' height='50px' viewBox='0 0 688.000000 688.000000' preserveAspectRatio='xMidYMid meet'>

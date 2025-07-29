@@ -1,5 +1,43 @@
+/**
+ * Quote Component
+ *
+ * @description Elegant quote block component for displaying testimonials, citations, or notable quotes.
+ * Features decorative quote icons, author attribution, and optional profile images.
+ * Used within MDX content to highlight important quotes or testimonials with proper semantic markup.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 import Image from 'next/image';
 
+/**
+ * Renders a styled quote block with author attribution
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.author - The name of the quote's author
+ * @param {string} [props.title] - The author's title or position
+ * @param {string} [props.image] - Optional profile image URL for the author
+ * @param {string} props.text - The quote text content
+ * @returns {JSX.Element} A figure element containing the styled quote
+ *
+ * @example
+ * // In MDX content - Basic quote:
+ * <Quote
+ *   text="This is a profound statement that deserves highlighting."
+ *   author="John Doe"
+ *   title="Software Engineer"
+ * />
+ *
+ * @example
+ * // In MDX content - Quote with profile image:
+ * <Quote
+ *   text="Innovation distinguishes between a leader and a follower."
+ *   author="Steve Jobs"
+ *   title="Co-founder of Apple"
+ *   image="/static/images/profiles/steve-jobs.jpg"
+ * />
+ */
 const Quote = ({ author, title, image, text }) => (
   <figure className='max-w-(--breakpoint-md) mx-auto text-center'>
     <svg className='w-10 h-10 mx-auto mb-3 text-gray-400 dark:text-gray-600' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 18 14'>

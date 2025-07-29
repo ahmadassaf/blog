@@ -1,10 +1,31 @@
 
+/**
+ * Open Graph Image Generation API
+ *
+ * @description API route that dynamically generates Open Graph images for blog posts and pages.
+ * Creates custom social media preview images with post titles, categories, and branding elements.
+ * Uses Vercel's @vercel/og package to generate images on-the-fly.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 import { ImageResponse } from '@vercel/og';
 import { allPosts } from 'contentlayer/generated';
 
 import siteMetadata from '@/data/meta/metadata';
 import { coreContent } from '@/lib/utils/contentlayer';
 
+/**
+ * Fetches and prepares Inter font files for Open Graph image generation
+ *
+ * @description Downloads Inter font variants from CDN and formats them for use in image generation.
+ * This is required because local font files cannot be easily loaded in Vercel's edge runtime.
+ *
+ * @returns {Promise<Array>} Array of font objects with data, name, style, and weight properties
+ *
+ * @throws {Error} If font files cannot be fetched from CDN
+ */
 async function getFonts() {
 
   /*
@@ -47,6 +68,23 @@ async function getFonts() {
   ];
 }
 
+/**
+ * GET handler for Open Graph image generation
+ *
+ * @description Generates dynamic Open Graph images for blog posts based on the slug parameter.
+ * If no matching post is found, falls back to default site metadata. The generated image
+ * includes the post title, category, subtitle, and site branding elements.
+ *
+ * @param {Request} request - The incoming HTTP request with search parameters
+ * @returns {Promise<ImageResponse|Response>} Generated image response or error response
+ *
+ * @example
+ * // Generate OG image for a specific post
+ * GET /api/og?slug=my-blog-post
+ *
+ * // Generate default OG image
+ * GET /api/og?slug=default
+ */
 export async function GET(request) {
   try {
 

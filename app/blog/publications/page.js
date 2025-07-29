@@ -1,15 +1,38 @@
+/**
+ * Publications Page Component
+ *
+ * @description Displays academic publications organized by year with collapsible sections,
+ * animated hover effects, and responsive grid layout. Each publication shows title,
+ * venue, year, and venue type.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 'use client';
 
+// External imports
 import { useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { Disclosure } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 
+// Internal imports
 import publications from '@/app/content/publications.json';
 import Card from '@/components/elements/Card';
 import { cn } from '@/components/utils/TailwindUtils';
 
+/**
+ * Publications page component with year-based grouping and interactive disclosure panels
+ *
+ * @param {Object} props - Component props
+ * @param {string} [props.className] - Additional CSS classes for styling
+ * @returns {JSX.Element} Publications page with grouped publications by year
+ *
+ * @example
+ * <Projects className="custom-spacing" />
+ */
 export default function Projects({ className }) {
   const [ hoveredIndex, setHoveredIndex ] = useState(null);
 
@@ -83,6 +106,17 @@ export default function Projects({ className }) {
   );
 }
 
+/**
+ * Publication metadata component displaying year and venue type
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.year - Publication year
+ * @param {string} props.type - Venue type (e.g., 'Conference', 'Journal')
+ * @returns {JSX.Element} Metadata badges for publication
+ *
+ * @example
+ * <CardMeta year="2023" type="Conference" />
+ */
 export const CardMeta = ({ year, type }) => (
   <div className='flex mt-4 gap-2'>
     <span className='inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10'>{year}</span>

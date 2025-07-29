@@ -1,3 +1,14 @@
+/**
+ * GitHub Language Colors
+ *
+ * @description Color mappings for programming languages as used by GitHub.
+ * Provides hex color codes for syntax highlighting and language badges
+ * in project displays and repository listings.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 const GithubColors = {
   'ABAP': '#E8274B',
   'AGS Script': '#B9D9FF',

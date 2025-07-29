@@ -1,9 +1,35 @@
+/**
+ * FAQ Component
+ *
+ * @description Collapsible FAQ section with expandable question-answer pairs.
+ * Features smooth animations and accessible disclosure patterns using Headless UI.
+ * Used within MDX content to present frequently asked questions in an organized format.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
 
 'use client';
 
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { Disclosure } from '@headlessui/react';
 
+/**
+ * Renders a collapsible FAQ section
+ *
+ * @param {Object} props - Component props
+ * @param {Array<Object>} props.questions - Array of FAQ objects
+ * @param {string} props.questions[].question - The question text
+ * @param {string} props.questions[].answer - The answer text
+ * @returns {JSX.Element} A div containing the FAQ section with expandable items
+ *
+ * @example
+ * // In MDX content:
+ * <Faq questions={[
+ *   { question: "What is React?", answer: "A JavaScript library for building user interfaces." },
+ *   { question: "How do I get started?", answer: "Begin by reading the official documentation." }
+ * ]} />
+ */
 const Faq = ({ questions }) => (
   <div className='mx-auto divide-y divide-gray-900/10 my-8'>
     <h2 className='text-2xl font-bold leading-10 tracking-tight text-gray-900 dark:text-white mt-0'>FAQ</h2>

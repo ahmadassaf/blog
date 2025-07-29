@@ -1,3 +1,14 @@
+/**
+ * CmdLauncherSocial
+ *
+ * @description Command palette page component for displaying social media and contact links.
+ * This component renders a list of social media profiles and contact methods including
+ * LinkedIn, Twitter, GitHub, and email. Each item includes an icon and handles opening
+ * external links in new tabs when selected.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
 
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { RiMailOpenFill, RiTwitterXFill } from 'react-icons/ri';
@@ -5,7 +16,21 @@ import CommandPalette, { filterItems, getItemIndex } from '@tmikeladze/react-cmd
 
 import '@tmikeladze/react-cmdk/dist/cmdk.css';
 
-function PostsCmd({ setPage, search }) {
+/**
+ * SocialCmd component renders the social/contact page within the command palette
+ *
+ * @param {Object} props - Component props
+ * @param {Function} props.setPage - Function to navigate between command palette pages
+ * @param {string} props.search - Current search query for filtering social links
+ * @returns {JSX.Element} Command palette page with social media and contact links
+ *
+ * @example
+ * <SocialCmd
+ *   setPage={setPage}
+ *   search="github"
+ * />
+ */
+function SocialCmd({ setPage, search }) {
 
   const socialItems = filterItems(
     [
@@ -87,4 +112,4 @@ function PostsCmd({ setPage, search }) {
   );
 }
 
-export default PostsCmd;
+export default SocialCmd;

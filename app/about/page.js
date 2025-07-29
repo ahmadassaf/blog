@@ -1,8 +1,29 @@
+/**
+ * About Page Component
+ *
+ * @description Main about page showcasing professional background, experience,
+ * and services offered. Features responsive design with hero section, career history,
+ * and service offerings.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
 
+// External imports
 import { LiaChartAreaSolid, LiaChessKnightSolid, LiaCodepen, LiaCubesSolid, LiaHandshake, LiaRobotSolid } from 'react-icons/lia';
 
+// Internal imports
 import Preview from '@/components/mdx/Preview';
 
+/**
+ * About page component displaying professional background and services
+ *
+ * @returns {JSX.Element} Complete about page with hero section, history, and services
+ *
+ * @example
+ * // Rendered at /about route
+ * <About />
+ */
 export default function About() {
 
   const values = [

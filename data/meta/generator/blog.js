@@ -1,5 +1,26 @@
+/**
+ * Blog Metadata Generator
+ *
+ * @description Generates comprehensive metadata for blog pages including
+ * OpenGraph, Twitter cards, RSS feeds, and viewport settings. Provides
+ * structured data for SEO and social media sharing.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+// Internal imports
 import siteMetadata from '../metadata';
 
+/**
+ * Generates metadata configuration for blog pages
+ *
+ * @returns {Object} Complete metadata object with OpenGraph, Twitter, and SEO settings
+ *
+ * @example
+ * const metadata = metadataGenertaor();
+ * // Used in Next.js layout or page components
+ */
 export function metadataGenertaor() {
   return {
     'alternates': {

@@ -1,11 +1,32 @@
+/**
+ * Footer Component
+ *
+ * @description Main website footer with navigation links, social media icons,
+ * newsletter signup, and copyright information. Features responsive grid layout
+ * with categories, projects, and about sections.
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
+// External imports
 import { allProjects } from 'contentlayer/generated';
 
+// Internal imports
 import categories from '@/app/content/categories';
 import Icon from '@/components/elements/Icon';
 import NewsletterForm from '@/components/forms/NewsletterForm';
 import siteMetadata from '@/data/meta/metadata';
 import { sortPosts } from '@/lib/utils/contentlayer';
 
+/**
+ * Footer component with navigation and social links
+ *
+ * @returns {JSX.Element} Complete footer with responsive grid layout
+ *
+ * @example
+ * <Footer />
+ */
 const Footer = () => (
   <footer aria-labelledby='footer-heading' className='border-t border-gray-200'>
     <div className='mx-auto py-12 lg:py-16'>

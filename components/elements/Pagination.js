@@ -1,7 +1,44 @@
+/**
+ * Pagination Component
+ *
+ * @description A pagination component that provides navigation controls for paginated content.
+ * Displays previous/next buttons and page indicators with proper accessibility attributes.
+ * Supports customizable URLs for different content types (posts, categories, tags, etc.).
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
+
 import { ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/react/20/solid';
 
+/**
+ * Number of posts to display per page
+ * @constant {number}
+ */
 const POSTS_PER_PAGE = 7;
 
+/**
+ * Pagination component for navigating through paginated content
+ *
+ * @description Renders pagination controls with previous/next buttons and page indicators.
+ * Handles URL generation for different page numbers and content types.
+ *
+ * @param {Object} props - Component props
+ * @param {number} props.totalPages - Total number of pages available
+ * @param {number} props.currentPage - Current active page number
+ * @param {string} props.baseURL - Base URL for the first page (e.g., 'blog')
+ * @param {string} props.paginationURL - URL pattern for paginated pages (e.g., 'blog/page')
+ *
+ * @returns {JSX.Element} The rendered pagination component
+ *
+ * @example
+ * <Pagination
+ *   totalPages={10}
+ *   currentPage={3}
+ *   baseURL="blog"
+ *   paginationURL="blog/page"
+ * />
+ */
 const Pagination = ({ totalPages, currentPage, baseURL, paginationURL }) => {
   const prevPage = parseInt(currentPage) - 1 > 0;
   const nextPage = parseInt(currentPage) + 1 <= parseInt(totalPages);

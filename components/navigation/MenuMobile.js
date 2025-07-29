@@ -1,10 +1,59 @@
+/**
+ * MenuMobile Component
+ *
+ * @description Mobile responsive navigation menu component that provides a full-screen overlay
+ * navigation experience for mobile devices. Features categories, navigation links, search functionality,
+ * and newsletter signup. Includes proper accessibility attributes and smooth animations.
+ * Only visible on mobile/tablet devices (hidden on desktop).
+ *
+ * @author Ahmad Assaf
+ * @version 1.0.0
+ */
 
 import React from 'react';
 
+// Internal components
 import Link from '@/components/elements/Link';
 import NewsletterForm from '@/components/forms/NewsletterForm';
 import MenuSearch from '@/components/navigation/MenuSearch';
 
+/**
+ * Renders a full-screen mobile navigation menu
+ *
+ * @description Comprehensive mobile menu that overlays the entire screen when opened.
+ * Features a search bar (on small screens), close button, blog categories with descriptions,
+ * main navigation links, and a newsletter signup form. The menu uses proper semantic HTML
+ * with ARIA attributes for accessibility and includes dark mode support.
+ *
+ * @param {Object} props - Component props
+ * @param {Array<Object>} props.categories - Array of blog category objects
+ * @param {string} props.categories[].id - Unique identifier for the category
+ * @param {string} props.categories[].title - Display title of the category
+ * @param {string} props.categories[].description - Brief description of the category
+ * @param {Array<Object>} props.links - Array of main navigation link objects
+ * @param {string} props.links[].href - URL for the navigation link
+ * @param {string} props.links[].title - Display text for the navigation link
+ * @param {Function} props.setMobileMenuOpen - Function to close the mobile menu
+ * @param {Function} props.setLauncherOpen - Function to open the search/command launcher
+ *
+ * @returns {JSX.Element} Full-screen mobile navigation menu overlay
+ *
+ * @example
+ * // Basic usage in mobile navigation
+ * const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+ * const [isLauncherOpen, setIsLauncherOpen] = useState(false);
+ *
+ * <MenuMobile
+ *   categories={blogCategories}
+ *   links={navigationLinks}
+ *   setMobileMenuOpen={setIsMobileMenuOpen}
+ *   setLauncherOpen={setIsLauncherOpen}
+ * />
+ *
+ * @example
+ * // Menu automatically hides on desktop (lg:hidden class)
+ * // and provides full navigation for mobile users
+ */
 const MenuMobile = ({ categories, links, setMobileMenuOpen, setLauncherOpen }) => (
   <div className='lg:hidden' role='dialog' aria-modal='true'>
 

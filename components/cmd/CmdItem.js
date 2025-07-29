@@ -121,21 +121,21 @@ const CmdItem = ({ title, subtitle, category, count, type = 'navigation', icon, 
       <div className='flex-shrink-0 flex items-center gap-2'>
         {/* Category badge for posts */}
         {config.showCategory && category && (
-          <span className={ `text-xs inline-flex items-center rounded-xs px-2.5 py-0.5 uppercase font-medium ${config.badgeColor} transition-colors duration-200` }>
+          <span className={ `text-xs inline-flex items-center rounded px-1.5 py-0.5 font-medium ${config.badgeColor} transition-colors duration-200` }>
             {category.replace(/[-_]/g, ' ')}
           </span>
         )}
 
         {/* Count badge for tags */}
         {config.showCount && typeof count !== 'undefined' && (
-          <span className={ `text-xs inline-flex items-center rounded-xs px-2.5 py-0.5 uppercase font-medium ${config.badgeColor} transition-colors duration-200` }>
-            {count} posts
+          <span className={ `text-xs inline-flex items-center rounded px-1.5 py-0.5 font-medium ${config.badgeColor} transition-colors duration-200` }>
+            {count}
           </span>
         )}
 
         {/* Type indicator for projects/publications */}
         {(type === 'project' || type === 'publication') && (
-          <span className={ `text-xs inline-flex items-center rounded-xs px-2.5 py-0.5 uppercase font-medium ${config.badgeColor} capitalize transition-colors duration-200` }>
+          <span className={ `text-xs inline-flex items-center rounded px-1.5 py-0.5 font-medium ${config.badgeColor} capitalize transition-colors duration-200` }>
             {type}
           </span>
         )}

@@ -25,6 +25,14 @@ module.exports = {
       'animation': {
         'aurora': 'aurora 60s linear infinite'
       },
+      'colors': {
+        'dark': '#171717',
+        'gray': {
+          '700': '#404040',
+          '800': '#262626',
+          '900': '#171717'
+        }
+      },
       'keyframes': {
         'aurora': {
           'from': {

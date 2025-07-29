@@ -40,7 +40,7 @@ export async function generateMetadata() {
 export default function Blog() {
   return (
     <div>
-      <FeaturedPostsLayout/>
+      <FeaturedPostsLayout hideTitle={ true } />
       <ListLayout posts={ sortPosts(allPosts, 'date') } paginationURL='blog/page' baseURL='blog'/>
     </div>
   );

@@ -97,9 +97,9 @@ function SocialCmd({ setPage, search }) {
                 index={ getItemIndex(socialItems, id) }
                 { ...rest }
               >
-                <div className='flex items-center w-full'>
+                <div className='flex items-center w-full gap-3'>
                   {heroIcon}
-                  <div className='mx-2 text-md'>{ title }</div>
+                  <div className='text-sm font-medium'>{ title }</div>
                 </div>
               </CommandPalette.ListItem>
             ))}

@@ -18,7 +18,7 @@ import { usePathname } from 'next/navigation';
 import categories from '@/app/content/categories';
 import publications from '@/app/content/publications';
 import tags from '@/app/content/tags';
-import ModernCommandLauncher from '@/components/cmd/CmdLauncherModern';
+import CommandLauncher from '@/components/cmd/CmdLauncher';
 import Link from '@/components/elements/Link';
 import MenuBlog from '@/components/navigation/MenuBlog';
 import ThemeLogo from '@/components/navigation/MenuLogo';
@@ -104,7 +104,7 @@ const Menu = () => {
 
         </div>
       </div>
-      <ModernCommandLauncher
+      <CommandLauncher
         tags={ tags }
         projects={ coreContent(sortPosts(allProjects)) }
         posts={ posts }

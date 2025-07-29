@@ -6,16 +6,16 @@ const TableOfContents = ({ toc }) => {
   const [ activeSlug, setActiveSlug ] = useState('');
   const isTableOfContentsLoaded = useRef(false);
 
-  const observeHeadings = (headings, observer) => {
-    headings.forEach((heading) => {
-      const element = document.getElementById(heading.id);
-
-      if (element) observer.observe(element);
-      if (heading.children.length > 0) observeHeadings(heading.children, observer);
-    });
-  };
-
   useEffect(() => {
+    const observeHeadings = (headings, observer) => {
+      headings.forEach((heading) => {
+        const element = document.getElementById(heading.id);
+
+        if (element) observer.observe(element);
+        if (heading.children.length > 0) observeHeadings(heading.children, observer);
+      });
+    };
+
     if (location.hash && !isTableOfContentsLoaded.current) {
       setActiveSlug(location.hash.replace('#', ''));
       isTableOfContentsLoaded.current = true;

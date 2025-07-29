@@ -13,6 +13,7 @@ import React, { useState } from 'react';
 import CommandPalette, { filterItems, getItemIndex } from '@tmikeladze/react-cmdk';
 import { useTheme } from 'next-themes';
 
+import CmdItem from '@/components/cmd/CmdItem';
 import CmdFooter from '@/components/cmd/CmdLauncherFooter';
 import PostsCmd from '@/components/cmd/CmdLauncherPosts';
 import PublicationsCmd from '@/components/cmd/CmdLauncherPublications';
@@ -20,10 +21,6 @@ import SearchCmd from '@/components/cmd/CmdLauncherSearch';
 import SocialCmd from '@/components/cmd/CmdLauncherSocial';
 import TagsCmd from '@/components/cmd/CmdLauncherTags';
 import ProjectsCmd from '@/components/cmd/CmdLaunherProjects';
-import CmdPost from '@/components/cmd/types/CmdPost';
-import CmdProject from '@/components/cmd/types/CmdProject';
-import CmdPublication from '@/components/cmd/types/CmdPublication';
-import CmdTag from '@/components/cmd/types/CmdTag';
 import { prepareLauncherCollection }  from '@/components/cmd/utils';
 
 import '@tmikeladze/react-cmdk/dist/cmdk.css';
@@ -58,7 +55,7 @@ import '@tmikeladze/react-cmdk/dist/cmdk.css';
 const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen }) => {
   const [ page, setPage ] = useState('root');
   const [ search, setSearch ] = useState('');
-  const [ showType ] = useState(true);
+  const [ showType ] = useState(false);
   const [ selected, setSelected ] = useState(0);
   const { theme, setTheme, resolvedTheme } = useTheme();
 
@@ -88,20 +85,20 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
         'items': [
           {
             'children': 'Home',
+            'cmdIcon': 'HomeIcon',
             'href': '/',
-            'icon': 'HomeIcon',
             'id': 'home'
           },
           {
             'children': 'Blog',
+            'cmdIcon': 'BookOpenIcon',
             'href': '/blog',
-            'icon': 'BookOpenIcon',
             'id': 'blog'
           },
           {
             'children': 'Projects',
             'closeOnSelect': false,
-            'icon': 'RectangleGroupIcon',
+            'cmdIcon': 'RectangleGroupIcon',
             'id': 'projects',
             'onClick': () => {
               setPage('projects');
@@ -111,7 +108,7 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
           {
             'children': 'Posts',
             'closeOnSelect': false,
-            'icon': 'RectangleStackIcon',
+            'cmdIcon': 'RectangleStackIcon',
             'id': 'posts_list',
             'onClick': () => {
               setPage('posts');
@@ -121,7 +118,7 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
           {
             'children': 'Publications',
             'closeOnSelect': false,
-            'icon': 'NewspaperIcon',
+            'cmdIcon': 'NewspaperIcon',
             'id': 'publications',
             'onClick': () => {
               setPage('publications');
@@ -131,7 +128,7 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
           {
             'children': 'Tags',
             'closeOnSelect': false,
-            'icon': 'TagIcon',
+            'cmdIcon': 'TagIcon',
             'id': 'tags',
             'onClick': () => {
               setPage('tags');
@@ -146,14 +143,14 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
         'items': [
           {
             'children': 'About me',
+            'cmdIcon': 'FingerPrintIcon',
             'href': '/about',
-            'icon': 'FingerPrintIcon',
             'id': 'about_me'
           },
           {
             'children': 'Reach out',
             'closeOnSelect': false,
-            'icon': 'IdentificationIcon',
+            'cmdIcon': 'IdentificationIcon',
             'id': 'reach_out',
             'onClick': () => {
               setPage('contact');
@@ -163,7 +160,7 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
           {
             'children': 'Switch Theme',
             'closeOnSelect': false,
-            'icon': 'ArrowRightOnRectangleIcon',
+            'cmdIcon': 'ArrowRightOnRectangleIcon',
             'id': 'switch_theme',
             'onClick': () => {
               setTheme(theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark');
@@ -222,22 +219,18 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
               <div key={ `cmd-${list.id}` } className={ search.toLowerCase() === list.heading.toLowerCase() ? 'hidden' : '' }>
                 <div className={ list.hidden && !search.length ? 'hidden' : 'visible' }>
                   <CommandPalette.List key={ `cmdPalette-${list.id}` } heading={ list.heading } >
-                    {list.items.map(({ id, title, subtitle, category, count, type, children, ...rest }) => (
+                    {list.items.map(({ id, title, subtitle, category, count, type, children, cmdIcon, ...rest }) => (
                       <CommandPalette.ListItem key={ `cmdPaletteItem-${list.id}-${id}` } index={ getItemIndex(filteredItems, id) } { ...rest }>
-                        {(() => {
-                          switch (type) {
-                          case 'post':
-                            return <CmdPost title={ title } category={ category }/>;
-                          case 'tag':
-                            return <CmdTag title={ title } count={ count } CmdTag={ CmdTag }/>;
-                          case 'project':
-                            return <CmdProject title={ title } subtitle={ subtitle } showType={ showType }/>;
-                          case 'publications':
-                            return <CmdPublication title={ title } subtitle={ subtitle } showType={ showType }/>;
-                          default:
-                            return <div>{children}</div>;
-                          }
-                        })()}
+                        <CmdItem
+                          title={ title }
+                          subtitle={ subtitle }
+                          category={ category }
+                          count={ count }
+                          type={ type || 'navigation' }
+                          icon={ cmdIcon }
+                        >
+                          {children}
+                        </CmdItem>
 
                       </CommandPalette.ListItem>
                     ))}

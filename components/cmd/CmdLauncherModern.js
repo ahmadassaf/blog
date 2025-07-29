@@ -127,6 +127,7 @@ const CmdPage = ({ type, items, setPage, search, setSearch }) => (
  * />
  */
 const ModernCommandLauncher = ({ projects, posts, publications, tags, open, setOpen }) => {
+  console.log('ModernCommandLauncher render:', { open, 'posts': posts?.length, 'projects': projects?.length });
   const {
     page,
     search,

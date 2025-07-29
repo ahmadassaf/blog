@@ -10,9 +10,9 @@
  * @version 1.0.0
  */
 
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { RiMailOpenFill, RiTwitterXFill } from 'react-icons/ri';
 import CommandPalette, { filterItems, getItemIndex } from '@tmikeladze/react-cmdk';
+
+import CmdIcon from '@/components/cmd/CmdIcon';
 
 import '@tmikeladze/react-cmdk/dist/cmdk.css';
 
@@ -41,7 +41,7 @@ function SocialCmd({ setPage, search }) {
           {
             'children': 'Linkedin',
             'closeOnSelect': false,
-            'heroIcon': <FaLinkedin className='h-5 w-5  fill-icon'/>,
+            'heroIcon': <CmdIcon name='UserGroupIcon' />,
             'id': 'linkedin',
             'onClick': () => {
               window.open('https://linkedin.com/in/ahmadassaf', '_blank').focus();
@@ -51,7 +51,7 @@ function SocialCmd({ setPage, search }) {
           {
             'children': 'Twitter',
             'closeOnSelect': false,
-            'heroIcon': <RiTwitterXFill className='h-5 w-5  fill-icon'/>,
+            'heroIcon': <CmdIcon name='ChatBubbleLeftRightIcon' />,
             'id': 'twitter',
             'onClick': () => {
               window.open('https://twitter.com/ahmadaassaf', '_blank').focus();
@@ -61,7 +61,7 @@ function SocialCmd({ setPage, search }) {
           {
             'children': 'Github',
             'closeOnSelect': false,
-            'heroIcon': <FaGithub className='h-5 w-5  fill-icon'/>,
+            'heroIcon': <CmdIcon name='CodeBracketIcon' />,
             'id': 'github',
             'onClick': () => {
               window.open('https://github.com/ahmadassaf', '_blank').focus();
@@ -71,7 +71,7 @@ function SocialCmd({ setPage, search }) {
           {
             'children': 'Mail',
             'closeOnSelect': false,
-            'heroIcon': <RiMailOpenFill className='h-5 w-5  fill-icon'/>,
+            'heroIcon': <CmdIcon name='EnvelopeIcon' />,
             'id': 'mail',
             'onClick': () => {
               window.open('mailto:ahmad@assaf.website', '_blank').focus();

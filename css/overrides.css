@@ -38,8 +38,8 @@
 html.dark [data-cmdk-root],
 :root.dark [data-cmdk-root],
 body.dark [data-cmdk-root] {
-    background: rgb(31, 41, 55) !important;
-    border: 1px solid rgb(55, 65, 81) !important;
+    background: #171717 !important;
+    border: 1px solid #404040 !important;
     color: rgb(243, 244, 246) !important;
 }
 
@@ -65,7 +65,7 @@ body.dark [data-cmdk-item] {
 html.dark [data-cmdk-item][aria-selected="true"],
 :root.dark [data-cmdk-item][aria-selected="true"],
 body.dark [data-cmdk-item][aria-selected="true"] {
-    background: rgb(55, 65, 81) !important;
+    background: #262626 !important;
 }
 
 /* Force dark mode for all text elements inside command palette */

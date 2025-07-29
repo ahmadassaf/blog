@@ -28,7 +28,7 @@ function CmdTag({ title, count }) {
   return (
     <div className='flex justify-between w-full'>
       <div className='text-md'>{ title }</div>
-      <span className='text-xs rounded-sm bg-blue-600 text-white p-2'>{ count } posts</span>
+      <span className='text-xs inline-flex items-center rounded-xs bg-blue-600 px-2.5 py-0.5 hover:bg-blue-700 uppercase text-white font-medium transition-colors duration-200'>{ count } posts</span>
     </div>
   );
 }

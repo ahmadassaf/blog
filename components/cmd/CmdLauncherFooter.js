@@ -31,7 +31,7 @@ const CmdLauncherFooter = () => (
         to navigate
       </span>
       <span className='flex items-center gap-1'>
-        <kbd className='px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded min-w-[32px] text-center'>esc</kbd>
+        <kbd className='px-2 py-1 text-xs bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded min-w-[28px] text-center'>esc</kbd>
         to close / go back
       </span>
     </div>

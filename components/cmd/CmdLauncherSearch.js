@@ -65,7 +65,10 @@ function SearchCmd({ search, setShowType, content }) {
   }, [ content ]);
 
   useEffect(() => {
-    searchAPI(search).catch(console.error);
+    searchAPI(search).catch(() => {
+
+      // Ignore search errors
+    });
   }, [ searchAPI, search ]);
 
   if (!searchResult) searchAPI(search);

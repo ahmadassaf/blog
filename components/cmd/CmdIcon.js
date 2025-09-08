@@ -64,11 +64,7 @@ const iconMap = {
 const CmdIcon = ({ name, className = '', style = {} }) => {
   const IconComponent = iconMap[name];
 
-  if (!IconComponent) {
-    console.warn(`CmdIcon: Unknown icon name "${name}"`);
-
-    return <HomeIcon className={ `h-5 w-5 text-gray-500 ${className}` } style={ style } />;
-  }
+  if (!IconComponent) return <HomeIcon className={ `h-5 w-5 text-gray-500 ${className}` } style={ style } />;
 
   return <IconComponent className={ `h-5 w-5 text-gray-600 dark:text-gray-300 ${className}` } style={ style } />;
 };

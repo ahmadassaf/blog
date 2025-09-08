@@ -35,6 +35,22 @@ export async function generateMetadata() {
 }
 
 /**
+ * Generates viewport configuration for the application
+ *
+ * @description Generates viewport settings for responsive design and mobile optimization.
+ * Separated from metadata to comply with Next.js 15+ requirements.
+ *
+ * @returns {Object} The viewport configuration object
+ */
+export function generateViewport() {
+  return {
+    'initialScale': 1,
+    'maximumScale': 1,
+    'width': 'device-width'
+  };
+}
+
+/**
  * Inter font configuration for the application
  *
  * @description Configures the Inter font family with multiple weights and Latin subset.
@@ -69,7 +85,6 @@ export default function RootLayout({ children }) {
       <link rel='icon' type='image/png' sizes='16x16' href='/static/favicons/favicon-16x16.png'/>
       <link rel='manifest' href='/static/favicons/site.webmanifest' />
       <link rel='mask-icon' href='/static/favicons/safari-pinned-tab.svg' color='#fff' />
-      <meta content='width=device-width, initial-scale=1' name='viewport' />
       <meta name='msapplication-TileColor' content='#000000' />
       <meta name='theme-color' media='(prefers-color-scheme: light)' content='#fff' />
       <meta name='theme-color' media='(prefers-color-scheme: dark)' content='#000' />

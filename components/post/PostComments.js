@@ -12,8 +12,13 @@
 'use client';
 
 // External libraries
-import Giscus from '@giscus/react';
+import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
+
+const Giscus = dynamic(() => import('@giscus/react'), {
+  'loading': () => <div className='animate-pulse h-32 bg-gray-200 dark:bg-gray-800 rounded-lg' />,
+  'ssr': false
+});
 
 /**
  * Renders a Giscus comments section with theme-aware styling

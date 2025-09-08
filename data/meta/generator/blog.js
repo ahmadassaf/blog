@@ -51,11 +51,6 @@ export function metadataGenertaor() {
       'description': siteMetadata.description,
       'images': [ `${siteMetadata.siteUrl}/static/images/logo.svg` ],
       'title': siteMetadata.title
-    },
-    'viewport': {
-      'initialScale': 1,
-      'maximumScale': 1,
-      'width': 'device-width'
     }
   };
 }

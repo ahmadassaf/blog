@@ -52,6 +52,8 @@ const ImageFallback = ({
       alt={ alt }
       onError={ setError }
       src={ error ? fallback : src }
+      sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+      loading='lazy'
       { ...props }
     />
   );

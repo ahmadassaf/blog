@@ -11,17 +11,20 @@
 
 import React, { useState } from 'react';
 import CommandPalette, { filterItems, getItemIndex } from '@tmikeladze/react-cmdk';
+import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 
 import CmdItem from '@/components/cmd/CmdItem';
-import CmdFooter from '@/components/cmd/CmdLauncherFooter';
-import PostsCmd from '@/components/cmd/CmdLauncherPosts';
-import PublicationsCmd from '@/components/cmd/CmdLauncherPublications';
-import SearchCmd from '@/components/cmd/CmdLauncherSearch';
-import SocialCmd from '@/components/cmd/CmdLauncherSocial';
-import TagsCmd from '@/components/cmd/CmdLauncherTags';
-import ProjectsCmd from '@/components/cmd/CmdLaunherProjects';
 import { prepareLauncherCollection }  from '@/components/cmd/utils';
+
+// Dynamically import heavy components to reduce initial bundle size
+const CmdFooter = dynamic(() => import('@/components/cmd/CmdLauncherFooter'));
+const PostsCmd = dynamic(() => import('@/components/cmd/CmdLauncherPosts'));
+const PublicationsCmd = dynamic(() => import('@/components/cmd/CmdLauncherPublications'));
+const SearchCmd = dynamic(() => import('@/components/cmd/CmdLauncherSearch'));
+const SocialCmd = dynamic(() => import('@/components/cmd/CmdLauncherSocial'));
+const TagsCmd = dynamic(() => import('@/components/cmd/CmdLauncherTags'));
+const ProjectsCmd = dynamic(() => import('@/components/cmd/CmdLaunherProjects'));
 
 import '@tmikeladze/react-cmdk/dist/cmdk.css';
 

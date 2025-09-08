@@ -35,7 +35,7 @@ const CustomLink = ({ href, ...rest }) => {
   const isAnchorLink = href && href.startsWith('#');
 
   if (isInternalLink) return (
-    <Link href={ href } { ...rest }/>
+    <Link href={ href } prefetch={ true } { ...rest }/>
   );
 
   if (isAnchorLink) return <a href={ href } { ...rest } />;

@@ -155,8 +155,7 @@ const CmdSearch = ({ search, collections, recentSearches = [] }) => {
         }, {});
 
         setSearchResults(groupedResults);
-      } catch (error) {
-        console.error('Search error:', error);
+      } catch {
         setSearchResults({});
       } finally {
         setIsLoading(false);

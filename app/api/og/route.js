@@ -155,9 +155,7 @@ export async function GET(request) {
         'width': 1200
       }
     );
-  } catch (error) {
-    console.log(`${error.message}`);
-
+  } catch {
     return new Response(`Failed to generate the image`, {
       'status': 500
     });

@@ -32,18 +32,40 @@ import NextImage from 'next/image';
  * <PostImage dark title="my-diagram" caption="Figure 1: System Architecture" />
  */
 const PostImage = ({ dark, title, caption, width = 800, height = 800, ...rest }) => {
+  const imageProps = {
+    'alt': title,
+    'className': 'mx-auto',
+    'height': height,
+    'loading': 'lazy',
+    'sizes': '(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px',
+    'width': width
+  };
+
   if (dark) return (
     <div>
-      <NextImage alt={ title } className='dark:hidden mx-auto' width={ 800 } height={ 800 } src={ `/static/images/posts/${title}.svg` }/>
-      <NextImage alt={ title } className='hidden dark:block mx-auto' width={ 800 } height={ 800 } src={ `/static/images/posts/${title}-dark.svg` }/>
+      <NextImage
+        { ...imageProps }
+        className='dark:hidden mx-auto'
+        src={ `/static/images/posts/${title}.svg` }
+      />
+      <NextImage
+        { ...imageProps }
+        className='hidden dark:block mx-auto'
+        src={ `/static/images/posts/${title}-dark.svg` }
+      />
       { caption && <p className='text-center text-sm text-gray-500 dark:text-gray-400'>{ caption }</p> }
     </div>
   );
 
-  return (<div>
-    <NextImage alt={ title } className='dark:hidden mx-auto' width={ 800 } height={ 800 } src={ `/static/images/posts/${title}.svg` }/>
-    { caption && <p className='text-center text-sm text-gray-500 dark:text-gray-400'>{ caption }</p> }
-  </div>);
+  return (
+    <div>
+      <NextImage
+        { ...imageProps }
+        src={ `/static/images/posts/${title}.svg` }
+      />
+      { caption && <p className='text-center text-sm text-gray-500 dark:text-gray-400'>{ caption }</p> }
+    </div>
+  );
 };
 
 export default PostImage;

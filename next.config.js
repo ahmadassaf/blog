@@ -67,6 +67,9 @@ module.exports = () => {
     'eslint': {
       'dirs': [ 'app', 'components', 'layouts', 'scripts' ]
     },
+    'experimental': {
+      'optimizePackageImports': [ '@radix-ui/themes', 'framer-motion', '@tabler/icons-react', '@heroicons/react', 'react-icons' ]
+    },
     async headers() {
       return [
         {
@@ -77,6 +80,8 @@ module.exports = () => {
     },
     'images': {
       'dangerouslyAllowSVG': true,
+      'formats': [ 'image/webp', 'image/avif' ],
+      'minimumCacheTTL': 60,
       'remotePatterns': [
         {
           'hostname': '**',
@@ -90,11 +95,39 @@ module.exports = () => {
     },
     'pageExtensions': [ 'ts', 'tsx', 'js', 'jsx', 'md', 'mdx' ],
     'reactStrictMode': true,
+    'turbopack': {
+      'rules': {
+        '*.svg': {
+          'as': '*.js',
+          'loaders': [ '@svgr/webpack' ]
+        }
+      }
+    },
     'webpack': (config, { dev, isServer }) => {
       config.module.rules.push({
         'test': /\.svg$/,
         'use': [ '@svgr/webpack' ]
       });
+
+      if (!dev && !isServer) {
+        config.optimization.splitChunks.chunks = 'all';
+        config.optimization.splitChunks.cacheGroups = {
+          ...config.optimization.splitChunks.cacheGroups,
+          'common': {
+            'chunks': 'all',
+            'minChunks': 2,
+            'name': 'common',
+            'priority': 5,
+            'reuseExistingChunk': true
+          },
+          'vendor': {
+            'chunks': 'all',
+            'name': 'vendors',
+            'priority': 10,
+            'test': /[\\/]node_modules[\\/]/
+          }
+        };
+      }
 
       return config;
     }

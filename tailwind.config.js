@@ -13,12 +13,29 @@ const addVariablesColors = require('./css/tailwind/addVariablesColors.js');
 const tailwindGrid = require('./css/tailwind/tailwindGrid.js');
 
 module.exports = {
+  'content': [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './data/**/*.{js,ts,jsx,tsx,mdx}'
+  ],
   'darkMode': 'class',
   'plugins': [
     addVariablesColors,
     tailwindGrid,
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography')
+  ],
+  'safelist': [
+
+    // Pill component colors
+    'bg-gray-600',
+    'bg-blue-600',
+    'bg-green-600',
+    'bg-red-600',
+    'bg-yellow-600',
+    'bg-purple-600',
+    'bg-pink-600',
+    'bg-indigo-600'
   ],
   'theme': {
     'extend': {

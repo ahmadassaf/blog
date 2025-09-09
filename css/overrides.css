@@ -214,9 +214,30 @@ input:-webkit-autofill:focus {
  * Creates a decorative brush stroke background for highlighted text
  */
 strong.highlight {
-    background: url(//s2.svgbox.net/pen-brushes.svg?ic=brush-2&color=a2f4fd);
+    background: linear-gradient(120deg, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.7) 100%);
+    border-radius: 3px;
     margin: -2px -6px;
     padding: 2px 6px;
+    font-weight: 700;
+    position: relative;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+/**
+ * Dark mode highlight styling
+ */
+@media (prefers-color-scheme: dark) {
+    strong.highlight {
+        background: linear-gradient(120deg, rgba(147, 197, 253, 0.2) 0%, rgba(147, 197, 253, 0.4) 100%);
+    }
+}
+
+html.dark strong.highlight,
+:root.dark strong.highlight,
+body.dark strong.highlight {
+    background: linear-gradient(120deg, rgba(147, 197, 253, 0.2) 0%, rgba(147, 197, 253, 0.4) 100%) !important;
+    color: rgb(147, 197, 253) !important;
 }
 
 /**
@@ -304,9 +325,9 @@ a[data-state="closed"], a[data-state="open"] {
 aside {
     width: 170px;
     position: absolute;
+    color:#6b7280;
     margin: 0 -20%;
-    font-size: 12px;
-    border-bottom: 1px solid rgb(23, 163, 74);
+    font-size: 13px;
     padding: 10px 0;
 }
 

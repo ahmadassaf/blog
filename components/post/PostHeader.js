@@ -11,11 +11,11 @@
 
 // External libraries
 import { BookOpenIcon, ClockIcon } from '@heroicons/react/20/solid';
+import Link from 'next/link';
 
 // Internal components
 import Pill from '@/components/elements/Pill';
 import PostSeriesBox from '@/components/post/postSeriesBox';
-import PostSharing from '@/components/post/PostSharing';
 
 const postDateTemplate = { 'day': 'numeric', 'month': 'long', 'weekday': 'long', 'year': 'numeric' };
 
@@ -61,16 +61,18 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
 
     {frontMatter.draft && <Pill text='Draft' color='yellow' />}
 
-    <Pill
-      text={ frontMatter.category }
-      link={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` }
-      color='green'
-    />
-    <div className='space-y-1 text-left'>
-      <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14 py-4'>
+    <Link
+      href={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` }
+      className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 w-fit'
+    >
+      <div className='w-2 h-2 bg-green-500 rounded-full'></div>
+      {frontMatter.category.charAt(0).toUpperCase() + frontMatter.category.slice(1)}
+    </Link>
+    <div className='text-left'>
+      <h1 className='text-6xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-18 pb-2'>
         {frontMatter.title}
       </h1>
-      <h3 className='text-1xl sm:text-xl tracking-tight text-gray-600 dark:text-gray-100 sm:leading-10 md:text-2xl capitalize'>
+      <h3 className='text-3xl sm:text-xl tracking-tight text-gray-600 dark:text-gray-100 sm:leading-10 md:text-3xl capitalize'>
         {frontMatter.subtitle}
       </h3>
 
@@ -86,23 +88,11 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
       {frontMatter.tags && (
         <div className='my-4 flex flex-wrap'>
           {frontMatter.tags.map((tag) => (
-            <Pill
-              key={ tag }
-              text={ tag }
-              link={ `/blog/tags/${tag.replace(' ', '-').toLowerCase()}` }
-              color='blue'
-            />
+            <Pill key={ tag } text={ tag } link={ `/blog/tags/${tag.replace(' ', '-').toLowerCase()}` } color='gray' />
           ))}
         </div>
       )}
-      <PostSharing
-        siteMetadata={ siteMetadata }
-        slug={ frontMatter.slug }
-        title={ frontMatter.title }
-        tags={ frontMatter.tags }
-        fileName={ frontMatter.fileName }
-        externalLink={ frontMatter.externalLink }
-      />
+
     </div>
     {frontMatter.seriesPosts && (
       <PostSeriesBox series={ frontMatter.seriesPosts } slug={ frontMatter.slug } />
@@ -135,7 +125,7 @@ export default PostHeader;
  * />
  */
 export const PostTimestamps = ({ date, locale, readingTime }) => (
-  <div className='flex items-baseline max-sm:text-xs text-sm'>
+  <div className='flex items-baseline max-sm:text-xs text-sm mt-2'>
     <div className='flex items-center'>
       <ClockIcon aria-hidden='true' className='h-4 w-4 mr-2 shrink-0 text-gray-400' />
       <dt className='sr-only'>Last Edited on</dt>

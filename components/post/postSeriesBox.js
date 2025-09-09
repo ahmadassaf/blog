@@ -64,7 +64,7 @@ const PostSeriesBox = ({ series, slug }) => {
       >
         <div className='flex items-center justify-between'>
           <div className='flex items-center space-x-3 flex-1'>
-            <Square3Stack3DIcon className='h-4 w-4 text-gray-500 dark:text-gray-400' />
+            <Square3Stack3DIcon className='h-4 w-4 text-blue-500' />
             <span className='text-sm text-gray-600 dark:text-gray-400'>Part of</span>
             <h3 className='font-medium text-gray-900 dark:text-gray-100 truncate'>
               {series[0].series}
@@ -72,7 +72,7 @@ const PostSeriesBox = ({ series, slug }) => {
             <div className='flex items-center space-x-2 ml-auto'>
               <div className='w-16 h-1 bg-gray-200 dark:bg-gray-700 rounded-full'>
                 <div
-                  className='h-full bg-gray-600 dark:bg-gray-400 rounded-full transition-all duration-300'
+                  className='h-full bg-green-600 rounded-full transition-all duration-300'
                   style={{ 'width': `${progressPercentage}%` }}
                 />
               </div>
@@ -107,7 +107,7 @@ const PostSeriesBox = ({ series, slug }) => {
                 <div key={ post.slug } className='flex items-center space-x-3 py-2'>
                   <div className='flex-shrink-0'>
                     {isCompleted ? (
-                      <div className='w-2 h-2 bg-gray-600 dark:bg-gray-400 rounded-full' />
+                      <div className='w-2 h-2 bg-blue-600 rounded-full' />
                     ) : (
                       <div className='w-2 h-2 border border-gray-300 dark:border-gray-600 rounded-full' />
                     )}

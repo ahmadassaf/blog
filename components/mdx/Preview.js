@@ -22,6 +22,9 @@ import Link from 'next/link';
 import ImageFallback from '@/components/elements/ImageFallback';
 import { cn } from '@/components/utils/TailwindUtils';
 
+// Global cache for URL previews
+const previewCache = new Map();
+
 /**
  * Interactive link preview component with hover card functionality
  *
@@ -54,9 +57,55 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
   const [ loading, setLoading ] = React.useState(true);
   const [ isOpen, setOpen ] = React.useState(false);
   const [ isMounted, setIsMounted ] = React.useState(false);
+  const [ isIntersecting, setIsIntersecting ] = React.useState(false);
+  const elementRef = React.useRef(null);
 
+  // Intersection Observer to detect when component is near viewport
   React.useEffect(() => {
+    if (!elementRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting || entry.intersectionRatio > 0) {
+            setIsIntersecting(true);
+
+            // Stop observing once triggered
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+
+        // Start loading 200px before entering viewport
+        'rootMargin': '200px',
+        'threshold': 0
+      }
+    );
+
+    observer.observe(elementRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Fetch preview data only when in viewport and not cached
+  React.useEffect(() => {
+    if (!isIntersecting) return;
+
     setIsMounted(true);
+
+    // Check cache first
+    if (previewCache.has(url)) {
+      const cachedData = previewCache.get(url);
+
+      if (title && cachedData.title !== title) cachedData.title = title;
+
+      setData(cachedData);
+      setLoading(false);
+
+      return;
+    }
+
+    // Fetch if not in cache
     fetch(`/api/preview?url=${url}`)
       .then((res) => res.json())
       .then((_response) => {
@@ -64,10 +113,21 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
 
         if (title) response.title = title;
 
+        // Cache the response
+        previewCache.set(url, response);
+
         setLoading(false);
         setData(response);
+      })
+      .catch((error) => {
+        console.error('Preview fetch error:', error);
+        const errorData = { 'status': 404, 'title': title || url };
+
+        previewCache.set(url, errorData);
+        setData(errorData);
+        setLoading(false);
       });
-  }, [ title, url ]);
+  }, [ isIntersecting, title, url ]);
 
   const springConfig = { 'damping': 15, 'stiffness': 100 };
   const x = useMotionValue(0);
@@ -92,11 +152,13 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
 
   // At the default state; the preview is not open and show the loader
   if (loading) return (
-    <img
-      className='h-4 w-4 inline-flex m-0 mr-2'
-      src='/static/icons/loading.svg'
-      alt='Loading ...'
-    />
+    <span ref={ elementRef }>
+      <img
+        className='h-4 w-4 inline-flex m-0 mr-2'
+        src='/static/icons/loading.svg'
+        alt='Loading ...'
+      />
+    </span>
   );
 
   // If the URL is not reachable and was a status 404 from the API then show the disabled link icon
@@ -169,46 +231,48 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
         </HoverCardPrimitive.Trigger>
         { }
         {data.status === 200 && (
-          <HoverCardPrimitive.Content
-            className='[transform-origin:var(--radix-hover-card-content-transform-origin)]'
-            side='top'
-            align='center'
-            sideOffset={ 10 }
-          >
-            <AnimatePresence>
-              {isOpen && (
-                <motion.div
-                  initial={{ 'opacity': 0, 'scale': 0.6, 'y': 20 }}
-                  animate={{
-                    'opacity': 1,
-                    'scale': 1,
-                    'transition': { 'damping': 20, 'stiffness': 260, 'type': 'spring' },
-                    'y': 0
-                  }}
-                  exit={{ 'opacity': 0, 'scale': 0.6, 'y': 20 }}
-                  className='shadow-xl rounded-xl'
-                  style={{ 'x': translateX }}
-                >
-                  <Link
-                    href={ url }
-                    className='block p-1 bg-white border-2 border-transparent shadow-sm rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800'
-                    style={{ 'fontSize': 0 }}
+          <HoverCardPrimitive.Portal>
+            <HoverCardPrimitive.Content
+              className='[transform-origin:var(--radix-hover-card-content-transform-origin)]'
+              side='top'
+              align='center'
+              sideOffset={ 10 }
+            >
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.div
+                    initial={{ 'opacity': 0, 'scale': 0.6, 'y': 20 }}
+                    animate={{
+                      'opacity': 1,
+                      'scale': 1,
+                      'transition': { 'damping': 20, 'stiffness': 260, 'type': 'spring' },
+                      'y': 0
+                    }}
+                    exit={{ 'opacity': 0, 'scale': 0.6, 'y': 20 }}
+                    className='shadow-xl rounded-xl'
+                    style={{ 'x': translateX }}
                   >
-                    {data.image && (
-                      <Image
-                        src={ data.image }
-                        width={ width }
-                        height={ height }
-                        quality={ quality }
-                        className='rounded-lg'
-                        alt='preview image'
-                      />
-                    )}
-                  </Link>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </HoverCardPrimitive.Content>
+                    <Link
+                      href={ url }
+                      className='block p-1 bg-white border-2 border-transparent shadow-sm rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800'
+                      style={{ 'fontSize': 0 }}
+                    >
+                      {data.image && (
+                        <Image
+                          src={ data.image }
+                          width={ width }
+                          height={ height }
+                          quality={ quality }
+                          className='rounded-lg'
+                          alt='preview image'
+                        />
+                      )}
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </HoverCardPrimitive.Content>
+          </HoverCardPrimitive.Portal>
         )}
       </HoverCardPrimitive.Root>
     </>

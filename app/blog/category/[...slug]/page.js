@@ -35,7 +35,9 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  * // Generates metadata for the React tutorial post in technology category
  */
 export async function generateMetadata({ params }) {
-  return metadataGenertaor(params, allPosts);
+  const resolvedParams = await params;
+
+  return metadataGenertaor(resolvedParams, allPosts);
 }
 
 /**
@@ -76,7 +78,8 @@ export const generateStaticParams = async() => {
  * // Shows full post content with navigation and series info
  */
 export default async function Page({ params }) {
-  const slug = decodeURI(params.slug.join('/'));
+  const resolvedParams = await params;
+  const slug = decodeURI(resolvedParams.slug.join('/'));
   const posts = coreContent(sortPosts(allPosts));
   const postIndex = posts.findIndex((_post) => _post.slug.replace('category/', '') === slug);
   const post = allPosts[postIndex];

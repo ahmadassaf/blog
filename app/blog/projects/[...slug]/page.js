@@ -35,7 +35,9 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  * // Generates metadata for the portfolio redesign project
  */
 export async function generateMetadata({ params }) {
-  return metadataGenertaor(params, allProjects);
+  const resolvedParams = await params;
+
+  return metadataGenertaor(resolvedParams, allProjects);
 }
 
 /**
@@ -76,7 +78,8 @@ export const generateStaticParams = async() => {
  * // Shows full project details with navigation and series info
  */
 export default async function Page({ params }) {
-  const slug = decodeURI(params.slug.join('/'));
+  const resolvedParams = await params;
+  const slug = decodeURI(resolvedParams.slug.join('/'));
   const posts = coreContent(sortPosts(allProjects));
   const postIndex = posts.findIndex((_post) => _post.externalLink === `projects/${slug}`);
   const post = allProjects[postIndex];

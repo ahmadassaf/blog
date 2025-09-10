@@ -42,22 +42,15 @@
   
   /**
    * Prose typography adjustments
-   * Ensure consistent, readable font sizes for blog content
+   * Larger font size for blog post body content readability
    */
   .prose {
-    font-size: 1rem; /* 16px */
-    line-height: 1.65;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.7;
   }
   
   .prose p {
-    font-size: 1rem; /* 16px */
-    line-height: 1.65;
     margin: 1.25em 0;
-  }
-  
-  .prose li {
-    font-size: 1rem; /* 16px */
-    line-height: 1.65;
   }
   
   /**

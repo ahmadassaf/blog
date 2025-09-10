@@ -27,7 +27,7 @@ module.exports = {
   ],
   'safelist': [
 
-    // Pill component colors
+    // Pill component colors - ensure dynamic classes are not purged
     'bg-gray-600',
     'bg-blue-600',
     'bg-green-600',
@@ -35,7 +35,26 @@ module.exports = {
     'bg-yellow-600',
     'bg-purple-600',
     'bg-pink-600',
-    'bg-indigo-600'
+    'bg-indigo-600',
+    'bg-orange-600',
+    'bg-teal-600',
+    'bg-cyan-600',
+    'bg-emerald-600',
+    'bg-lime-600',
+    'bg-amber-600',
+    'bg-rose-600',
+    'bg-fuchsia-600',
+    'bg-violet-600',
+
+    // Text color variations for pills
+    'text-gray-600',
+    'text-blue-600',
+    'text-green-600',
+    'text-red-600',
+    'text-yellow-600',
+    'text-purple-600',
+    'text-pink-600',
+    'text-indigo-600'
   ],
   'theme': {
     'extend': {

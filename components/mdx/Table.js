@@ -58,20 +58,15 @@ const Table = ({ children, className = '', ...rest }) => {
     const handleScroll = () => {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
       const maxScroll = scrollWidth - clientWidth;
-      
+
       // Show left shadow if scrolled right
-      if (scrollLeft > 10) {
-        leftShadow.style.opacity = '1';
-      } else {
-        leftShadow.style.opacity = '0';
-      }
-      
+      if (scrollLeft > 10) leftShadow.style.opacity = '1';
+      else leftShadow.style.opacity = '0';
+
       // Show right shadow if not at the end
-      if (scrollLeft < maxScroll - 10) {
-        rightShadow.style.opacity = '1';
-      } else {
-        rightShadow.style.opacity = '0';
-      }
+      if (scrollLeft < maxScroll - 10) rightShadow.style.opacity = '1';
+      else rightShadow.style.opacity = '0';
+
     };
 
     // Initial check
@@ -79,9 +74,10 @@ const Table = ({ children, className = '', ...rest }) => {
 
     // Add scroll listener
     scrollContainer.addEventListener('scroll', handleScroll);
-    
+
     // Check on resize
     const handleResize = () => setTimeout(handleScroll, 100);
+
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -91,33 +87,32 @@ const Table = ({ children, className = '', ...rest }) => {
   }, []);
 
   return (
-    <div className="not-prose my-8">
+    <div className='not-prose my-8'>
       {/* Breakout container that expands beyond prose width while maintaining side gaps */}
-      <div className="relative -mx-4 sm:-mx-8 md:-mx-12 lg:-mx-16 xl:-mx-24 2xl:-mx-32" style={{ 
-        marginLeft: 'max(-4rem, calc(-50vw + 50% + 1rem))',
-        marginRight: 'max(-4rem, calc(-50vw + 50% + 1rem))'
+      <div className='relative -mx-16 sm:-mx-24 md:-mx-40 lg:-mx-56 xl:-mx-80 2xl:-mx-96' style={{
+        'marginLeft': 'max(-12rem, calc(-50vw + 50% + 0.125rem))',
+        'marginRight': 'max(-12rem, calc(-50vw + 50% + 0.125rem))'
       }}>
         {/* Enhanced responsive table container with horizontal scroll */}
-        <div 
-          ref={scrollContainerRef}
-          className="overflow-x-auto overflow-y-visible scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600 scroll-smooth px-4 sm:px-6"
-          style={{ scrollbarWidth: 'thin' }}
+        <div
+          ref={ scrollContainerRef }
+          className='table-scroll'
         >
           {/* Scroll shadow indicators */}
-          <div 
-            ref={leftShadowRef}
-            className="absolute left-4 sm:left-6 top-0 bottom-0 w-8 bg-gradient-to-r from-white dark:from-gray-900 to-transparent pointer-events-none opacity-0 transition-opacity duration-300 z-10"
+          <div
+            ref={ leftShadowRef }
+            className='scroll-shadow-left'
           ></div>
-          <div 
-            ref={rightShadowRef}
-            className="absolute right-4 sm:right-6 top-0 bottom-0 w-8 bg-gradient-to-l from-white dark:from-gray-900 to-transparent pointer-events-none opacity-1 transition-opacity duration-300 z-10"
+          <div
+            ref={ rightShadowRef }
+            className='scroll-shadow-right opacity-1'
           ></div>
-          
-          <div className="inline-block min-w-full align-middle">
+
+          <div className='inline-block min-w-full align-middle'>
             <table
-              className={`min-w-full table-auto ${className}`}
-              style={{ minWidth: '600px' }} // Ensure minimum width for proper column sizing
-              {...rest}
+              className={ `min-w-full table-fixed ${className}` }
+              style={{ 'minWidth': '600px' }}
+              { ...rest }
             >
               {children}
             </table>
@@ -131,68 +126,60 @@ const Table = ({ children, className = '', ...rest }) => {
 /**
  * Enhanced table header component
  */
-const TableHead = ({ children, className = '', ...rest }) => {
-  return (
-    <thead className={`bg-gray-50 dark:bg-gray-800 ${className}`} {...rest}>
-      {children}
-    </thead>
-  );
-};
+const TableHead = ({ children, className = '', ...rest }) => (
+  <thead className={ `bg-gray-50 dark:bg-gray-800 ${className}` } { ...rest }>
+    {children}
+  </thead>
+);
 
 /**
  * Enhanced table body component
  */
-const TableBody = ({ children, className = '', ...rest }) => {
-  return (
-    <tbody className={`bg-white dark:bg-gray-900 ${className}`} {...rest}>
-      {children}
-    </tbody>
-  );
-};
+const TableBody = ({ children, className = '', ...rest }) => (
+  <tbody className={ `bg-white dark:bg-gray-900 ${className}` } { ...rest }>
+    {children}
+  </tbody>
+);
 
 /**
  * Enhanced table row component
  */
-const TableRow = ({ children, className = '', ...rest }) => {
-  return (
-    <tr className={`hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-150 ${className}`} {...rest}>
-      {children}
-    </tr>
-  );
-};
+const TableRow = ({ children, className = '', ...rest }) => (
+  <tr className={ `hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-150 ${className}` } { ...rest }>
+    {children}
+  </tr>
+);
 
 /**
  * Enhanced table header cell component
  */
-const TableHeaderCell = ({ children, className = '', ...rest }) => {
-  return (
-    <th
-      className={`px-3 py-3 sm:px-4 sm:py-4 lg:px-6 lg:py-4 text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider whitespace-nowrap ${className}`}
-      {...rest}
-    >
-      {children}
-    </th>
-  );
-};
+const TableHeaderCell = ({ children, className = '', width, ...rest }) => (
+  <th
+    className={ `table-cell-padding text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider ${className}` }
+    style={{ width, ...(rest.style || {}) }}
+    { ...rest }
+  >
+    {children}
+  </th>
+);
 
 /**
  * Enhanced table data cell component
  */
-const TableCell = ({ children, className = '', ...rest }) => {
-  return (
-    <td
-      className={`px-3 py-3 sm:px-4 sm:py-4 lg:px-6 lg:py-4 text-sm text-gray-900 dark:text-gray-100 align-top ${className}`}
-      {...rest}
-    >
-      <div className="max-w-xs sm:max-w-sm lg:max-w-none">
-        {children}
-      </div>
-    </td>
-  );
-};
+const TableCell = ({ children, className = '', width, ...rest }) => (
+  <td
+    className={ `table-cell-padding text-sm text-gray-900 dark:text-gray-100 align-top ${className}` }
+    style={{ width, ...(rest.style || {}) }}
+    { ...rest }
+  >
+    <div className='overflow-hidden'>
+      {children}
+    </div>
+  </td>
+);
 
 // Export the main table component as default
 export default Table;
 
 // Export individual components for granular control
-export { TableHead, TableBody, TableRow, TableHeaderCell, TableCell };
+export { TableBody, TableCell, TableHead, TableHeaderCell, TableRow };

@@ -203,9 +203,8 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
   );
 
   return (
-    <div>
+    <div className={ resolvedTheme === 'dark' ? 'dark' : '' }>
       <CommandPalette
-        commandPaletteContentClassName={ theme === `dark` ? `dark` : null }
         onChangeSelected={ setSelected }
         onChangeSearch={ setSearch }
         onChangeOpen={ setOpen }

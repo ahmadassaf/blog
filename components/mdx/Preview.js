@@ -123,7 +123,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
   if (loading) return (
     <span>
       <img
-        className='h-4 w-4 inline-flex m-0 mr-2'
+        className='loading-icon'
         src='/static/icons/loading.svg'
         alt='Loading ...'
       />
@@ -193,7 +193,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
             ) : (
               <LinkIcon className='h-4 w-4 m-0 mr-1' />
             )}
-            <button className='text-blue-600 text-left!' href={ url }>
+            <button className='text-blue-600 text-left' href={ url }>
               {data.title ? data.title.split(':')[0] : url}
             </button>
           </span>
@@ -223,8 +223,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
                   >
                     <Link
                       href={ url }
-                      className='block p-1 bg-white border-2 border-transparent shadow-sm rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800'
-                      style={{ 'fontSize': 0 }}
+                      className='preview-card'
                     >
                       {data.image && (
                         <Image

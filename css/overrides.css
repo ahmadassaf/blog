@@ -14,19 +14,54 @@
  * Glass morphism effect with backdrop blur and smooth animations
  */
 [data-cmdk-root] {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(229, 231, 235, 0.3);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
     overflow: hidden;
+    color: #111827;
 }
 
-[data-theme="dark"] [data-cmdk-root],
+/* Dark mode command launcher */
 .dark [data-cmdk-root] {
-    background: rgba(17, 24, 39, 0.85);
-    border: 1px solid rgba(75, 85, 99, 0.3);
+    background: rgba(23, 23, 23, 0.95);
+    border: 1px solid rgba(64, 64, 64, 0.5);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    color: rgb(243, 244, 246);
+}
+
+/* Override library hardcoded white background in dark mode */
+.dark .command-palette .bg-white,
+.dark .command-palette-content {
+    background-color: #171717 !important;
+}
+
+/* Override library gray backgrounds in dark mode */
+.dark .command-palette .bg-gray-200\/50 {
+    background-color: rgba(64, 64, 64, 0.5) !important;
+}
+
+/* Override library text colors in dark mode */
+.dark .command-palette .text-gray-500 {
+    color: rgb(156, 163, 175) !important;
+}
+
+.dark .command-palette .text-gray-400 {
+    color: rgb(209, 213, 219) !important;
+}
+
+.dark .command-palette .text-gray-300 {
+    color: rgb(243, 244, 246) !important;
+}
+
+/* Override library hover states in dark mode */
+.dark .command-palette .hover\:bg-gray-100:hover {
+    background-color: rgba(64, 64, 64, 0.5) !important;
+}
+
+.dark .command-palette .hover\:text-gray-500:hover {
+    color: rgb(209, 213, 219) !important;
 }
 
 /* Hide command palette section headings for cleaner appearance */
@@ -34,46 +69,6 @@
     display: none !important;
 }
 
-/* Force dark mode styles when html has dark class */
-html.dark [data-cmdk-root],
-:root.dark [data-cmdk-root],
-body.dark [data-cmdk-root] {
-    background: #171717 !important;
-    border: 1px solid #404040 !important;
-    color: rgb(243, 244, 246) !important;
-}
-
-html.dark [data-cmdk-input],
-:root.dark [data-cmdk-input],
-body.dark [data-cmdk-input] {
-    color: rgb(243, 244, 246) !important;
-}
-
-html.dark [data-cmdk-input]::placeholder,
-:root.dark [data-cmdk-input]::placeholder,
-body.dark [data-cmdk-input]::placeholder {
-    color: rgb(156, 163, 175) !important;
-}
-
-/* Force dark mode for items and text */
-html.dark [data-cmdk-item],
-:root.dark [data-cmdk-item],
-body.dark [data-cmdk-item] {
-    color: rgb(243, 244, 246) !important;
-}
-
-html.dark [data-cmdk-item][aria-selected="true"],
-:root.dark [data-cmdk-item][aria-selected="true"],
-body.dark [data-cmdk-item][aria-selected="true"] {
-    background: #262626 !important;
-}
-
-/* Force dark mode for all text elements inside command palette */
-html.dark [data-cmdk-root] *,
-:root.dark [data-cmdk-root] *,
-body.dark [data-cmdk-root] * {
-    color: rgb(243, 244, 246) !important;
-}
 
 [data-cmdk-input] {
     background: transparent;
@@ -85,18 +80,16 @@ body.dark [data-cmdk-root] * {
     transition: all 0.2s ease;
 }
 
-[data-theme="dark"] [data-cmdk-input],
 .dark [data-cmdk-input] {
-    color: rgba(243, 244, 246, 0.9);
+    color: rgba(243, 244, 246, 1);
 }
 
 [data-cmdk-input]::placeholder {
     color: rgba(107, 114, 128, 0.6);
 }
 
-[data-theme="dark"] [data-cmdk-input]::placeholder,
 .dark [data-cmdk-input]::placeholder {
-    color: rgba(156, 163, 175, 0.6);
+    color: rgba(156, 163, 175, 0.8);
 }
 
 [data-cmdk-list] {
@@ -110,6 +103,11 @@ body.dark [data-cmdk-root] * {
     transition: all 0.2s ease;
     cursor: pointer;
     outline: none;
+    color: #374151;
+}
+
+.dark [data-cmdk-item] {
+    color: rgb(243, 244, 246);
 }
 
 [data-cmdk-item][aria-selected="true"] {
@@ -117,9 +115,9 @@ body.dark [data-cmdk-root] * {
     transform: translateY(-1px);
 }
 
-[data-theme="dark"] [data-cmdk-item][aria-selected="true"],
 .dark [data-cmdk-item][aria-selected="true"] {
-    background: rgba(59, 130, 246, 0.2);
+    background: rgba(59, 130, 246, 0.3);
+    color: rgb(243, 244, 246);
 }
 
 [data-cmdk-group-heading] {
@@ -132,9 +130,8 @@ body.dark [data-cmdk-root] * {
     margin: 0;
 }
 
-[data-theme="dark"] [data-cmdk-group-heading],
 .dark [data-cmdk-group-heading] {
-    color: rgba(156, 163, 175, 0.8);
+    color: rgba(156, 163, 175, 1);
 }
 
 [data-cmdk-separator] {
@@ -143,9 +140,8 @@ body.dark [data-cmdk-root] * {
     margin: 8px 0;
 }
 
-[data-theme="dark"] [data-cmdk-separator],
 .dark [data-cmdk-separator] {
-    background: rgba(75, 85, 99, 0.5);
+    background: rgba(75, 85, 99, 0.8);
 }
 
 /* Smooth scrollbar styling */
@@ -162,16 +158,16 @@ body.dark [data-cmdk-root] * {
     border-radius: 3px;
 }
 
-[data-theme="dark"] [data-cmdk-list]::-webkit-scrollbar-thumb {
-    background: rgba(75, 85, 99, 0.5);
+.dark [data-cmdk-list]::-webkit-scrollbar-thumb {
+    background: rgba(75, 85, 99, 0.6);
 }
 
 [data-cmdk-list]::-webkit-scrollbar-thumb:hover {
     background: rgba(156, 163, 175, 0.5);
 }
 
-[data-theme="dark"] [data-cmdk-list]::-webkit-scrollbar-thumb:hover {
-    background: rgba(75, 85, 99, 0.7);
+.dark [data-cmdk-list]::-webkit-scrollbar-thumb:hover {
+    background: rgba(75, 85, 99, 0.8);
 }
 
 /**
@@ -233,9 +229,7 @@ strong.highlight {
     }
 }
 
-html.dark strong.highlight,
-:root.dark strong.highlight,
-body.dark strong.highlight {
+.dark strong.highlight {
     background: linear-gradient(120deg, rgba(147, 197, 253, 0.2) 0%, rgba(147, 197, 253, 0.4) 100%) !important;
     color: rgb(147, 197, 253) !important;
 }
@@ -325,10 +319,13 @@ a[data-state="closed"], a[data-state="open"] {
 aside {
     width: 170px;
     position: absolute;
-    color:#6b7280;
     margin: 0 -20%;
-    font-size: 13px;
     padding: 10px 0;
+}
+
+aside p {
+    color:#6b7280;
+    font-size: 12px;
 }
 
 /**
@@ -340,8 +337,8 @@ aside {
         width: auto;
         position: relative;
         margin: 0;
-        font-size: inherit;
         border: none;
+        font-size: 12px;
         padding: 0;
     }
 }
@@ -397,6 +394,111 @@ aside {
 summary {
     font-size: 20px;
     font-weight: bold;
+}
+
+/**
+ * Optimized Tailwind Utility Classes
+ * Common patterns extracted for better maintainability and performance
+ */
+.table-scroll {
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db #f3f4f6;
+    scroll-behavior: smooth;
+    padding: 0 1rem;
+}
+
+.dark .table-scroll {
+    scrollbar-color: #6b7280 #374151;
+}
+
+@media (min-width: 640px) {
+    .table-scroll {
+        padding: 0 1.5rem;
+    }
+}
+
+.table-cell-padding {
+    padding: 0.75rem;
+}
+
+@media (min-width: 640px) {
+    .table-cell-padding {
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .table-cell-padding {
+        padding: 1.5rem;
+    }
+}
+
+.scroll-shadow-left,
+.scroll-shadow-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 10;
+}
+
+.scroll-shadow-left {
+    left: 1rem;
+    background: linear-gradient(to right, white, transparent);
+}
+
+.scroll-shadow-right {
+    right: 1rem;
+    background: linear-gradient(to left, white, transparent);
+}
+
+.dark .scroll-shadow-left {
+    background: linear-gradient(to right, #111827, transparent);
+}
+
+.dark .scroll-shadow-right {
+    background: linear-gradient(to left, #111827, transparent);
+}
+
+@media (min-width: 640px) {
+    .scroll-shadow-left {
+        left: 1.5rem;
+    }
+    
+    .scroll-shadow-right {
+        right: 1.5rem;
+    }
+}
+
+.preview-card {
+    display: block;
+    padding: 0.25rem;
+    background-color: white;
+    border: 2px solid transparent;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    border-radius: 0.75rem;
+    font-size: 0;
+    transition: border-color 0.2s;
+}
+
+.preview-card:hover {
+    border-color: #e5e7eb;
+}
+
+.dark .preview-card:hover {
+    border-color: #374151;
+}
+
+.loading-icon {
+    height: 1rem;
+    width: 1rem;
+    display: inline-flex;
+    margin: 0 0.5rem 0 0;
 }
 
 /**

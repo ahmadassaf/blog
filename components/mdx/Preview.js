@@ -57,40 +57,9 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
   const [ loading, setLoading ] = React.useState(true);
   const [ isOpen, setOpen ] = React.useState(false);
   const [ isMounted, setIsMounted ] = React.useState(false);
-  const [ isIntersecting, setIsIntersecting ] = React.useState(false);
-  const elementRef = React.useRef(null);
 
-  // Intersection Observer to detect when component is near viewport
+  // Fetch preview data immediately on component mount
   React.useEffect(() => {
-    if (!elementRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting || entry.intersectionRatio > 0) {
-            setIsIntersecting(true);
-
-            // Stop observing once triggered
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-
-        // Start loading 200px before entering viewport
-        'rootMargin': '200px',
-        'threshold': 0
-      }
-    );
-
-    observer.observe(elementRef.current);
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Fetch preview data only when in viewport and not cached
-  React.useEffect(() => {
-    if (!isIntersecting) return;
-
     setIsMounted(true);
 
     // Check cache first
@@ -127,7 +96,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
         setData(errorData);
         setLoading(false);
       });
-  }, [ isIntersecting, title, url ]);
+  }, [ title, url ]);
 
   const springConfig = { 'damping': 15, 'stiffness': 100 };
   const x = useMotionValue(0);
@@ -152,7 +121,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
 
   // At the default state; the preview is not open and show the loader
   if (loading) return (
-    <span ref={ elementRef }>
+    <span>
       <img
         className='h-4 w-4 inline-flex m-0 mr-2'
         src='/static/icons/loading.svg'

@@ -28,13 +28,35 @@ import Pre from '@/components/mdx/Pre';
 import Preview from '@/components/mdx/Preview';
 import Quote from '@/components/mdx/Quote';
 import Stats from '@/components/mdx/Stats';
+import Table, { TableHead, TableBody, TableRow, TableHeaderCell, TableCell } from '@/components/mdx/Table';
 import Tooltip from '@/components/mdx/Tooltip';
 
 /**
  * Collection of all available MDX components
  * Maps component names to their implementations for use in MDX content
  */
-export const MDXComponents = { BlogNewsletterForm, Callout, Details, Faq, Highlight, Image, PostImage, Preview, Quote, Stats, Tooltip, 'a': CustomLink, 'pre': Pre };
+export const MDXComponents = { 
+  BlogNewsletterForm, 
+  Callout, 
+  Details, 
+  Faq, 
+  Highlight, 
+  Image, 
+  PostImage, 
+  Preview, 
+  Quote, 
+  Stats, 
+  Table,
+  Tooltip, 
+  'a': CustomLink, 
+  'pre': Pre,
+  'table': Table,
+  'thead': TableHead,
+  'tbody': TableBody,
+  'tr': TableRow,
+  'th': TableHeaderCell,
+  'td': TableCell
+};
 
 /**
  * Dynamically creates an MDX component from compiled code

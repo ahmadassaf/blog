@@ -33,11 +33,31 @@
   }
   
   /**
-   * Increased base font size for better readability
+   * Base font size for optimal readability
    */
   body {
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.7;
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+  }
+  
+  /**
+   * Prose typography adjustments
+   * Ensure consistent, readable font sizes for blog content
+   */
+  .prose {
+    font-size: 1rem; /* 16px */
+    line-height: 1.65;
+  }
+  
+  .prose p {
+    font-size: 1rem; /* 16px */
+    line-height: 1.65;
+    margin: 1.25em 0;
+  }
+  
+  .prose li {
+    font-size: 1rem; /* 16px */
+    line-height: 1.65;
   }
   
   /**

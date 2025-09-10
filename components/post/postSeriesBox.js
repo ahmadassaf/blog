@@ -112,7 +112,7 @@ const PostSeriesBox = ({ series, slug }) => {
               };
 
               return (
-                <div key={ post.slug } className='flex items-center space-x-3 py-2'>
+                <div key={ post.slug } className='flex items-center space-x-3'>
                   <div className='flex-shrink-0'>
                     {getCircleComponent()}
                   </div>

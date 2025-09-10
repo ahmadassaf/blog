@@ -4,7 +4,6 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCitation from 'rehype-citation';
 import rehypeCodeGroup from 'rehype-code-group-next';
 import rehypeKatex from 'rehype-katex';
-import rehypePresetMinify from 'rehype-preset-minify';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import emoji from 'remark-emoji';
@@ -73,8 +72,9 @@ export default makeSource({
       rehypeKatex,
       rehypeCodeGroup,
       [ rehypeCitation, { 'csl': 'https://raw.githubusercontent.com/citation-style-language/styles/master/acm-sig-proceedings.csl', 'linkCitations': true, 'path': path.join(root, 'data') }],
-      rehypePrettyCode,
-      rehypePresetMinify
+      rehypePrettyCode
+
+      // RehypePresetMinify - temporarily disabled to test inline code
     ],
     'remarkPlugins': [
       remarkExtractFrontmatter,

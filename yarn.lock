@@ -10331,11 +10331,6 @@ remark-emoji@^5.0.0:
     node-emoji "^2.1.3"
     unified "^11.0.4"
 
-remark-footnotes@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npmjs.org/remark-footnotes/-/remark-footnotes-5.0.0.tgz"
-  integrity sha512-bmRA8Xel4YZA5PphUOdamG3Cf3BshoGZQlwVqF+bv0Ei1/b9ETOSyoKtpVAk8zIRJ2dAwio2HFnbC9wjLmy02A==
-
 remark-frontmatter@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/remark-frontmatter/-/remark-frontmatter-4.0.1.tgz"

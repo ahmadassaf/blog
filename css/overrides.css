@@ -417,19 +417,6 @@ aside p {
     border-color: rgba(55, 65, 81, 0.8);
 }
 
-.reference-popover-header {
-    padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid rgba(229, 231, 235, 0.5);
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: #374151;
-}
-
-.dark .reference-popover-header {
-    border-color: rgba(55, 65, 81, 0.5);
-    color: #e5e7eb;
-}
-
 .reference-popover-body {
     padding: 0.75rem;
     font-size: 0.875rem;
@@ -439,8 +426,18 @@ aside p {
     overflow-y: auto;
 }
 
+/* Bold only the title in citations */
+.reference-popover-body strong {
+    font-weight: 600;
+    color: #1f2937;
+}
+
 .dark .reference-popover-body {
     color: #d1d5db;
+}
+
+.dark .reference-popover-body strong {
+    color: #f3f4f6;
 }
 
 @keyframes fadeIn {
@@ -461,7 +458,7 @@ a[href*="#bib-"] {
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s;
-    cursor: help;
+    cursor: pointer;
 }
 
 a.citation-link:hover,

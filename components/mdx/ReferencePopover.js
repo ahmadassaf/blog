@@ -2,10 +2,10 @@
  * Reference Popover Component
  *
  * @description Displays a popover preview of references when hovering over citation numbers.
- * Automatically extracts reference content from the page and shows it in a tooltip.
+ * Works with data attributes added by the rehype-citation-popover plugin.
  *
  * @author Ahmad Assaf
- * @version 1.0.0
+ * @version 2.0.0
  */
 
 'use client';
@@ -24,8 +24,8 @@ const ReferencePopover = () => {
     const handleCitationHover = (event) => {
       const { target } = event;
 
-      // Check if hovering over a citation link (bibliography references)
-      if (target.tagName === 'A' && target.href && target.href.includes('#bib-')) {
+      // Check if hovering over a citation link with popover data
+      if (target.dataset?.citationPopover === 'true') {
         event.preventDefault();
 
         // Clear any existing timeout
@@ -33,24 +33,11 @@ const ReferencePopover = () => {
 
         if (event.type === 'mouseenter') {
 
-          // Extract citation ID from href
-          const citationId = target.href.split('#')[1];
-          const referenceElement = document.getElementById(citationId);
+          // Get citation data from data attributes
+          const { citationText } = target.dataset;
+          const citationNumber = target.dataset.citationNumber || target.textContent;
 
-          if (referenceElement) {
-
-            // Get the reference text from the csl-right-inline element
-            const textElement = referenceElement.querySelector('.csl-right-inline');
-            let referenceText = textElement ? textElement.textContent : referenceElement.textContent;
-
-            // Get the citation number from csl-left-margin
-            const numberElement = referenceElement.querySelector('.csl-left-margin');
-            const citationNumber = numberElement ? numberElement.textContent.replace(/[[\]]/g, '') : target.textContent;
-
-            // Clean up the text (remove extra whitespace)
-            referenceText = (referenceText || '')
-              .replace(/\s+/g, ' ')
-              .trim();
+          if (citationText) {
 
             // Get position of the citation link
             const rect = target.getBoundingClientRect();
@@ -59,7 +46,7 @@ const ReferencePopover = () => {
             timeoutRef.current = setTimeout(() => {
               setPopover({
                 'citationNumber': citationNumber,
-                'content': referenceText,
+                'content': citationText,
                 'x': rect.left + rect.width / 2,
                 'y': rect.top
               });
@@ -83,14 +70,12 @@ const ReferencePopover = () => {
       document.body.removeEventListener('mouseenter', handleCitationHover, true);
       document.body.removeEventListener('mouseleave', handleCitationHover, true);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
     };
   }, []);
 
   // Handle popover hover to keep it visible
   const handlePopoverEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
   };
 
   const handlePopoverLeave = () => {

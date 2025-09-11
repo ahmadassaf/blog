@@ -14,6 +14,7 @@ import { allProjects } from 'contentlayer/generated';
 
 // Internal components and utilities
 import { MDXComponents, MDXLayoutRenderer } from '@/components/mdx';
+import ReferencePopover from '@/components/mdx/ReferencePopover';
 import { linkedDataGenerator, metadataGenertaor } from '@/data/meta/generator/post';
 import ProjectLayout from '@/layouts/ProjectLayout';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
@@ -106,6 +107,7 @@ export default async function Page({ params }) {
 
       <ProjectLayout content={ coreContent(post) } next={ posts[postIndex - 1] || null } prev={ posts[postIndex + 1] || null } toc={ post.toc }>
         <MDXLayoutRenderer code={ post.body.code } components={ MDXComponents } />
+        <ReferencePopover />
       </ProjectLayout>
     </>
   ) : <></>;

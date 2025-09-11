@@ -402,11 +402,84 @@ summary {
  */
 .table-scroll {
     overflow-x: auto;
-    overflow-y: visible;
+    overflow-y: auto;
+    max-height: 600px;
     scrollbar-width: thin;
     scrollbar-color: #d1d5db #f3f4f6;
     scroll-behavior: smooth;
     padding: 0 1rem;
+    position: relative;
+}
+
+/* Simple row hover */
+.table-scroll tbody tr:hover {
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+.dark .table-scroll tbody tr:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Simple column hover via JavaScript */
+.table-scroll tbody .column-hover {
+    background-color: rgba(59, 130, 246, 0.03);
+}
+
+.dark .table-scroll tbody .column-hover {
+    background-color: rgba(59, 130, 246, 0.08);
+}
+
+/* Sticky first row (header) - higher z-index to stay on top */
+.table-scroll thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f9fafb;
+    z-index: 10;
+    box-shadow: 0 1px 0 rgba(229, 231, 235, 0.5);
+}
+
+.dark .table-scroll thead th {
+    background-color: #1f2937;
+    box-shadow: 0 1px 0 rgba(55, 65, 81, 0.5);
+}
+
+/* Override column hover for header cells - must come after thead th styles */
+.table-scroll thead th.column-hover {
+    background-color: #f9fafb !important;
+}
+
+.dark .table-scroll thead th.column-hover {
+    background-color: #1f2937 !important;
+}
+
+/* Sticky first column */
+.table-scroll tbody td:first-child,
+.table-scroll thead th:first-child {
+    position: sticky;
+    left: 0;
+    background-color: white;
+    z-index: 5;
+    box-shadow: 1px 0 0 rgba(229, 231, 235, 0.5);
+}
+
+.dark .table-scroll tbody td:first-child,
+.dark .table-scroll thead th:first-child {
+    background-color: #111827;
+    box-shadow: 1px 0 0 rgba(55, 65, 81, 0.5);
+}
+
+/* First column header needs header background */
+.table-scroll thead th:first-child {
+    background-color: #f9fafb;
+}
+
+.dark .table-scroll thead th:first-child {
+    background-color: #1f2937;
+}
+
+/* First cell (top-left) needs highest z-index */
+.table-scroll thead th:first-child {
+    z-index: 11;
 }
 
 .dark .table-scroll {

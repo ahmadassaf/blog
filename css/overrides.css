@@ -380,6 +380,11 @@ aside p {
  */
 .reference-popover {
     pointer-events: auto;
+    opacity: 0;
+}
+
+.reference-popover.ready {
+    animation: fadeIn 0.2s ease-out forwards;
 }
 
 .reference-popover-content {
@@ -391,7 +396,6 @@ aside p {
     min-width: 250px;
     padding: 0;
     position: relative;
-    animation: fadeIn 0.2s ease-out;
 }
 
 .dark .reference-popover-content {
@@ -443,11 +447,9 @@ aside p {
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translate(-50%, -95%);
     }
     to {
         opacity: 1;
-        transform: translate(-50%, -100%);
     }
 }
 

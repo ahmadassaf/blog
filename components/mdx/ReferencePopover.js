@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from 'react';
  */
 const ReferencePopover = () => {
   const [ popover, setPopover ] = useState(null);
+  const [ isReady, setIsReady ] = useState(false);
   const popoverRef = useRef(null);
   const timeoutRef = useRef(null);
 
@@ -44,11 +45,17 @@ const ReferencePopover = () => {
 
             // Show popover with a slight delay
             timeoutRef.current = setTimeout(() => {
+              setIsReady(false);
               setPopover({
                 'citationNumber': citationNumber,
                 'content': citationText,
                 'x': rect.left + rect.width / 2,
                 'y': rect.top
+              });
+
+              // Small delay to ensure positioning is applied before showing
+              window.requestAnimationFrame(() => {
+                setIsReady(true);
               });
             }, 300);
           }
@@ -56,6 +63,7 @@ const ReferencePopover = () => {
 
           // Hide popover with a slight delay to allow moving to popover
           timeoutRef.current = setTimeout(() => {
+            setIsReady(false);
             setPopover(null);
           }, 200);
         }
@@ -80,6 +88,7 @@ const ReferencePopover = () => {
 
   const handlePopoverLeave = () => {
     timeoutRef.current = setTimeout(() => {
+      setIsReady(false);
       setPopover(null);
     }, 200);
   };
@@ -89,12 +98,13 @@ const ReferencePopover = () => {
   return (
     <div
       ref={ popoverRef }
-      className='reference-popover'
+      className={ `reference-popover ${isReady ? 'ready' : ''}` }
       style={{
         'left': `${popover.x}px`,
         'position': 'fixed',
         'top': `${popover.y - 10}px`,
         'transform': 'translate(-50%, -100%)',
+        'visibility': isReady ? 'visible' : 'hidden',
         'zIndex': 9999
       }}
       onMouseEnter={ handlePopoverEnter }

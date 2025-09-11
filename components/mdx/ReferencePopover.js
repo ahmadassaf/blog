@@ -111,7 +111,6 @@ const ReferencePopover = () => {
       onMouseLeave={ handlePopoverLeave }
     >
       <div className='reference-popover-content'>
-        <div className='reference-popover-arrow' />
         <div className='reference-popover-body' dangerouslySetInnerHTML={{ '__html': popover.content }} />
       </div>
     </div>

@@ -46,11 +46,20 @@ const FootnotePopover = () => {
             // Show popover with a slight delay
             timeoutRef.current = setTimeout(() => {
               setIsReady(false);
+
+              // Calculate position, ensuring popover stays on screen
+              const viewportWidth = window.innerWidth;
+              const popoverWidth = 300; // Approximate width
+              let xPos = rect.right + 10;
+
+              // If popover would go off the right edge, position it to the left
+              if (xPos + popoverWidth > viewportWidth - 20) xPos = rect.left - popoverWidth - 10;
+
               setPopover({
                 'content': footnoteContent,
                 'footnoteNumber': footnoteNumber,
-                'x': rect.left + rect.width / 2,
-                'y': rect.top
+                'x': xPos,
+                'y': rect.top + rect.height / 2 // Center vertically
               });
 
               // Small delay to ensure positioning is applied before showing
@@ -102,16 +111,14 @@ const FootnotePopover = () => {
       style={{
         'left': `${popover.x}px`,
         'position': 'fixed',
-        'top': `${popover.y - 10}px`,
-        'transform': 'translate(-50%, -100%)',
-        'visibility': isReady ? 'visible' : 'hidden',
+        'top': `${popover.y}px`,
+        'transform': 'translateY(-50%)',
         'zIndex': 9999
       }}
       onMouseEnter={ handlePopoverEnter }
       onMouseLeave={ handlePopoverLeave }
     >
       <div className='footnote-popover-content'>
-        <div className='footnote-popover-arrow' />
         <div className='footnote-popover-body' dangerouslySetInnerHTML={{ '__html': popover.content }} />
       </div>
     </div>

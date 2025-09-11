@@ -138,13 +138,6 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
     </span>
   );
 
-  if (data.image) {
-    data.image = data.image.startsWith('//') ? `https:${data.image}` : data.image;
-    if (!data.image.startsWith('http')) data.image = `https://${data.image}`;
-  } else {
-    data.image = null;
-  }
-
   if (data.favicon) {
     data.favicon = data.favicon.startsWith('//') ? `https:${data.favicon}` : data.favicon;
     if (!data.favicon.startsWith('http')) data.favicon = `https://${data.favicon}`;
@@ -155,17 +148,7 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
   return (
     <>
       {isMounted ? (
-        <span className='hidden'>
-          {data.image && (
-            <Image
-              src={ data.image }
-              width={ width }
-              height={ height }
-              quality={ quality }
-              alt='hidden image'
-            />
-          )}
-        </span>
+        <span className='hidden'></span>
       ) : null}
 
       <HoverCardPrimitive.Root
@@ -207,38 +190,6 @@ const Preview = ({ url, title, className, width = 200, height = 125, quality = 5
               align='center'
               sideOffset={ 10 }
             >
-              <AnimatePresence>
-                {isOpen && (
-                  <motion.div
-                    initial={{ 'opacity': 0, 'scale': 0.6, 'y': 20 }}
-                    animate={{
-                      'opacity': 1,
-                      'scale': 1,
-                      'transition': { 'damping': 20, 'stiffness': 260, 'type': 'spring' },
-                      'y': 0
-                    }}
-                    exit={{ 'opacity': 0, 'scale': 0.6, 'y': 20 }}
-                    className='shadow-xl rounded-xl'
-                    style={{ 'x': translateX }}
-                  >
-                    <Link
-                      href={ url }
-                      className='preview-card'
-                    >
-                      {data.image && (
-                        <Image
-                          src={ data.image }
-                          width={ width }
-                          height={ height }
-                          quality={ quality }
-                          className='rounded-lg'
-                          alt='preview image'
-                        />
-                      )}
-                    </Link>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </HoverCardPrimitive.Content>
           </HoverCardPrimitive.Portal>
         )}

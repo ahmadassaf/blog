@@ -80,6 +80,36 @@ const Table = ({ children, className = '', ...rest }) => {
 
     window.addEventListener('resize', handleResize);
 
+    // Enhanced column highlighting
+    const table = scrollContainer.querySelector('table');
+
+    if (table) {
+      const handleCellHover = (event) => {
+        if (event.target.tagName === 'TD' || event.target.tagName === 'TH') {
+          const cellIndex = Array.from(event.target.parentNode.children).indexOf(event.target);
+          const rows = table.querySelectorAll('tr');
+
+          rows.forEach((row) => {
+            const cell = row.children[cellIndex];
+
+            if (cell) if (event.type === 'mouseover') cell.classList.add('column-hover');
+            else cell.classList.remove('column-hover');
+
+          });
+        }
+      };
+
+      table.addEventListener('mouseover', handleCellHover);
+      table.addEventListener('mouseout', handleCellHover);
+
+      return () => {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleResize);
+        table.removeEventListener('mouseover', handleCellHover);
+        table.removeEventListener('mouseout', handleCellHover);
+      };
+    }
+
     return () => {
       scrollContainer.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);

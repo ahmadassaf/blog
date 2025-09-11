@@ -455,22 +455,27 @@ aside p {
 }
 
 /* Style citation links for better hover indication */
+a.citation-link,
 a[href*="#bib-"] {
     color: #3b82f6;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s;
+    cursor: help;
 }
 
+a.citation-link:hover,
 a[href*="#bib-"]:hover {
     color: #2563eb;
     text-decoration: underline;
 }
 
+.dark a.citation-link,
 .dark a[href*="#bib-"] {
     color: #60a5fa;
 }
 
+.dark a.citation-link:hover,
 .dark a[href*="#bib-"]:hover {
     color: #93c5fd;
 }

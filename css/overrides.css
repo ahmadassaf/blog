@@ -375,6 +375,99 @@ aside p {
 }
 
 /**
+ * Hide footnotes section since we show them in popovers
+ */
+.footnotes-section-hidden {
+    display: none;
+}
+
+/**
+ * Footnote Popover Styles
+ * Tooltip-style popover for footnote previews
+ */
+.footnote-popover {
+    pointer-events: auto;
+    opacity: 0;
+}
+
+.footnote-popover.ready {
+    animation: fadeIn 0.2s ease-out forwards;
+}
+
+.footnote-popover-content {
+    background: white;
+    border: 1px solid rgba(229, 231, 235, 0.8);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 6px 10px rgba(0, 0, 0, 0.08);
+    max-width: 400px;
+    min-width: 250px;
+    padding: 0;
+    position: relative;
+}
+
+.dark .footnote-popover-content {
+    background: #1f2937;
+    border-color: rgba(55, 65, 81, 0.8);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.footnote-popover-arrow {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-right: 1px solid rgba(229, 231, 235, 0.8);
+    border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+.dark .footnote-popover-arrow {
+    background: #1f2937;
+    border-color: rgba(55, 65, 81, 0.8);
+}
+
+.footnote-popover-body {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #4b5563;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dark .footnote-popover-body {
+    color: #d1d5db;
+}
+
+/* Style footnote links */
+sup a.footnote-link,
+sup a[data-footnote-ref] {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+sup a.footnote-link:hover,
+sup a[data-footnote-ref]:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.dark sup a.footnote-link,
+.dark sup a[data-footnote-ref] {
+    color: #60a5fa;
+}
+
+.dark sup a.footnote-link:hover,
+.dark sup a[data-footnote-ref]:hover {
+    color: #93c5fd;
+}
+
+/**
  * Reference Popover Styles
  * Tooltip-style popover for reference previews
  */

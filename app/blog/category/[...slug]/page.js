@@ -14,6 +14,7 @@ import { allPosts } from 'contentlayer/generated';
 
 // Internal components and utilities
 import { MDXComponents, MDXLayoutRenderer } from '@/components/mdx';
+import ReferencePopover from '@/components/mdx/ReferencePopover';
 import { linkedDataGenerator, metadataGenertaor } from '@/data/meta/generator/post';
 import PostLayout from '@/layouts/PostLayout';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
@@ -106,6 +107,7 @@ export default async function Page({ params }) {
 
       <PostLayout content={ coreContent(post) } next={ posts[postIndex - 1] || null } prev={ posts[postIndex + 1] || null } toc={ post.toc }>
         <MDXLayoutRenderer code={ post.body.code } components={ MDXComponents } />
+        <ReferencePopover />
       </PostLayout>
     </>
   ) : <></>;

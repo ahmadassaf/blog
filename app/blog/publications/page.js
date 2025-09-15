@@ -12,15 +12,12 @@
 'use client';
 
 // External imports
-import { useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { Disclosure } from '@headlessui/react';
-import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 
 // Internal imports
 import publications from '@/app/content/publications.json';
-import Card from '@/components/elements/Card';
 import { cn } from '@/components/utils/TailwindUtils';
 
 /**
@@ -34,8 +31,6 @@ import { cn } from '@/components/utils/TailwindUtils';
  * <Projects className="custom-spacing" />
  */
 export default function Projects({ className }) {
-  const [ hoveredIndex, setHoveredIndex ] = useState(null);
-
   const publicationsGroups = {};
 
   publications.forEach((publication) => {
@@ -75,23 +70,10 @@ export default function Projects({ className }) {
                     </Disclosure.Button>
                   </dt>
                   <Disclosure.Panel as='dd' className='mt-2'>
-                    <div className={ cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3', className) }>
+                    <div className={ cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4', className) }>
                       {publicationsGroups[publicationsGroup].map((publication) => (
-                        <Link href={ `${publication.href}` } key={ publication?.href } className='relative group block p-2 h-full w-full' onMouseEnter={ () => setHoveredIndex(publication.id) } onMouseLeave={ () => setHoveredIndex(null) } >
-                          <AnimatePresence>
-                            {hoveredIndex === (publication.id) && (
-                              <motion.span
-                                className='absolute inset-0 h-full w-full bg-linear-to-r from-[#5865d5] to-[#89c6fc] opacity-30 dark:bg-white/[0.8] block rounded-3xl'
-                                layoutId='hoverBackground'
-                                initial={{ 'opacity': 0 }}
-                                animate={{ 'opacity': 1, 'transition': { 'duration': 0.15 } }}
-                                exit={{ 'opacity': 0, 'transition': { 'delay': 0.2, 'duration': 0.15 } }}
-                              />
-                            )}
-                          </AnimatePresence>
-                          <Card title={ publication.title } subtitle={ publication.venue } className={ className } >
-                            <CardMeta year={ publication.year } type={ publication.venueType }></CardMeta>
-                          </Card>
+                        <Link href={ `${publication.href}` } key={ publication?.href } className='block h-full w-full' target='_blank' rel='noopener noreferrer' >
+                          <PublicationCard publication={ publication } />
                         </Link>
                       ))}
                     </div>
@@ -107,6 +89,50 @@ export default function Projects({ className }) {
 }
 
 /**
+ * Clean publication card component following blog design patterns
+ *
+ * @param {Object} props - Component props
+ * @param {Object} props.publication - Publication data object
+ * @returns {JSX.Element} Clean publication card with typography-focused design
+ */
+export const PublicationCard = ({ publication }) => (
+  <article className='group block p-4 border border-gray-200 dark:border-[#303030] rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 h-full bg-white dark:bg-gray-900'>
+    <div className='flex flex-col h-full'>
+      {/* Metadata */}
+      <div className='flex items-center gap-2 mb-3 text-sm'>
+        {publication.venueType && (
+          <span className='px-2 py-1 text-xs font-medium text-yellow-800 dark:text-yellow-200 bg-yellow-50 dark:bg-yellow-900/30 rounded-md'>
+            {publication.venueType}
+          </span>
+        )}
+        {publication.award && (
+          <>
+            <span className='px-2 py-1 text-xs font-medium text-green-800 dark:text-green-200 bg-green-50 dark:bg-green-900/30 rounded-md'>
+              {publication.award}
+            </span>
+          </>
+        )}
+      </div>
+
+      {/* Title */}
+      <h3 className='text-lg font-semibold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 mb-2'>
+        {publication.title}
+      </h3>
+
+      {/* Venue */}
+      <p className='text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-3 flex-grow'>
+        {publication.venue}
+      </p>
+
+      {/* Authors */}
+      <p className='text-xs text-gray-500 dark:text-gray-400 leading-relaxed'>
+        {publication.authors}
+      </p>
+    </div>
+  </article>
+);
+
+/**
  * Publication metadata component displaying year and venue type
  *
  * @param {Object} props - Component props
@@ -119,7 +145,9 @@ export default function Projects({ className }) {
  */
 export const CardMeta = ({ year, type }) => (
   <div className='flex mt-4 gap-2'>
-    <span className='inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10'>{year}</span>
-    <span className='inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20'>{type}</span>
+    <span className='inline-flex items-center rounded-md bg-purple-50 dark:bg-purple-900/30 px-2 py-1 text-xs font-medium text-purple-700 dark:text-purple-200 ring-1 ring-inset ring-purple-700/10 dark:ring-purple-400/20'>{year}</span>
+    {type && (
+      <span className='inline-flex items-center rounded-md bg-yellow-50 dark:bg-yellow-900/30 px-2 py-1 text-xs font-medium text-yellow-800 dark:text-yellow-200 ring-1 ring-inset ring-yellow-600/20 dark:ring-yellow-400/20'>{type}</span>
+    )}
   </div>
 );

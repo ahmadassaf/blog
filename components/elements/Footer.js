@@ -28,7 +28,7 @@ import { sortPosts } from '@/lib/utils/contentlayer';
  * <Footer />
  */
 const Footer = () => (
-  <footer aria-labelledby='footer-heading' className='border-t border-gray-200'>
+  <footer aria-labelledby='footer-heading' className='border-t border-gray-200 dark:border-[#303030]'>
     <div className='mx-auto py-12 lg:py-16'>
       <div className='xl:grid xl:grid-cols-4 xl:gap-8 max-md:hidden'>
         <div className='grid grid-cols-1 gap-8 xl:col-span-2'>
@@ -81,7 +81,7 @@ const Footer = () => (
         <NewsletterForm />
 
       </div>
-      <div className='mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between max-sm:border-none max-sm:p-0 max-sm:m-0 max-md:border-0'>
+      <div className='mt-8 border-t border-gray-200 dark:border-[#303030] pt-8 md:flex md:items-center md:justify-between max-sm:border-none max-sm:p-0 max-sm:m-0 max-md:border-0'>
 
         <div className='flex space-x-6 md:order-2 sm:justify-center'>
           <Icon kind='mail' href={ `mailto:${siteMetadata.email}` } />

@@ -39,7 +39,7 @@ const Aside = ({ children, className = '' }) => (
         my-4 px-4 py-3
         bg-gray-50 dark:bg-gray-800 
         lg:bg-transparent lg:dark:bg-transparent
-        border-l-4 lg:border-0 border-gray-300 dark:border-gray-600
+        border-l-4 lg:border-0 border-gray-300 dark:border-[#303030]
         ${className}
       ` }
   >

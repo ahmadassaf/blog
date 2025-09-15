@@ -35,7 +35,7 @@ export default function AuthorLayout({ content, children }) {
           <h3 className='text-1xl sm:text-1xl leading-9 tracking-tight text-gray-600 dark:text-gray-100 sm:leading-10 md:text-2xl md:leading-14'>{occupation}</h3>
         </div>
         <div >
-          <div className='prose max-w-none pt-8 pb-8 dark:prose-dark xl:col-span-2'>
+          <div className='prose max-w-none pt-8 pb-8 dark:prose-invert xl:col-span-2'>
             {children}
           </div>
         </div>

@@ -709,7 +709,7 @@ const Preview = ({
                   'transition': { 'duration': 0.1 },
                   'y': 8
                 }}
-                className='bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden'
+                className='bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-[#303030] overflow-hidden'
                 style={{ 'width': '320px' }}
               >
                 {/* Special content display for Wikipedia instead of image */}

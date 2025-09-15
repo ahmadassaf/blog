@@ -19,19 +19,19 @@
  * <CmdLauncherFooter />
  */
 const CmdLauncherFooter = () => (
-  <div className='px-3 py-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800'>
+  <div className='px-3 py-2 border-t border-gray-200 dark:border-[#303030] bg-gray-50 dark:bg-gray-800'>
     <div className='flex items-center text-xs text-gray-500 dark:text-gray-400 gap-4'>
       <span className='hidden sm:flex items-center gap-1'>
-        <kbd className='px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded min-w-[24px] text-center'>↵</kbd>
+        <kbd className='px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-[#303030] rounded min-w-[24px] text-center'>↵</kbd>
         to select
       </span>
       <span className='flex items-center gap-1'>
-        <kbd className='px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded min-w-[24px] text-center'>↓</kbd>
-        <kbd className='px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded min-w-[24px] text-center'>↑</kbd>
+        <kbd className='px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-[#303030] rounded min-w-[24px] text-center'>↓</kbd>
+        <kbd className='px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-[#303030] rounded min-w-[24px] text-center'>↑</kbd>
         to navigate
       </span>
       <span className='flex items-center gap-1'>
-        <kbd className='px-2 py-1 text-xs bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded min-w-[28px] text-center'>esc</kbd>
+        <kbd className='px-2 py-1 text-xs bg-white dark:bg-gray-700 border border-gray-300 dark:border-[#303030] rounded min-w-[28px] text-center'>esc</kbd>
         to close / go back
       </span>
     </div>

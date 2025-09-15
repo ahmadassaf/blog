@@ -49,7 +49,9 @@ const FootnotePopover = () => {
 
               // Calculate position, ensuring popover stays on screen
               const viewportWidth = window.innerWidth;
-              const popoverWidth = 300; // Approximate width
+
+              // Approximate width
+              const popoverWidth = 300;
               let xPos = rect.right + 10;
 
               // If popover would go off the right edge, position it to the left
@@ -59,7 +61,9 @@ const FootnotePopover = () => {
                 'content': footnoteContent,
                 'footnoteNumber': footnoteNumber,
                 'x': xPos,
-                'y': rect.top + rect.height / 2 // Center vertically
+
+                // Center vertically
+                'y': rect.top + rect.height / 2
               });
 
               // Small delay to ensure positioning is applied before showing

@@ -52,10 +52,10 @@ First, lets understand the different folders/components of the template:
     - The `build.mjs` script is used to perform a bunch of steps post the `yarn run build` command. It is used to generate the RSS feed and the tags and categories pages.
     - The `rss.mjs` script is used to generate the RSS feed for the blog.
 
-<aside>
+<Aside>
 **Why `.mjs` extension?**
 Since Node.js was created, the ECMAScript module system (which uses import and export) has become standard and Node.js has added support for it. However, Node. will treat .js files as CommonJS (which is the default module system for the project) unless package.json says `"type": "module"` or the file extension is `.mjs`.
-</aside>
+</Aside>
 
 - `data`: The `data` folder contains the site metadata, authors, and blog posts in `.mdx`. The `markdownToHtml` function is used to convert markdown `.mdx` to HTML.
   - `authors`: contains the author information for the blog posts and is used to populate the `about` page. This can be extended to allow multiple authors.

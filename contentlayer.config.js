@@ -16,9 +16,9 @@ import contentFields from './lib/contentLayer/contentFields';
 import projectFields  from './lib/contentLayer/projectFields';
 import structuredData from './lib/contentLayer/structuredData';
 import { remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx, remarkLinks } from './lib/mdx/index.js';
+import remarkFootnoteData from './lib/mdx/remark-footnote-data.js';
 import rehypeCitationPopover from './lib/rehype-citation-popover.js';
 import rehypeFootnotePopoverV2 from './lib/rehype-footnote-popover-v2.js';
-import remarkFootnoteData from './lib/mdx/remark-footnote-data.js';
 
 const root = process.cwd();
 
@@ -77,14 +77,13 @@ export default makeSource({
       [ rehypeCitation, { 'csl': 'https://raw.githubusercontent.com/citation-style-language/styles/master/acm-sig-proceedings.csl', 'linkCitations': true, 'path': path.join(root, 'data') }],
       rehypeCitationPopover,
       rehypeFootnotePopoverV2,
-      rehypePrettyCode
+      [ rehypePrettyCode, { 'theme': 'aurora-x' }]
 
-      // RehypePresetMinify - temporarily disabled to test inline code
     ],
     'remarkPlugins': [
       remarkExtractFrontmatter,
       remarkGfm,
-      remarkFootnoteData,  // Must come after remarkGfm which creates footnotes
+      remarkFootnoteData,
       emoji,
       remarkCodeTitles,
       remarkMath,

@@ -67,9 +67,9 @@ const Callout = ({ type, children }) => {
   }
     break;
   case 'formal': {
-    calloutIcon = <BiBraille className='h-5 w-5 fill-fuchsia-600'/>;
-    calloutBackgroundColor = 'bg-fuchsia-50';
-    calloutTextColour = 'text-fuchsia-700';
+    calloutIcon = <BiBraille className='h-5 w-5 fill-teal-600'/>;
+    calloutBackgroundColor = 'bg-teal-50';
+    calloutTextColour = 'text-gray-700';
   }
     break;
   case 'settings': {
@@ -95,12 +95,12 @@ const Callout = ({ type, children }) => {
   }
 
   return (
-    <div className={ ` p-4 ${calloutBackgroundColor}` }>
-      <div className='flex items-center'>
+    <div className={ `p-4 ${calloutBackgroundColor}` }>
+      <div className='flex items-start'>
         <div className='shrink-0'>{calloutIcon}</div>
-        <div className='ml-3'>
-          <div className={ `mt-2 text-md ${calloutTextColour}` }>
-            <span>{children}</span>
+        <div className='ml-3 flex-1'>
+          <div className={ `text-md ${calloutTextColour} dark:${calloutTextColour} [&>p]:m-0 [&>p:not(:last-child)]:mb-2` }>
+            {children}
           </div>
         </div>
       </div>

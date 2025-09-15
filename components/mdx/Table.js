@@ -140,8 +140,7 @@ const Table = ({ children, className = '', ...rest }) => {
 
           <div className='inline-block min-w-full align-middle'>
             <table
-              className={ `min-w-full table-fixed ${className}` }
-              style={{ 'minWidth': '600px' }}
+              className={ `w-full table-auto ${className}` }
               { ...rest }
             >
               {children}

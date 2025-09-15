@@ -62,7 +62,7 @@ async function generateRss(posts, page = 'feed.xml') {
 
 const rss = () => {
   generateRss(sortPosts(allPosts));
-  // eslint-disable-next-line no-undef
+
   console.log('ℹ️ RSS feed generated ✅');
 };
 

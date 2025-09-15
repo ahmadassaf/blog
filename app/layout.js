@@ -10,9 +10,9 @@
  */
 
 import { Inter } from 'next/font/google';
-import Script from 'next/script';
 
 import LayoutContainer from '@/components/containers/layoutContainer';
+import CodeGroupTabs from '@/components/elements/CodeGroupTabs';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
 
 import '@/css/tailwind.css';
@@ -90,11 +90,11 @@ export default function RootLayout({ children }) {
       <meta name='theme-color' media='(prefers-color-scheme: dark)' content='#000' />
       <link rel='alternate' type='application/rss+xml' href='/feed.xml' />
       <body className='dark:bg-gray-900 bg-white'>
+        <CodeGroupTabs />
         <LayoutContainer>
           {children}
         </LayoutContainer>
       </body>
-      <Script src='/static/scripts/tabs.js'></Script>
     </html>
   );
 }

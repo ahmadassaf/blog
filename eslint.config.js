@@ -9,13 +9,14 @@ module.exports = [
   js.configs.recommended,
   react.configs.flat.recommended,
   {
-    'files': [ '**/*.{js,jsx,ts,tsx}' ],
+    'files': [ '**/*.{js,jsx,ts,tsx,mjs}' ],
     'languageOptions': {
       'ecmaVersion': 'latest',
       'globals': {
         'AbortController': 'readonly',
         'Buffer': 'readonly',
         'IntersectionObserver': 'readonly',
+        'MutationObserver': 'readonly',
         'Response': 'readonly',
         'URL': 'readonly',
         '__dirname': 'readonly',

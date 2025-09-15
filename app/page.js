@@ -55,9 +55,18 @@ export default function Home() {
         </div>
         <FeaturedPostsLayout />
         <ListLayout posts={ displayPosts.slice(0, 6) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
-        <Link href='/blog' className='text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 float-right border-none' aria-label='all posts' >
-                All Posts
-        </Link>
+        <div className='flex justify-end pt-8'>
+          <Link
+            href='/blog'
+            className='inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-blue-600 dark:text-blue-400 bg-white dark:bg-gray-900 border border-gray-200 dark:border-[#303030] rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-700 dark:hover:text-blue-300 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 group'
+            aria-label='View all blog posts'
+          >
+            View All Posts
+            <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
+            </svg>
+          </Link>
+        </div>
       </div>
     </>
   );

@@ -4,12 +4,18 @@
  * @description Specialized image component for blog posts that supports theme-aware image switching.
  * Automatically handles light/dark mode variants and includes optional caption support.
  * Images are loaded from the /static/images/posts/ directory with SVG format.
+ * Clicking on images opens them in a full-screen modal.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
  */
 
+'use client';
+
+import { useState } from 'react';
 import NextImage from 'next/image';
+
+import ImageModal from '@/components/elements/ImageModal';
 
 /**
  * Renders a blog post image with theme support and optional caption
@@ -32,28 +38,46 @@ import NextImage from 'next/image';
  * <PostImage dark title="my-diagram" caption="Figure 1: System Architecture" />
  */
 const PostImage = ({ dark, title, caption, width = 800, height = 800, ...rest }) => {
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [ currentImageSrc, setCurrentImageSrc ] = useState('');
+
   const imageProps = {
     'alt': title,
-    'className': 'mx-auto',
+    'className': 'mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200',
     'height': height,
     'loading': 'lazy',
     'sizes': '(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px',
     'width': width
   };
 
+  const handleImageClick = (src) => {
+    setCurrentImageSrc(src);
+    setIsModalOpen(true);
+  };
+
   if (dark) return (
     <div>
       <NextImage
         { ...imageProps }
-        className='dark:hidden mx-auto'
+        className='dark:hidden mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200'
         src={ `/static/images/posts/${title}.svg` }
+        onClick={ () => handleImageClick(`/static/images/posts/${title}.svg`) }
       />
       <NextImage
         { ...imageProps }
-        className='hidden dark:block mx-auto'
+        className='hidden dark:block mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200'
         src={ `/static/images/posts/${title}-dark.svg` }
+        onClick={ () => handleImageClick(`/static/images/posts/${title}-dark.svg`) }
       />
       { caption && <p className='text-center text-sm text-gray-500 dark:text-gray-400'>{ caption }</p> }
+
+      <ImageModal
+        isOpen={ isModalOpen }
+        onClose={ () => setIsModalOpen(false) }
+        src={ currentImageSrc }
+        alt={ title }
+        caption={ caption }
+      />
     </div>
   );
 
@@ -62,8 +86,17 @@ const PostImage = ({ dark, title, caption, width = 800, height = 800, ...rest })
       <NextImage
         { ...imageProps }
         src={ `/static/images/posts/${title}.svg` }
+        onClick={ () => handleImageClick(`/static/images/posts/${title}.svg`) }
       />
       { caption && <p className='text-center text-sm text-gray-500 dark:text-gray-400'>{ caption }</p> }
+
+      <ImageModal
+        isOpen={ isModalOpen }
+        onClose={ () => setIsModalOpen(false) }
+        src={ `/static/images/posts/${title}.svg` }
+        alt={ title }
+        caption={ caption }
+      />
     </div>
   );
 };

@@ -56,7 +56,7 @@ const MenuBlog = ({ categories }) => {
           <div className='p-4'>
 
             {categories.map((category) => (
-              <div key={ category.id } className='group relative flex rounded-lg p-3 hover:bg-gray-50'>
+              <div key={ category.id } className='group relative flex rounded-lg p-2 hover:bg-gray-50'>
                 <div>
                   <a href={ `/blog/categories/${category.id}` } className='font-semibold text-gray-900 hover:text-blue-600 capitalize'>
                     {category.title.replace('-', ' ')}

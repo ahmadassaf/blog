@@ -406,13 +406,17 @@ const formatTitle = (title, url) => {
 };
 
 /**
- * Helper function to get platform-specific icon
+ * Helper function to get platform-specific icon (only when no favicon is available)
  */
-const getPlatformIcon = (url, type) => {
+const getPlatformIcon = (url, type, hasFavicon) => {
+
+  // Don't show platform icon if we already have a favicon
+  if (hasFavicon) return null;
+
   try {
     const hostname = new URL(url).hostname.toLowerCase();
 
-    // Platform-specific icons (only for inline display, not Wikipedia)
+    // Platform-specific icons (only when no favicon is available)
     if (type === 'video' || hostname.includes('youtube.com') || hostname.includes('youtu.be')) return (
       <svg className='h-3 w-3 ml-1 text-red-500' fill='currentColor' viewBox='0 0 20 20'>
         <path d='M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l4 2A1 1 0 0020 14V6a1 1 0 00-1.447-.894l-4 2z' />
@@ -425,7 +429,6 @@ const getPlatformIcon = (url, type) => {
       </svg>
     );
 
-    // No inline icon for Wikipedia - just use favicon
   } catch {
 
     // Ignore errors
@@ -634,7 +637,7 @@ const Preview = ({
       >
         {formattedTitle}
       </a>
-      {getPlatformIcon(url, data?.type)}
+      {getPlatformIcon(url, data?.type, !!normalizedFavicon)}
       {data?.duration && (
         <span className='text-xs text-gray-500 ml-1'>{data.duration}</span>
       )}

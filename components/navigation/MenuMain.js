@@ -56,7 +56,7 @@ const MenuMain = ({ categories, allPosts }) => {
     {menuBlogOpen ? (
       <div className='absolute left-1/2 z-50 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4 top-10'>
         <div className='w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5'>
-          <div className='p-4'>
+          <div className='p-3'>
 
             {categories.map((category) => (
               <div key={ category.id } className='group relative flex rounded-lg px-3 py-2 hover:bg-gray-50'>
@@ -71,14 +71,14 @@ const MenuMain = ({ categories, allPosts }) => {
             ))}
           </div>
 
-          <div className='bg-blue-50 p-8'>
-            <div className='flex justify-between'>
+          <div className='bg-blue-50 p-3'>
+            <div className='flex justify-between px-3 py-2'>
               <h3 className='text-sm font-semibold leading-6 text-gray-500'>Recent posts</h3>
               <Link href={ `/blog` } className='text-sm font-semibold leading-6 text-gray-900 hover:text-blue-600' >See all &rarr;</Link>
             </div>
-            <ul role='list' className='mt-2 space-y-6'>
+            <ul role='list' className='px-3 py-2'>
               {allPosts.slice(0, 3).map((post) => (
-                <li key={ post.slug } className='relative'>
+                <li key={ post.slug } className='py-1 relative'>
                   <time dateTime={ post.date } className='block text-xs leading-6 text-gray-600 font-light'>{formatDate(post.date)}</time>
                   <a href={ `/blog/${post.slug}` } className='block truncate text-sm font-semibold leading-6 text-gray-900 hover:text-blue-600'>
                     {post.title}

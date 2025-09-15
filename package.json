@@ -6,7 +6,8 @@
   "scripts": {
     "content": "mkdir -p ./app/content &&  NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 contentlayer2 build -c contentlayer.config.js && node ./scripts/build.mjs",
     "start": "mkdir -p ./app/content &&  NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 cross-env INIT_CWD=$PWD next dev --turbopack",
-    "dev": "mkdir -p ./app/content && NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 cross-env INIT_CWD=$PWD next dev --turbopack",
+    "dev": "mkdir -p ./app/content && NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 cross-env INIT_CWD=$PWD contentlayer2 build -c contentlayer.config.js && node ./scripts/build.mjs && next dev --turbopack",
+    "dev:watch": "mkdir -p ./app/content && node ./scripts/dev-watch.mjs",
     "dev:no-github": "mkdir -p ./app/content && SKIP_GITHUB_API=true NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 cross-env INIT_CWD=$PWD next dev --turbopack",
     "build": "mkdir -p ./app/content && mkdir -p ./public && NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 cross-env INIT_CWD=$PWD contentlayer2 build -c contentlayer.config.js && node ./scripts/build.mjs && next build",
     "build:no-github": "mkdir -p ./app/content && mkdir -p ./public && SKIP_GITHUB_API=true NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 cross-env INIT_CWD=$PWD contentlayer2 build -c contentlayer.config.js && node ./scripts/build.mjs && next build",

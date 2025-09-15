@@ -53,7 +53,7 @@ export default function PostLayout({ content, next, prev, toc, children }) {
 
           <div className={ `divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:gap-x-6 xl:divide-y-0 ${(toc.length > 3 && content.tableOfContents) ? 'xl:grid-cols-9' : 'xl:grid-cols-1'}` } style={{ 'gridTemplateRows': 'auto 1fr' }}>
             <div className={ `divide-y divide-gray-200 dark:divide-gray-700 xl:row-span-2 xl:pb-0 ${(toc.length > 3 && content.tableOfContents) && 'xl:col-span-6'}` }>
-              <div className='prose max-w-none pt-8 pb-8 dark:prose-dark'>
+              <div className='prose max-w-none pt-8 pb-8 dark:prose-invert'>
                 {children}
                 <Disclaimer/>
               </div>

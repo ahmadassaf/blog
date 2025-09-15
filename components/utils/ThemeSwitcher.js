@@ -41,7 +41,7 @@ function Provider() {
       aria-label='Toggle Dark Mode'
       type='button'
       style={{ 'outline': 'none' }}
-      className='mx-4 h-8 w-8 rounded-sm p-1'
+      className='mx-4 h-8 w-8 rounded-sm p-1 cursor-pointer'
     >
       <svg
         xmlns='http://www.w3.org/2000/svg'
@@ -59,7 +59,7 @@ function Provider() {
       aria-label='Toggle Dark Mode'
       type='button'
       style={{ 'outline': 'none' }}
-      className='mx-4 h-8 w-8 rounded-sm p-1'
+      className='mx-4 h-8 w-8 rounded-sm p-1 cursor-pointer'
       onClick={ () => setTheme(theme === 'dark' ? 'light' : 'dark') }
     >
       <svg

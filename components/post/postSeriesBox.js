@@ -53,7 +53,7 @@ const PostSeriesBox = ({ series, slug }) => {
   const progressPercentage = (completedCount / totalCount) * 100;
 
   return (
-    <div className='mb-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg'>
+    <div className='mb-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-[#303030] rounded-lg'>
 
       {/* Header - Always Visible */}
       <button
@@ -97,7 +97,7 @@ const PostSeriesBox = ({ series, slug }) => {
           isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }` }
       >
-        <div className='px-4 pb-4 border-t border-gray-200 dark:border-gray-700'>
+        <div className='px-4 pb-4 border-t border-gray-200 dark:border-[#303030]'>
           <div className='mt-4 space-y-2'>
             {series.map((post, index) => {
               const isCurrentPost = post.slug === slug;
@@ -108,7 +108,7 @@ const PostSeriesBox = ({ series, slug }) => {
 
                 if (isCompleted) return <div className='w-2 h-2 bg-blue-600 rounded-full' />;
 
-                return <div className='w-2 h-2 border border-gray-300 dark:border-gray-600 rounded-full' />;
+                return <div className='w-2 h-2 border border-gray-300 dark:border-[#303030] rounded-full' />;
               };
 
               return (

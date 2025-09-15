@@ -41,7 +41,7 @@ export default function Blog() {
   return (
     <div>
       <FeaturedPostsLayout hideTitle={ true } />
-      <ListLayout posts={ sortPosts(allPosts, 'date') } paginationURL='blog/page' baseURL='blog'/>
+      <ListLayout posts={ sortPosts(allPosts, 'date') } />
     </div>
   );
 }

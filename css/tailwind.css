@@ -14,6 +14,80 @@
 @config '../tailwind.config.js';
 
 /**
+ * Enhanced Blog Styles
+ * Custom enhancements for improved typography and visual appeal
+ */
+
+/* Line clamp utilities for text truncation */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Stretched link for card hover effects */
+.stretched-link::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  content: "";
+}
+
+/* Smooth focus visible states */
+.focus-visible:focus-visible {
+  outline: 2px solid theme('colors.blue.500');
+  outline-offset: 2px;
+}
+
+/* Enhanced prose styles for better readability */
+.prose-enhanced {
+  line-height: 1.7;
+  color: theme('colors.gray.700');
+}
+
+.dark .prose-enhanced {
+  color: theme('colors.gray.300');
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Improved selection colors */
+::selection {
+  background-color: theme('colors.blue.100');
+  color: theme('colors.blue.900');
+}
+
+.dark ::selection {
+  background-color: theme('colors.blue.800');
+  color: theme('colors.blue.100');
+}
+
+/**
  * Border Color Compatibility Layer
  *
  * @description The default border color has changed to `currentColor` in Tailwind CSS v4,
@@ -52,25 +126,5 @@
   .prose p {
     margin: 1.25em 0;
   }
-  
-  
-  /**
-   * Dark mode typography for blog post content only
-   */
-  .dark .prose,
-  .dark .prose p,
-  .dark .prose h1,
-  .dark .prose h2,
-  .dark .prose h3,
-  .dark .prose h4,
-  .dark .prose h5,
-  .dark .prose h6,
-  .dark .prose li,
-  .dark .prose td,
-  .dark .prose th,
-  .dark .prose blockquote,
-  .dark .prose strong,
-  .dark .prose a {
-    color: rgb(243, 244, 246) ;
-  }
+
 }

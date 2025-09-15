@@ -13,56 +13,56 @@ import Link from '@/components/elements/Link';
 import formatDate from '@/lib/utils/formatDate';
 
 /**
- * Renders a single blog post preview item
+ * Enhanced clean post component
  *
- * @description Post preview component that displays the post title, subtitle, publication date,
- * and draft status (if applicable). Features responsive layout that adapts to different screen
- * sizes and includes hover effects for better user interaction.
- *
- * @param {Object} props - Component props
- * @param {Object} props.frontMatter - Blog post metadata object
- * @param {string} props.frontMatter.slug - URL slug for the post
- * @param {string} props.frontMatter.title - Post title
- * @param {string} props.frontMatter.subtitle - Post subtitle/description
- * @param {string} props.frontMatter.date - Publication date (ISO format)
- * @param {boolean} [props.frontMatter.draft] - Whether the post is a draft
- *
- * @returns {JSX.Element} Post preview list item with metadata and link
- *
- * @example
- * // Basic usage in blog listing
- * const postData = {
- *   slug: 'my-blog-post',
- *   title: 'My Blog Post',
- *   subtitle: 'A great post about coding',
- *   date: '2024-01-01',
- *   draft: false
- * };
- * <Post frontMatter={postData} />
- *
- * @example
- * // Draft posts show a yellow "DRAFT" badge
- * const draftPost = { ...postData, draft: true };
- * <Post frontMatter={draftPost} />
+ * @description Clean, typography-focused post preview with subtle improvements
+ * while maintaining the minimal aesthetic. Enhanced spacing, hover states, and metadata display.
  */
 const Post = ({ frontMatter }) => (
-  <li key={ frontMatter.slug } className='py-4'>
-    <article className='group space-y-2 xl:grid xl:grid-cols-2 xl:items-baseline xl:space-y-0 cursor-pointer'>
-      <div className='space-y-3 xl:col-span-3'>
-        <Link href={ `/blog/${frontMatter.slug}` } className='text-gray-900 dark:text-gray-100 group-hover:text-blue-700'>
-          <div className='flex flex-row justify-between max-md:flex-col items-top'>
-            <div>
-              <h3 className='text-2xl font-bold leading-8 tracking-tight max-sm:text-lg'>
-                {frontMatter.title}
-                {frontMatter.draft && <span className='bg-yellow-500 text-white p-1 text-[12px] align-middle mx-2 uppercase rounded-xs'>Draft</span>}
-              </h3>
-              <h4 className='group-hover:text-blue-700 text-gray-500 dark:text-gray-300'>{frontMatter.subtitle}</h4>
-            </div>
-            <dd className='text-xs leading-6 text-gray-400 dark:text-gray-300 group-hover:text-blue-400 mt-2'>
-              <time dateTime={ frontMatter.date }>{formatDate(frontMatter.date)}</time>
-            </dd>
+  <li key={ frontMatter.slug } className='group'>
+    <article className='py-3 border-b border-gray-100 dark:border-[#303030] last:border-b-0 '>
+      <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-4'>
+
+        {/* Main content */}
+        <div className='flex-1 min-w-0'>
+          <div className='flex items-center gap-2 mb-1 text-sm'>
+            <time
+              dateTime={ frontMatter.date }
+              className='font-medium text-gray-500 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 '
+            >
+              {formatDate(frontMatter.date)}
+            </time>
+
+            {frontMatter.category && (
+              <>
+                <span className='text-gray-300 dark:text-gray-600'>·</span>
+                <span className='font-medium text-blue-600 dark:text-blue-400 capitalize text-xs'>
+                  {frontMatter.category}
+                </span>
+              </>
+            )}
+
+            {frontMatter.draft && (
+              <>
+                <span className='text-gray-300 dark:text-gray-600'>·</span>
+                <span className='w-2 h-2 bg-yellow-500 rounded-full'></span>
+                <span className='text-xs font-medium text-yellow-600 dark:text-yellow-400'>Draft</span>
+              </>
+            )}
           </div>
-        </Link>
+
+          <h3 className='text-lg md:text-xl font-semibold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400  mb-1'>
+            <Link href={ `/blog/${frontMatter.slug}` } className='decoration-2 hover:underline underline-offset-2'>
+              {frontMatter.title}
+            </Link>
+          </h3>
+
+          {frontMatter.subtitle && (
+            <p className='text-gray-600 dark:text-gray-300 leading-snug line-clamp-1 text-sm'>
+              {frontMatter.subtitle}
+            </p>
+          )}
+        </div>
       </div>
     </article>
   </li>

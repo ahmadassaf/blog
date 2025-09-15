@@ -18,10 +18,10 @@ import { ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/react/20/solid
 const POSTS_PER_PAGE = 7;
 
 /**
- * Pagination component for navigating through paginated content
+ * Enhanced pagination component for navigating through paginated content
  *
- * @description Renders pagination controls with previous/next buttons and page indicators.
- * Handles URL generation for different page numbers and content types.
+ * @description Renders clean, typography-focused pagination controls with improved styling.
+ * Features enhanced hover effects, better spacing, and consistent visual design.
  *
  * @param {Object} props - Component props
  * @param {number} props.totalPages - Total number of pages available
@@ -44,45 +44,56 @@ const Pagination = ({ totalPages, currentPage, baseURL, paginationURL }) => {
   const nextPage = parseInt(currentPage) + 1 <= parseInt(totalPages);
 
   return (
-    <nav className='flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 mt-4'>
-      <div className='-mt-px flex w-0 flex-1 group'>
-        {!prevPage && (
-          <button rel='previous' className='cursor-auto disabled:opacity-50 inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500' disabled={ !prevPage }>Previous</button>
-        )}
-        {prevPage && (
+    <nav className='flex items-center justify-between pt-8 mt-8'>
+      {/* Previous Button */}
+      <div className='flex w-0 flex-1'>
+        {prevPage ? (
           <a
             href={ currentPage - 1 === 1 ? `/${baseURL}/` : `/${paginationURL}/${currentPage - 1}` }
-            className='inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 dark:text-gray-300 group-hover:border-blue-700 group-hover:text-blue-700'
+            className='group inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-[#303030] rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200'
           >
-            <ArrowLongLeftIcon aria-hidden='true' className='mr-3 h-5 w-5 text-gray-400 group-hover:fill-blue-700' />
-        Previous
+            <ArrowLongLeftIcon className='mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform duration-200' />
+            Previous
           </a>
+        ) : (
+          <button
+            disabled
+            className='inline-flex items-center px-4 py-2 text-sm font-medium text-gray-400 dark:text-gray-600 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-[#303030] rounded-lg cursor-not-allowed'
+          >
+            <ArrowLongLeftIcon className='mr-2 h-4 w-4' />
+            Previous
+          </button>
         )}
+      </div>
 
+      {/* Page Indicator */}
+      <div className='flex items-center mx-8'>
+        <span className='px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/50 rounded-md'>
+          <span className='text-blue-600 dark:text-blue-400 font-semibold'>{currentPage}</span>
+          <span className='mx-1.5 text-gray-400'>of</span>
+          <span className='text-gray-600 dark:text-gray-300'>{totalPages}</span>
+        </span>
       </div>
-      <div className='hidden md:-mt-px md:flex'>
-        <a
-          href='#'
-          aria-current='page'
-          className='inline-flex items-center border-t-2 border-blue-500 px-4 pt-4 text-sm font-medium text-blue-700'
-        >
-          {currentPage} of {totalPages}
-        </a>
-      </div>
-      <div className='-mt-px flex w-0 flex-1 justify-end group'>
-        {!nextPage && (
-          <button rel='previous' className='cursor-auto disabled:opacity-50 inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500' disabled={ !nextPage }>Next</button>
-        )}
-        {nextPage && (
+
+      {/* Next Button */}
+      <div className='flex w-0 flex-1 justify-end'>
+        {nextPage ? (
           <a
             href={ `/${paginationURL}/${currentPage + 1}` }
-            className='inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 dark:text-gray-300 group-hover:border-blue-700 group-hover:text-blue-700'
+            className='group inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-[#303030] rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200'
           >
-        Next
-            <ArrowLongRightIcon aria-hidden='true' className='ml-3 h-5 w-5 text-gray-400 group-hover:fill-blue-700' />
+            Next
+            <ArrowLongRightIcon className='ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200' />
           </a>
+        ) : (
+          <button
+            disabled
+            className='inline-flex items-center px-4 py-2 text-sm font-medium text-gray-400 dark:text-gray-600 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-[#303030] rounded-lg cursor-not-allowed'
+          >
+            Next
+            <ArrowLongRightIcon className='ml-2 h-4 w-4' />
+          </button>
         )}
-
       </div>
     </nav>
   );

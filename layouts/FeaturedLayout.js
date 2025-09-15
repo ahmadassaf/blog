@@ -56,54 +56,111 @@ export default function ListLayout({ className, hideTitle }) {
   return (
     <div>
 
-      <div className={ `pb-10` }>
-        {/* Hero featured post section */}
-        <article className='mx-auto w-full py-2'>
-          <time
-            dateTime={ formatDate(featuredPost.date) }
-            className='block text-sm leading-6 text-gray-600 dark:text-gray-400'
-          >
-            {formatDate(featuredPost.date)}
-          </time>
-          <h2 id='featured-post' className='mt-4 text-3xl font-bold text-gray-900 sm:text-4xl dark:text-white'>
+      <div className={ `pb-16` }>
+        {/* Clean Typography-focused Hero */}
+        <article className='mx-auto w-full group'>
+          <div className='mb-6 flex items-center gap-3'>
+            <span className='inline-flex items-center rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white'>
+              Featured
+            </span>
+            <time
+              dateTime={ formatDate(featuredPost.date) }
+              className='text-sm font-medium text-gray-600 dark:text-gray-400'
+            >
+              {formatDate(featuredPost.date)}
+            </time>
+            {featuredPost.category && (
+              <>
+                <span className='text-gray-300 dark:text-gray-600'>•</span>
+                <span className='text-sm font-medium text-blue-600 dark:text-blue-400 capitalize'>
+                  {featuredPost.category}
+                </span>
+              </>
+            )}
+          </div>
+
+          <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-[1.1] tracking-tight mb-6'>
             <a
               href={ `/blog/${featuredPost.slug}` }
-              className='hover:text-blue-600'
-              aria-describedby='featured-post'
+              className='hover:text-blue-600 dark:hover:text-blue-400  duration-300 decoration-2 hover:underline underline-offset-4'
             >
               {featuredPost.title}
             </a>
-          </h2>
-          <p className='mt-4 text-lg leading-8 text-gray-600 dark:text-gray-300'>
+          </h1>
+
+          <p className='text-xl md:text-2xl leading-relaxed text-gray-700 dark:text-gray-300 max-w-4xl mb-8 font-light'>
             {featuredPost.summary}
           </p>
+
+          <div className='flex flex-col sm:flex-row items-start sm:items-center gap-4'>
+            <a
+              href={ `/blog/${featuredPost.slug}` }
+              className='inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:gap-3 transition-all duration-200 group/link'
+            >
+              Read Full Article
+              <svg className='w-4 h-4 transition-transform group-hover/link:translate-x-1' viewBox='0 0 20 20' fill='currentColor'>
+                <path fillRule='evenodd' d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z' clipRule='evenodd' />
+              </svg>
+            </a>
+
+            {featuredPost.tags && featuredPost.tags.length > 0 && (
+              <div className='flex flex-wrap gap-2'>
+                {featuredPost.tags.slice(0, 4).map((tag) => (
+                  <a key={ tag } href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700  cursor-pointer'>
+                    {tag}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         </article>
-        {/* Additional featured posts grid */}
-        <div className='mx-auto w-full pt-12 sm:pt-16 mt-5'>
-          <div className='grid grid-cols-2 gap-12 max-lg:grid-cols-1'>
-            {displayPosts.map((post) => (
-              <article key={ post.slug }>
-                <div className='group relative'>
-                  <time
-                    dateTime={ post.datetime }
-                    className='block text-sm leading-6 text-gray-600 dark:text-gray-400'
-                  >
-                    {formatDate(post.date)}
-                  </time>
-                  <h2 className='mt-2 text-lg font-semibold text-gray-900 group-hover:text-blue-600 dark:text-white'>
-                    <a href={ `/blog/${post.slug}` }>
-                      <span className='absolute inset-0' />
+        {/* Clean typography-focused additional posts */}
+        {displayPosts.length > 0 && (
+          <div className='mx-auto w-full pt-16'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
+              {displayPosts.map((post) => (
+                <article key={ post.slug } className='group'>
+                  <div className='flex items-center gap-3 mb-3'>
+                    <time
+                      dateTime={ post.datetime }
+                      className='text-sm font-medium text-gray-500 dark:text-gray-400'
+                    >
+                      {formatDate(post.date)}
+                    </time>
+                    {post.category && (
+                      <>
+                        <span className='text-gray-300 dark:text-gray-600'>•</span>
+                        <span className='text-sm font-medium text-blue-600 dark:text-blue-400 capitalize'>
+                          {post.category}
+                        </span>
+                      </>
+                    )}
+                  </div>
+
+                  <h2 className='text-2xl font-bold text-gray-900 dark:text-white leading-tight mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400  duration-200'>
+                    <a href={ `/blog/${post.slug}` } className='decoration-2 hover:underline underline-offset-2'>
                       {post.title}
                     </a>
                   </h2>
-                  <p className='mt-4 text-md leading-6 text-gray-600 dark:text-gray-300'>
+
+                  <p className='text-gray-600 dark:text-gray-300 leading-relaxed mb-4'>
                     {post.summary}
                   </p>
-                </div>
-              </article>
-            ))}
+
+                  {post.tags && post.tags.length > 0 && (
+                    <div className='flex flex-wrap gap-2'>
+                      {post.tags.slice(0, 3).map((tag) => (
+                        <a key={ tag } href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700  cursor-pointer'>
+                          {tag}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

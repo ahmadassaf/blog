@@ -130,22 +130,22 @@ export default function ListLayout({ posts, filter = true }) {
             </div>
 
             {/* Page Indicator */}
-            <div className='flex items-center mx-8 relative group'>
+            <div className='flex items-center mx-8 relative group cursor-pointer'>
               {/* Default counter */}
-              <span className='px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/50 rounded-md cursor-pointer group-hover:opacity-0 transition-opacity duration-200'>
+              <span className='px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 group-hover:opacity-0 group-hover:scale-95 transition-all duration-300 ease-out'>
                 <span className='text-blue-600 dark:text-blue-400 font-semibold'>{currentPage}</span>
-                <span className='mx-1.5 text-gray-400'>of</span>
+                <span className='mx-2 text-gray-400'>of</span>
                 <span className='text-gray-600 dark:text-gray-300'>{totalPages}</span>
               </span>
 
               {/* Expanded page numbers */}
-              <div className='absolute left-0 top-0 opacity-0 group-hover:opacity-100 transition-all duration-200 flex items-center bg-gray-50 dark:bg-gray-800/50 rounded-md px-3 py-1.5 text-sm font-medium whitespace-nowrap z-10'>
+              <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out flex items-center bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-lg px-4 py-2 text-sm font-medium whitespace-nowrap z-20'>
                 {/* First page */}
                 <button
                   onClick={ () => handlePageChange(1) }
                   disabled={ isLoading || currentPage === 1 }
-                  className={ `px-1.5 py-0.5 text-sm font-semibold rounded transition-colors cursor-pointer ${
-                    currentPage === 1 ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                  className={ `px-3 py-1.5 mx-1 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer hover:scale-105 ${
+                    currentPage === 1 ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                   } disabled:opacity-50` }
                 >
                   1
@@ -160,8 +160,8 @@ export default function ListLayout({ posts, filter = true }) {
                       key={ page }
                       onClick={ () => handlePageChange(page) }
                       disabled={ isLoading || currentPage === page }
-                      className={ `px-1.5 py-0.5 text-sm font-semibold rounded transition-colors cursor-pointer ${
-                        currentPage === page ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                      className={ `px-3 py-1.5 mx-1 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer hover:scale-105 ${
+                        currentPage === page ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                       } disabled:opacity-50` }
                     >
                       {page}
@@ -176,14 +176,14 @@ export default function ListLayout({ posts, filter = true }) {
                         key={ page }
                         onClick={ () => handlePageChange(page) }
                         disabled={ isLoading || currentPage === page }
-                        className={ `px-2 py-1 text-xs font-medium rounded transition-colors ${
-                          currentPage === page ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                        className={ `px-3 py-1.5 mx-1 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer hover:scale-105 ${
+                          currentPage === page ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                         } disabled:opacity-50` }
                       >
                         {page}
                       </button>
                     ))}
-                    <span className='px-1.5 py-0.5 text-gray-400 dark:text-gray-500'>...</span>
+                    <span className='px-2 py-1.5 mx-1 text-gray-400 dark:text-gray-500 font-bold'>⋯</span>
                   </>
                 )}
 
@@ -192,8 +192,8 @@ export default function ListLayout({ posts, filter = true }) {
                   <button
                     onClick={ () => handlePageChange(totalPages) }
                     disabled={ isLoading || currentPage === totalPages }
-                    className={ `px-1.5 py-0.5 text-sm font-semibold rounded transition-colors cursor-pointer ${
-                      currentPage === totalPages ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                    className={ `px-3 py-1.5 mx-1 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer hover:scale-105 ${
+                      currentPage === totalPages ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                     } disabled:opacity-50` }
                   >
                     {totalPages}

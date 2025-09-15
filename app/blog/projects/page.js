@@ -11,14 +11,11 @@
 'use client';
 
 // External imports
-import { useState } from 'react';
 import { GoRepoForked, GoStar } from 'react-icons/go';
 import { allProjects } from 'contentlayer/generated';
-import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 
 // Internal imports
-import Card from '@/components/elements/Card';
 import { cn } from '@/components/utils/TailwindUtils';
 import GithubColors from '@/data/meta/githubMetaColors';
 
@@ -33,7 +30,6 @@ import GithubColors from '@/data/meta/githubMetaColors';
  * <Projects className="custom-grid" />
  */
 export default function Projects({ className }) {
-  const [ hoveredIndex, setHoveredIndex ] = useState(null);
 
   return (
     <>
@@ -44,29 +40,16 @@ export default function Projects({ className }) {
           </h1>
         </div>
         <div>
-          <div className={ cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  py-10', className) }>
-            {allProjects.map((project, idx) => (
+          <div className={ cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-10', className) }>
+            {allProjects.map((project) => (
               <Link
                 href={ `/blog/${project.externalLink}` }
                 key={ project?.externalLink }
-                className='relative group  block p-2 h-full w-full'
-                onMouseEnter={ () => setHoveredIndex(idx) }
-                onMouseLeave={ () => setHoveredIndex(null) }
+                className='block h-full w-full'
+                target='_blank'
+                rel='noopener noreferrer'
               >
-                <AnimatePresence>
-                  {hoveredIndex === idx && (
-                    <motion.span
-                      className='absolute inset-0 h-full w-full bg-linear-to-r from-[#5865d5] to-[#89c6fc] opacity-30 dark:bg-white/[0.8] block rounded-3xl'
-                      layoutId='hoverBackground'
-                      initial={{ 'opacity': 0 }}
-                      animate={{ 'opacity': 1, 'transition': { 'duration': 0.15 } }}
-                      exit={{ 'opacity': 0, 'transition': { 'delay': 0.2, 'duration': 0.15 } }}
-                    />
-                  )}
-                </AnimatePresence>
-                <Card title={ project.title } subtitle={ project.subtitle } meta={ project.meta } className={ className }>
-                  <CardMeta StargazersCount={ project.meta.stargazers_count } ForksCount={ project.meta.forks_count } Language={ project.meta.language } />
-                </Card>
+                <ProjectCard project={ project } />
               </Link>
             ))}
           </div>
@@ -75,6 +58,50 @@ export default function Projects({ className }) {
     </>
   );
 }
+
+/**
+ * Clean project card component following blog design patterns
+ *
+ * @param {Object} props - Component props
+ * @param {Object} props.project - Project data object
+ * @returns {JSX.Element} Clean project card with typography-focused design
+ */
+export const ProjectCard = ({ project }) => (
+  <article className='group block p-4 border border-gray-200 dark:border-[#303030] rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 h-full bg-white dark:bg-gray-900'>
+    <div className='flex flex-col h-full'>
+      {/* Title */}
+      <h3 className='text-lg font-semibold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 mb-2'>
+        {project.title}
+      </h3>
+
+      {/* Description */}
+      <p className='text-sm text-gray-600 dark:text-gray-300 leading-relaxed flex-grow mb-3'>
+        {project.subtitle}
+      </p>
+
+      {/* Metadata - GitHub stats at bottom */}
+      <div className='flex items-center gap-3 text-xs text-gray-400 dark:text-gray-500'>
+        <div className='flex items-center gap-1'>
+          <GoStar className='w-3 h-3' />
+          <span>{project.meta.stargazers_count}</span>
+        </div>
+        <div className='flex items-center gap-1'>
+          <GoRepoForked className='w-3 h-3' />
+          <span>{project.meta.forks_count}</span>
+        </div>
+        {project.meta.language && (
+          <div className='flex items-center gap-1'>
+            <span
+              className='rounded-sm inline-block h-2 w-2'
+              style={{ 'background': GithubColors[project.meta.language] }}
+            ></span>
+            <span>{project.meta.language}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  </article>
+);
 
 /**
  * Project metadata component displaying GitHub stats and language

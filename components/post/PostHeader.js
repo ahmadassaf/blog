@@ -11,10 +11,9 @@
 
 // External libraries
 import { BookOpenIcon, ClockIcon } from '@heroicons/react/20/solid';
-import Link from 'next/link';
 
 // Internal components
-import Pill from '@/components/elements/Pill';
+import Link from '@/components/elements/Link';
 import PostSeriesBox from '@/components/post/postSeriesBox';
 
 const postDateTemplate = { 'day': 'numeric', 'month': 'long', 'weekday': 'long', 'year': 'numeric' };
@@ -59,15 +58,21 @@ const postDateTemplate = { 'day': 'numeric', 'month': 'long', 'weekday': 'long',
 const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
   <div className={ `pt-6 max-xl:w-[100%] pb-5 ${(toc.length > 3 && frontMatter.tableOfContents) ? 'w-[60%]' : 'w-[100%]'}` }>
 
-    {frontMatter.draft && <Pill text='Draft' color='yellow' />}
-
-    <Link
-      href={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` }
-      className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 w-fit'
-    >
-      <div className='w-2 h-2 bg-green-500 rounded-full'></div>
-      {frontMatter.category.charAt(0).toUpperCase() + frontMatter.category.slice(1)}
-    </Link>
+    <div className='flex items-center gap-3'>
+      <Link
+        href={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` }
+        className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 w-fit'
+      >
+        <div className='w-2 h-2 bg-green-500 rounded-full'></div>
+        {frontMatter.category.charAt(0).toUpperCase() + frontMatter.category.slice(1)}
+      </Link>
+      {frontMatter.draft && (
+        <div className='flex items-center gap-1.5'>
+          <div className='w-2 h-2 bg-amber-500 rounded-full'></div>
+          <span className='text-xs font-medium text-amber-600 dark:text-amber-400'>Draft</span>
+        </div>
+      )}
+    </div>
     <div className='text-left'>
       <h1 className='text-6xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-18 pb-2'>
         {frontMatter.title}
@@ -86,9 +91,11 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
 
     <div className={ `flex lg:items-center flex-col lg:justify-between lg:flex-row items-start ${frontMatter.tableOfContents ? 'flex-col! items-start!' : ''}` }>
       {frontMatter.tags && (
-        <div className='my-4 flex flex-wrap'>
+        <div className='my-4 flex flex-wrap gap-2'>
           {frontMatter.tags.map((tag) => (
-            <Pill key={ tag } text={ tag } link={ `/blog/tags/${tag.replace(' ', '-').toLowerCase()}` } color='gray' />
+            <Link key={ tag } href={ `/blog/tags/${tag.replace(' ', '-').toLowerCase()}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-200'>
+              {tag}
+            </Link>
           ))}
         </div>
       )}

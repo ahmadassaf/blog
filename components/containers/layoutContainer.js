@@ -58,7 +58,7 @@ export default async function LayoutContainer({ children }) {
         <Analytics />
 
         <div className='relative w-[95%] xl-w[90%] isolate xl:max-w-6xl px-8 min-w-[410px]'>
-          <div className='flex h-screen flex-col justify-between'>
+          <div className='flex min-h-screen flex-col justify-between'>
             <FloatingMenu/>
             <Menu />
             <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(website()) }} key='jsonld'/>

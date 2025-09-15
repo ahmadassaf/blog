@@ -9,34 +9,30 @@
  * @version 1.0.0
  */
 
-// External data
 import { allPosts } from '../.contentlayer/generated/index.mjs';
-
-// Internal generators
 import getAllCategories from '../lib/contentLayer/generateCategories.mjs';
 import getAllPublications from '../lib/contentLayer/generatePublications.mjs';
 import getAllTags from '../lib/contentLayer/generateTags.mjs';
 
-// Internal scripts
 import rss from './rss.mjs';
 
 /**
  * Main post-build function that generates all required data files
- * 
+ *
  * @description Orchestrates the generation of various JSON data files and RSS feeds
  * by calling individual generator functions. Processes blog posts to extract tags
  * and categories, generates publication data, and creates RSS feeds for syndication.
  *
  * @returns {Promise<void>} Promise that resolves when all generation tasks complete
- * 
+ *
  * @example
  * // Run as part of build process
  * npm run build // calls this script automatically
- * 
+ *
  * @example
  * // Run manually during development
  * node scripts/build.mjs
- * 
+ *
  * @example
  * // Generated files:
  * // - ./app/content/tags.json - Tag taxonomy with counts
@@ -45,15 +41,16 @@ import rss from './rss.mjs';
  * // - ./public/feed.xml - RSS feed for blog posts
  */
 async function postbuild() {
+
   // Generate tag taxonomy from all blog posts
   getAllTags(allPosts);
-  
+
   // Generate category taxonomy with descriptions
   getAllCategories(allPosts);
-  
+
   // Generate publications data file
   getAllPublications();
-  
+
   // Generate RSS feed for blog syndication
   await rss();
 }

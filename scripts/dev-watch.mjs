@@ -15,7 +15,7 @@ import { spawn } from 'child_process';
 import { watch } from 'chokidar';
 import path from 'path';
 
-const CONTENT_DIRS = ['data/blog/**/*.mdx', 'data/authors/**/*.mdx', 'data/projects/**/*.mdx'];
+const CONTENT_DIRS = [ 'data/blog/**/*.mdx', 'data/authors/**/*.mdx', 'data/projects/**/*.mdx' ];
 
 let isRebuilding = false;
 
@@ -24,51 +24,52 @@ let isRebuilding = false;
  */
 async function rebuildContent() {
   if (isRebuilding) return;
-  
+
   isRebuilding = true;
   console.log('📝 Content changed, rebuilding...');
-  
+
   try {
+
     // Run ContentLayer build
-    const contentLayer = spawn('npx', ['contentlayer2', 'build', '-c', 'contentlayer.config.js'], {
-      cwd: process.cwd(),
-      stdio: 'inherit',
-      env: {
+    const contentLayer = spawn('npx', [ 'contentlayer2', 'build', '-c', 'contentlayer.config.js' ], {
+      'cwd': process.cwd(),
+      'env': {
         ...process.env,
-        NODE_OPTIONS: '--experimental-vm-modules',
-        NODE_NO_WARNINGS: '1',
-        INIT_CWD: process.cwd()
-      }
+        'INIT_CWD': process.cwd(),
+        'NODE_NO_WARNINGS': '1',
+        'NODE_OPTIONS': '--experimental-vm-modules'
+      },
+      'stdio': 'inherit'
     });
 
     await new Promise((resolve, reject) => {
       contentLayer.on('close', (code) => {
-        if (code === 0) {
+        if (code === 0)
           resolve();
-        } else {
+        else
           reject(new Error(`ContentLayer build failed with code ${code}`));
-        }
+
       });
     });
 
     // Run post-build script
-    const postBuild = spawn('node', ['./scripts/build.mjs'], {
-      cwd: process.cwd(),
-      stdio: 'inherit',
-      env: {
+    const postBuild = spawn('node', [ './scripts/build.mjs' ], {
+      'cwd': process.cwd(),
+      'env': {
         ...process.env,
-        NODE_OPTIONS: '--experimental-vm-modules',
-        NODE_NO_WARNINGS: '1'
-      }
+        'NODE_NO_WARNINGS': '1',
+        'NODE_OPTIONS': '--experimental-vm-modules'
+      },
+      'stdio': 'inherit'
     });
 
     await new Promise((resolve, reject) => {
       postBuild.on('close', (code) => {
-        if (code === 0) {
+        if (code === 0)
           resolve();
-        } else {
+        else
           reject(new Error(`Post-build script failed with code ${code}`));
-        }
+
       });
     });
 
@@ -85,14 +86,14 @@ async function rebuildContent() {
  */
 async function startDevServer() {
   console.log('🚀 Starting development server with content watching...');
-  
+
   // Initial content build
   await rebuildContent();
-  
+
   // Start file watcher
   const watcher = watch(CONTENT_DIRS, {
-    ignored: ['node_modules/**', '.next/**', '.contentlayer/**'],
-    persistent: true
+    'ignored': [ 'node_modules/**', '.next/**', '.contentlayer/**' ],
+    'persistent': true
   });
 
   watcher.on('change', (filePath) => {
@@ -111,15 +112,15 @@ async function startDevServer() {
   });
 
   // Start Next.js development server
-  const nextDev = spawn('npx', ['next', 'dev', '--turbopack'], {
-    cwd: process.cwd(),
-    stdio: 'inherit',
-    env: {
+  const nextDev = spawn('npx', [ 'next', 'dev', '--turbopack' ], {
+    'cwd': process.cwd(),
+    'env': {
       ...process.env,
-      NODE_OPTIONS: '--experimental-vm-modules',
-      NODE_NO_WARNINGS: '1',
-      INIT_CWD: process.cwd()
-    }
+      'INIT_CWD': process.cwd(),
+      'NODE_NO_WARNINGS': '1',
+      'NODE_OPTIONS': '--experimental-vm-modules'
+    },
+    'stdio': 'inherit'
   });
 
   // Handle process termination

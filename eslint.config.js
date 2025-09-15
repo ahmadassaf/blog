@@ -13,6 +13,7 @@ module.exports = [
     'languageOptions': {
       'ecmaVersion': 'latest',
       'globals': {
+        'AbortController': 'readonly',
         'Buffer': 'readonly',
         'IntersectionObserver': 'readonly',
         'Response': 'readonly',
@@ -29,6 +30,7 @@ module.exports = [
         'location': 'readonly',
         'module': 'readonly',
         'navigator': 'readonly',
+        'performance': 'readonly',
         'process': 'readonly',
         'require': 'readonly',
         'setInterval': 'readonly',
@@ -139,11 +141,7 @@ module.exports = [
           'before': true
         }
       ],
-      'line-comment-position': [
-        'error', {
-          'position': 'above'
-        }
-      ],
+      'line-comment-position': 'off',
       'lines-around-comment': [
         'error', {
           'allowArrayEnd': false,
@@ -217,7 +215,7 @@ module.exports = [
       ],
       'no-implicit-globals': 'error',
       'no-import-assign': 'error',
-      'no-inline-comments': 'error',
+      'no-inline-comments': 'off',
       'no-invalid-this': 'error',
       'no-iterator': 'error',
       'no-labels': 'error',
@@ -320,7 +318,7 @@ module.exports = [
       'no-void': 'error',
       'no-whitespace-before-property': 'error',
       'no-with': 'error',
-      'nonblock-statement-body-position': [ 'error', 'beside' ],
+      'nonblock-statement-body-position': 'off',
       'object-curly-newline': [
         'error', {
           'ExportDeclaration': 'never',

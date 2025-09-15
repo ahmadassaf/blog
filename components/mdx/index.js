@@ -18,6 +18,7 @@ import ReactDOM from 'react-dom';
 
 import CustomLink from '@/components/elements/Link';
 import { BlogNewsletterForm } from '@/components/forms/NewsletterForm';
+import Aside from '@/components/mdx/Aside';
 import Callout from '@/components/mdx/Callout';
 import Details from '@/components/mdx/Details';
 import Faq from '@/components/mdx/Faq';
@@ -36,6 +37,7 @@ import Tooltip from '@/components/mdx/Tooltip';
  * Maps component names to their implementations for use in MDX content
  */
 export const MDXComponents = {
+  Aside,
   BlogNewsletterForm,
   Callout,
   Details,
@@ -49,7 +51,6 @@ export const MDXComponents = {
   Table,
   Tooltip,
   'a': CustomLink,
-  'code': ({ children, ...props }) => <code { ...props }>{ children }</code>,
   'pre': Pre,
   'table': Table,
   'tbody': TableBody,

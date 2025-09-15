@@ -34,8 +34,8 @@ import React from 'react';
 const Aside = ({ children, className = '' }) => (
   <div
     className={ `
-        text-sm text-gray-500 dark:text-gray-300
-        lg:absolute lg:w-[170px] lg:left-[-20%] lg:py-2
+        text-sm leading-6 text-gray-500 dark:text-gray-200
+        lg:absolute lg:w-[250px] lg:left-[-20%] lg:py-2
         my-4 px-4 py-3
         bg-gray-50 dark:bg-gray-800 
         lg:bg-transparent lg:dark:bg-transparent

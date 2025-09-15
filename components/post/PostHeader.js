@@ -93,7 +93,7 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
       {frontMatter.tags && (
         <div className='my-4 flex flex-wrap gap-2'>
           {frontMatter.tags.map((tag) => (
-            <Link key={ tag } href={ `/blog/tags/${tag.replace(' ', '-').toLowerCase()}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-200'>
+            <Link key={ tag } href={ `/blog/tags/${tag.replace(' ', '-').toLowerCase()}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer'>
               {tag}
             </Link>
           ))}

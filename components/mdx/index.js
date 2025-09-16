@@ -22,6 +22,7 @@ import Aside from '@/components/mdx/Aside';
 import Callout from '@/components/mdx/Callout';
 import Details from '@/components/mdx/Details';
 import Faq from '@/components/mdx/Faq';
+import FileTree from '@/components/mdx/FileTree';
 import Highlight from '@/components/mdx/Highlight';
 import Image from '@/components/mdx/Image';
 import PostImage from '@/components/mdx/PostImage';
@@ -42,6 +43,7 @@ export const MDXComponents = {
   Callout,
   Details,
   Faq,
+  FileTree,
   Highlight,
   Image,
   PostImage,

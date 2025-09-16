@@ -16,24 +16,20 @@ import { useEffect, useRef, useState } from 'react';
  * Parse citation content for popover display
  */
 const parseCitationContent = (citationTexts, citationNumbers, citationText) => {
-  if (!citationTexts || !citationNumbers) {
+  if (!citationTexts || !citationNumbers)
     return citationText || 'Citation not found';
-  }
 
   try {
     const texts = JSON.parse(citationTexts);
     const numbers = JSON.parse(citationNumbers);
 
-    if (texts.length === 1) {
+    if (texts.length === 1)
       return `<div class="citation-item citation-single">${texts[0]}</div>`;
-    }
 
-    return texts.map((text, index) =>
-      `<div class="citation-item citation-multiple">
+    return texts.map((text, index) => `<div class="citation-item citation-multiple">
          <div class="citation-number">${numbers[index]}</div>
          <div class="citation-content">${text}</div>
-       </div>`
-    ).join('');
+       </div>`).join('');
   } catch {
     return citationText || 'Citation parsing error';
   }
@@ -47,17 +43,15 @@ const calculatePosition = (mouseX, mouseY, popoverWidth, popoverHeight) => {
   let left = mouseX + offset;
   let top = mouseY + offset;
 
-  if (left + popoverWidth > window.innerWidth) {
+  if (left + popoverWidth > window.innerWidth)
     left = mouseX - popoverWidth - offset;
-  }
 
-  if (top + popoverHeight > window.innerHeight) {
+  if (top + popoverHeight > window.innerHeight)
     top = mouseY - popoverHeight - offset;
-  }
 
   return {
-    left: Math.max(8, Math.min(left, window.innerWidth - popoverWidth - 8)),
-    top: Math.max(8, Math.min(top, window.innerHeight - popoverHeight - 8))
+    'left': Math.max(8, Math.min(left, window.innerWidth - popoverWidth - 8)),
+    'top': Math.max(8, Math.min(top, window.innerHeight - popoverHeight - 8))
   };
 };
 
@@ -74,24 +68,21 @@ const CitationPopover = () => {
     const handleCitationHover = (event) => {
       const { target } = event;
 
-      if (target.dataset?.citationPopover !== 'true') {
+      if (target.dataset?.citationPopover !== 'true')
         return;
-      }
 
       event.preventDefault();
 
-      if (timeoutRef.current) {
+      if (timeoutRef.current)
         clearTimeout(timeoutRef.current);
-      }
 
       if (event.type === 'mouseenter') {
         const { citationText, citationTexts, citationNumbers } = target.dataset;
         const displayNumber = target.textContent;
         const content = parseCitationContent(citationTexts, citationNumbers, citationText);
 
-        if (!content) {
+        if (!content)
           return;
-        }
 
         timeoutRef.current = setTimeout(() => {
           setIsReady(false);
@@ -99,10 +90,7 @@ const CitationPopover = () => {
           const popoverWidth = 400;
           const popoverHeight = citationTexts ? 200 : 120;
           const position = calculatePosition(
-            event.clientX,
-            event.clientY,
-            popoverWidth,
-            popoverHeight
+            event.clientX, event.clientY, popoverWidth, popoverHeight
           );
 
           setPopover({
@@ -125,9 +113,9 @@ const CitationPopover = () => {
     const handleScroll = () => {
       setPopover(null);
       setIsReady(false);
-      if (timeoutRef.current) {
+      if (timeoutRef.current)
         clearTimeout(timeoutRef.current);
-      }
+
     };
 
     document.addEventListener('mouseenter', handleCitationHover, true);
@@ -138,15 +126,14 @@ const CitationPopover = () => {
       document.removeEventListener('mouseenter', handleCitationHover, true);
       document.removeEventListener('mouseleave', handleCitationHover, true);
       window.removeEventListener('scroll', handleScroll, true);
-      if (timeoutRef.current) {
+      if (timeoutRef.current)
         clearTimeout(timeoutRef.current);
-      }
+
     };
   }, []);
 
-  if (!popover) {
+  if (!popover)
     return null;
-  }
 
   return (
     <div
@@ -157,9 +144,9 @@ const CitationPopover = () => {
         'top': `${popover.top}px`
       }}
       onMouseEnter={ () => {
-        if (timeoutRef.current) {
+        if (timeoutRef.current)
           clearTimeout(timeoutRef.current);
-        }
+
       } }
       onMouseLeave={ () => {
         setPopover(null);

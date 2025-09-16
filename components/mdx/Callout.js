@@ -95,7 +95,7 @@ const Callout = ({ type, children }) => {
   }
 
   return (
-    <div className={ `p-4 ${calloutBackgroundColor}` }>
+    <div className={ `p-4 mb-6 ${calloutBackgroundColor}` }>
       <div className='flex items-start'>
         <div className='shrink-0'>{calloutIcon}</div>
         <div className='ml-3 flex-1'>

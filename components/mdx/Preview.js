@@ -12,7 +12,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { LinkIcon, LinkSlashIcon } from '@heroicons/react/20/solid';
+import { LinkIcon, LinkSlashIcon, PhotoIcon } from '@heroicons/react/20/solid';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
@@ -588,7 +588,6 @@ const Preview = ({
         className='text-red-600 hover:text-red-800 transition-colors'
         target='_blank'
         rel='noopener noreferrer'
-        title={ data?.errorMessage || 'This link may be unavailable' }
         aria-label={ `${formattedTitle} (link may be unavailable)` }
       >
         {formattedTitle}
@@ -632,7 +631,6 @@ const Preview = ({
         href={ url }
         target='_blank'
         rel='noopener noreferrer'
-        title={ data?.description || formattedTitle }
         aria-label={ `${formattedTitle}${data?.siteName ? ` - ${data.siteName}` : ''}` }
       >
         {formattedTitle}
@@ -746,7 +744,7 @@ const Preview = ({
                       {!imageLoaded && (
                         <div className='absolute inset-0 flex items-center justify-center'>
                           <div className='animate-pulse'>
-                            <LinkIcon className='h-8 w-8 text-gray-400' />
+                            <PhotoIcon className='h-8 w-8 text-gray-400' />
                           </div>
                         </div>
                       )}

@@ -45,6 +45,10 @@
     background-color: #070910;
 }
 
+.prose pre code {
+    font-size: 0.8rem !important;
+}
+
 /* Dark theme text color for post body */
 .dark .prose {
     color: white;
@@ -1165,47 +1169,69 @@ summary {
 
 /**
  * Code group container
- * Provides grid layout for tabbed code blocks
+ * Minimal styling that looks like a natural code block
  */
 .rehype-code-group {
-    display: grid;
-    gap: 0.6rem;
+    position: relative;
 }
 
 /**
  * Tab container styling
- * Creates horizontal tab bar with bottom border
+ * Minimal tabs that appear as part of the code block
  */
 .rcg-tab-container {
     display: flex;
-    border-bottom: 1px solid #ddd;
+    background: #070910;
+    padding: 8px 0 0 0;
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    margin: 0;
 }
 
 /**
  * Individual tab styling
- * Provides clickable tabs with active state indicators
+ * Minimal, code-like appearance
  */
 .rcg-tab {
-    padding: 0.5rem 1rem;
+    padding: 8px 16px 12px 16px;
     cursor: pointer;
     border: none;
-    background: none;
-    
-    &.active {
-        border-bottom: 2px solid;
-        font-weight: bold;
-    }
+    background: transparent;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 400;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    transition: color 0.15s ease;
+    position: relative;
+    margin: 0;
+}
+
+.rcg-tab:hover {
+    color: #9ca3af;
+}
+
+.rcg-tab.active {
+    color: #60a5fa;
 }
 
 /**
  * Code block content panels
- * Shows/hides content based on active tab
+ * Natural integration with standard code blocks
  */
 .rcg-block {
     display: none;
-    overflow-x: auto;
-    
-    &.active {
-        display: block;
-    }
+}
+
+.rcg-block.active {
+    display: block;
+}
+
+.rcg-block pre {
+    margin: 0 !important;
+    border-radius: 0 0 6px 6px !important;
+    background: #070910 !important;
+}
+
+.rehype-code-group .rcg-block pre {
+    margin-top: -19px !important;
 }

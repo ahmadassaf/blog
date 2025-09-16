@@ -40,13 +40,13 @@ const CitationPopover = () => {
 
           // Handle both single citations and grouped citations
           let content = '';
-          
+
           if (citationTexts && citationNumbers) {
             // Multiple citations - parse JSON arrays
             try {
               const texts = JSON.parse(citationTexts);
               const numbers = JSON.parse(citationNumbers);
-              
+
               if (texts.length === 1) {
                 // Single citation in group - don't show number
                 content = `<div class="citation-item citation-single">${texts[0]}</div>`;
@@ -59,7 +59,7 @@ const CitationPopover = () => {
                    </div>`
                 ).join('');
               }
-            } catch (e) {
+            } catch {
               content = citationText || 'Citation parsing error';
             }
           } else {
@@ -68,7 +68,6 @@ const CitationPopover = () => {
           }
 
           if (content) {
-
             // Show popover with a slight delay
             timeoutRef.current = setTimeout(() => {
               setIsReady(false);
@@ -76,39 +75,40 @@ const CitationPopover = () => {
               // Get cursor position from the event
               const mouseX = event.clientX;
               const mouseY = event.clientY;
-              
+
               // Calculate position near cursor
               const popoverWidth = 400; // Increased for grouped citations
               const popoverHeight = citationTexts ? 200 : 120; // Dynamic height
               const offset = 10;
-              
+
               let left = mouseX + offset;
               let top = mouseY + offset;
-              
+
               // Adjust if card would go off screen
               if (left + popoverWidth > window.innerWidth) {
                 left = mouseX - popoverWidth - offset;
               }
-              
+
               if (top + popoverHeight > window.innerHeight) {
                 top = mouseY - popoverHeight - offset;
               }
-              
+
               // Ensure card stays within viewport
               left = Math.max(8, Math.min(left, window.innerWidth - popoverWidth - 8));
               top = Math.max(8, Math.min(top, window.innerHeight - popoverHeight - 8));
 
               setPopover({
-                'content': content,
-                'left': Math.round(left),
-                'number': displayNumber,
-                'top': Math.round(top)
+                content,
+                left: Math.round(left),
+                number: displayNumber,
+                top: Math.round(top)
               });
 
               // Add ready class for animation after a brief delay
               setTimeout(() => setIsReady(true), 50);
             }, 200);
           }
+
         } else if (event.type === 'mouseleave') {
 
           // Hide popover with a slight delay to allow moving to popover
@@ -120,20 +120,9 @@ const CitationPopover = () => {
       }
     };
 
-    const handlePopoverHover = (event) => {
-      if (event.type === 'mouseenter') {
-
-        // Clear timeout if hovering over popover
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      } else if (event.type === 'mouseleave') {
-
-        // Hide popover when leaving
-        setPopover(null);
-        setIsReady(false);
-      }
-    };
 
     const handleScroll = () => {
+
       // Hide popover on scroll
       setPopover(null);
       setIsReady(false);
@@ -164,16 +153,16 @@ const CitationPopover = () => {
         'left': `${popover.left}px`,
         'top': `${popover.top}px`
       }}
-      onMouseEnter={ (e) => {
+      onMouseEnter={ () => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      }}
+      } }
       onMouseLeave={ () => {
         setPopover(null);
         setIsReady(false);
-      }}
+      } }
     >
       <div className='citation-popover-content'>
-        <div 
+        <div
           className='citation-popover-body'
           dangerouslySetInnerHTML={{ __html: popover.content }}
         />
@@ -183,3 +172,4 @@ const CitationPopover = () => {
 };
 
 export default CitationPopover;
+

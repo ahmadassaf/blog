@@ -49,17 +49,17 @@ const ImageFallback = ({
 
   // Don't render if no valid src
   const currentSrc = error ? fallback : src;
+
   if (!currentSrc) return null;
 
   // Validate URL to prevent Next.js Image component errors
-  if (!currentSrc.startsWith('/') && !currentSrc.startsWith('./') && !currentSrc.startsWith('../')) {
+  if (!currentSrc.startsWith('/') && !currentSrc.startsWith('./') && !currentSrc.startsWith('../'))
     try {
       // eslint-disable-next-line no-new
       new URL(currentSrc);
     } catch {
       return null;
     }
-  }
 
   return (
     <Image

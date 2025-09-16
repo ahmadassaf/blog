@@ -13,6 +13,7 @@ import { Inter } from 'next/font/google';
 
 import LayoutContainer from '@/components/containers/layoutContainer';
 import CodeGroupTabs from '@/components/elements/CodeGroupTabs';
+import CitationTracker from '@/components/mdx/CitationTracker';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
 
 import '@/css/tailwind.css';
@@ -91,6 +92,7 @@ export default function RootLayout({ children }) {
       <link rel='alternate' type='application/rss+xml' href='/feed.xml' />
       <body className='dark:bg-gray-900 bg-white'>
         <CodeGroupTabs />
+        <CitationTracker />
         <LayoutContainer>
           {children}
         </LayoutContainer>

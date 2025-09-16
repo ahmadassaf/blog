@@ -902,8 +902,7 @@ a.citation-link.citation-group:hover {
 /* Citation back-link styling */
 .citation-back-link {
     display: inline-block;
-    margin-left: 0.25rem;
-    margin-right: 0.125rem;
+    margin-left: 0.5rem;
     color: #3b82f6 !important;
     text-decoration: none !important;
     font-size: 0.875rem;

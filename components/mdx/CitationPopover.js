@@ -136,7 +136,7 @@ const CitationPopover = () => {
         const targetElement = document.getElementById(`citation-${citationKey}`);
 
         if (targetElement) {
-          targetElement.scrollIntoView({ 'behavior': 'smooth', 'block': 'center' });
+          targetElement.scrollIntoView({ 'block': 'center' });
 
           // Hide the popover
           setPopover(null);

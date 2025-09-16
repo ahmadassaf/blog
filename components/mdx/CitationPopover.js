@@ -40,9 +40,9 @@ const parseCitationContent = (citationTexts, citationNumbers, citationKeys, cita
  * Calculate popover position
  */
 const calculatePosition = (mouseX, mouseY, popoverWidth, popoverHeight) => {
-  const offset = 10;
+  const offset = 5; // Reduced offset to position closer to citation
   let left = mouseX + offset;
-  let top = mouseY + offset;
+  let top = mouseY - offset; // Position slightly above cursor
 
   if (left + popoverWidth > window.innerWidth)
     left = mouseX - popoverWidth - offset;
@@ -50,6 +50,7 @@ const calculatePosition = (mouseX, mouseY, popoverWidth, popoverHeight) => {
   if (top + popoverHeight > window.innerHeight)
     top = mouseY - popoverHeight - offset;
 
+  // Ensure minimum distance from edges
   return {
     'left': Math.max(8, Math.min(left, window.innerWidth - popoverWidth - 8)),
     'top': Math.max(8, Math.min(top, window.innerHeight - popoverHeight - 8))
@@ -88,10 +89,12 @@ const CitationPopover = () => {
         timeoutRef.current = setTimeout(() => {
           setIsReady(false);
 
+          // Use element-based positioning for better accuracy
+          const rect = target.getBoundingClientRect();
           const popoverWidth = 400;
           const popoverHeight = citationTexts ? 200 : 120;
           const position = calculatePosition(
-            event.clientX, event.clientY, popoverWidth, popoverHeight
+            rect.right + 5, rect.top, popoverWidth, popoverHeight
           );
 
           setPopover({
@@ -107,7 +110,7 @@ const CitationPopover = () => {
         timeoutRef.current = setTimeout(() => {
           setPopover(null);
           setIsReady(false);
-        }, 100);
+        }, 300);
       }
     };
 
@@ -175,8 +178,10 @@ const CitationPopover = () => {
 
       } }
       onMouseLeave={ () => {
-        setPopover(null);
-        setIsReady(false);
+        timeoutRef.current = setTimeout(() => {
+          setPopover(null);
+          setIsReady(false);
+        }, 150);
       } }
     >
       <div className='citation-popover-content'>

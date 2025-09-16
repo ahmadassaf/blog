@@ -39,19 +39,18 @@ const LatexText = ({ children, className, style, ...props }) => {
    * More comprehensive regex to catch patterns like Andr{\'e}s, Garc\'{\i}a-Silva, etc.
    */
   const hasHTML = /<[^>]+>/g.test(children);
-  const hasLatex = /(\$[^$]*\$|\\[a-zA-Z]+\{[^}]*\}|\{\\[^}]*\}|---?|\\\w+|\{\\['`"^~=.]\w+\})/g.test(children);
+  const hasLatex = /(?:\$[^$]*\$|\\[a-zA-Z]+\{[^}]*\}|\{\\[^}]*\}|---?|\\\w+|\{\\['`"^~=.]\w+\})/g.test(children);
 
   // If it contains HTML tags, render them directly
-  if (hasHTML) {
+  if (hasHTML)
     return (
-      <span 
-        className={ className } 
-        style={ style } 
+      <span
+        className={ className }
+        style={ style }
         { ...props }
-        dangerouslySetInnerHTML={{ __html: children }}
+        dangerouslySetInnerHTML={{ '__html': children }}
       />
     );
-  }
 
   // If no LaTeX, return as plain text
   if (!hasLatex)

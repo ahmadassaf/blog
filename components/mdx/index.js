@@ -20,6 +20,7 @@ import CustomLink from '@/components/elements/Link';
 import { BlogNewsletterForm } from '@/components/forms/NewsletterForm';
 import Aside from '@/components/mdx/Aside';
 import Callout from '@/components/mdx/Callout';
+import CitationPopover from '@/components/mdx/CitationPopover';
 import Details from '@/components/mdx/Details';
 import Faq from '@/components/mdx/Faq';
 import FileTree from '@/components/mdx/FileTree';
@@ -42,6 +43,7 @@ export const MDXComponents = {
   Aside,
   BlogNewsletterForm,
   Callout,
+  CitationPopover,
   Details,
   Faq,
   FileTree,

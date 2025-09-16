@@ -1,7 +1,6 @@
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
 import path from 'path';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeCitation from 'rehype-citation';
 import rehypeCodeGroup from 'rehype-code-group-next';
 import rehypeKatex from 'rehype-katex';
 import rehypePrettyCode from 'rehype-pretty-code';
@@ -17,7 +16,7 @@ import projectFields  from './lib/contentLayer/projectFields';
 import structuredData from './lib/contentLayer/structuredData';
 import { remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx, remarkLinks } from './lib/mdx/index.js';
 import remarkFootnoteData from './lib/mdx/remark-footnote-data.js';
-import rehypeCitationPopover from './lib/rehype-citation-popover.js';
+import rehypeSimpleCitations from './lib/rehype-simple-citations.js';
 import rehypeFootnotePopoverV2 from './lib/rehype-footnote-popover-v2.js';
 import rehypeInternalLinks from './lib/rehype-internal-links.js';
 
@@ -75,8 +74,7 @@ export default makeSource({
       rehypeAutolinkHeadings,
       rehypeKatex,
       rehypeCodeGroup,
-      [ rehypeCitation, { 'csl': 'https://raw.githubusercontent.com/citation-style-language/styles/master/acm-sig-proceedings.csl', 'linkCitations': true, 'path': path.join(root, 'data') }],
-      rehypeCitationPopover,
+      [ rehypeSimpleCitations, { 'citationsPaths': [path.join(root, 'data', 'meta', 'bibliography', 'references.bib'), path.join(root, 'data', 'meta', 'bibliography', 'kg.bib')], 'showBibliography': true }],
       rehypeFootnotePopoverV2,
       rehypeInternalLinks,
       [ rehypePrettyCode, { 'theme': 'aurora-x' }]

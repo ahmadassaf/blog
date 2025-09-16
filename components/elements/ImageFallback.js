@@ -47,11 +47,25 @@ const ImageFallback = ({
     setError(null);
   }, [ src ]);
 
+  // Don't render if no valid src
+  const currentSrc = error ? fallback : src;
+  if (!currentSrc) return null;
+
+  // Validate URL to prevent Next.js Image component errors
+  if (!currentSrc.startsWith('/') && !currentSrc.startsWith('./') && !currentSrc.startsWith('../')) {
+    try {
+      // eslint-disable-next-line no-new
+      new URL(currentSrc);
+    } catch {
+      return null;
+    }
+  }
+
   return (
     <Image
       alt={ alt }
       onError={ setError }
-      src={ error ? fallback : src }
+      src={ currentSrc }
       sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
       loading='lazy'
       { ...props }

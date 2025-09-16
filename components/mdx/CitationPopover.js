@@ -101,6 +101,7 @@ const CitationPopover = () => {
             content,
             'left': Math.round(position.left),
             'number': displayNumber,
+            'originCitationId': target.id,
             'top': Math.round(position.top)
           });
 
@@ -131,6 +132,20 @@ const CitationPopover = () => {
 
       if (citationKey) {
         event.preventDefault();
+
+        // Update the back-link to point to the citation that opened this popover
+        if (popover && popover.originCitationId) {
+          const backLink = document.querySelector(`a.citation-back-link[data-citation-key="${citationKey}"]`);
+
+          if (backLink) {
+            backLink.href = `#${popover.originCitationId}`;
+
+            // Store in localStorage for persistence
+            if (typeof window !== 'undefined') {
+              window.localStorage.setItem(`citation-last-${citationKey}`, popover.originCitationId);
+            }
+          }
+        }
 
         // Navigate to the bibliography entry
         const targetElement = document.getElementById(`citation-${citationKey}`);

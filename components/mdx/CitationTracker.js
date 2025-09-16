@@ -45,9 +45,8 @@ const CitationTracker = () => {
               backLink.href = `#${citationId}`;
 
               // Store the last visited instance in localStorage for persistence
-              if (typeof window !== 'undefined') {
+              if (typeof window !== 'undefined')
                 window.localStorage.setItem(`citation-last-${key}`, citationId);
-              }
             }
           });
         } catch (error) {
@@ -72,16 +71,13 @@ const CitationTracker = () => {
       if (!citationKey) return;
 
       // Find the most recent citation instance for this key from localStorage
-      const lastInstanceId = typeof window !== 'undefined'
-        ? window.localStorage.getItem(`citation-last-${citationKey}`)
-        : null;
+      const lastInstanceId = typeof window === 'undefined' ? null : window.localStorage.getItem(`citation-last-${citationKey}`);
 
       if (lastInstanceId) {
         const backLink = document.querySelector(`a.citation-back-link[data-citation-key="${citationKey}"]`);
 
-        if (backLink) {
+        if (backLink)
           backLink.href = `#${lastInstanceId}`;
-        }
       }
     };
 
@@ -91,13 +87,10 @@ const CitationTracker = () => {
 
       backLinks.forEach((backLink) => {
         const { citationKey } = backLink.dataset;
-        const lastInstanceId = typeof window !== 'undefined'
-          ? window.localStorage.getItem(`citation-last-${citationKey}`)
-          : null;
+        const lastInstanceId = typeof window === 'undefined' ? null : window.localStorage.getItem(`citation-last-${citationKey}`);
 
-        if (lastInstanceId && document.getElementById(lastInstanceId)) {
+        if (lastInstanceId && document.getElementById(lastInstanceId))
           backLink.href = `#${lastInstanceId}`;
-        }
       });
     };
 

@@ -46,8 +46,6 @@ export default function Projects({ className }) {
                 href={ `/blog/${project.externalLink}` }
                 key={ project?.externalLink }
                 className='block h-full w-full'
-                target='_blank'
-                rel='noopener noreferrer'
               >
                 <ProjectCard project={ project } />
               </Link>

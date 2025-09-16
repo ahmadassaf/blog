@@ -19,6 +19,7 @@ import { remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx, remarkLinks
 import remarkFootnoteData from './lib/mdx/remark-footnote-data.js';
 import rehypeCitationPopover from './lib/rehype-citation-popover.js';
 import rehypeFootnotePopoverV2 from './lib/rehype-footnote-popover-v2.js';
+import rehypeInternalLinks from './lib/rehype-internal-links.js';
 
 const root = process.cwd();
 
@@ -77,6 +78,7 @@ export default makeSource({
       [ rehypeCitation, { 'csl': 'https://raw.githubusercontent.com/citation-style-language/styles/master/acm-sig-proceedings.csl', 'linkCitations': true, 'path': path.join(root, 'data') }],
       rehypeCitationPopover,
       rehypeFootnotePopoverV2,
+      rehypeInternalLinks,
       [ rehypePrettyCode, { 'theme': 'aurora-x' }]
 
     ],

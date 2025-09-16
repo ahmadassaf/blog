@@ -683,6 +683,7 @@ a[href*="#bib-"]:not(.citation-group) {
     line-height: 1;
     vertical-align: sub;
     position: relative;
+    scroll-margin-top: 50px;
 }
 
 /* Style grouped citation links as connected rectangles */
@@ -705,6 +706,7 @@ a.citation-link.citation-group {
     padding: 3px 8px;
     min-height: 18px;
     min-width: 20px;
+    scroll-margin-top: 50px;
 }
 
 a.citation-link:hover,
@@ -875,6 +877,8 @@ a.citation-link.citation-group:hover {
  */
 .citations-section {
     border-top: 1px solid #e5e7eb;
+    margin-top: 3rem;
+    padding-top: 2rem;
 }
 
 .dark .citations-section {
@@ -890,6 +894,7 @@ a.citation-link.citation-group:hover {
     margin: 0.75rem 0;
     font-size: 0.9rem;
     line-height: 1.5;
+    scroll-margin-top: 50px;
 }
 
 .citation-entry {

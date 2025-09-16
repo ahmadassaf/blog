@@ -163,8 +163,8 @@ const CitationPopover = () => {
           if (keys && originId) {
             keys.forEach(key => updateCitationBackLink(key, originId));
           }
-        } catch (e) {
-          console.warn('Failed to parse citation keys:', e);
+        } catch (error) {
+          console.warn('Failed to parse citation keys:', error);
         }
       }
     };

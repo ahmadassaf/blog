@@ -15,18 +15,19 @@ import { useEffect, useRef, useState } from 'react';
 /**
  * Parse citation content for popover display
  */
-const parseCitationContent = (citationTexts, citationNumbers, citationText) => {
-  if (!citationTexts || !citationNumbers)
+const parseCitationContent = (citationTexts, citationNumbers, citationKeys, citationText) => {
+  if (!citationTexts || !citationNumbers || !citationKeys)
     return citationText || 'Citation not found';
 
   try {
     const texts = JSON.parse(citationTexts);
     const numbers = JSON.parse(citationNumbers);
+    const keys = JSON.parse(citationKeys);
 
     if (texts.length === 1)
       return `<div class="citation-item citation-single">${texts[0]}</div>`;
 
-    return texts.map((text, index) => `<div class="citation-item citation-multiple">
+    return texts.map((text, index) => `<div class="citation-item citation-multiple" data-citation-key="${keys[index]}">
          <div class="citation-number">${numbers[index]}</div>
          <div class="citation-content">${text}</div>
        </div>`).join('');
@@ -77,9 +78,9 @@ const CitationPopover = () => {
         clearTimeout(timeoutRef.current);
 
       if (event.type === 'mouseenter') {
-        const { citationText, citationTexts, citationNumbers } = target.dataset;
+        const { citationText, citationTexts, citationNumbers, citationKeys } = target.dataset;
         const displayNumber = target.textContent;
-        const content = parseCitationContent(citationTexts, citationNumbers, citationText);
+        const content = parseCitationContent(citationTexts, citationNumbers, citationKeys, citationText);
 
         if (!content)
           return;
@@ -118,13 +119,38 @@ const CitationPopover = () => {
 
     };
 
+    const handleCitationClick = (event) => {
+      const citationItem = event.target.closest('.citation-item.citation-multiple');
+
+      if (!citationItem) return;
+
+      const { citationKey } = citationItem.dataset;
+
+      if (citationKey) {
+        event.preventDefault();
+
+        // Navigate to the bibliography entry
+        const targetElement = document.getElementById(`citation-${citationKey}`);
+
+        if (targetElement) {
+          targetElement.scrollIntoView({ 'behavior': 'smooth', 'block': 'center' });
+
+          // Hide the popover
+          setPopover(null);
+          setIsReady(false);
+        }
+      }
+    };
+
     document.addEventListener('mouseenter', handleCitationHover, true);
     document.addEventListener('mouseleave', handleCitationHover, true);
+    document.addEventListener('click', handleCitationClick, true);
     window.addEventListener('scroll', handleScroll, true);
 
     return () => {
       document.removeEventListener('mouseenter', handleCitationHover, true);
       document.removeEventListener('mouseleave', handleCitationHover, true);
+      document.removeEventListener('click', handleCitationClick, true);
       window.removeEventListener('scroll', handleScroll, true);
       if (timeoutRef.current)
         clearTimeout(timeoutRef.current);

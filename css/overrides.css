@@ -801,10 +801,23 @@ a.citation-link.citation-group:hover {
     border-bottom: 1px solid rgba(229, 231, 235, 0.3);
 }
 
-/* Multiple citations get flex layout */
+/* Multiple citations get flex layout and clickable styling */
 .citation-item.citation-multiple {
     display: flex;
     align-items: flex-start;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    padding: 0.5rem;
+    margin: 0.25rem -0.5rem;
+}
+
+.citation-item.citation-multiple:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.dark .citation-item.citation-multiple:hover {
+    background-color: rgba(59, 130, 246, 0.2);
 }
 
 .citation-item:last-child {
@@ -889,7 +902,8 @@ a.citation-link.citation-group:hover {
 /* Citation back-link styling */
 .citation-back-link {
     display: inline-block;
-    margin-left: 0.5rem;
+    margin-left: 0.25rem;
+    margin-right: 0.125rem;
     color: #3b82f6 !important;
     text-decoration: none !important;
     font-size: 0.875rem;

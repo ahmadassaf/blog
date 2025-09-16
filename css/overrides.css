@@ -772,22 +772,25 @@ a.citation-link.citation-group:hover {
 }
 
 .citation-popover-body {
-    padding: 10px 14px;
-    font-size: 13px;
-    line-height: 1.5;
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 1.4;
     color: #374151;
-    font-weight: 500;
+    font-weight: 400;
     position: relative;
+    max-width: 280px;
 }
 
 .dark .citation-popover-body {
     color: #e5e7eb;
 }
 
-/* Bold titles in citation popover */
+/* Bold titles in citation popover - clean and compact */
 .citation-popover-body strong {
     font-weight: 600;
+    font-size: 13px;
     color: #1f2937;
+    line-height: 1.3;
 }
 
 .dark .citation-popover-body strong {
@@ -871,8 +874,6 @@ a.citation-link.citation-group:hover {
  * Citations Section Styles
  */
 .citations-section {
-    margin-top: 3rem;
-    padding-top: 2rem;
     border-top: 1px solid #e5e7eb;
 }
 
@@ -899,24 +900,62 @@ a.citation-link.citation-group:hover {
     color: #d1d5db;
 }
 
-/* Citation back-link styling */
+/* Citation back-link styling - clean button design */
 .citation-back-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
     margin-left: 0.5rem;
-    color: #3b82f6 !important;
+    background: #f3f4f6;
+    color: #374151 !important;
     text-decoration: none !important;
-    font-size: 0.875rem;
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+    line-height: 1;
 }
 
 .citation-back-link:hover {
     opacity: 1;
+    background: #e5e7eb;
+    border-color: #d1d5db;
     text-decoration: none !important;
 }
 
+/* Recently clicked back-links are more prominent */
+.citation-back-link[data-recently-clicked="true"] {
+    opacity: 1;
+    background: #dbeafe;
+    border-color: #3b82f6;
+    color: #1e40af !important;
+}
+
 .dark .citation-back-link {
-    color: #60a5fa !important;
+    background: #374151;
+    color: #d1d5db !important;
+    border-color: #4b5563;
+}
+
+.dark .citation-back-link:hover {
+    background: #4b5563;
+    border-color: #6b7280;
+}
+
+.dark .citation-back-link[data-recently-clicked="true"] {
+    background: #1e3a8a;
+    border-color: #60a5fa;
+    color: #93c5fd !important;
+}
+
+/**
+ * KaTeX inline math styling - slightly smaller for better integration
+ */
+.katex {
+    font-size: 0.95em !important;
 }
 
 /**

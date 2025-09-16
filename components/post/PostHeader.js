@@ -74,10 +74,10 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
       )}
     </div>
     <div className='text-left'>
-      <h1 className='text-6xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-18 pb-2'>
+      <h1 className='text-6xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-none md:text-6xl md:leading-none pb-3' style={{ 'lineHeight': '1em' }}>
         {frontMatter.title}
       </h1>
-      <h3 className='text-3xl sm:text-xl tracking-tight text-gray-600 dark:text-gray-100 sm:leading-10 md:text-3xl capitalize'>
+      <h3 className='text-3xl sm:text-xl tracking-tight text-gray-600 dark:text-gray-100 leading-snug sm:leading-snug md:text-3xl capitalize'>
         {frontMatter.subtitle}
       </h3>
 

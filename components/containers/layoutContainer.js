@@ -57,7 +57,7 @@ export default async function LayoutContainer({ children }) {
         <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem/>
         <Analytics />
 
-        <div className='relative w-[95%] xl-w[90%] isolate xl:max-w-6xl px-8 min-w-[410px]'>
+        <div className='relative w-full sm:w-[95%] xl-w[90%] isolate xl:max-w-6xl px-4 sm:px-8'>
           <div className='flex min-h-screen flex-col justify-between'>
             <FloatingMenu/>
             <Menu />

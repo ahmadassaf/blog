@@ -151,7 +151,7 @@ Everything in an [RDF](https://www.w3.org/RDF/) graph is called a resource. “E
     
 There is a standard query language for [RDF](https://www.w3.org/RDF/) Graphs called [SPARQL](https://www.w3.org/TR/sparql11-query/). It is both, a full featured query language and an HTTP protocol making it possible to send query requests to endpoints over HTTP. A key part of the [RDF](https://www.w3.org/RDF/) standard is the definition of serializations. The most commonly used serialization format is called Turtle. There is also a JSON serialization called [JSON-LD](https://json-ld.org/) as well as an XML serialization. All [RDF](https://www.w3.org/RDF/) databases are able to export and import graph content in standard serializations making it easy and seamless to interchange data.    
 
-<Callout type='formal'>A *directed edge-labelled graph* is a tuple $G = (V, E, L)$, where $V \subseteq \text{Con}$ is a set of nodes, $L \subseteq \text{Con}$ is a set of edge labels, and $E \subseteq V \times L \times V$ is a set of edges.</Callout>
+<Callout type='info'>A *directed edge-labelled graph* is a tuple $G = (V, E, L)$, where $V \subseteq \text{Con}$ is a set of nodes, $L \subseteq \text{Con}$ is a set of edge labels, and $E \subseteq V \times L \times V$ is a set of edges.</Callout>
 
 ## Heterogeneous Graphs
 
@@ -161,7 +161,7 @@ An edge is called *homogeneous* if it connects two nodes of the same type and *h
 
 In contrast, directed edge-labelled graphs support a more flexible model where nodes can have zero or multiple types.
 
-<Callout type='formal'>A *heterogeneous graph* is a tuple $G = (V, E, L, l)$, where $V \subseteq \text{Con}$ is a set of nodes, $L \subseteq \text{Con}$ is a set of edge/node labels, $E \subseteq V \times L \times V$ is a set of edges, and $l : V \rightarrow L$ maps each node to a label.</Callout>
+<Callout type='info'>A *heterogeneous graph* is a tuple $G = (V, E, L, l)$, where $V \subseteq \text{Con}$ is a set of nodes, $L \subseteq \text{Con}$ is a set of edge/node labels, $E \subseteq V \times L \times V$ is a set of edges, and $l : V \rightarrow L$ maps each node to a label.</Callout>
 
 
 ## **Property Graphs**
@@ -176,7 +176,7 @@ Generally, the property graph data model consists of three elements:
 
 Property values can have data types. Supported data types depend on the vendor. For example, Neo4j data types are similar, but not identical, to Java language data types.
 
-<Callout type='formal'>A *property graph* is a tuple $G = (V, E, L, P, U, e, l, p)$, where: $V \subseteq \text{Con}$ is a set of node IDs, $E \subseteq \text{Con}$ is a set of edge IDs $L \subseteq \text{Con}$ is a set of labels, $P \subseteq \text{Con}$ is a set of properties, $U \subseteq \text{Con}$ is a set of values, $e : E \rightarrow V \times V$ maps an edge ID to a pair of node IDs, $l : V \cup E \rightarrow 2^L$ maps a node or edge ID to a set of labels, $p : V \cup E \rightarrow 2^{P \times U}$ maps a node or edge ID to a set of property–value pairs.</Callout>
+<Callout type='info'>A *property graph* is a tuple $G = (V, E, L, P, U, e, l, p)$, where: $V \subseteq \text{Con}$ is a set of node IDs, $E \subseteq \text{Con}$ is a set of edge IDs $L \subseteq \text{Con}$ is a set of labels, $P \subseteq \text{Con}$ is a set of properties, $U \subseteq \text{Con}$ is a set of values, $e : E \rightarrow V \times V$ maps an edge ID to a pair of node IDs, $l : V \cup E \rightarrow 2^L$ maps a node or edge ID to a set of labels, $p : V \cup E \rightarrow 2^{P \times U}$ maps a node or edge ID to a set of property–value pairs.</Callout>
 
 A key part of any data model is having a query language available for working with it. After all, users need to have a way to access and manipulate the data in the graph. No industry standard query language exists for property graphs. Instead, each database offers their own, unique query language that is incompatible with others:
 

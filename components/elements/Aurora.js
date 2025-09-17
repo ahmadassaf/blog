@@ -39,8 +39,8 @@ const AuroraBackground = ({
   showRadialGradient = true,
   ...props
 }) => (
-  <main>
-    <div className={ cn('relative flex flex-col  h-[100vh] items-center justify-centertransition-bg', className) }
+  <main className='overflow-x-hidden'>
+    <div className={ cn('relative flex flex-col min-h-[100vh] items-center justify-center transition-bg', className) }
       { ...props }
     >
       <div className='aurora absolute inset-0 overflow-hidden dark:hidden'>

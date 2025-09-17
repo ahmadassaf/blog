@@ -10,13 +10,11 @@
  */
 
 // External libraries
-import { BookOpenIcon, ClockIcon } from '@heroicons/react/20/solid';
+import { BookOpenIcon } from '@heroicons/react/20/solid';
 
 // Internal components
 import Link from '@/components/elements/Link';
 import PostSeriesBox from '@/components/post/postSeriesBox';
-
-const postDateTemplate = { 'day': 'numeric', 'month': 'long', 'weekday': 'long', 'year': 'numeric' };
 
 /**
  * Renders the complete blog post header with metadata and navigation
@@ -56,28 +54,28 @@ const postDateTemplate = { 'day': 'numeric', 'month': 'long', 'weekday': 'long',
  * />
  */
 const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
-  <div className={ `pt-6 max-xl:w-[100%] pb-5 ${(toc.length > 3 && frontMatter.tableOfContents) ? 'w-[60%]' : 'w-[100%]'}` }>
+  <div className={ `pt-6 w-full max-xl:w-full pb-5 ${(toc.length > 3 && frontMatter.tableOfContents) ? 'xl:w-[60%]' : 'w-full'}` }>
 
-    <div className='flex items-center gap-3'>
+    <div className='flex items-center gap-3 mb-2 flex-wrap'>
       <Link
         href={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` }
-        className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 w-fit'
+        className='flex items-center gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 w-fit'
       >
-        <div className='w-2 h-2 bg-green-500 rounded-full'></div>
+        <div className='w-2 h-2 bg-green-500 rounded-full flex-shrink-0'></div>
         {frontMatter.category.charAt(0).toUpperCase() + frontMatter.category.slice(1)}
       </Link>
       {frontMatter.draft && (
         <div className='flex items-center gap-1.5'>
-          <div className='w-2 h-2 bg-amber-500 rounded-full'></div>
+          <div className='w-2 h-2 bg-amber-500 rounded-full flex-shrink-0'></div>
           <span className='text-xs font-medium text-amber-600 dark:text-amber-400'>Draft</span>
         </div>
       )}
     </div>
     <div className='text-left'>
-      <h1 className='text-6xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-none md:text-6xl md:leading-none pb-3' style={{ 'lineHeight': '1em' }}>
+      <h1 className='text-5xl sm:text-5xl md:text-6xl lg:text-6xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100 pb-3 break-words'>
         {frontMatter.title}
       </h1>
-      <h3 className='text-3xl sm:text-xl tracking-tight text-gray-600 dark:text-gray-100 leading-snug sm:leading-snug md:text-3xl capitalize'>
+      <h3 className='text-2xl sm:text-2xl md:text-3xl lg:text-3xl tracking-tight text-gray-600 dark:text-gray-100 leading-snug capitalize break-words'>
         {frontMatter.subtitle}
       </h3>
 
@@ -131,20 +129,24 @@ export default PostHeader;
  *   readingTime="5 min read"
  * />
  */
-export const PostTimestamps = ({ date, locale, readingTime }) => (
-  <div className='flex items-baseline max-sm:text-xs text-sm mt-2'>
-    <div className='flex items-center'>
-      <ClockIcon aria-hidden='true' className='h-4 w-4 mr-2 shrink-0 text-gray-400' />
-      <dt className='sr-only'>Last Edited on</dt>
-      <dd className='leading-6 text-gray-500 dark:text-gray-400'>
-        <time dateTime={ date }>
-          {new Date(date).toLocaleDateString(locale, postDateTemplate)}
-        </time>
-      </dd>
+export const PostTimestamps = ({ date, locale, readingTime }) => {
+  const postDate = new Date(date);
+  const formattedDate = postDate.toLocaleDateString(locale, {
+    'day': 'numeric',
+    'month': 'short',
+    'year': 'numeric'
+  });
+
+  return (
+    <div className='flex items-center gap-3 mt-4 text-sm text-gray-600 dark:text-gray-400'>
+      <time dateTime={ date } className='font-medium'>
+        {formattedDate}
+      </time>
+      <span className='text-gray-400 dark:text-gray-600'>•</span>
+      <div className='flex items-center gap-1.5'>
+        <BookOpenIcon aria-hidden='true' className='h-3.5 w-3.5 text-gray-400' />
+        <span>{readingTime}</span>
+      </div>
     </div>
-    <div className='pt-2 flex items-center ml-4'>
-      <BookOpenIcon aria-hidden='true' className='h-4 w-4 mr-2 shrink-0 text-gray-400' />
-      <h4 className='leading-6 text-gray-500 dark:text-gray-400'>{readingTime}</h4>
-    </div>
-  </div>
-);
+  );
+};

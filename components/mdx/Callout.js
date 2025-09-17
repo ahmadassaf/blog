@@ -1,25 +1,21 @@
 /**
  * Callout Component
  *
- * @description Versatile callout boxes for highlighting different types of content.
- * Supports multiple predefined styles (warning, info, success, error, formal, settings, code, secure)
- * with appropriate icons and color schemes. Used within MDX content to draw attention to important information.
+ * @description Simple callout boxes for highlighting different types of content.
+ * Supports three types: info (blue), warning (yellow), and error (red).
+ * Clean design without icons. Used within MDX content to draw attention to important information.
  *
  * @author Ahmad Assaf
- * @version 1.0.0
+ * @version 2.0.0
  */
-
-/* eslint-disable no-lone-blocks */
-
-import { BiBraille, BiCheckSquare, BiChip, BiCodeAlt, BiInfoCircle, BiShieldQuarter, BiSolidBolt, BiSolidError } from 'react-icons/bi';
 
 /**
  * Renders a styled callout box with type-specific styling
  *
  * @param {Object} props - Component props
- * @param {('warning'|'info'|'success'|'error'|'formal'|'settings'|'code'|'secure')} props.type - The callout type that determines styling
+ * @param {('info'|'warning'|'error')} props.type - The callout type that determines styling (default: 'info')
  * @param {React.ReactNode} props.children - The content to display within the callout
- * @returns {JSX.Element|null} A div containing the styled callout, or null for invalid types
+ * @returns {JSX.Element} A div containing the styled callout
  *
  * @example
  * // In MDX content - Info callout:
@@ -32,77 +28,45 @@ import { BiBraille, BiCheckSquare, BiChip, BiCodeAlt, BiInfoCircle, BiShieldQuar
  * <Callout type="warning">
  *   Be careful when following these steps!
  * </Callout>
+ *
+ * @example
+ * // In MDX content - Error callout:
+ * <Callout type="error">
+ *   This action cannot be undone!
+ * </Callout>
  */
-const Callout = ({ type, children }) => {
-  let calloutBackgroundColor;
-  let calloutIcon;
-  let calloutTextColour;
+const Callout = ({ type = 'info', children }) => {
+  let calloutStyles;
 
   switch (type) {
   case 'warning':
-    {
-      calloutIcon = <BiSolidBolt className='h-5 w-5'/>;
-      calloutBackgroundColor = 'bg-yellow-50';
-      calloutTextColour = 'text-yellow-700';
-    }
+    calloutStyles = {
+      'background': 'bg-yellow-50 dark:bg-yellow-950/30',
+      'border': 'border-yellow-200 dark:border-yellow-800',
+      'text': 'text-yellow-800 dark:text-yellow-200'
+    };
+    break;
+  case 'error':
+    calloutStyles = {
+      'background': 'bg-red-50 dark:bg-red-950/30',
+      'border': 'border-red-200 dark:border-red-800',
+      'text': 'text-red-800 dark:text-red-200'
+    };
     break;
   case 'info':
-    {
-      calloutIcon = <BiInfoCircle className='h-5 w-5 fill-blue-600'/>;
-      calloutBackgroundColor = 'bg-blue-50';
-      calloutTextColour = 'text-gray-700';
-    }
+  default:
+    calloutStyles = {
+      'background': 'bg-blue-50 dark:bg-blue-950/30',
+      'border': 'border-blue-200 dark:border-blue-800',
+      'text': 'text-blue-800 dark:text-blue-200'
+    };
     break;
-  case 'success':
-    {
-      calloutIcon = <BiCheckSquare className='h-5 w-5 fill-green-600'/>;
-      calloutBackgroundColor = 'bg-green-50';
-      calloutTextColour = 'text-green-700';
-    }
-    break;
-  case 'error': {
-    calloutIcon = <BiSolidError className='h-5 w-5 fill-red-600'/>;
-    calloutBackgroundColor = 'bg-red-50';
-    calloutTextColour = 'text-red-700';
-  }
-    break;
-  case 'formal': {
-    calloutIcon = <BiBraille className='h-5 w-5 fill-teal-600'/>;
-    calloutBackgroundColor = 'bg-teal-50';
-    calloutTextColour = 'text-gray-700';
-  }
-    break;
-  case 'settings': {
-    calloutIcon = <BiChip className='h-5 w-5 fill-indigo-600'/>;
-    calloutBackgroundColor = 'bg-indigo-50';
-    calloutTextColour = 'text-indigo-700';
-  }
-    break;
-  case 'code': {
-    calloutIcon = <BiCodeAlt className='h-5 w-5 fill-slate-600'/>;
-    calloutBackgroundColor = 'bg-slate-50';
-    calloutTextColour = 'text-slate-700';
-  }
-    break;
-  case 'secure':
-    {
-      calloutIcon = <BiShieldQuarter className='h-5 w-5 fill-gray-800'/>;
-      calloutBackgroundColor = 'bg-gray-100';
-      calloutTextColour = 'text-gray-700';
-    }
-    break;
-  default: return null;
   }
 
   return (
-    <div className={ `p-4 mb-6 ${calloutBackgroundColor}` }>
-      <div className='flex items-center'>
-        <div className='shrink-0'>{calloutIcon}</div>
-        <div className='ml-3 flex-1'>
-          <div className={ `text-md ${calloutTextColour} dark:${calloutTextColour} [&>p]:m-0 [&>p:not(:last-child)]:mb-2` }>
-            {children}
-          </div>
-        </div>
+    <div className={ `px-6 py-4 mb-6 rounded-lg border text-md ${calloutStyles.background} ${calloutStyles.border}` }>
+      <div className={ `${calloutStyles.text} [&>p]:m-0 [&>p:not(:last-child)]:mb-2` }>
+        {children}
       </div>
     </div>
   );

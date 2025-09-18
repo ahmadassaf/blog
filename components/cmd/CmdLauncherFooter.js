@@ -21,7 +21,7 @@ import Kbd from '@/components/elements/Kbd';
  * <CmdLauncherFooter />
  */
 const CmdLauncherFooter = () => (
-  <div className='px-3 py-2 border-t border-gray-200 dark:border-[#303030] bg-gray-50 dark:bg-gray-800'>
+  <div className='px-3 py-2 border-t border-gray-200 dark:border-[#303030] bg-white dark:bg-gray-800'>
     <div className='flex items-center text-xs text-gray-500 dark:text-gray-400 gap-4'>
       <span className='hidden sm:flex items-center gap-1'>
         <Kbd keys='enter' className='!text-xs !py-0.5' />

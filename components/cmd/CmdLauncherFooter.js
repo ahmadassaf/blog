@@ -7,8 +7,10 @@
  * closing/going back (Escape). It's responsive and hides some elements on small screens.
  *
  * @author Ahmad Assaf
- * @version 1.0.0
+ * @version 2.0.0
  */
+
+import Kbd from '@/components/elements/Kbd';
 
 /**
  * CmdLauncherFooter component renders the footer with keyboard shortcuts guide
@@ -22,16 +24,16 @@ const CmdLauncherFooter = () => (
   <div className='px-3 py-2 border-t border-gray-200 dark:border-[#303030] bg-gray-50 dark:bg-gray-800'>
     <div className='flex items-center text-xs text-gray-500 dark:text-gray-400 gap-4'>
       <span className='hidden sm:flex items-center gap-1'>
-        <kbd className='px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-[#303030] rounded min-w-[24px] text-center'>↵</kbd>
+        <Kbd className='!text-xs !py-0.5'>↵</Kbd>
         to select
       </span>
       <span className='flex items-center gap-1'>
-        <kbd className='px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-[#303030] rounded min-w-[24px] text-center'>↓</kbd>
-        <kbd className='px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-[#303030] rounded min-w-[24px] text-center'>↑</kbd>
+        <Kbd className='!text-xs !py-0.5'>↓</Kbd>
+        <Kbd className='!text-xs !py-0.5'>↑</Kbd>
         to navigate
       </span>
       <span className='flex items-center gap-1'>
-        <kbd className='px-2 py-1 text-xs bg-white dark:bg-gray-700 border border-gray-300 dark:border-[#303030] rounded min-w-[28px] text-center'>esc</kbd>
+        <Kbd className='!text-xs !py-0.5 !px-2'>esc</Kbd>
         to close / go back
       </span>
     </div>

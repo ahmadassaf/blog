@@ -24,16 +24,16 @@ const CmdLauncherFooter = () => (
   <div className='px-3 py-2 border-t border-gray-200 dark:border-[#303030] bg-gray-50 dark:bg-gray-800'>
     <div className='flex items-center text-xs text-gray-500 dark:text-gray-400 gap-4'>
       <span className='hidden sm:flex items-center gap-1'>
-        <Kbd className='!text-xs !py-0.5'>↵</Kbd>
+        <Kbd keys='enter' className='!text-xs !py-0.5' />
         to select
       </span>
       <span className='flex items-center gap-1'>
-        <Kbd className='!text-xs !py-0.5'>↓</Kbd>
-        <Kbd className='!text-xs !py-0.5'>↑</Kbd>
+        <Kbd keys='down' className='!text-xs !py-0.5' />
+        <Kbd keys='up' className='!text-xs !py-0.5' />
         to navigate
       </span>
       <span className='flex items-center gap-1'>
-        <Kbd className='!text-xs !py-0.5 !px-2'>esc</Kbd>
+        <Kbd keys='escape' className='!text-xs !py-0.5 !px-2' />
         to close / go back
       </span>
     </div>

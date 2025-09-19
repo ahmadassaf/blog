@@ -50,14 +50,14 @@ export default async function LayoutContainer({ children }) {
       <Aurora>
 
         {/* This is the dark shape overlay that appears when the dark mode is enabled */}
-        <div className='hidden min-h-[50rem] w-full items-center justify-center dark:absolute dark:flex dark:bg-gray-900 dark:bg-dot-white/[0.15]'>
+        <div className='hidden h-[50rem] max-h-[50rem] w-full items-center justify-center dark:absolute dark:top-190 dark:left-0 dark:flex dark:bg-dot-white/[0.15] dark:z-0 dark:pointer-events-none'>
           <div className='absolute flex bg-white items-center justify-center pointer-events-none inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-gray-900'></div>
         </div>
 
         <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem/>
         <Analytics />
 
-        <div className='relative w-full sm:w-[95%] xl-w[90%] isolate xl:max-w-6xl px-4 sm:px-8'>
+        <div className='relative w-full sm:w-[95%] xl-w[90%] isolate xl:max-w-6xl px-4 sm:px-8 dark:z-10'>
           <div className='flex min-h-screen flex-col justify-between'>
             <FloatingMenu/>
             <Menu />

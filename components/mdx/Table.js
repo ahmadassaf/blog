@@ -45,40 +45,11 @@ import { useEffect, useRef } from 'react';
  */
 const Table = ({ children, className = '', ...rest }) => {
   const scrollContainerRef = useRef(null);
-  const leftShadowRef = useRef(null);
-  const rightShadowRef = useRef(null);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
-    const leftShadow = leftShadowRef.current;
-    const rightShadow = rightShadowRef.current;
 
-    if (!scrollContainer || !leftShadow || !rightShadow) return;
-
-    const handleScroll = () => {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
-      const maxScroll = scrollWidth - clientWidth;
-
-      // Show left shadow if scrolled right
-      if (scrollLeft > 10) leftShadow.style.opacity = '1';
-      else leftShadow.style.opacity = '0';
-
-      // Show right shadow if not at the end
-      if (scrollLeft < maxScroll - 10) rightShadow.style.opacity = '1';
-      else rightShadow.style.opacity = '0';
-
-    };
-
-    // Initial check
-    handleScroll();
-
-    // Add scroll listener
-    scrollContainer.addEventListener('scroll', handleScroll);
-
-    // Check on resize
-    const handleResize = () => setTimeout(handleScroll, 100);
-
-    window.addEventListener('resize', handleResize);
+    if (!scrollContainer) return;
 
     // Enhanced column highlighting
     const table = scrollContainer.querySelector('table');
@@ -103,17 +74,10 @@ const Table = ({ children, className = '', ...rest }) => {
       table.addEventListener('mouseout', handleCellHover);
 
       return () => {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', handleResize);
         table.removeEventListener('mouseover', handleCellHover);
         table.removeEventListener('mouseout', handleCellHover);
       };
     }
-
-    return () => {
-      scrollContainer.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
 
   return (
@@ -128,16 +92,6 @@ const Table = ({ children, className = '', ...rest }) => {
           ref={ scrollContainerRef }
           className='table-scroll'
         >
-          {/* Scroll shadow indicators */}
-          <div
-            ref={ leftShadowRef }
-            className='scroll-shadow-left'
-          ></div>
-          <div
-            ref={ rightShadowRef }
-            className='scroll-shadow-right opacity-1'
-          ></div>
-
           <div className='inline-block min-w-full align-middle'>
             <table
               className={ `w-full table-auto ${className}` }

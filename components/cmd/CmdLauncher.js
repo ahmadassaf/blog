@@ -15,7 +15,7 @@ import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 
 import CmdItem from '@/components/cmd/CmdItem';
-import { prepareLauncherCollection }  from '@/components/cmd/utils';
+import { omit } from '@/lib/utils/contentlayer';
 
 // Dynamically import heavy components to reduce initial bundle size
 const CmdFooter = dynamic(() => import('@/components/cmd/CmdLauncherFooter'));
@@ -61,6 +61,21 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
   const [ showType ] = useState(false);
   const [ selected, setSelected ] = useState(0);
   const { theme, setTheme, resolvedTheme } = useTheme();
+
+  // Prepare collections for launcher
+  const prepareLauncherCollection = (collection, type) => {
+    collection.forEach((item, key) => {
+      if (type !== 'publication') {
+        item.id = item.slug;
+        item.href = `/blog/${item.slug}`;
+      }
+      item.type = type;
+      item.showType = false;
+      item.children = item.title;
+
+      collection[key] = omit(item, [ 'featured', 'filePath', 'readingTime', 'venueType', 'tableOfContents', 'externalLink', 'sameAs', 'draft' ]);
+    });
+  };
 
   prepareLauncherCollection(posts, 'post');
   prepareLauncherCollection(projects, 'project');

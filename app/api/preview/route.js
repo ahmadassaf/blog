@@ -243,18 +243,37 @@ async function fetchWikipediaData(url) {
  * GET handler for preview API endpoint
  */
 export async function GET(request) {
-  try {
-    const url = request.nextUrl.searchParams.get('url');
+  const url = request.nextUrl.searchParams.get('url');
 
-    if (!url) return NextResponse.json(
-      { 'error': 'URL parameter is required', 'status': 400 }, { 'status': 400 }
-    );
+  if (!url) return NextResponse.json(
+    { 'error': 'URL parameter is required', 'status': 400 }, { 'status': 400 }
+  );
+
+  const cacheKey = `url:${url}`;
+
+  try {
 
     // Validate URL
     let urlObj;
 
     try {
       urlObj = new URL(url);
+
+      // Block potentially dangerous protocols
+      if (![ 'http:', 'https:' ].includes(urlObj.protocol))
+        return NextResponse.json(
+          { 'error': 'Only HTTP(S) URLs are allowed', 'status': 400 }, { 'status': 400 }
+        );
+
+      // Block private/local IPs (basic security)
+      const hostname = urlObj.hostname.toLowerCase();
+
+      if (hostname === 'localhost' || hostname.startsWith('127.') || hostname.startsWith('10.') ||
+          hostname.startsWith('192.168.') || hostname.startsWith('172.'))
+        return NextResponse.json(
+          { 'error': 'Local URLs are not allowed', 'status': 400 }, { 'status': 400 }
+        );
+
     } catch {
       return NextResponse.json(
         { 'error': 'Invalid URL format', 'status': 400 }, { 'status': 400 }
@@ -262,7 +281,6 @@ export async function GET(request) {
     }
 
     // Check cache
-    const cacheKey = `url:${url}`;
     const cachedPreview = await cache.get(cacheKey);
 
     if (cachedPreview) return NextResponse.json(JSON.stringify(cachedPreview), { 'status': 200 });
@@ -296,7 +314,21 @@ export async function GET(request) {
 
     clearTimeout(timeoutId);
 
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    // Handle non-OK responses gracefully instead of throwing
+    if (!response.ok) {
+      const errorData = {
+        'error': true,
+        'errorMessage': `HTTP ${response.status}: ${response.statusText || 'Not Found'}`,
+        'status': response.status,
+        'title': new URL(url).hostname,
+        'url': url
+      };
+
+      // Cache the error result to prevent repeated failed requests
+      await cache.set(cacheKey, errorData);
+
+      return NextResponse.json(JSON.stringify(errorData), { 'status': 200 });
+    }
 
     const html = await response.text();
     const doc = parse(html);
@@ -311,16 +343,34 @@ export async function GET(request) {
   } catch (error) {
     console.error('Preview API error:', error);
 
-    // Return appropriate error response
-    if (error.name === 'AbortError') return NextResponse.json(
-      JSON.stringify({ 'error': 'Request timeout', 'status': 504 }), { 'status': 504 }
-    );
+    let errorData;
 
-    return NextResponse.json(
-      JSON.stringify({
-        'error': error.message || 'Failed to fetch preview',
-        'status': 404
-      }), { 'status': 404 }
-    );
+    // Handle different types of errors appropriately
+    if (error.name === 'AbortError')
+      errorData = {
+        'error': true,
+        'errorMessage': 'Request timeout',
+        'status': 504,
+        'title': new URL(url).hostname,
+        'url': url
+      };
+    else
+      errorData = {
+        'error': true,
+        'errorMessage': error.message || 'Failed to fetch preview',
+        'status': error.status || 404,
+        'title': new URL(url).hostname,
+        'url': url
+      };
+
+    // Cache error responses to prevent repeated failed requests
+    try {
+      await cache.set(cacheKey, errorData);
+    } catch (cacheError) {
+      console.error('Failed to cache error response:', cacheError);
+    }
+
+    // Always return 200 with error data for consistent client-side handling
+    return NextResponse.json(JSON.stringify(errorData), { 'status': 200 });
   }
 }

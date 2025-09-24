@@ -27,6 +27,7 @@ import FileTree from '@/components/mdx/FileTree';
 import Highlight from '@/components/mdx/Highlight';
 import Image from '@/components/mdx/Image';
 import InternalPreview from '@/components/mdx/InternalPreview';
+import Mermaid from '@/components/mdx/Mermaid';
 import PostImage from '@/components/mdx/PostImage';
 import Pre from '@/components/mdx/Pre';
 import Preview from '@/components/mdx/Preview';
@@ -50,6 +51,7 @@ export const MDXComponents = {
   Highlight,
   Image,
   InternalPreview,
+  Mermaid,
   PostImage,
   Preview,
   Quote,

@@ -11,7 +11,7 @@
 
 'use client';
 
-import { React, useState } from 'react';
+import { React, useMemo, useState } from 'react';
 import { allPosts, allProjects } from 'contentlayer/generated';
 import { usePathname } from 'next/navigation';
 
@@ -44,8 +44,16 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  */
 const Menu = () => {
   const path = usePathname();
-  const sortedPosts = sortPosts(allPosts);
-  const posts = coreContent(sortedPosts);
+
+  // Memoize expensive operations
+  const posts = useMemo(() => {
+    const sortedPosts = sortPosts(allPosts);
+
+    return coreContent(sortedPosts);
+  }, []);
+
+  const projects = useMemo(() => coreContent(sortPosts(allProjects)), []);
+
   const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);
   const [ LauncherOpen, LauncherSetOpen ] = useState(false);
 
@@ -106,7 +114,7 @@ const Menu = () => {
       </div>
       <CommandLauncher
         tags={ tags }
-        projects={ coreContent(sortPosts(allProjects)) }
+        projects={ projects }
         posts={ posts }
         publications={ publications }
         open={ LauncherOpen }

@@ -11,7 +11,7 @@
 
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LinkIcon, LinkSlashIcon, PhotoIcon } from '@heroicons/react/20/solid';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -452,7 +452,7 @@ const getPlatformIcon = (url, type, hasFavicon) => {
  * @param {React.ReactNode} [props.fallback] - Custom fallback component
  * @returns {JSX.Element} The rendered preview component
  */
-const Preview = ({
+const Preview = memo(function Preview({
   url,
   title,
   className = '',
@@ -464,7 +464,7 @@ const Preview = ({
   onLoad,
   onError,
   fallback
-}) => {
+}) {
 
   // Early return if no URL provided
   if (!url) {
@@ -479,9 +479,11 @@ const Preview = ({
   const observerRef = useRef(null);
   const elementRef = useRef(null);
 
-  // Debug: Log props on mount
+  // Debug: Log props on mount (development only)
   useEffect(() => {
-    console.log('Preview component mounted with URL:', url, 'Title:', title);
+    if (process.env.NODE_ENV === 'development')
+      console.log('Preview component mounted with URL:', url, 'Title:', title);
+
   }, []);
 
   // Intersection Observer for lazy loading
@@ -511,10 +513,9 @@ const Preview = ({
     isInView ? url : null, title, { timeout }
   );
 
-  // Debug logging
+  // Debug logging (development only)
   useEffect(() => {
-    if (data) console.log('Preview data for', url, ':', data);
-
+    if (process.env.NODE_ENV === 'development' && data) console.log('Preview data for', url, ':', data);
   }, [ data, url ]);
 
   // Handle callbacks
@@ -825,12 +826,21 @@ const Preview = ({
       </HoverCardPrimitive.Portal>
     </HoverCardPrimitive.Root>
   );
-};
+});
 
-// Memory cleanup on unmount
-if (typeof window !== 'undefined') window.addEventListener('beforeunload', () => {
+// Memory cleanup on unmount - use a named function for proper cleanup
+const cleanupCache = () => {
   previewCache.clear();
   pendingRequests.clear();
-});
+};
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeunload', cleanupCache);
+
+  // Also cleanup when page is hidden (for better mobile support)
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') cleanupCache();
+  });
+}
 
 export default Preview;

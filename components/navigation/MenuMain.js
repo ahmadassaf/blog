@@ -55,32 +55,32 @@ const MenuMain = ({ categories, allPosts }) => {
 
     {menuBlogOpen ? (
       <div className='absolute left-1/2 z-50 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4 top-10'>
-        <div className='w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5'>
+        <div className='w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white dark:bg-gray-800 text-sm leading-6 shadow-lg ring-1 ring-gray-900/5 dark:ring-gray-700/5'>
           <div className='p-3'>
 
             {categories.map((category) => (
-              <div key={ category.id } className='group relative flex rounded-lg px-3 py-2 hover:bg-gray-50'>
+              <div key={ category.id } className='group relative flex rounded-lg px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700'>
                 <div>
-                  <a href={ `/blog/categories/${category.id}` } className='font-semibold text-gray-900 hover:text-blue-600 capitalize'>
+                  <a href={ `/blog/categories/${category.id}` } className='font-semibold text-gray-900 dark:text-gray-100 hover:text-blue-600 capitalize'>
                     {category.title.replace('-', ' ')}
                     <span className='absolute inset-0'></span>
-                    <p className='mt-1 text-gray-600 font-light text-s'>{category.description}</p>
+                    <p className='mt-1 text-gray-600 dark:text-gray-300 font-light text-s'>{category.description}</p>
                   </a>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className='bg-blue-50 p-3'>
+          <div className='bg-blue-50 dark:bg-gray-700 p-3'>
             <div className='flex justify-between px-3 py-2'>
-              <h3 className='text-sm font-semibold leading-6 text-gray-500'>Recent posts</h3>
-              <Link href={ `/blog` } className='text-sm font-semibold leading-6 text-gray-900 hover:text-blue-600' >See all &rarr;</Link>
+              <h3 className='text-sm font-semibold leading-6 text-gray-500 dark:text-gray-400'>Recent posts</h3>
+              <Link href={ `/blog` } className='text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100 hover:text-blue-600' >See all &rarr;</Link>
             </div>
-            <ul role='list' className='px-3 py-2'>
+            <ul role='list' className='py-2'>
               {allPosts.slice(0, 3).map((post) => (
-                <li key={ post.slug } className='py-1 relative'>
-                  <time dateTime={ post.date } className='block text-xs leading-6 text-gray-600 font-light'>{formatDate(post.date)}</time>
-                  <a href={ `/blog/${post.slug}` } className='block truncate text-sm font-semibold leading-6 text-gray-900 hover:text-blue-600'>
+                <li key={ post.slug } className='group relative px-3 py-2'>
+                  <time dateTime={ post.date } className='block text-xs leading-6 text-gray-600 dark:text-gray-300 font-light'>{formatDate(post.date)}</time>
+                  <a href={ `/blog/${post.slug}` } className='block truncate text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400'>
                     {post.title}
                     <span className='absolute inset-0'></span>
                   </a>

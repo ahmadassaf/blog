@@ -11,12 +11,10 @@
 
 'use client';
 
-// External imports
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { Disclosure } from '@headlessui/react';
 import Link from 'next/link';
 
-// Internal imports
 import publications from '@/app/content/publications.json';
 import { cn } from '@/components/utils/TailwindUtils';
 

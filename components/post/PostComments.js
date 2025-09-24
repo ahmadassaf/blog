@@ -11,7 +11,6 @@
 
 'use client';
 
-// External libraries
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 

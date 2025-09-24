@@ -9,10 +9,8 @@
  * @version 1.0.0
  */
 
-// External imports
 import { LiaChartAreaSolid, LiaChessKnightSolid, LiaCodepen, LiaCubesSolid, LiaHandshake, LiaRobotSolid } from 'react-icons/lia';
 
-// Internal imports
 import Preview from '@/components/mdx/Preview';
 
 /**

@@ -9,10 +9,8 @@
  * @version 1.0.0
  */
 
-// External imports
 import { allPosts } from 'contentlayer/generated';
 
-// Internal imports
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import ListLayout from '@/layouts/ListLayout';
 import { sortPosts } from '@/lib/utils/contentlayer';

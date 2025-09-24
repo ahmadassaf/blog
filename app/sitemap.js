@@ -8,10 +8,8 @@
  * @version 1.0.0
  */
 
-// External imports
 import { allPosts } from 'contentlayer/generated';
 
-// Internal imports
 import NavigationMetadata from '@/data/meta/navigationMetadata';
 import siteMetadata from '@/data/meta/siteMetadata';
 

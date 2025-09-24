@@ -9,10 +9,8 @@
  * @version 1.0.0
  */
 
-// External imports
 import { allProjects } from 'contentlayer/generated';
 
-// Internal imports
 import categories from '@/app/content/categories';
 import Icon from '@/components/elements/Icon';
 import NewsletterForm from '@/components/forms/NewsletterForm';

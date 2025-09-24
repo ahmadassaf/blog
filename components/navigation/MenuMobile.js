@@ -12,7 +12,6 @@
 
 import React from 'react';
 
-// Internal components
 import Link from '@/components/elements/Link';
 import NewsletterForm from '@/components/forms/NewsletterForm';
 import MenuSearch from '@/components/navigation/MenuSearch';

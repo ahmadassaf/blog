@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-// External imports
 import Link from 'next/link';
 
 /**

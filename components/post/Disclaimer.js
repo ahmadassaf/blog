@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-// Internal components
 import Callout from '@/components/mdx/Callout';
 
 /**

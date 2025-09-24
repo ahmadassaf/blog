@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-// External imports
 import { FaLinkedin, FaYoutube } from 'react-icons/fa';
 import { RiMailOpenFill, RiTwitterXFill } from 'react-icons/ri';
 import { VscGithub } from 'react-icons/vsc';

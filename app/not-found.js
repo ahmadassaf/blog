@@ -8,9 +8,7 @@
  * @version 1.0.0
  */
 
-// Internal imports
-import Link from '@/components/elements/Link';
-import { Typography } from '@/components/ui';
+import { Button, Typography } from '@/components/ui';
 
 /**
  * 404 error page component
@@ -31,17 +29,15 @@ export default function FourZeroFour() {
           </Typography>
         </div>
         <div className='max-w-md'>
-          <p className='mb-4 text-xl font-bold leading-normal md:text-2xl'>
+          <Typography variant='heading-lg' className='mb-4'>
             Sorry we couldn't find this page.
-          </p>
-          <p className='mb-8'>
-            But dont worry, you can find plenty of other things on our homepage.
-          </p>
-          <Link href='/'>
-            <button className='focus:shadow-outline-blue inline rounded-lg border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium leading-5 text-white shadow-sm transition-colors duration-150 hover:bg-blue-700 focus:outline-hidden dark:hover:bg-blue-500'>
-              Back to homepage
-            </button>
-          </Link>
+          </Typography>
+          <Typography variant='paragraph-md' className='mb-8'>
+            But dont worry, you can find plenty of other things on the homepage
+          </Typography>
+          <Button variant='primary-md' href='/'>
+            Back to homepage
+          </Button>
         </div>
       </div>
     </>

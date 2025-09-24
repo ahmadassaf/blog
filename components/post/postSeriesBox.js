@@ -11,7 +11,6 @@
 
 'use client';
 
-// External libraries
 import { useState } from 'react';
 import { ChevronDownIcon, Square3Stack3DIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';

@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-// External libraries
 import { useEffect } from 'react';
 import Router from 'next/router';
 

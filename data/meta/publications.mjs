@@ -1,7 +1,7 @@
 const Publications = [
   {
     'authors': 'H Sorotos, K Karakeben, A Milchevskaya and A Assaf',
-    'href': 'https://2024.eswc-conferences.org/wp-content/uploads/2024/05/77770139.pdf',
+    'href': 'https://ceur-ws.org/Vol-3828/paper42.pdf',
     'title': 'Beyond generic skills: creating capability-centric, company-specific knowledge graphs from job descriptions',
     'venue': 'Extended Semantic Web Conference (ESWC 2024)',
     'venueType': 'Conference',
@@ -9,7 +9,7 @@ const Publications = [
   },
   {
     'authors': 'H Sorotos, K Karakeben and A Assaf',
-    'href': 'https://ceur-ws.org/Vol-3828/paper42.pdf',
+    'href': 'https://2024.eswc-conferences.org/wp-content/uploads/2024/05/77770139.pdf',
     'title': 'Rapid Graph Generation from Job Descriptions: combining Taxonomies and LLMs',
     'venue': 'International Semantic Web Conference (ISWC 2024)',
     'venueType': 'Conference',

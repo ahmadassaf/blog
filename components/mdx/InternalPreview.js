@@ -110,28 +110,30 @@ const InternalPreview = ({
     // Calculate optimal position near cursor
     const cardWidth = 384;
     const cardHeight = 300;
-    const offset = 10;
+    const offset = 15;
 
     let left = mouseX + offset;
-    let top = mouseY + offset;
+    let top = mouseY - cardHeight / 2; // Center vertically relative to cursor
 
-    // Adjust if card would go off screen
+    // Adjust if card would go off screen horizontally
     if (left + cardWidth > window.innerWidth)
       left = mouseX - cardWidth - offset;
 
-    if (top + cardHeight > window.innerHeight)
-      top = mouseY - cardHeight - offset;
+    // Adjust if card would go off screen vertically
+    if (top < 8)
+      top = 8;
+    else if (top + cardHeight > window.innerHeight - 8)
+      top = window.innerHeight - cardHeight - 8;
 
-    // Ensure card stays within viewport
+    // Ensure card stays within viewport horizontally
     left = Math.max(8, Math.min(left, window.innerWidth - cardWidth - 8));
-    top = Math.max(8, Math.min(top, window.innerHeight - cardHeight - 8));
 
     setPosition({ left, top });
 
-    // Show hover with a small delay
+    // Show hover with a shorter delay for better responsiveness
     timeoutRef.current = setTimeout(() => {
       setIsHovered(true);
-    }, 300);
+    }, 200);
   };
 
   // Handle mouse leave

@@ -14,6 +14,7 @@ import { allPosts } from 'contentlayer/generated';
 import LauncherShortcut from '@/components/cmd/CmdLauncherShortcut';
 import Link from '@/components/elements/Link';
 import { TextHighlight } from '@/components/elements/TextHighlight';
+import { Button, Typography } from '@/components/ui';
 import siteMetadata from '@/data/meta/metadata';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import ListLayout from '@/layouts/ListLayout';
@@ -39,33 +40,33 @@ export default function Home() {
     <>
       <div className='divide-y divide-gray-200 dark:divide-gray-700'>
         <div className='space-y-2 pt-12 pb-8 md:space-y-5 mb-12'>
-          <h1 className='uppercase text-3xl font-extrabold leading-9 text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-7xl md:leading-14'>
+          <Typography variant='display-xl' className='uppercase'>
             {siteMetadata.author}
-          </h1>
-          <h1 className='text-xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-xl sm:leading-10 md:text-3xl md:leading-14'>
+          </Typography>
+          <Typography variant='title-md'>
             <TextHighlight className='text-black dark:text-white'>
               AI and Machine Learning Leader, Mentor and Advisor
             </TextHighlight>
-          </h1>
-          <h2 className='text-xl leading-8 max-sm:py-4 text-gray-600 dark:text-gray-300'>{`${siteMetadata.description}`}</h2>
-          <h2>A driven AI and Machine Learning (ML) leader with a passion for discovering solutions to create the future of work through my current role as <strong >VP of AI and Data <Link className='text-blue-600' href='https://beamery.com'>@Beamery</Link></strong>. As one of the founding engineers, I have built and scaled engineering and data science teams and helped Beamery become one of the latest tech unicorns.</h2>
-          <h2>I am a Knowledge Graph and Semantic Web Enthusiast (<strong>PhD in Semantic Web and Information Retrieval</strong>) with <Link className='text-blue-600' href='/blog/publications'>publications</Link> on Linked Data, Data Quality and Recommender Systems.</h2>
-          <h2>I am currently leading the team working on various exciting AI and Machine Learning technologies, from Natural Language Processing (NLP) methods for text understanding and generation, entity disambiguation and reconciliation, and Large Language Models (LLMs) to Deep Learning (DL) methods such as Convolutional Neural Networks (CNNs) and Generative Adversarial Networks (GANs) for recommender systems and personalization.</h2>
+          </Typography>
+          <Typography variant='subtitle-lg' className='max-sm:py-4'>{`${siteMetadata.description}`}</Typography>
+          <Typography variant='paragraph-lg'>A driven AI and Machine Learning (ML) leader with a passion for discovering solutions to create the future of work through my current role as <strong >VP of AI and Data <Link className='text-blue-600' href='https://beamery.com'>@Beamery</Link></strong>. As one of the founding engineers, I have built and scaled engineering and data science teams and helped Beamery become one of the latest tech unicorns.</Typography>
+          <Typography variant='paragraph-lg'>I am a Knowledge Graph and Semantic Web Enthusiast (<strong>PhD in Semantic Web and Information Retrieval</strong>) with <Link className='text-blue-600' href='/blog/publications'>publications</Link> on Linked Data, Data Quality and Recommender Systems.</Typography>
+          <Typography variant='paragraph-lg'>I am currently leading the team working on various exciting AI and Machine Learning technologies, from Natural Language Processing (NLP) methods for text understanding and generation, entity disambiguation and reconciliation, and Large Language Models (LLMs) to Deep Learning (DL) methods such as Convolutional Neural Networks (CNNs) and Generative Adversarial Networks (GANs) for recommender systems and personalization.</Typography>
           <LauncherShortcut />
         </div>
         <FeaturedPostsLayout />
         <ListLayout posts={ displayPosts.slice(0, 6) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
         <div className='flex justify-end pt-8'>
-          <Link
+          <Button
+            variant='link-primary-md'
             href='/blog'
-            className='inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-blue-600 dark:text-blue-400 bg-white dark:bg-gray-900 border border-gray-200 dark:border-[#303030] rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-700 dark:hover:text-blue-300 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 group'
             aria-label='View all blog posts'
           >
             View All Posts
             <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
               <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
             </svg>
-          </Link>
+          </Button>
         </div>
       </div>
     </>

@@ -15,6 +15,7 @@ import { BookOpenIcon } from '@heroicons/react/20/solid';
 // Internal components
 import Link from '@/components/elements/Link';
 import PostSeriesBox from '@/components/post/postSeriesBox';
+import { Typography } from '@/components/ui';
 
 /**
  * Renders the complete blog post header with metadata and navigation
@@ -72,12 +73,12 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
       )}
     </div>
     <div className='text-left'>
-      <h1 className='text-5xl sm:text-5xl md:text-6xl lg:text-6xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100 pb-3 break-words'>
+      <Typography variant='post-title' className='pb-3'>
         {frontMatter.title}
-      </h1>
-      <h3 className='text-2xl sm:text-2xl md:text-3xl lg:text-3xl tracking-tight text-gray-600 dark:text-gray-100 leading-snug capitalize break-words'>
+      </Typography>
+      <Typography variant='post-subtitle'>
         {frontMatter.subtitle}
-      </h3>
+      </Typography>
 
       <PostTimestamps
         date={ frontMatter.updated || frontMatter.date }

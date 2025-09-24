@@ -11,7 +11,6 @@
 
 'use client';
 
-// External libraries
 import { useEffect, useRef, useState } from 'react';
 
 /**

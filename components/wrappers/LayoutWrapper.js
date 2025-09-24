@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-// Internal components
 import SectionContainer from '@/components/containers/SectionContainer';
 import ShapeContainer from '@/components/containers/ShapeContainer';
 import Footer from '@/components/elements/Footer';

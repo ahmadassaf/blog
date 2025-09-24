@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-// External libraries
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 

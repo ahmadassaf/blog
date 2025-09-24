@@ -3,20 +3,21 @@
  *
  * @description Site logo/branding component that renders a custom SVG logo for the navigation header.
  * The logo is a stylized geometric design that adapts to the current theme using 'currentColor' fill.
- * This component is used across all navigation contexts to maintain consistent branding.
+ * Features a subtle hover effect with gentle scaling.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
  */
 
 /**
- * Renders the site logo as an SVG element
+ * Renders the site logo as an SVG element with subtle hover effect
  *
  * @description Custom vector logo that uses currentColor to inherit text color from parent elements,
  * making it theme-aware and adaptable to different navigation contexts (light/dark modes).
  * The logo maintains aspect ratio and is optimized for 50x50px display size.
+ * Features a gentle pulse effect on hover.
  *
- * @returns {JSX.Element} SVG logo element with geometric design
+ * @returns {JSX.Element} SVG logo element with subtle hover animation
  *
  * @example
  * // Basic usage in navigation header
@@ -30,7 +31,14 @@
  */
 const Logo = () => (
   <svg
-    version='1.0' xmlns='http://www.w3.org/2000/svg' width='50px' height='50px' viewBox='0 0 688.000000 688.000000' preserveAspectRatio='xMidYMid meet'>
+    version='1.0'
+    xmlns='http://www.w3.org/2000/svg'
+    width='50px'
+    height='50px'
+    viewBox='0 0 688.000000 688.000000'
+    preserveAspectRatio='xMidYMid meet'
+    className='transition-transform duration-300 ease-out hover:scale-105'
+  >
     <g
       transform='translate(0.000000,688.000000) scale(0.100000,-0.100000)'
       fill='currentColor'

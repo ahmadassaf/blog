@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-// Internal components and data
 import tags from '@/app/content/tags';
 import Pill from '@/components/elements/Pill';
 

@@ -9,10 +9,8 @@
  * @version 1.0.0
  */
 
-// External libraries
 import { allPosts } from 'contentlayer/generated';
 
-// Internal components and utilities
 import tags from '@/app/content/tags';
 import { POSTS_PER_PAGE } from '@/components/elements/Pagination';
 import ListLayout from '@/layouts/ListLayout';

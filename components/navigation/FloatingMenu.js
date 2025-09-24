@@ -12,12 +12,10 @@
 
 'use client';
 
-// External libraries
 import React, { useEffect, useState } from 'react';
 import { IoArrowUpCircleOutline } from 'react-icons/io5';
 import Link from 'next/link';
 
-// Internal utilities and data
 import { cn } from '@/components/utils/TailwindUtils';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
 

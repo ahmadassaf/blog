@@ -9,10 +9,8 @@
  * @version 1.0.0
  */
 
-// External libraries
 import { BookOpenIcon } from '@heroicons/react/20/solid';
 
-// Internal components
 import Link from '@/components/elements/Link';
 import PostSeriesBox from '@/components/post/postSeriesBox';
 import { Typography } from '@/components/ui';

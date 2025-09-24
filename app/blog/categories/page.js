@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-// Internal components and data
 import categories from '@/app/content/categories';
 import Pill from '@/components/elements/Pill';
 

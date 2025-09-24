@@ -11,7 +11,6 @@
 
 /* eslint-disable no-shadow */
 
-// Internal components
 import SocialIcon from '@/components/elements/Icon';
 import Link from '@/components/elements/Link';
 

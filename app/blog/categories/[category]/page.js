@@ -9,10 +9,8 @@
  * @version 1.0.0
  */
 
-// External libraries
 import { allPosts } from 'contentlayer/generated';
 
-// Internal components and utilities
 import categories from '@/app/content/categories';
 import ListLayout from '@/layouts/ListLayout';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';

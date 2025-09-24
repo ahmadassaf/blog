@@ -10,12 +10,10 @@
 
 'use client';
 
-// External imports
 import { GoRepoForked, GoStar } from 'react-icons/go';
 import { allProjects } from 'contentlayer/generated';
 import Link from 'next/link';
 
-// Internal imports
 import { cn } from '@/components/utils/TailwindUtils';
 import GithubColors from '@/data/meta/githubMetaColors';
 

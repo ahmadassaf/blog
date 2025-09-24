@@ -9,10 +9,8 @@
  * @version 1.0.0
  */
 
-// External libraries
 import { allPosts } from 'contentlayer/generated';
 
-// Internal components and utilities
 import { MDXComponents, MDXLayoutRenderer } from '@/components/mdx';
 import CitationPopover from '@/components/mdx/CitationPopover';
 import FootnotePopover from '@/components/mdx/FootnotePopover';

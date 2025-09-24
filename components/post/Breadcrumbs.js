@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-// External libraries
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/20/solid';
 
 /**

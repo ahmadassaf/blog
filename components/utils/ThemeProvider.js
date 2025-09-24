@@ -11,7 +11,6 @@
 
 'use client';
 
-// External libraries
 import { useEffect } from 'react';
 import { setCookie } from 'cookies-next';
 import { ThemeProvider, useTheme } from 'next-themes';

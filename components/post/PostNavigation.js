@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-// Internal components
 import Link from '@/components/elements/Link';
 
 /**

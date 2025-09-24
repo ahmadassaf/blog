@@ -58,7 +58,7 @@ const PostSeriesBox = ({ series, slug }) => {
       {/* Header - Always Visible */}
       <button
         onClick={ () => setIsExpanded(!isExpanded) }
-        className='w-full p-3 sm:p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200'
+        className='w-full p-3 sm:p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 cursor-pointer'
         aria-expanded={ isExpanded }
         aria-controls='series-content'
       >

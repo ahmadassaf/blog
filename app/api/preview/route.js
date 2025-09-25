@@ -283,7 +283,7 @@ export async function GET(request) {
     // Check cache
     const cachedPreview = await cache.get(cacheKey);
 
-    if (cachedPreview) return NextResponse.json(JSON.stringify(cachedPreview), { 'status': 200 });
+    if (cachedPreview) return NextResponse.json(cachedPreview, { 'status': 200 });
 
     // Special handling for Wikipedia
     if (urlObj.hostname.includes('wikipedia.org')) {
@@ -293,7 +293,7 @@ export async function GET(request) {
         wikiData.status = 200;
         await cache.set(cacheKey, wikiData);
 
-        return NextResponse.json(JSON.stringify(wikiData), { 'status': 200 });
+        return NextResponse.json(wikiData, { 'status': 200 });
       }
     }
 
@@ -327,7 +327,7 @@ export async function GET(request) {
       // Cache the error result to prevent repeated failed requests
       await cache.set(cacheKey, errorData);
 
-      return NextResponse.json(JSON.stringify(errorData), { 'status': 200 });
+      return NextResponse.json(errorData, { 'status': 200 });
     }
 
     const html = await response.text();
@@ -338,7 +338,7 @@ export async function GET(request) {
     // Cache the result
     await cache.set(cacheKey, data);
 
-    return NextResponse.json(JSON.stringify(data), { 'status': 200 });
+    return NextResponse.json(data, { 'status': 200 });
 
   } catch (error) {
     console.error('Preview API error:', error);
@@ -371,6 +371,6 @@ export async function GET(request) {
     }
 
     // Always return 200 with error data for consistent client-side handling
-    return NextResponse.json(JSON.stringify(errorData), { 'status': 200 });
+    return NextResponse.json(errorData, { 'status': 200 });
   }
 }

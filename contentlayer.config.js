@@ -1,5 +1,6 @@
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
-import path from 'path';
+
+// Import path from 'path';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeGroup from 'rehype-code-group-next';
 import rehypeKatex from 'rehype-katex';
@@ -16,11 +17,12 @@ import projectFields  from './lib/contentLayer/projectFields';
 import structuredData from './lib/contentLayer/structuredData';
 import { remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx, remarkLinks } from './lib/mdx/index.js';
 import remarkFootnoteData from './lib/mdx/remark-footnote-data.js';
-import rehypeSimpleCitations from './lib/rehype-simple-citations.js';
+
+// Import rehypeSimpleCitations from './lib/rehype-simple-citations.js';
 import rehypeFootnotePopoverV2 from './lib/rehype-footnote-popover-v2.js';
 import rehypeInternalLinks from './lib/rehype-internal-links.js';
 
-const root = process.cwd();
+// Const root = process.cwd();
 
 export const Project = defineDocumentType(() => {
   return {
@@ -74,7 +76,8 @@ export default makeSource({
       rehypeAutolinkHeadings,
       rehypeKatex,
       rehypeCodeGroup,
-      [ rehypeSimpleCitations, { 'citationsPaths': [path.join(root, 'data', 'meta', 'bibliography', 'references.bib'), path.join(root, 'data', 'meta', 'bibliography', 'kg.bib')], 'showBibliography': true }],
+
+      // [ rehypeSimpleCitations, { 'citationsPaths': [path.join(root, 'data', 'meta', 'bibliography', 'references.bib'), path.join(root, 'data', 'meta', 'bibliography', 'kg.bib')], 'showBibliography': true }],
       rehypeFootnotePopoverV2,
       rehypeInternalLinks,
       [ rehypePrettyCode, { 'theme': 'aurora-x' }]

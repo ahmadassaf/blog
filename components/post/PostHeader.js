@@ -53,7 +53,7 @@ import { Typography } from '@/components/ui';
  * />
  */
 const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
-  <div className={ `pt-6 w-full max-xl:w-full pb-5 ${(toc.length > 3 && frontMatter.tableOfContents) ? 'xl:w-[60%]' : 'w-full'}` }>
+  <div className={ `pt-6 w-full max-xl:w-full pb-5 w-full'}` }>
 
     <div className='flex items-center gap-3 mb-2 flex-wrap'>
       <Link

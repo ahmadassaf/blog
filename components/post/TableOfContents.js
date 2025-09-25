@@ -134,8 +134,8 @@ const TableOfContents = ({ toc }) => {
   const expandAll = level1HeadingsCount <= 4;
 
   return (
-    <div className='p-4 sticky top-20 text-gray-800 col-span-3 max-xl:hidden mt-[-250px] max-h-[750px] overflow-y-scroll'>
-      <div>{renderToc(toc, false, expandAll)}</div>
+    <div className='p-4 sticky top-20 text-gray-800 col-span-3 max-xl:hidden max-h-[calc(100vh-5rem)] overflow-y-auto'>
+      {renderToc(toc, false, expandAll)}
     </div>
   );
 };

@@ -136,7 +136,7 @@ export default function Categories() {
               {/* Category Header */}
               <div className='mb-2 flex items-center justify-between'>
                 <div className='flex items-center gap-3'>
-                  <h2 className='text-2xl font-bold text-gray-900 dark:text-gray-100 capitalize'>
+                  <h2 className='text-2xl font-bold text-gray-900 dark:text-gray-100'>
                     {category.title.replace('-', ' ')}
                   </h2>
                   <span className='inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/20 dark:text-blue-400 mt-1'>

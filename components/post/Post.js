@@ -38,7 +38,7 @@ const Post = ({ frontMatter }) => (
                 <span className='text-gray-300 dark:text-gray-600'>·</span>
                 <Link
                   href={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` }
-                  className='font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 capitalize text-xs cursor-pointer transition-colors duration-200'
+                  className='font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 capitalize text-xs transition-colors duration-200'
                 >
                   {frontMatter.category}
                 </Link>

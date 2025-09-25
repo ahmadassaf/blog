@@ -46,22 +46,22 @@ const AuroraBackground = ({
       <div className='aurora absolute inset-0 overflow-hidden dark:hidden'>
         <div
           className={ cn(`
-                bg-gradient-to-br from-blue-200/90 via-blue-100/80 to-sky-100/70
+                bg-gradient-to-br from-blue-200/90 via-blue-100/80 to-transparent
                 pointer-events-none
-                absolute inset-0`, showRadialGradient &&
-                    `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`) }
+                absolute inset-0
+                [mask-image:radial-gradient(ellipse_at_100%_0%,black_20%,transparent_35%)]`) }
         ></div>
         <div
           className='bg-gradient-to-tl from-transparent via-purple-200/30 to-transparent
                 pointer-events-none
                 absolute inset-0
-                [mask-image:radial-gradient(ellipse_at_70%_40%,black_10%,transparent_50%)]'
+                [mask-image:radial-gradient(ellipse_at_95%_5%,black_10%,transparent_30%)]'
         ></div>
         <div
           className='bg-gradient-to-br from-transparent via-indigo-200/20 to-transparent
                 pointer-events-none
                 absolute inset-0
-                [mask-image:radial-gradient(ellipse_at_30%_70%,black_10%,transparent_40%)]'
+                [mask-image:radial-gradient(ellipse_at_90%_10%,black_10%,transparent_25%)]'
         ></div>
       </div>
       {children}

@@ -164,7 +164,7 @@ export default function Tags() {
             <button
               key={ tag.id }
               onClick={ () => loadTagPosts(tag) }
-              className='group inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm transition-all hover:border-gray-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600 cursor-pointer'
+              className='group inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm hover:border-gray-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600 cursor-pointer'
             >
               <span className='font-medium text-gray-900 dark:text-gray-100'>
                 {tag.display}

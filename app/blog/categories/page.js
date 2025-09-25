@@ -136,7 +136,7 @@ export default function Categories() {
                     <Link
                       key={ post.slug }
                       href={ `/blog/${post.slug}` }
-                      className='group block rounded-lg border border-gray-200 bg-white p-4 transition-colors hover:border-gray-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600'
+                      className='group block rounded-lg border border-gray-200 bg-white p-4 hover:border-gray-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600'
                     >
                       <article>
                         <h3 className='mb-2 text-base font-bold text-gray-900 group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400 line-clamp-2 leading-snug transition-colors'>

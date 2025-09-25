@@ -10,11 +10,14 @@
 
 'use client';
 
+import { useState } from 'react';
 import { allPosts } from 'contentlayer/generated';
 import { ChevronRight,
   FileText,
   Flame,
-  FolderOpen } from 'lucide-react';
+  FolderOpen,
+  Grid3X3,
+  List } from 'lucide-react';
 import Link from 'next/link';
 
 import categories from '@/app/content/categories';
@@ -24,6 +27,7 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  * Clean categories page with Lucide icons
  */
 export default function Categories() {
+  const [ viewMode, setViewMode ] = useState('cards'); // 'cards' or 'list'
 
   // Sort categories by count
   const sortedCategories = [ ...categories ].sort((a, b) => b.count - a.count);
@@ -100,19 +104,42 @@ export default function Categories() {
               </div>
             </div>
           </div>
+
+          {/* View Mode Toggle */}
+          <div className='mb-8 flex justify-end'>
+            <div className='inline-flex rounded-lg border border-gray-200 dark:border-gray-700'>
+              <button
+                onClick={ () => setViewMode('cards') }
+                className={ `flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-l-lg ${viewMode === 'cards' ? 'bg-blue-600 text-white dark:bg-blue-500' : 'bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800'}` }
+              >
+                <Grid3X3 className='h-4 w-4' />
+                Cards
+              </button>
+              <button
+                onClick={ () => setViewMode('list') }
+                className={ `flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-r-lg border-l border-gray-200 dark:border-gray-700 ${viewMode === 'list' ? 'bg-blue-600 text-white dark:bg-blue-500' : 'bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800'}` }
+              >
+                <List className='h-4 w-4' />
+                List
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Categories with Posts */}
         <div className='space-y-12'>
-          {categoriesWithPosts.map((category) => (
+          {categoriesWithPosts.map((category, index) => (
             <div key={ category.id } className=''>
+              {index > 0 && viewMode === 'list' && (
+                <div className='border-t border-gray-100 dark:border-gray-800 mb-12' />
+              )}
               {/* Category Header */}
-              <div className='mb-6 flex items-center justify-between'>
+              <div className='mb-2 flex items-center justify-between'>
                 <div className='flex items-center gap-3'>
                   <h2 className='text-2xl font-bold text-gray-900 dark:text-gray-100 capitalize'>
                     {category.title.replace('-', ' ')}
                   </h2>
-                  <span className='inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/20 dark:text-blue-400'>
+                  <span className='inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/20 dark:text-blue-400 mt-1'>
                     {category.count} {category.count === 1 ? 'article' : 'articles'}
                   </span>
                 </div>
@@ -130,7 +157,12 @@ export default function Categories() {
               </p>
 
               {/* Sample Posts */}
-              {category.samplePosts.length > 0 ? (
+              {category.samplePosts.length === 0 && (
+                <div className='py-8 text-center'>
+                  <p className='text-sm text-gray-400'>No articles in this category yet</p>
+                </div>
+              )}
+              {category.samplePosts.length > 0 && viewMode === 'cards' && (
                 <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
                   {category.samplePosts.map((post) => (
                     <Link
@@ -139,7 +171,7 @@ export default function Categories() {
                       className='group block rounded-lg border border-gray-200 bg-white p-4 hover:border-gray-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600'
                     >
                       <article>
-                        <h3 className='mb-2 text-base font-bold text-gray-900 group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400 line-clamp-2 leading-snug transition-colors'>
+                        <h3 className='mb-2 text-base font-bold text-gray-900 group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400 line-clamp-2 leading-snug'>
                           {post.title}
                         </h3>
                         <p className='mb-3 text-sm text-gray-600 dark:text-gray-400 line-clamp-3 leading-relaxed'>
@@ -153,7 +185,7 @@ export default function Categories() {
                               'year': 'numeric'
                             })}
                           </time>
-                          <div className='flex items-center gap-1 text-gray-400 group-hover:text-blue-500 transition-colors'>
+                          <div className='flex items-center gap-1 text-gray-400 group-hover:text-blue-500'>
                             <span className='text-xs'>Read</span>
                             <ChevronRight className='h-3 w-3' />
                           </div>
@@ -162,9 +194,34 @@ export default function Categories() {
                     </Link>
                   ))}
                 </div>
-              ) : (
-                <div className='py-8 text-center'>
-                  <p className='text-sm text-gray-400'>No articles in this category yet</p>
+              )}
+              {category.samplePosts.length > 0 && viewMode === 'list' && (
+                <div className='space-y-2'>
+                  {category.samplePosts.map((post) => (
+                    <Link
+                      key={ post.slug }
+                      href={ `/blog/${post.slug}` }
+                      className='group block py-3'
+                    >
+                      <article>
+                        <time className='text-xs text-gray-500 dark:text-gray-500 font-medium mb-1 block'>
+                          {new Date(post.date).toLocaleDateString('en-US', {
+                            'day': 'numeric',
+                            'month': 'short',
+                            'year': 'numeric'
+                          })}
+                        </time>
+                        <h3 className='mb-1 text-lg font-bold text-gray-900 group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400 leading-snug'>
+                          {post.title}
+                        </h3>
+                        {post.subtitle && (
+                          <p className='text-sm text-gray-600 dark:text-gray-400 leading-relaxed'>
+                            {post.subtitle}
+                          </p>
+                        )}
+                      </article>
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>

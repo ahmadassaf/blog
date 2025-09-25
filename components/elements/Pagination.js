@@ -44,7 +44,7 @@ const Pagination = ({ totalPages, currentPage, baseURL, paginationURL }) => {
   const nextPage = parseInt(currentPage) + 1 <= parseInt(totalPages);
 
   return (
-    <nav className='flex items-center justify-between pt-8 mt-8'>
+    <nav className='flex items-center justify-between pt-2 mt-8'>
       {/* Previous Button */}
       <div className='flex w-0 flex-1'>
         {prevPage ? (

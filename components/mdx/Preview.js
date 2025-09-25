@@ -17,8 +17,6 @@ import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 
-import ImageFallback from '@/components/elements/ImageFallback';
-
 /**
  * Advanced cache implementation with size limits and TTL
  */
@@ -86,9 +84,6 @@ const performanceMonitor = {
     if (!this.startTime) return null;
 
     const duration = performance.now() - this.startTime;
-
-    // Log metrics (replace with your analytics service)
-    if (process.env.NODE_ENV === 'development') console.log(`Preview fetch for ${url}: ${duration.toFixed(2)}ms (${success ? 'success' : 'error'})`);
 
     this.startTime = null;
 
@@ -198,12 +193,19 @@ function usePreviewData(url, customTitle, options = {}) {
     // Check cache first
     const cached = previewCache.get(url);
 
-    if (cached) {
-      setData(customTitle ? { ...cached, 'title': customTitle } : cached);
-      setLoading(false);
+    if (cached)
 
-      return;
-    }
+      // Skip using cached errors after a short time to allow retries
+      if (cached.error && Date.now() - (cached._cachedAt || 0) > 60000) {
+
+        // Clear error after 1 minute
+        previewCache.cache.delete(url);
+      } else {
+        setData(customTitle ? { ...cached, 'title': customTitle } : cached);
+        setLoading(false);
+
+        return;
+      }
 
     // Check if request is already pending (deduplication)
     if (pendingRequests.has(url)) try {
@@ -245,7 +247,6 @@ function usePreviewData(url, customTitle, options = {}) {
 
         // Check if response is ok first
         if (!response.ok) {
-          console.log(`Preview API returned status ${response.status} for ${url}`);
 
           // Try to parse error response
           let errorMessage = `HTTP ${response.status}`;
@@ -269,12 +270,10 @@ function usePreviewData(url, customTitle, options = {}) {
         }
 
         // Parse successful response
-        const rawData = await response.json();
-        const parsedData = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
+        const parsedData = await response.json();
 
-        // Check if parsed data contains an error
-        if (parsedData.error) {
-          console.log(`Preview API returned error for ${url}:`, parsedData.error);
+        // Check if data contains an error
+        if (parsedData.error)
 
           return {
             'error': true,
@@ -282,7 +281,6 @@ function usePreviewData(url, customTitle, options = {}) {
             'status': parsedData.status || 404,
             'title': customTitle || new URL(url).hostname
           };
-        }
 
         // Store successful data in cache
         previewCache.set(url, parsedData);
@@ -320,7 +318,6 @@ function usePreviewData(url, customTitle, options = {}) {
       setData(customTitle ? { ...result, 'title': customTitle } : result);
       setError(null);
     } catch (err) {
-      console.log('Preview fetch error:', err.message);
 
       // Create fallback data for errors
       let fallbackTitle = customTitle || url;
@@ -333,6 +330,7 @@ function usePreviewData(url, customTitle, options = {}) {
       }
 
       const errorData = {
+        '_cachedAt': Date.now(),
         'error': true,
         'errorMessage': err.message,
         'status': err.status || 404,
@@ -459,7 +457,7 @@ const Preview = memo(function Preview({
 
   // Default back to true to show hover previews
   showImage = true,
-  lazy = false,
+  lazy = true, // Enable lazy loading by default
   timeout = 10000,
   onLoad,
   onError,
@@ -479,12 +477,7 @@ const Preview = memo(function Preview({
   const observerRef = useRef(null);
   const elementRef = useRef(null);
 
-  // Debug: Log props on mount (development only)
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development')
-      console.log('Preview component mounted with URL:', url, 'Title:', title);
-
-  }, []);
+  // Component mount tracking (removed debug logs)
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -496,7 +489,10 @@ const Preview = memo(function Preview({
           setIsInView(true);
           observer.disconnect();
         }
-      }, { 'rootMargin': '50px', 'threshold': 0.1 }
+      }, {
+        'rootMargin': '100px', // Start loading 100px before element enters viewport
+        'threshold': 0.01 // Trigger as soon as 1% is visible
+      }
     );
 
     if (elementRef.current) observer.observe(elementRef.current);
@@ -512,11 +508,6 @@ const Preview = memo(function Preview({
   const { data, loading, error } = usePreviewData(
     isInView ? url : null, title, { timeout }
   );
-
-  // Debug logging (development only)
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development' && data) console.log('Preview data for', url, ':', data);
-  }, [ data, url ]);
 
   // Handle callbacks
   useEffect(() => {
@@ -561,18 +552,25 @@ const Preview = memo(function Preview({
     }
   }, [ data?.siteName, url ]);
 
-  // Lazy loading placeholder
+  // Lazy loading placeholder - show link immediately, fetch data in background
   if (!isInView && lazy) return (
-    <span ref={ elementRef } className={ `inline-flex items-center ${className}` }>
-      <LinkIcon className='h-4 w-4 m-0 mr-1 text-gray-400' />
-      <span className='text-gray-500'>{title || 'Loading...'}</span>
+    <span ref={ elementRef } className={ `inline-flex items-center align-top ${className}` }>
+      <LinkIcon className='h-4 w-4 m-0 mr-1 text-blue-500 inline-block align-text-top' />
+      <a
+        href={ url }
+        className='text-blue-600 hover:text-blue-800 transition-colors'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        {title || url}
+      </a>
     </span>
   );
 
   // Loading state with skeleton
   if (loading) return (
-    <span className={ `inline-flex items-center ${className}` }>
-      <span className='inline-block h-4 w-4 mr-1 bg-gray-200 rounded animate-pulse' />
+    <span className={ `inline-flex items-center align-top ${className}` }>
+      <span className='inline-block h-4 w-4 mr-1 bg-gray-200 rounded animate-pulse align-text-top' />
       <span className='inline-block h-4 w-32 bg-gray-200 rounded animate-pulse' />
     </span>
   );
@@ -582,8 +580,8 @@ const Preview = memo(function Preview({
 
   // Error state - still show the link with error styling
   if (data?.error) return (
-    <span className={ `inline-flex items-center align-middle ${className}` }>
-      <LinkSlashIcon className='h-4 w-4 m-0 mr-1 text-red-500' />
+    <span className={ `inline-flex items-center align-top ${className}` }>
+      <LinkSlashIcon className='h-4 w-4 m-0 mr-1 text-red-500 inline-block align-text-top' />
       <a
         href={ url }
         className='text-red-600 hover:text-red-800 transition-colors'
@@ -598,8 +596,8 @@ const Preview = memo(function Preview({
 
   // If no data yet (shouldn't happen but just in case)
   if (!data) return (
-    <span className={ `inline-flex items-center ${className}` }>
-      <LinkIcon className='h-4 w-4 m-0 mr-1 text-gray-400' />
+    <span className={ `inline-flex items-center align-top ${className}` }>
+      <LinkIcon className='h-4 w-4 m-0 mr-1 text-gray-400 inline-block align-text-top' />
       <a
         href={ url }
         className='text-blue-600 hover:text-blue-800 transition-colors'
@@ -615,17 +613,25 @@ const Preview = memo(function Preview({
   const linkContent = (
     <>
       {normalizedFavicon ? (
-        <ImageFallback
-          className='h-4 w-4 !m-0 !mr-1 flex-shrink-0'
-          fallback='/static/icons/link.svg'
+        <img
+          className='h-4 w-4 !m-0 !mr-1 flex-shrink-0 inline-block align-text-top'
           src={ normalizedFavicon }
           width={ 16 }
           height={ 16 }
           alt=''
           role='presentation'
+          onError={ (event) => {
+            event.target.style.display = 'none';
+
+            // Show link icon on error
+            const linkIcon = document.createElement('span');
+
+            linkIcon.innerHTML = '<svg class="h-4 w-4 m-0 mr-1 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>';
+            event.target.parentNode.insertBefore(linkIcon.firstChild, event.target);
+          } }
         />
       ) : (
-        <LinkIcon className='h-4 w-4 m-0 mr-1 text-blue-500' />
+        <LinkIcon className='h-4 w-4 m-0 mr-1 text-blue-500 inline-block align-text-top' />
       )}
       <a
         className='text-blue-600 hover:text-blue-800 transition-colors'
@@ -658,7 +664,7 @@ const Preview = memo(function Preview({
   // If we shouldn't show hover card, return simple link
   if (!shouldShowHoverCard) return (
     <span
-      className={ `inline-flex items-center ${className}` }
+      className={ `inline-flex items-center align-top ${className}` }
       data-preview-url={ url }
     >
       {linkContent}
@@ -682,7 +688,7 @@ const Preview = memo(function Preview({
     >
       <HoverCardPrimitive.Trigger asChild>
         <span
-          className={ `inline-flex items-center ${className}` }
+          className={ `inline-flex items-center align-top ${className}` }
           data-preview-url={ url }
         >
           {linkContent}
@@ -774,13 +780,15 @@ const Preview = memo(function Preview({
                   <div className='p-4'>
                     <div className='flex items-start gap-2'>
                       {normalizedFavicon && (
-                        <ImageFallback
+                        <img
                           className='h-4 w-4 mt-0.5 flex-shrink-0'
-                          fallback='/static/icons/link.svg'
                           src={ normalizedFavicon }
                           width={ 16 }
                           height={ 16 }
                           alt=''
+                          onError={ (event) => {
+                            event.target.style.display = 'none';
+                          } }
                         />
                       )}
                       <div className='flex-1 min-w-0'>
@@ -841,6 +849,13 @@ if (typeof window !== 'undefined') {
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') cleanupCache();
   });
+
+  // Expose cache clear function for debugging
+  window.clearPreviewCache = () => {
+    previewCache.clear();
+    pendingRequests.clear();
+    console.log('Preview cache cleared');
+  };
 }
 
 export default Preview;

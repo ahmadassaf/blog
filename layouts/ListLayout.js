@@ -95,7 +95,7 @@ export default function ListLayout({ posts, filter = true }) {
         </ul>
 
         {totalPages > 1 && !searchValue && (
-          <nav className='flex items-center justify-between pt-8 mt-8'>
+          <nav className='flex items-center justify-between pt-8'>
             {/* Previous Button */}
             <div className='flex w-0 flex-1'>
               {prevPage ? (

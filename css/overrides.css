@@ -304,6 +304,32 @@ a {
     text-decoration: none !important;
 }
 
+/* Restore pointer cursor for all interactive elements */
+/* Tailwind v3+ Preflight doesn't add cursor: pointer by default */
+a,
+button,
+[type='button'],
+[type='reset'],
+[type='submit'],
+[role="button"],
+.cursor-pointer,
+input[type="checkbox"],
+input[type="radio"],
+select,
+textarea,
+details > summary:first-of-type {
+    cursor: pointer;
+}
+
+/* Higher specificity for links to ensure cursor works */
+a[href],
+button:not([disabled]),
+input[type="submit"]:not([disabled]),
+input[type="button"]:not([disabled]),
+[role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+}
+
 /**
  * Dark mode aurora gradient
  * Creates a fade-to-dark effect for decorative backgrounds

@@ -30,17 +30,17 @@ import Link from 'next/link';
  * <CustomLink href="#section">Anchor Link</CustomLink>
  * <CustomLink href="https://example.com">External Link</CustomLink>
  */
-const CustomLink = ({ href, ...rest }) => {
+const CustomLink = ({ href, className = '', ...rest }) => {
   const isInternalLink = href && href.startsWith('/');
   const isAnchorLink = href && href.startsWith('#');
 
   if (isInternalLink) return (
-    <Link href={ href } prefetch={ true } { ...rest }/>
+    <Link href={ href } prefetch={ true } className={ className } { ...rest }/>
   );
 
-  if (isAnchorLink) return <a href={ href } { ...rest } />;
+  if (isAnchorLink) return <a href={ href } className={ className } { ...rest } />;
 
-  return <a className='no-underline' target='_blank' rel='noopener noreferrer' href={ href } { ...rest } />;
+  return <a className={ `no-underline ${className}`.trim() } target='_blank' rel='noopener noreferrer' href={ href } { ...rest } />;
 };
 
 export default CustomLink;

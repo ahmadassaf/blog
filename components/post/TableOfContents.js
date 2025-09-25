@@ -116,7 +116,7 @@ const TableOfContents = ({ toc }) => {
             className={ `flex flex-col py-[7px] dark:text-white ${isActive && 'text-blue-600!'} ${heading.depth === 1 && 'font-bold!'} ${heading.depth === 2 && 'ml-3!'} ${heading.depth > 2 ? 'font-light text-gray-500 ml-5!' : 'font-medium text-gray-600'}` }
           >
             <a
-              className='flex text-[15px]'
+              className='flex text-[15px] hover:text-blue-600 dark:hover:text-blue-400 transition-colors'
               href={ heading.url }
               onClick={ () => setActiveSlug(heading.id) }
             >

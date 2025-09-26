@@ -87,13 +87,10 @@ const FloatingMenu = ({ className }) => {
     window.scrollTo({ 'behavior': 'smooth', 'top': 0 });
   };
 
-  if (!mounted)
-    return null;
-
   return (
     <div
       className={ cn(
-        'flex min-w-[414px] max-sm:py-2 max-sm:w-[90%] max-w-fit fixed top-4 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] rounded-full dark:bg-white bg-black text-white dark:text-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-5000 pr-2 pl-8 py-2 items-center justify-center max-sm:ml-1! space-x-4 transition-all duration-200', visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none', className
+        'flex min-w-[414px] max-sm:py-2 max-sm:w-[90%] max-w-fit fixed top-4 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] rounded-full dark:bg-white bg-black text-white dark:text-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-5000 pr-2 pl-8 py-2 items-center justify-center max-sm:ml-1! space-x-4 transition-all duration-200', mounted && visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none', className
       ) }
     >
       {NavigationMetadata.links.map((navItem, idx) => (

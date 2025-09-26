@@ -443,7 +443,6 @@ const getPlatformIcon = (url, type, hasFavicon) => {
  * @param {string} [props.title] - Optional custom title to override fetched title
  * @param {string} [props.className] - Additional CSS classes for styling
  * @param {boolean} [props.showImage] - Show image preview on hover (default: true)
- * @param {boolean} [props.lazy] - Enable lazy loading (default: false)
  * @param {number} [props.timeout] - Request timeout in milliseconds (default: 10000)
  * @param {Function} [props.onLoad] - Callback when preview loads successfully
  * @param {Function} [props.onError] - Callback when preview fails to load
@@ -457,7 +456,6 @@ const Preview = memo(function Preview({
 
   // Default back to true to show hover previews
   showImage = true,
-  lazy = true, // Enable lazy loading by default
   timeout = 10000,
   onLoad,
   onError,
@@ -470,44 +468,12 @@ const Preview = memo(function Preview({
 
     return <span className='text-gray-500'>No URL provided</span>;
   }
-  const [ isInView, setIsInView ] = useState(!lazy);
   const [ isHoverCardOpen, setIsHoverCardOpen ] = useState(false);
   const [ imageLoaded, setImageLoaded ] = useState(false);
   const [ imageError, setImageError ] = useState(false);
-  const observerRef = useRef(null);
-  const elementRef = useRef(null);
 
-  // Component mount tracking (removed debug logs)
-
-  // Intersection Observer for lazy loading
-  useEffect(() => {
-    if (!lazy || isInView) return;
-
-    const observer = new IntersectionObserver(
-      ([ entry ]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
-      }, {
-        'rootMargin': '100px', // Start loading 100px before element enters viewport
-        'threshold': 0.01 // Trigger as soon as 1% is visible
-      }
-    );
-
-    if (elementRef.current) observer.observe(elementRef.current);
-
-    observerRef.current = observer;
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [ lazy, isInView ]);
-
-  // Fetch data only when in view
-  const { data, loading, error } = usePreviewData(
-    isInView ? url : null, title, { timeout }
-  );
+  // Always fetch data immediately (no lazy loading)
+  const { data, loading, error } = usePreviewData(url, title, { timeout });
 
   // Handle callbacks
   useEffect(() => {
@@ -528,7 +494,17 @@ const Preview = memo(function Preview({
   }, [ url, data, showImage ]);
 
   // Normalize favicon URL
-  const normalizedFavicon = useMemo(() => normalizeFaviconURL(data?.favicon), [ data?.favicon ]);
+  const normalizedFavicon = useMemo(() => {
+    const favicon = normalizeFaviconURL(data?.favicon);
+
+    // Don't show favicon if it's a Google favicon service URL that might fail
+    if (favicon && favicon.includes('google.com/s2/favicons'))
+
+      // Use the favicon directly without normalization since it's already a full URL
+      return favicon;
+
+    return favicon;
+  }, [ data?.favicon ]);
 
   // Format title
   const formattedTitle = useMemo(() => {
@@ -552,25 +528,12 @@ const Preview = memo(function Preview({
     }
   }, [ data?.siteName, url ]);
 
-  // Lazy loading placeholder - show link immediately, fetch data in background
-  if (!isInView && lazy) return (
-    <span ref={ elementRef } className={ `inline-flex items-center align-top ${className}` }>
-      <LinkIcon className='h-4 w-4 m-0 mr-1 text-blue-500 inline-block align-text-top' />
-      <a
-        href={ url }
-        className='text-blue-600 hover:text-blue-800 transition-colors'
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        {title || url}
-      </a>
-    </span>
-  );
+  // Removed lazy loading placeholder - always load immediately
 
   // Loading state with skeleton
   if (loading) return (
-    <span className={ `inline-flex items-center align-top ${className}` }>
-      <span className='inline-block h-4 w-4 mr-1 bg-gray-200 rounded animate-pulse align-text-top' />
+    <span className={ `inline-flex items-start ${className}` }>
+      <span className='inline-block h-4 w-4 mr-1 bg-gray-200 rounded animate-pulse flex-shrink-0' />
       <span className='inline-block h-4 w-32 bg-gray-200 rounded animate-pulse' />
     </span>
   );
@@ -621,13 +584,20 @@ const Preview = memo(function Preview({
           alt=''
           role='presentation'
           onError={ (event) => {
+
+            // Hide the broken image
             event.target.style.display = 'none';
 
-            // Show link icon on error
-            const linkIcon = document.createElement('span');
+            // Find or create the fallback icon
+            const nextSibling = event.target.nextElementSibling;
 
-            linkIcon.innerHTML = '<svg class="h-4 w-4 m-0 mr-1 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>';
-            event.target.parentNode.insertBefore(linkIcon.firstChild, event.target);
+            if (!nextSibling || !nextSibling.classList.contains('fallback-icon')) {
+              const linkIcon = document.createElement('span');
+
+              linkIcon.className = 'fallback-icon';
+              linkIcon.innerHTML = '<svg class="h-4 w-4 m-0 mr-1 text-blue-500 inline-block align-text-top" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>';
+              event.target.parentNode.insertBefore(linkIcon, event.target.nextSibling);
+            }
           } }
         />
       ) : (

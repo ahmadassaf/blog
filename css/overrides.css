@@ -321,6 +321,11 @@ details > summary:first-of-type {
     cursor: pointer;
 }
 
+/* Remove top margin from References title */
+h2.references-title {
+    margin-top: 0 !important;
+}
+
 /* Higher specificity for links to ensure cursor works */
 a[href],
 button:not([disabled]),

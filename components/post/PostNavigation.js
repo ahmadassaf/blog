@@ -43,21 +43,21 @@ const PostNavigation = ({ next, prev }) => (
     {(next || prev) && (
       <div className='flex justify-between max-sm:flex-col py-4'>
         {prev && (
-          <div className='max-sm:py-2'>
+          <div className='max-sm:py-2 group'>
             <h2 className='text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
               Previous Article
             </h2>
-            <div className='text-primary-500 hover:text-primary-600 dark:hover:text-primary-400'>
+            <div className='text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
               <Link href={ `/blog/${prev.slug}` }>{prev.title}</Link>
             </div>
           </div>
         )}
         {next && (
-          <div className='max-sm:py-2'>
+          <div className='max-sm:py-2 group'>
             <h2 className='text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
               Next Article
             </h2>
-            <div className='text-primary-500 hover:text-primary-600 dark:hover:text-primary-400'>
+            <div className='text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
               <Link href={ `/blog/${next.slug}` }>{next.title}</Link>
             </div>
           </div>

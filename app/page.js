@@ -58,14 +58,50 @@ export default function Home() {
         </div>
         <FeaturedPostsLayout />
         <div className='pb-8'>
-          <ListLayout posts={ displayPosts.slice(0, 6) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
-          <div className='flex justify-end pt-4'>
-            <Button variant='link-primary-md' href='/blog' aria-label='View all blog posts'>
-              View All Posts
-              <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
-              </svg>
-            </Button>
+          <ListLayout posts={ displayPosts.slice(0, 5) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
+          <div className='flex items-center justify-between py-3 border-b border-gray-100 dark:border-[#303030]'>
+            <div className='flex-1'>
+              {displayPosts[5] && (
+                <article className='group'>
+                  <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-4'>
+                    <div className='flex-1 min-w-0'>
+                      <div className='flex items-center gap-2 mb-1 text-sm'>
+                        <time
+                          dateTime={ displayPosts[5].date }
+                          className='font-medium text-gray-500 dark:text-gray-400'
+                        >
+                          {new Date(displayPosts[5].date).toLocaleDateString(siteMetadata.locale, { 'day': 'numeric', 'month': 'long', 'year': 'numeric' })}
+                        </time>
+                        {displayPosts[5].category && (
+                          <>
+                            <span className='text-gray-300 dark:text-gray-600'>·</span>
+                            <Link
+                              href={ `/blog/categories/${displayPosts[5].category.replace(' ', '-').toLowerCase()}` }
+                              className='font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 capitalize text-xs transition-colors duration-200'
+                            >
+                              {displayPosts[5].category}
+                            </Link>
+                          </>
+                        )}
+                      </div>
+                      <h3 className='text-lg md:text-xl font-semibold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400'>
+                        <Link href={ `/blog/${displayPosts[5].slug}` } className='decoration-2 hover:underline underline-offset-2'>
+                          {displayPosts[5].title}
+                        </Link>
+                      </h3>
+                    </div>
+                  </div>
+                </article>
+              )}
+            </div>
+            <div className='flex-shrink-0 ml-4'>
+              <Button variant='link-primary-md' href='/blog' aria-label='View all blog posts'>
+                View All Posts
+                <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
+                </svg>
+              </Button>
+            </div>
           </div>
         </div>
         <ThoughtsSection thoughts={ displayThoughts } />

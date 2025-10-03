@@ -66,7 +66,6 @@ function ThoughtsCmd({ setPage, search, thoughts }) {
                   title={ title }
                   subtitle={ summary }
                   type={ type }
-                  icon='LightBulbIcon'
                 />
               </CommandPalette.ListItem>
             ))}

@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import { allPosts } from 'contentlayer/generated';
+import { allPosts, allThoughts } from 'contentlayer/generated';
 
 import LauncherShortcut from '@/components/cmd/CmdLauncherShortcut';
 import Link from '@/components/elements/Link';
@@ -35,6 +35,7 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  */
 export default function Home() {
   const displayPosts = coreContent(sortPosts(allPosts)).filter((post) => !post.featured);
+  const displayThoughts = coreContent(sortPosts(allThoughts)).slice(0, 4);
 
   return (
     <>
@@ -59,6 +60,15 @@ export default function Home() {
         <div className='flex justify-end pt-8'>
           <Button variant='link-primary-md' href='/blog' aria-label='View all blog posts'>
             View All Posts
+            <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
+            </svg>
+          </Button>
+        </div>
+        <ListLayout posts={ displayThoughts } linkAllPosts={ true } listTitle='Recent Thoughts' filter={ false }/>
+        <div className='flex justify-end pt-8'>
+          <Button variant='link-primary-md' href='/thoughts' aria-label='View all thoughts'>
+            View All Thoughts
             <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
               <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
             </svg>

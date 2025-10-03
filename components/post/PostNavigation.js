@@ -25,6 +25,7 @@ import Link from '@/components/elements/Link';
  * @param {Object|null} props.prev - Previous blog post object
  * @param {string} props.prev.slug - URL slug for the previous post
  * @param {string} props.prev.title - Title of the previous post
+ * @param {string} [props.type='Post'] - Content type (Post or Thought)
  *
  * @returns {JSX.Element} Post navigation links with responsive layout
  *
@@ -38,33 +39,39 @@ import Link from '@/components/elements/Link';
  * // Usage with only one adjacent post
  * <PostNavigation next={null} prev={prevPost} />
  */
-const PostNavigation = ({ next, prev }) => (
-  <div className='divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700'>
-    {(next || prev) && (
-      <div className='flex justify-between max-sm:flex-col py-4'>
-        {prev && (
-          <div className='max-sm:py-2 group'>
-            <h2 className='text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
-              Previous Article
-            </h2>
-            <div className='text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
-              <Link href={ `/blog/${prev.slug}` }>{prev.title}</Link>
+const PostNavigation = ({ next, prev, type = 'Post' }) => {
+  const isThought = type === 'Thought';
+  const baseUrl = isThought ? '/thoughts' : '/blog';
+  const label = isThought ? 'Thought' : 'Article';
+
+  return (
+    <div className='divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700'>
+      {(next || prev) && (
+        <div className='flex justify-between max-sm:flex-col py-4'>
+          {prev && (
+            <div className='max-sm:py-2 group'>
+              <h2 className='text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
+                Previous {label}
+              </h2>
+              <div className='text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
+                <Link href={ `${baseUrl}/${prev.slug}` }>{prev.title}</Link>
+              </div>
             </div>
-          </div>
-        )}
-        {next && (
-          <div className='max-sm:py-2 group'>
-            <h2 className='text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
-              Next Article
-            </h2>
-            <div className='text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
-              <Link href={ `/blog/${next.slug}` }>{next.title}</Link>
+          )}
+          {next && (
+            <div className='max-sm:py-2 group'>
+              <h2 className='text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
+                Next {label}
+              </h2>
+              <div className='text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
+                <Link href={ `${baseUrl}/${next.slug}` }>{next.title}</Link>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-    )}
-  </div>
-);
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default PostNavigation;

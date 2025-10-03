@@ -60,7 +60,7 @@ export default function PostLayout({ content, next, prev, toc, children }) {
             </div>
             { (toc.length > 3 && content.tableOfContents) && <TableOfContents toc={ toc } />}
           </div>
-          <PostNavigation next={ next } prev={ prev }></PostNavigation>
+          <PostNavigation next={ next } prev={ prev } type={ content.type }></PostNavigation>
           { content.comments && (<PostComments/>)}
         </div>
       </article>

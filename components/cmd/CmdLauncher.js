@@ -61,6 +61,7 @@ const CommandLauncher = ({ projects, posts, thoughts, publications, tags, open, 
   const [ search, setSearch ] = useState('');
   const [ showType ] = useState(false);
   const [ selected, setSelected ] = useState(0);
+  const [ isKeyboardMode, setIsKeyboardMode ] = useState(true);
   const { theme, setTheme, resolvedTheme } = useTheme();
 
   // Prepare collections for launcher
@@ -96,6 +97,33 @@ const CommandLauncher = ({ projects, posts, thoughts, publications, tags, open, 
 
     return () => document.removeEventListener('keydown', down);
   }, [ open, setOpen ]);
+
+  // Handle keyboard vs mouse mode
+  React.useEffect(() => {
+    if (!open) return;
+
+    const handleKeyDown = (event) => {
+
+      // Arrow keys, Enter, Escape indicate keyboard mode
+      if ([ 'ArrowDown', 'ArrowUp', 'Enter', 'Escape' ].includes(event.key))
+        setIsKeyboardMode(true);
+
+    };
+
+    const handleMouseMove = () => {
+
+      // Only switch to mouse mode on actual movement
+      setIsKeyboardMode(false);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [ open ]);
 
   const filteredItems = filterItems(
     [
@@ -238,6 +266,16 @@ const CommandLauncher = ({ projects, posts, thoughts, publications, tags, open, 
 
   return (
     <div className={ resolvedTheme === 'dark' ? 'dark' : '' }>
+      <style>
+        {isKeyboardMode && `
+          [cmdk-item] {
+            pointer-events: none;
+          }
+          [cmdk-item][aria-selected="true"] {
+            pointer-events: auto;
+          }
+        `}
+      </style>
       <CommandPalette
         onChangeSelected={ setSelected }
         onChangeSearch={ setSearch }

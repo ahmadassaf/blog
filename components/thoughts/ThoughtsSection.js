@@ -41,7 +41,7 @@ export default function ThoughtsSection({ thoughts }) {
       </div>
 
       {/* Thoughts List */}
-      <div className='space-y-6'>
+      <div className='space-y-6 pb-4'>
         {thoughts.map((thought) => (
           <article key={ thought.slug } className='group'>
             <Link
@@ -84,7 +84,7 @@ export default function ThoughtsSection({ thoughts }) {
       </div>
 
       {/* View All Link */}
-      <div className='flex justify-end pt-6'>
+      <div className='flex justify-end'>
         <Button variant='link-primary-md' href='/thoughts' aria-label='View all thoughts'>
           View All Thoughts
           <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>

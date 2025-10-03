@@ -11,7 +11,7 @@
 
 import CommandPalette, { filterItems, getItemIndex } from '@tmikeladze/react-cmdk';
 
-import CmdPost from '@/components/cmd/types/CmdPost';
+import CmdItem from '@/components/cmd/CmdItem';
 
 import '@tmikeladze/react-cmdk/dist/cmdk.css';
 
@@ -56,13 +56,18 @@ function ThoughtsCmd({ setPage, search, thoughts }) {
       {thoughtsItems.length ? (
         thoughtsItems.map((list) => (
           <CommandPalette.List key={ list.id } heading={ list.heading }>
-            {list.items.map(({ id, title, ...rest }) => (
+            {list.items.map(({ id, title, summary, type, ...rest }) => (
               <CommandPalette.ListItem
                 key={ id }
                 index={ getItemIndex(thoughtsItems, id) }
                 { ...rest }
               >
-                <CmdPost title={ title } />
+                <CmdItem
+                  title={ title }
+                  subtitle={ summary }
+                  type={ type }
+                  icon='LightBulbIcon'
+                />
               </CommandPalette.ListItem>
             ))}
           </CommandPalette.List>

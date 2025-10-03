@@ -14,6 +14,7 @@ import { allPosts, allThoughts } from 'contentlayer/generated';
 import LauncherShortcut from '@/components/cmd/CmdLauncherShortcut';
 import Link from '@/components/elements/Link';
 import { TextHighlight } from '@/components/elements/TextHighlight';
+import ThoughtsSection from '@/components/thoughts/ThoughtsSection';
 import { Button, Typography } from '@/components/ui';
 import siteMetadata from '@/data/meta/metadata';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
@@ -65,15 +66,7 @@ export default function Home() {
             </svg>
           </Button>
         </div>
-        <ListLayout posts={ displayThoughts } linkAllPosts={ true } listTitle='Recent Thoughts' filter={ false }/>
-        <div className='flex justify-end pt-8'>
-          <Button variant='link-primary-md' href='/thoughts' aria-label='View all thoughts'>
-            View All Thoughts
-            <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
-            </svg>
-          </Button>
-        </div>
+        <ThoughtsSection thoughts={ displayThoughts } />
       </div>
     </>
   );

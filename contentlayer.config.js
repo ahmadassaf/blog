@@ -64,9 +64,25 @@ export const Author = defineDocumentType(() => {
   };
 });
 
+export const Thought = defineDocumentType(() => {
+  return {
+    'computedFields': {
+      ...computedFields,
+      'structuredData': {
+        'resolve': structuredData.post,
+        'type': 'json'
+      }
+    },
+    'contentType': 'mdx',
+    'fields': contentFields.thought,
+    'filePathPattern': 'thoughts/**/*.mdx',
+    'name': 'Thought'
+  };
+});
+
 export default makeSource({
   'contentDirPath': 'data',
-  'documentTypes': [ Author, Project, Post ],
+  'documentTypes': [ Author, Project, Post, Thought ],
   'mdx': {
     'cwd': process.cwd(),
     'rehypePlugins': [

@@ -56,13 +56,15 @@ const PostHeader = ({ frontMatter, siteMetadata, toc }) => (
   <div className={ `pt-6 w-full max-xl:w-full w-full'}` }>
 
     <div className='flex items-center gap-3 mb-2 flex-wrap'>
-      <Link
-        href={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` }
-        className='flex items-center gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 w-fit cursor-pointer'
-      >
-        <div className='w-2 h-2 bg-green-500 rounded-full flex-shrink-0'></div>
-        {frontMatter.category.charAt(0).toUpperCase() + frontMatter.category.slice(1)}
-      </Link>
+      {frontMatter.category && (
+        <Link
+          href={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` }
+          className='flex items-center gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 w-fit cursor-pointer'
+        >
+          <div className='w-2 h-2 bg-green-500 rounded-full flex-shrink-0'></div>
+          {frontMatter.category.charAt(0).toUpperCase() + frontMatter.category.slice(1)}
+        </Link>
+      )}
       {frontMatter.draft && (
         <div className='flex items-center gap-1.5'>
           <div className='w-2 h-2 bg-amber-500 rounded-full flex-shrink-0'></div>

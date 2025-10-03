@@ -57,7 +57,6 @@ export default function Home() {
           <LauncherShortcut />
         </div>
         <FeaturedPostsLayout />
-        <ThoughtsSection thoughts={ displayThoughts } />
         <ListLayout posts={ displayPosts.slice(0, 6) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
         <div className='flex justify-end pt-8'>
           <Button variant='link-primary-md' href='/blog' aria-label='View all blog posts'>
@@ -67,6 +66,7 @@ export default function Home() {
             </svg>
           </Button>
         </div>
+        <ThoughtsSection thoughts={ displayThoughts } />
       </div>
     </>
   );

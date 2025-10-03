@@ -59,7 +59,7 @@ export default function Home() {
         <FeaturedPostsLayout />
         <div className='pb-8'>
           <ListLayout posts={ displayPosts.slice(0, 5) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
-          <div className='flex items-center justify-between py-3 border-b border-gray-100 dark:border-[#303030]'>
+          <div className='flex items-center justify-between py-3'>
             <div className='flex-1'>
               {displayPosts[5] && (
                 <article className='group'>

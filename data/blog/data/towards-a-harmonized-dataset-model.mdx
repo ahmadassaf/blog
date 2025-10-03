@@ -8,8 +8,7 @@ category: 'data'
 bibliography: ['meta/bibliography/references.bib']
 ---
 
-> [!NOTE]
-> This work has been [published](https://ceur-ws.org/Vol-1362/PROFILES2015_paper3.pdf) in the 2nd International Workshop on Dataset PROFIling & fEderated Search for Linked Data (PROFILES)
+<Callout type='info'>This work has been [published](https://ceur-ws.org/Vol-1362/PROFILES2015_paper3.pdf) in the 2nd International Workshop on Dataset PROFIling & fEderated Search for Linked Data (PROFILES)</Callout>
 
 # Introduction
 
@@ -112,14 +111,12 @@ Since establishing a common vocabulary or model is the key to communication, we 
 -   Examine existing datasets using these models and vocabularies. `http://dataportals.org` provides a comprehensive list of Open Data Portals from around the world. It was our entry point to find out portals using CKAN or DKAN as their underlying DMS. We also investigated portals known to be using specific DMS. Socrata, for example, maintains a list of Open Data portals using their software on their homepage such as `http://pencolorado.org` and `http://data.maryland.gov`.
 -   Examine the source code of some portals. This was specifically the case for Socrata as their API returns the raw data serialized as JSON rather than the dataset's metadata. As a consequence, we had to investigate the [Socrata Open Data API (SODA) source code](https://github.com/socrata/soda-java/tree/master/src/main/java/com/socrata/model) and check the different classes and interfaces.
 
-```
-    CKAN           DKAN           POD            DCAT                                   VoID                                      Schema.org              Socrata  
-  -------------- -------------- -------------- -------------------------------------- ----------------------------------------- ----------------------- -------------
-  resources      resources      distribution   dcat:Distribution                      void:Dataset->void:dataDump                Dataset:distribution    attachments
-  tags           tags           keyword        dcat:Dataset->:keyword                 void:Dataset->:keyword                     CreativeWork:keywords   tags
-  groups         groups         theme          dcat:Dataset->:theme                                                              CreativeWork:about      category
-  organization   organization   publisher      dcat:Dataset->:publisher               void:Dataset->:publisher                           
-```
+| CKAN           | DKAN           | POD            | DCAT                           | VoID                            | Schema.org              | Socrata        |
+|----------------|----------------|----------------|--------------------------------|---------------------------------|-------------------------|----------------|
+| `resources`    | `resources`    | `distribution` | `dcat:Distribution`            | `void:Dataset->void:dataDump`  | `Dataset:distribution`  | `attachments`  |
+| `tags`         | `tags`         | `keyword`      | `dcat:Dataset->:keyword`       | `void:Dataset->:keyword`        | `CreativeWork:keywords` | `tags`         |
+| `groups`       | `groups`       | `theme`        | `dcat:Dataset->:theme`         |                                 | `CreativeWork:about`    | `category`     |
+| `organization` | `organization` | `publisher`    | `dcat:Dataset->:publisher`     | `void:Dataset->:publisher`      |                         |                |
 
 The first task is to map the four main information sections (resources, tags, groups and organization) across those models. Table 2 in our [paper](https://ceur-ws.org/Vol-1362/PROFILES2015_paper3.pdf) shows our proposed mappings. For the ontologies (DCAT, VoID), the first part represents the class and the part after $\rightarrow$ represents the property. For Schema.org, the first part refers to the schema and the second part after $:$ refers to the property.
 

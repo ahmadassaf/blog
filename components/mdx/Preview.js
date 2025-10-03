@@ -190,6 +190,22 @@ function usePreviewData(url, customTitle, options = {}) {
       return;
     }
 
+    // Special handling for npmjs.com - don't fetch as it returns 403
+    if (url.includes('npmjs.com')) {
+      const packageMatch = url.match(/npmjs\.com\/package\/(?<packageName>[^/]+)/);
+      const packageName = packageMatch?.groups?.packageName || 'npm package';
+
+      setData({
+        'favicon': 'https://static.npmjs.com/58a19602036db1daee0d7863c94673a4.png',
+        'siteName': 'npm',
+        'title': customTitle || packageName,
+        'type': 'package'
+      });
+      setLoading(false);
+
+      return;
+    }
+
     // Check cache first
     const cached = previewCache.get(url);
 
@@ -388,14 +404,36 @@ const formatTitle = (title, url) => {
     return url;
   }
 
-  // Remove common suffixes that add noise
-  const cleanTitle = title
-    .split(' - ')[0]
-    .split(' | ')[0]
-    .split(' · ')[0]
-    .split(' :: ')[0]
-    .split(' : ')[0]
-    .trim();
+  // Special handling for GitHub titles (format: "GitHub - owner/repo: description")
+  if (title.startsWith('GitHub - ')) {
+
+    // Extract the meaningful part after "GitHub - "
+    const githubTitle = title.substring('GitHub - '.length);
+
+    // Remove description after colon, keep only repo name
+    const repoName = githubTitle.split(':')[0].trim();
+
+    return repoName;
+  }
+
+  /*
+   * For non-GitHub titles, remove common suffixes that add noise
+   * But be more selective to avoid removing important content
+   */
+  let cleanTitle = title.trim();
+
+  // Only remove site names from the end if they're generic
+  const siteSuffixes = [
+    / - MDN Web Docs$/i,
+    / \| MDN$/i,
+    / - Wikipedia$/i,
+    / - npm$/i,
+    / · GitHub$/i,
+    / - Stack Overflow$/i
+  ];
+
+  for (const suffix of siteSuffixes)
+    cleanTitle = cleanTitle.replace(suffix, '');
 
   // Truncate if too long
   const maxLength = 60;
@@ -424,6 +462,12 @@ const getPlatformIcon = (url, type, hasFavicon) => {
     if (type === 'repository' || hostname.includes('github.com')) return (
       <svg className='h-3 w-3 ml-1 text-gray-600' fill='currentColor' viewBox='0 0 20 20'>
         <path fillRule='evenodd' d='M10 0C4.477 0 0 4.477 0 10c0 4.42 2.865 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-1.02-.01-1.86-2.78.6-3.37-1.18-3.37-1.18-.45-1.15-1.1-1.46-1.1-1.46-.9-.62.07-.6.07-.6 1 .07 1.52 1.02 1.52 1.02.89 1.52 2.33 1.08 2.9.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.02-2.68-.1-.25-.44-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0110 4.8c.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.54 1.37.2 2.39.1 2.64.64.7 1.02 1.59 1.02 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.02 10.02 0 0020 10c0-5.523-4.477-10-10-10z' clipRule='evenodd' />
+      </svg>
+    );
+
+    if (type === 'package' || hostname.includes('npmjs.com')) return (
+      <svg className='h-3 w-3 ml-1 text-red-500' fill='currentColor' viewBox='0 0 20 20'>
+        <path d='M10 2.5V5h5v10H5V5h2.5V2.5h2.5zm0 5H7.5V10H10V7.5zm0 5H7.5V15H10v-2.5z' />
       </svg>
     );
 

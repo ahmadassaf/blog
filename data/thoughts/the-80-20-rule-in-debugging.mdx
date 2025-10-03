@@ -1,0 +1,32 @@
+---
+title: 'The 80/20 Rule in Debugging'
+date: '2025-02-25'
+tags: ['debugging', 'programming']
+draft: false
+---
+
+80% of bugs can be found by:
+1. Reading the error message carefully
+2. Checking the most recent changes
+3. Using `console.log` (or equivalent) at strategic points
+
+The other 20% take 80% of your debugging time.
+
+## The Last 20%
+
+These are the bugs that:
+- Only happen in production
+- Depend on timing or race conditions
+- Are caused by assumptions you didn't know you made
+- Stem from external dependencies
+
+For these, you need different tools: proper logging, monitoring, reproduction steps, and sometimes just patience.
+
+## A Debugging Strategy
+
+Before diving deep:
+1. Can you reproduce it reliably?
+2. What changed recently?
+3. What are you assuming?
+
+Question 3 is the most important. Your assumptions are usually where the bug is hiding.

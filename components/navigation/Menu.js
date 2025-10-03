@@ -92,7 +92,7 @@ const Menu = () => {
 
                   return (
                     <li key={ link.href }>
-                      <Link href={ link.href } className='p-1 font-medium sm:p-4 text-gray-900 dark:text-gray-100 hover:text-blue-600'>
+                      <Link href={ link.href } className='p-1 font-medium sm:p-4 text-gray-900 dark:text-gray-100 hover:text-blue-600 whitespace-nowrap'>
                         {link.title}
                       </Link>
                     </li>

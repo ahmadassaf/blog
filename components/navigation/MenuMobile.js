@@ -86,7 +86,7 @@ const MenuMobile = ({ categories, links, setMobileMenuOpen, setLauncherOpen }) =
             </div>
 
             {links.slice(1, links.length).map((link) => (
-              <a key={ link.href } href={ link.href } className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-blue-50 dark:text-white dark:hover:text-gray-900'>{link.title}</a>
+              <a key={ link.href } href={ link.href } className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-blue-50 dark:text-white dark:hover:text-gray-900 whitespace-nowrap'>{link.title}</a>
             ))}
 
           </div>

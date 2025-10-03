@@ -16,6 +16,7 @@ import { ArrowRightOnRectangleIcon,
   FingerPrintIcon,
   HomeIcon,
   IdentificationIcon,
+  LightBulbIcon,
   NewspaperIcon,
   RectangleGroupIcon,
   RectangleStackIcon,
@@ -28,6 +29,7 @@ const iconMap = {
   FingerPrintIcon,
   HomeIcon,
   IdentificationIcon,
+  LightBulbIcon,
   NewspaperIcon,
   RectangleGroupIcon,
   RectangleStackIcon,
@@ -60,6 +62,11 @@ const itemConfigs = {
     'badgeColor': 'bg-blue-600 text-white hover:bg-blue-700',
     'iconColor': 'text-blue-600 dark:text-blue-400',
     'showCount': true
+  },
+  'thought': {
+    'badgeColor': 'bg-purple-600 text-white hover:bg-purple-700',
+    'iconColor': 'text-purple-600 dark:text-purple-400',
+    'showSubtitle': true
   }
 };
 

@@ -68,14 +68,15 @@ export default function ThoughtsSection({ thoughts }) {
 
             {/* Tags */}
             {thought.tags && thought.tags.length > 0 && (
-              <div className='flex flex-wrap gap-1.5'>
+              <div className='flex flex-wrap gap-2'>
                 {thought.tags.slice(0, 2).map((tag) => (
-                  <span
+                  <a
                     key={ tag }
-                    className='inline-flex items-center rounded-md bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300'
+                    href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` }
+                    className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer'
                   >
                     {tag}
-                  </span>
+                  </a>
                 ))}
               </div>
             )}

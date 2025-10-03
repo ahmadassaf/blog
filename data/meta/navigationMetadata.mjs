@@ -23,6 +23,11 @@ const NavigationMetadata = {
       'title': 'Projects'
     },
     {
+      'href': '/thoughts',
+      'showInPath': '*',
+      'title': 'Thoughts'
+    },
+    {
       'hideInPath': '/about',
       'href': '/about',
       'showInPath': '*',

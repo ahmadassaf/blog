@@ -13,11 +13,6 @@ const NavigationMetadata = {
       'title': 'Blog'
     },
     {
-      'hideInPath': '/blog',
-      'href': '/about',
-      'title': 'About'
-    },
-    {
       'href': '/blog/publications',
       'showInPath': '*',
       'title': 'Publications'
@@ -26,6 +21,11 @@ const NavigationMetadata = {
       'href': '/blog/projects',
       'showInPath': '*',
       'title': 'Projects'
+    },
+    {
+      'href': '/about',
+      'showInPath': '*',
+      'title': 'About Me'
     },
     {
       'hideInPath': '*',

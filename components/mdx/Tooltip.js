@@ -1,36 +1,49 @@
 /**
  * Tooltip Component
  *
- * @description Interactive tooltip component that displays additional information on hover.
- * Features a small icon indicator and smooth scaling animation with customizable tooltip text.
- * Used within MDX content to provide contextual information without cluttering the main text.
+ * @description Simple tooltip component that displays additional information on hover.
+ * Features a small icon indicator with text appearing above it on hover.
  *
  * @author Ahmad Assaf
- * @version 1.0.0
+ * @version 2.0.0
  */
 
-import { EllipsisHorizontalCircleIcon } from '@heroicons/react/20/solid';
+'use client';
+
+import { InformationCircleIcon } from '@heroicons/react/20/solid';
 
 /**
  * Renders an interactive tooltip with hover effects
  *
  * @param {Object} props - Component props
+ * @param {string} props.message - The tooltip text to display on hover (alias for text)
  * @param {string} props.text - The tooltip text to display on hover
  * @param {React.ReactNode} props.children - The content that triggers the tooltip
  * @returns {JSX.Element} A span element with tooltip functionality
  *
  * @example
  * // In MDX content:
- * <Tooltip text="This provides additional context">
+ * <Tooltip message="This provides additional context">
  *   Hover over this text
  * </Tooltip>
  */
-export default function Tooltip({ text, children }) {
+export default function Tooltip({ message, text, children }) {
+
+  // Support both message and text props for flexibility
+  const tooltipText = message || text || '';
+
   return (
-    <span className='group relative inline-flex! hover:text-blue-700 cursor-context-menu'>
+    <span className='inline-flex items-baseline'>
       {children}
-      <EllipsisHorizontalCircleIcon className='h-3 w-3 text-gray-700 group-hover:text-blue-700'/>
-      <span className='absolute top-8 scale-0 text-center w-[400px] transition-all rounded-sm bg-gray-800 group-hover:bg-blue-700 p-2 text-xs text-white group-hover:scale-100'>{text}</span>
+      <span className='group relative inline-block'>
+        <InformationCircleIcon
+          className='h-3.5 w-3.5 ml-0.5 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-help transition-colors align-baseline'
+        />
+        {/* Simple tooltip above icon */}
+        <span className='absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 text-xs text-white bg-gray-900 dark:bg-gray-700 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[200px] max-w-[500px] whitespace-normal text-center pointer-events-none'>
+          {tooltipText}
+        </span>
+      </span>
     </span>
   );
 }

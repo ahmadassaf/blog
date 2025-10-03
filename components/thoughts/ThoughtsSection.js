@@ -24,7 +24,7 @@ import formatDate from '@/lib/utils/formatDate';
  */
 export default function ThoughtsSection({ thoughts }) {
   return (
-    <div className='pt-16 pb-8'>
+    <div className='py-8'>
       {/* Section Header */}
       <div className='mb-8 flex items-center gap-3'>
         <LightBulbIcon className='h-6 w-6 text-blue-600 dark:text-blue-400' />
@@ -85,7 +85,7 @@ export default function ThoughtsSection({ thoughts }) {
       </div>
 
       {/* View All Link */}
-      <div className='mt-6 flex justify-center'>
+      <div className='flex justify-end pt-4'>
         <Button variant='link-primary-md' href='/thoughts' aria-label='View all thoughts'>
           View All Thoughts
           <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>

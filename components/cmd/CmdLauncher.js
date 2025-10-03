@@ -20,6 +20,7 @@ import { omit } from '@/lib/utils/contentlayer';
 // Dynamically import heavy components to reduce initial bundle size
 const CmdFooter = dynamic(() => import('@/components/cmd/CmdLauncherFooter'));
 const PostsCmd = dynamic(() => import('@/components/cmd/CmdLauncherPosts'));
+const ThoughtsCmd = dynamic(() => import('@/components/cmd/CmdLauncherThoughts'));
 const PublicationsCmd = dynamic(() => import('@/components/cmd/CmdLauncherPublications'));
 const SearchCmd = dynamic(() => import('@/components/cmd/CmdLauncherSearch'));
 const SocialCmd = dynamic(() => import('@/components/cmd/CmdLauncherSocial'));
@@ -55,7 +56,7 @@ import '@tmikeladze/react-cmdk/dist/cmdk.css';
  *   setOpen={setIsOpen}
  * />
  */
-const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen }) => {
+const CommandLauncher = ({ projects, posts, thoughts, publications, tags, open, setOpen }) => {
   const [ page, setPage ] = useState('root');
   const [ search, setSearch ] = useState('');
   const [ showType ] = useState(false);
@@ -67,7 +68,7 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
     collection.forEach((item, key) => {
       if (type !== 'publication') {
         item.id = item.slug;
-        item.href = `/blog/${item.slug}`;
+        item.href = type === 'thought' ? `/thoughts/${item.slug}` : `/blog/${item.slug}`;
       }
       item.type = type;
       item.showType = false;
@@ -79,6 +80,7 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
 
   prepareLauncherCollection(posts, 'post');
   prepareLauncherCollection(projects, 'project');
+  prepareLauncherCollection(thoughts, 'thought');
   prepareLauncherCollection(publications, 'publication');
 
   React.useEffect(() => {
@@ -130,6 +132,16 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
             'id': 'posts_list',
             'onClick': () => {
               setPage('posts');
+              setSearch('');
+            }
+          },
+          {
+            'children': 'Thoughts',
+            'closeOnSelect': false,
+            'cmdIcon': 'LightBulbIcon',
+            'id': 'thoughts',
+            'onClick': () => {
+              setPage('thoughts');
               setSearch('');
             }
           },
@@ -201,6 +213,13 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
         'options': { 'filterOnListHeading': true }
       },
       {
+        'heading': 'Thoughts',
+        'hidden': true,
+        'id': 'thoughts_fullTextSearch',
+        'items': thoughts,
+        'options': { 'filterOnListHeading': true }
+      },
+      {
         'heading': 'Publications',
         'hidden': true,
         'id': 'publications_fullTextSearch',
@@ -255,11 +274,12 @@ const CommandLauncher = ({ projects, posts, publications, tags, open, setOpen })
                 </div>
               </div>
             ))
-          ) : (<SearchCmd search={ search } content={ [ ...posts, ...projects ] } />)}
+          ) : (<SearchCmd search={ search } content={ [ ...posts, ...projects, ...thoughts ] } />)}
         </CommandPalette.Page>
 
         <ProjectsCmd setPage={ setPage } search={ search } setSearch={ setSearch } projects= { projects } />
         <PostsCmd setPage={ setPage } search={ search } setSearch={ setSearch } posts= { posts } />
+        <ThoughtsCmd setPage={ setPage } search={ search } setSearch={ setSearch } thoughts= { thoughts } />
         <TagsCmd setPage={ setPage } search={ search } setSearch={ setSearch } tags= { tags } />
         <SocialCmd setPage={ setPage } search={ search } setSearch={ setSearch } />
         <PublicationsCmd setPage={ setPage } search={ search } setSearch={ setSearch } publications= { publications } />

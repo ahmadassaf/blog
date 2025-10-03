@@ -12,7 +12,7 @@
 'use client';
 
 import { React, useMemo, useState } from 'react';
-import { allPosts, allProjects } from 'contentlayer/generated';
+import { allPosts, allProjects, allThoughts } from 'contentlayer/generated';
 import { usePathname } from 'next/navigation';
 
 import categories from '@/app/content/categories';
@@ -53,6 +53,7 @@ const Menu = () => {
   }, []);
 
   const projects = useMemo(() => coreContent(sortPosts(allProjects)), []);
+  const thoughts = useMemo(() => coreContent(sortPosts(allThoughts)), []);
 
   const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);
   const [ LauncherOpen, LauncherSetOpen ] = useState(false);
@@ -116,6 +117,7 @@ const Menu = () => {
         tags={ tags }
         projects={ projects }
         posts={ posts }
+        thoughts={ thoughts }
         publications={ publications }
         open={ LauncherOpen }
         setOpen={ LauncherSetOpen }

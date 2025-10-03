@@ -62,9 +62,16 @@ export default function ThoughtsSection({ thoughts }) {
             </div>
 
             {/* Thought Title */}
-            <h3 className='text-base font-semibold leading-snug text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
+            <h3 className='mb-2 text-base font-semibold leading-snug text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
               {thought.title}
             </h3>
+
+            {/* Summary */}
+            {thought.summary && (
+              <p className='text-sm text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-2'>
+                {thought.summary}
+              </p>
+            )}
           </Link>
         ))}
       </div>

@@ -85,7 +85,7 @@ export default function ThoughtsSection({ thoughts }) {
 
       {/* Last Thought with View All Button */}
       {thoughts.length > 0 && (
-        <div className='flex items-start justify-between gap-4 pt-6'>
+        <div className='flex flex-col md:flex-row md:items-start md:justify-between gap-4 pt-6'>
           <article className='group flex-1'>
             <Link
               href={ `/thoughts/${thoughts[thoughts.length - 1].slug}` }
@@ -125,7 +125,7 @@ export default function ThoughtsSection({ thoughts }) {
           </article>
 
           {/* View All Button */}
-          <div className='flex-shrink-0 pt-1'>
+          <div className='flex justify-end md:flex-shrink-0 md:pt-1'>
             <Button variant='link-primary-md' href='/thoughts' aria-label='View all thoughts'>
               View All Thoughts
               <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>

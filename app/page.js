@@ -59,7 +59,7 @@ export default function Home() {
         <FeaturedPostsLayout />
         <div className='pb-8'>
           <ListLayout posts={ displayPosts.slice(0, 5) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
-          <div className='flex items-center justify-between py-3'>
+          <div className='flex flex-col md:flex-row md:items-center md:justify-between py-3 gap-4'>
             <div className='flex-1'>
               {displayPosts[5] && (
                 <article className='group'>
@@ -94,7 +94,7 @@ export default function Home() {
                 </article>
               )}
             </div>
-            <div className='flex-shrink-0 ml-4'>
+            <div className='flex justify-end md:flex-shrink-0'>
               <Button variant='link-primary-md' href='/blog' aria-label='View all blog posts'>
                 View All Posts
                 <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>

@@ -57,14 +57,16 @@ export default function Home() {
           <LauncherShortcut />
         </div>
         <FeaturedPostsLayout />
-        <ListLayout posts={ displayPosts.slice(0, 6) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
-        <div className='flex justify-end pt-8'>
-          <Button variant='link-primary-md' href='/blog' aria-label='View all blog posts'>
-            View All Posts
-            <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
-            </svg>
-          </Button>
+        <div className='pb-8'>
+          <ListLayout posts={ displayPosts.slice(0, 6) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
+          <div className='flex justify-end pt-4'>
+            <Button variant='link-primary-md' href='/blog' aria-label='View all blog posts'>
+              View All Posts
+              <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
+              </svg>
+            </Button>
+          </div>
         </div>
         <ThoughtsSection thoughts={ displayThoughts } />
       </div>

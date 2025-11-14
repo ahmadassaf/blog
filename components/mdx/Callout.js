@@ -41,14 +41,14 @@ const Callout = ({ type = 'info', children }) => {
   switch (type) {
   case 'warning':
     calloutStyles = {
-      'background': 'bg-yellow-50 dark:bg-yellow-950/30',
+      'background': 'bg-gradient-to-br from-white to-yellow-50 dark:from-gray-900 dark:to-yellow-950/30',
       'border': 'border-yellow-200 dark:border-yellow-800',
       'text': 'text-yellow-800 dark:text-yellow-200'
     };
     break;
   case 'error':
     calloutStyles = {
-      'background': 'bg-red-50 dark:bg-red-950/30',
+      'background': 'bg-gradient-to-br from-white to-red-50 dark:from-gray-900 dark:to-red-950/30',
       'border': 'border-red-200 dark:border-red-800',
       'text': 'text-red-800 dark:text-red-200'
     };
@@ -56,7 +56,7 @@ const Callout = ({ type = 'info', children }) => {
   case 'info':
   default:
     calloutStyles = {
-      'background': 'bg-blue-50 dark:bg-blue-950/30',
+      'background': 'bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-blue-950/30',
       'border': 'border-blue-200 dark:border-blue-800',
       'text': 'text-blue-800 dark:text-blue-200'
     };

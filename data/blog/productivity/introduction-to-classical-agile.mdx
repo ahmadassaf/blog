@@ -1,0 +1,396 @@
+---
+type: 'Post'
+title: 'Introduction to Classical Agile: Scrum and Kanban'
+tags: ['Agile', 'Scrum', 'Kanban', 'Project Management', 'Methodology']
+summary: 'A comprehensive introduction to classical Agile methodologies, exploring the fundamentals of Scrum and Kanban, their key concepts, and how they help teams deliver value faster.'
+subtitle: 'Understanding the foundational frameworks of Agile software development'
+featured: false
+date: '2025-11-14'
+category: 'productivity'
+---
+
+# What is Agile?
+
+Agile represents an iterative methodology for managing projects and developing software that enables teams to deliver customer value more rapidly and efficiently. Rather than committing to a single, massive release, agile teams break down their work into smaller, digestible pieces that can be delivered incrementally. This approach involves continuous evaluation of requirements, plans, and outcomes, creating a natural framework for adapting to change.
+
+Unlike traditional methodologies, Agile doesn't prescribe specific rituals or development practices. Instead, it encompasses various approaches united by their focus on rapid feedback loops and ongoing refinement.
+
+Organizations adopt agile methodologies to maintain flexibility in response to market shifts and customer input without abandoning long-term strategic planning. By planning pragmatically and releasing functionality in short cycles, teams can gather insights on each delivery and incorporate learnings into subsequent iterations with minimal overhead.
+
+However, the true essence of Agile extends beyond mere productivity metrics—it fundamentally prioritizes people. The [Agile Manifesto](https://agilemanifesto.org/) emphasizes that genuine human connections matter more than rigid procedures, that working alongside customers and colleagues surpasses formal contracts, and that delivering functional solutions outweighs exhaustive documentation.
+
+Successful agile teams rally around a collective vision and determine their own path to realization. They establish their quality benchmarks, usability criteria, and completion standards. This "definition of done" becomes the compass guiding their delivery pace. While initially daunting, organizational leaders consistently observe that empowered agile teams develop stronger ownership and frequently surpass initial expectations.
+
+# Scrum
+
+## Agile vs. scrum
+
+A common misconception conflates Scrum with Agile, largely because Scrum emphasizes continuous improvement—a fundamental Agile tenet. The distinction lies in their nature: Agile is a philosophical approach to work, while Scrum provides a concrete framework for execution. Agile thinking revolves around iterative enhancement through frequent, incremental releases. Adopting an agile mindset isn't instantaneous—it requires team-wide commitment to reimagining how value reaches customers. Scrum serves as one practical vehicle for cultivating this mindset and embedding agile principles into daily practices.
+
+Though Scrum provides structure, it maintains adaptability. Organizations can customize its implementation to suit their unique contexts. Various perspectives exist on optimal Scrum team operations, yet **transparent communication, openness, and commitment to ongoing improvement** must anchor any chosen approach. The remaining details remain flexible.
+
+The [Agile Manifesto](https://agilemanifesto.org/) and Scrum Guide articulate the distinction between these concepts. The Manifesto establishes four core values:
+
+- Individuals and interactions over processes and tools
+- Working software over comprehensive documentation
+- Customer collaboration over contract negotiation
+- Responding to change over following a plan
+
+Scrum's foundation rests on empiricism and lean principles. Empirical thinking posits that knowledge emerges from experience and observation-based decisions. Lean principles emphasize eliminating waste and concentrating on essentials. As a heuristic framework, Scrum promotes continuous learning and adaptation to evolving circumstances. It recognizes teams' initial knowledge gaps and accommodates growth through experience. Scrum's architecture facilitates organic adaptation to shifting requirements and conditions through integrated reprioritization and compact release cycles that enable constant learning and refinement.
+
+## The scrum team
+
+Scrum teams are compact, agile units focused on delivering product increments. Typically comprising around 10 members—sufficient to tackle substantial sprint workloads—these teams require three distinct roles: product owner, scrum master, and development team. The cross-functional nature of development teams means they encompass not just developers, but also testers, designers, UX specialists, and operations engineers.
+
+![Scrum Sprint Cycle](https://wac-cdn.atlassian.com/dam/jcr:709d95de-f4d4-4faf-aa9f-4bead10e888b/sprint_cycle-c.png?cdnVersion=822)
+
+### The scrum product owner
+
+Product owners serve as product advocates, bridging business needs, customer demands, and market dynamics to prioritize engineering efforts. Successful product owners:
+
+- Curate and maintain the product backlog
+- Collaborate closely with stakeholders and team members to clarify backlog items
+- Provide explicit direction on feature priorities
+- Make release decisions, typically favoring frequent deployments
+
+It's worth noting that product owners and product managers aren't necessarily the same role. Product owners concentrate on maximizing the value development teams deliver to the organization. Crucially, this role should be filled by a single individual—teams struggle when receiving conflicting direction from multiple product owners.
+
+### The scrum master
+
+Scrum masters champion the Scrum methodology within their teams, coaching members, product owners, and stakeholders on the process while continuously seeking optimization opportunities.
+
+Effective scrum masters possess deep insight into team workflows and can enhance both transparency and delivery efficiency. As primary facilitators, they coordinate the human and logistical resources required for sprint planning, daily standups, sprint reviews, and retrospectives.
+
+### The scrum development team
+
+Development teams are the execution engine of Scrum. They champion sustainable development practices and deliver results. High-performing scrum teams are cohesive units, typically comprising five to seven members—following Jeff Bezos's "two pizza rule" from Amazon, suggesting teams should be small enough to share two pizzas.
+
+Team members bring diverse skills and engage in cross-training to prevent individual bottlenecks. Strong scrum teams exhibit self-organization and collective ownership, approaching challenges with a unified mindset where everyone supports sprint success.
+
+The development team owns sprint planning, forecasting work capacity based on historical velocity. Maintaining consistent sprint durations provides valuable feedback on estimation accuracy and delivery processes, progressively improving forecast precision over time.
+
+## Scrum artifacts
+
+Scrum artifacts represent critical information assets that help teams define their product and required work. Three primary artifacts exist in Scrum: the product backlog, sprint backlog, and increment (with its "definition of done"). Teams should regularly reflect on these artifacts throughout and between sprints.
+
+<Callout type='info'>
+**Sprint**: A sprint represents a time-boxed work period during which a scrum team completes a defined scope of work. Sprints form the heartbeat of Scrum and agile methodologies—mastering sprint execution enables teams to deliver superior software more smoothly.
+</Callout>
+
+- **Product Backlog** serves as the master work inventory maintained by the product owner or manager. This living document catalogs features, requirements, enhancements, and fixes that feed into sprint backlogs—essentially the team's prioritized to-do list. The Product Owner continuously refines, reprioritizes, and maintains this backlog as new learning emerges and market conditions shift, rendering some items obsolete or revealing alternative solutions.
+
+- **Sprint Backlog** comprises the specific items, user stories, or bug fixes the development team commits to implementing during the current sprint. During sprint planning sessions (explored later), teams select backlog items for the upcoming sprint. While the sprint backlog can flex and evolve mid-sprint, the core sprint goal—the team's intended achievement—remains sacrosanct.
+
+- **Increment** (or Sprint Goal) represents the functional output from a sprint. Teams typically showcase this increment during end-of-sprint demonstrations, revealing completed work. The terminology varies across teams—you might hear "done," "milestone," "sprint goal," or "shipped epic" depending on how teams define completion and sprint objectives. Some teams release to customers after every sprint, making their "done" definition synonymous with "deployed." Other teams, particularly those working on quarterly-release server products, may work in 2-week sprints where "done" means completing a portion of a larger release. However, extended release cycles increase the risk of market misalignment.
+
+## Scrum ceremonies or events
+
+The Scrum framework prescribes regular practices, ceremonies, and meetings that structure team collaboration. Team implementations of these ceremonies vary widely—some perceive them as burdensome overhead, while others find them essential touchpoints. A practical approach: implement all ceremonies for two sprints initially, then retrospect to identify necessary adjustments.
+
+Key Scrum ceremonies include:
+
+1. **Organize the backlog**: Sometimes known as backlog grooming, this event is the responsibility of the product owner. The product owner's main jobs are to drive the product towards its product vision and have a constant pulse on the market and the customer. Therefore, he/she maintains this list using feedback from users and the development team to help prioritize and keep the list clean and ready to be worked on at any given time.
+
+2. **Sprint planning**: The work to be performed (scope) during the current sprint is planned during this meeting by the entire development team. This meeting is led by the scrum master and is where the team decides on the sprint goal. Specific user stories are then added to the sprint from the product backlog. These stories always align with the goal and are also agreed upon by the scrum team to be feasible to implement during the sprint. At the end of the planning meeting, every scrum member needs to be clear on what can be delivered in the sprint and how the increment can be delivered.
+
+3. **Sprint**: A sprint is the actual time period when the scrum team works together to finish an increment. Two weeks is a pretty typical length for a sprint, though some teams find a week to be easier to scope or a month to be easier to deliver a valuable increment. Dave West, from Scrum.org advises that the more complex the work and the more unknowns, the shorter the sprint should be. But it's really up to your team, and you shouldn't be afraid to change it if it's not working! During this period, the scope can be re-negotiated between the product owner and the development team if necessary. This forms the crux of the empirical nature of scrum. All the events — from planning to retrospective — happen during the sprint. Once a certain time interval for a sprint is established, it has to remain consistent throughout the development period. This helps the team learn from past experiences and apply that insight to future sprints.
+
+4. **Daily scrum or stand up**: This is a daily super-short meeting that happens at the same time (usually mornings) and place to keep it simple. Many teams try to complete the meeting in 15 minutes, but that's just a guideline. This meeting is also called a 'daily stand-up' emphasizing that it needs to be a quick one. The goal of the daily scrum is for everyone on the team to be on the same page, aligned with the sprint goal, and to get a plan out for the next 24 hours. The stand up is the time to voice any concerns you have with meeting the sprint goal or any blockers. A common way to conduct a stand up is for every team member to answers three questions in the context of achieving the sprint goal: What did I do yesterday? What do I plan to do today? Are there any obstacles? However, we've seen the meeting quickly turn into people reading from their calendars from yesterday and for the next day. The theory behind the stand up is that it keep distracting chatter to a daily meeting, so the team can focus on the work for the rest of the day. So if it turns into a daily calendar read-out, don't be afraid to change it up and get creative.
+
+5. **Sprint review**: At the end of the sprint, the team gets together for an informal session to view a demo of, or inspect, the increment. The development team showcases the backlog items that are now 'Done' to stakeholders and teammates for feedback. The product owner can decide whether or not to release the increment, although in most cases the increment is released. This review meeting is also when the product owner reworks the product backlog based on the current sprint, which can feed into the next sprint planning session. For a one-month sprint, consider time-boxing your sprint review to a maximum of four hours.
+
+6. **Sprint retrospective**: The retrospective is where the team comes together to document and discuss what worked and what didn't work in a sprint, a project, people or relationships, tools, or even for certain ceremonies. The idea is to create a place where the team can focus on what went well and what needs to be improved for the next time, and less about what went wrong.
+
+## Scrum values
+
+### Commitment
+
+Because scrum teams are small and agile, each team member plays a significant role in the team's success. Therefore, each team member should agree to commit to performing tasks they can complete and not overcommit. There should be frequent communication regarding work progress, often in stand-ups.
+
+### Courage
+
+Courage for a scrum team is simply the bravery to question the status quo or anything that hampers its ability to succeed. Scrum team members should have the courage, and feel safe enough, to try new things. A scrum team should have the courage and feel safe to be transparent about roadblocks, project progress, delays, and so on.
+
+### Focus
+
+At the heart of the workflow for scrum teams is the sprint, a focused and specified period of time where the team completes a set amount of work. The sprint provides structure but also focus to complete the planned amount of work.
+
+### Openness
+
+The daily stand-up fosters an openness that allows teams to talk openly about work in progress and blockers. Usually the scrum teams address these questions:
+
+- What did I work on yesterday?
+- What am I working on today?
+- What issues are blocking me?
+
+This helps to highlight progress and identify blockers. It also helps to strengthen the team when everyone shares progress.
+
+### Respect
+
+The strength of an agile team lies in its collaboration and recognizing that each team member contributes to work in a sprint. They celebrate each other's accomplishments and are respectful to one another, the product owner, stakeholders, and the scrum master.
+
+# Kanban
+
+Kanban is enormously prominent among today's agile and DevOps software teams, but the kanban methodology of work dates back more than 50 years. In the late 1940s Toyota began optimizing its engineering processes based on the same model that supermarkets were using to stock their shelves. Supermarkets stock just enough product to meet consumer demand, a practice that optimizes the flow between the supermarket and the consumer. Because inventory levels match consumption patterns, the supermarket gains significant efficiency in inventory management by decreasing the amount of excess stock it must hold at any given time. Meanwhile, the supermarket can still ensure that the given product a consumer needs is always in stock.
+
+When Toyota applied this same system to its factory floors, the goal was to better align their massive inventory levels with the actual consumption of materials. To communicate capacity levels in real-time on the factory floor (and to suppliers), workers would pass a card, or "kanban", between teams. When a bin of materials being used on the production line was emptied, a kanban was passed to the warehouse describing what material was needed, the exact amount of this material, and so on. The warehouse would have a new bin of this material waiting, which they would then send to the factory floor, and in turn send their own kanban to the supplier. The supplier would also have a bin of this particular material waiting, which it would ship to the warehouse. While the signaling technology of this process has evolved since the 1940s, this same "just in time" (or JIT) manufacturing process is still at the heart of it.
+
+Agile software development teams today are able to leverage these same JIT principles by matching the amount of work in progress (WIP) to the team's capacity. This gives teams more flexible planning options, faster output, clearer focus, and transparency throughout the development cycle.
+
+While the core principles of the framework are timeless and applicable to almost any industry, software development teams have found particular success with the agile practice. In part, this is because software teams can begin practicing with little to no overhead once they understand the basic principles. Unlike implementing kanban on a factory floor, which would involve changes to physical processes and the addition of substantial materials, the only physical things software teams need are a board and cards, and even those can be virtual.
+
+## Kanban boards
+
+The work of all kanban teams revolves around a kanban board, a tool used to visualize work and optimize the flow of the work among the team. While physical boards are popular among some teams, virtual boards are a crucial feature in any agile software development tool for their traceability, easier collaboration, and accessibility from multiple locations.
+
+Regardless of whether a team's board is physical or digital, their function is to ensure the team's work is visualized, their workflow is standardized, and all blockers and dependencies are immediately identified and resolved. A basic kanban board has a three-step workflow: To Do, In Progress, and Done. However, depending on a team's size, structure, and objectives, the workflow can be mapped to meet the unique process of any particular team.
+
+The kanban methodology relies upon full transparency of work and real-time communication of capacity. Therefore, the kanban board should be seen as the single source of truth for the team's work.
+
+## Kanban cards
+
+In Japanese, kanban literally translates to "visual signal." For kanban teams, every work item is represented as a separate card on the board.
+
+The main purpose of representing work as a card on the kanban board is to allow team members to track the progress of work through its workflow in a highly visual manner. Kanban cards feature critical information about that particular work item, giving the entire team full visibility into who is responsible for that item of work, a brief description of the job being done, how long that piece of work is estimated to take, and so on. Cards on virtual kanban boards will often also feature screenshots and other technical details that is valuable to the assignee. Allowing team members to see the state of every work item at any given point in time, as well as all of the associated details, ensures increased focus, full traceability, and fast identification of blockers and dependencies.
+
+## The benefits of kanban
+
+Kanban is one of the most popular software development methodologies adopted by agile teams today. Kanban offers several additional advantages to task planning and throughput for teams of all sizes.
+
+### Planning flexibility
+
+A kanban team is only focused on the work that's actively in progress. Once the team completes a work item, they pluck the next work item off the top of the backlog. The product owner is free to reprioritize work in the backlog without disrupting the team, because any changes outside the current work items don't impact the team. As long as the product owner keeps the most important work items on top of the backlog, the development team is assured they are delivering maximum value back to the business. So there's no need for the fixed-length iterations you find in scrum.
+
+### Shortened time cycles
+
+Cycle time is a key metric for kanban teams. Cycle time is the amount of time it takes for a unit of work to travel through the team's workflow – from the moment work starts to the moment it ships. By optimizing cycle time, the team can confidently forecast the delivery of future work.
+
+Overlapping skill sets lead to smaller cycle times. When only one person holds a skill set, that person becomes a bottleneck in the workflow. So teams employ basic best practices like code review and mentoring help to spread knowledge. Shared skills mean that team members can take on heterogeneous work, which further optimizes cycle time. It also means that if there is a bottleneck of work, the entire team can swarm on it to get the process flowing smoothly again. For instance, testing isn't only done by QA engineers. Developers pitch in, too.
+
+In a kanban framework, it's the entire team's responsibility to ensure work is moving smoothly through the process.
+
+### Fewer bottlenecks
+
+Multitasking kills efficiency. The more work items in flight at any given time, the more context switching, which hinders their path to completion. That's why a key tenet of kanban is to limit the amount of work in progress (WIP). Work-in-progress limits highlight bottlenecks and backups in the team's process due to lack of focus, people, or skill sets.
+
+For example, a typical software team might have four workflow states: To Do, In Progress, Code Review, and Done. They could choose to set a WIP limit of 2 for the code review state. That might seem like a low limit, but there's good reason for it: developers often prefer to write new code, rather than spend time reviewing someone else's work. A low limit encourages the team to pay special attention to issues in the review state, and to review others work before raising their own code reviews. This ultimately reduces the overall cycle time.
+
+### Visual metrics
+
+One of the core values is a strong focus on continually improving team efficiency and effectiveness with every iteration of work. Charts provide a visual mechanism for teams to ensure they're continuing to improve. When the team can see data, it's easier to spot bottlenecks in the process (and remove them). Two common reports kanban teams use are control charts and cumulative flow diagrams.
+
+A control chart shows the cycle time for each issue as well as a rolling average for the team, while a cumulative flow diagram shows the number of issues in each state. The team can easily spot blockages by seeing the number of issues increase in any given state. Issues in intermediate states such as "In Progress" or "In Review" are not yet shipped to customers, and a blockage in these states can increase the likelihood of massive integration conflicts when the work does get merged upstream.
+
+### Continuous delivery
+
+Continuous delivery (CD) is the practice of releasing work to customers frequently. Continuous integration (CI) is the practice of automatically building and testing code incrementally throughout the day. Together they form a CI/CD pipeline that is essential for development teams (especially for DevOps teams) to ship software faster while ensuring high quality.
+
+Kanban and CD beautifully complement each other because both techniques focus on the just-in-time (and one-at-a-time) delivery of value. The faster a team can deliver innovation to market, the more competitive their product will be in the marketplace. And kanban teams focus on precisely that: optimizing the flow of work out to customers
+
+## Scrum vs. kanban
+
+Kanban and scrum share some of the same concepts but have very different approaches. They should not be confused with one another.
+
+|  | **SCRUM** | **KANBAN** |
+| --- | --- | --- |
+| **Cadence** | Regular fixed length sprints (ie, 2 weeks) | Continuous flow |
+| **Release methodology** | At the end of each sprint if approved by the product owner | Continuous delivery or at the team's discretion |
+| **Roles** | Product owner, scrum master, development team | No existing roles. Some teams enlist the help of an agile coach. |
+| **Key metrics** | Velocity | Cycle time |
+| **Change philosophy** | Teams should strive to not make changes to the sprint forecast during the sprint. Doing so compromises learnings around estimation. | Change can happen at any time |
+
+# Agile Metrics
+
+Agile metrics illuminate productivity across software development lifecycle stages, enabling teams to evaluate product quality and monitor performance.
+
+Metrics often polarize teams. Some have experienced projects where the absence of tracking made progress assessment nearly impossible. Others have witnessed metrics weaponized—creating unhealthy team competition or justifying unsustainable work schedules. This dichotomy explains teams' ambivalent relationship with measurement.
+
+Yet measurement can serve teams constructively. Thoughtful tracking and transparent sharing of agile metrics dispel uncertainty and illuminate both progress and challenges throughout development cycles.
+
+## Know your business
+
+Task completion represents only partial success. True success means building the right solution, at the optimal time, for the appropriate market. Maintaining program trajectory requires continuous data collection and analysis. Effective agile programs monitor two metric categories: business metrics assess market fit, while agile metrics evaluate development process health.
+
+<Callout type='warning'>
+**Important**: Align your program's business metrics with your strategic roadmap.
+</Callout>
+
+Each roadmap initiative should include multiple key performance indicators (KPIs) mapping to program objectives. Additionally, define success criteria for individual requirements—such as user adoption rates or automated test coverage percentages. These criteria inform agile metrics, creating a learning loop that enables teams to adapt and evolve.
+
+## How to use agile metrics to optimize your delivery
+
+### Sprint burndown
+
+Scrum teams organize development into time-boxed sprints. At the outset of the sprint, the team forecasts how much work they can complete during a sprint. A sprint burndown report then tracks the completion of work throughout the sprint. The x-axis represents time, and the y-axis refers to the amount of work left to complete, measured in either story points or hours. The goal is to have all the forecasted work completed by the end of the sprint.
+
+A team that consistently meets its forecast is a compelling advertisement for agile in their organization. But don't let that tempt you to fudge the numbers by declaring an item complete before it really is. It may look good in the short term, but in the long run, it only hampers learning and improvement.
+
+**Anti-patterns to watch for:**
+
+- The team finishes early sprint after sprint because they aren't committing to enough work.
+- The team misses their forecast sprint after sprint because they're committing to too much work.
+- The burndown line makes steep drops rather than a more gradual burndown because the work hasn't been broken down into granular pieces.
+- The product owner adds or changes the scope mid-sprint.
+
+### Epic and release burndown
+
+Epic and release (or version) burndown charts track the progress of development over a larger body of work than the sprint burndown, and guide development for both scrum and kanban teams. Since a sprint (for scrum teams) may contain work from several epics and versions, it's important to track both the progress of individual sprints as well as epics and versions.
+
+"Scope creep" is the injection of more requirements into a previously-defined project. For example, if the team is delivering a new website for the company, scope creep would be asking for new features after the initial requirements had been sketched out. While tolerating scope creep during a sprint is bad practice, scope change within epics and versions is a natural consequence of agile development. As the team moves through the project, the product owner may decide to take on or remove work based on what they're learning. The epic and release burn down charts keep everyone aware of the ebb and flow of work inside the epic and version.
+
+**Anti-patterns to watch for:**
+
+- Epic or release forecasts aren't updated as the team churns through the work.
+- No progress is made over a period of several iterations.
+- Chronic scope creep, which may be a sign that the product owner doesn't fully understand the problem that body of work is trying to solve.
+- Scope grows faster than the team can absorb it.
+- The team isn't shipping incremental releases throughout the development of an epic.
+
+### Velocity
+
+Velocity is the average amount of work a scrum team completes during a sprint, measured in either story points or hours, and is very useful for forecasting. The product owner can use velocity to predict how quickly a team can work through the backlog, because the report tracks the forecasted and completed work over several iterations–the more iterations, the more accurate the forecast.
+
+Let's say the product owner wants to complete 500 story points in the backlog. We know that the development team generally completes 50 story points per iteration. The product owner can reasonably assume the team will need 10 iterations (give or take) to complete the required work.
+
+It's important to monitor how velocity evolves over time. New teams can expect to see an increase in velocity as the team optimizes relationships and the work process. Existing teams can track their velocity to ensure consistent performance over time, and can confirm that a particular process change made improvements or not. A decrease in average velocity is usually a sign that some part of the team's development process has become inefficient and should be brought up at the next retrospective.
+
+**Anti-patterns to watch for:**
+
+When velocity is erratic over a long period of time, always revisit the team's estimation practices. During the team's retrospective, ask the following questions:
+
+- Are there unforeseen development challenges we didn't account for when estimating this work? How can we better break down work to uncover some of these challenges?
+- Is there outside business pressure pushing the team beyond its limits? Is adherence to development best practices suffering as a result?
+- As a team, are we overzealous in forecasting for the sprint?
+
+Each team's velocity is unique. If team A has a velocity of 50 and team B has a velocity of 75, it doesn't mean that team B has higher throughput. Since each team's estimation culture is unique, their velocity will be as well. Resist the temptation to compare velocity across teams. Measure the level of effort and output of work based on each team's unique interpretation of story points.
+
+### Control chart
+
+Control charts focus on the cycle time of individual issues–the total time from "in progress" to "done". Teams with shorter cycle times are likely to have higher throughput, and teams with consistent cycle times across many issues are more predictable in delivering work. While cycle time is a primary metric for kanban teams, scrum teams can benefit from optimized cycle time as well.
+
+Measuring cycle time is an efficient and flexible way to improve a team's processes because the results of changes are discernable almost immediately, allowing them to make any further adjustments right away. The end goal is to have a consistent and short cycle time, regardless of the type of work (new feature, technical debt, etc.).
+
+**Anti-patterns to watch for:**
+
+Control charts can appear fickle at first. Don't be so concerned with every outlier. Look for trends. Here are two areas to watch out for:
+
+- **Increasing cycle time** - Increasing cycle time saps the team of its hard-earned agility. In the team retrospective, take time to understand an increase. One exception: if the team's definition of done has expanded, cycle time will probably expand too.
+- **Erratic cycle time** – The goal is to have consistent cycle time for work items that have similar story point values. Filter the control chart for each story point value to check for consistency. If cycle time is erratic on small and large story point values, spend time in the retrospective examining the misses and improving future estimation.
+
+### Cumulative flow diagram
+
+The cumulative flow diagram should look smooth(ish) from left to right. Bubbles or gaps in any one color indicate shortages and bottlenecks, so when you see one, look for ways to smooth out color bands across the chart.
+
+**Common issues:**
+
+- Blocking issues create large backups in some parts of the process and starvation in others.
+- Unchecked backlog growth over time. This results from product owners not closing issues that are obsolete or simply too low in priority to ever be pulled in.
+
+## Even more metrics
+
+Good metrics aren't limited to the reports discussed above. For example, quality is an important metric for agile teams and there are a number of traditional metrics that can be applied to agile development:
+
+**Quality Metrics:**
+
+- How many defects are found:
+  - during development?
+  - after release to customers?
+  - by people outside of the team?
+- How many defects are deferred to a future release?
+- How many customer support requests are coming in?
+- What is the percentage of automated test coverage?
+
+**Delivery Metrics:**
+
+Agile teams should also look at release frequency and delivery speed. At the end of each sprint, the team should release software out to production. How often is that actually happening? Are most release builds getting shipped? In the same vein, how long does it take for the team to release an emergency fix out to production? Is release easy for the team or does it require heroics?
+
+## Finding the right balance
+
+Metrics are just one part of building a team's culture. They give quantitative insight into the team's performance and provide measurable goals for the team. While they're important, don't get obsessed. Listening to the team's feedback during retrospectives is equally important in growing trust across the team, quality in the product, and development speed through the release process. Use both quantitative and qualitative feedback to drive change.
+
+# Using Improvement Kata
+
+Improvement Kata represents a systematic approach where teams repeatedly practice problem-solving routines until they become instinctive. This methodology, detailed in the book Toyota Kata, employs experimentation to break down complex objectives into manageable, near-term targets.
+
+The term "kata" originates from martial arts, describing choreographed movement sequences that disciples practice until mastery. This concept of deliberate practice transforming into refined habit has transcended its martial origins to influence business methodology.
+
+Toyota Motor Corporation pioneered continuous improvement through these practiced patterns. The technique, now called Improvement Kata, was identified and codified in [Toyota Kata](https://www.amazon.com/Toyota-Kata-Managing-Improvement-Adaptiveness/dp/0071635238).
+
+## What is Improvement Kata?
+
+Improvement Kata establishes a repeatable problem-solving routine for leaders and team members. Through consistent practice, these routines become habitual. The methodology leverages experimentation to decompose ambitious goals into achievable intermediate milestones.
+
+The Improvement Kata approach fosters creative, purposeful problem-solving through a four-stage model:
+
+1. **Understand the direction or challenge** - Clarify your destination
+2. **Grasp the current condition** - Assess your present state
+3. **Define the target destination** - Establish your next milestone
+4. **Move toward the target iteratively** - Experiment to overcome obstacles
+
+This framework proves especially valuable when pathways remain ambiguous, as experimentation illuminates problems and reveals innovative solutions. Each Improvement Kata stage includes accessible practice routines, called starter katas, that facilitate learning and implementation.
+
+## What are the benefits of Improvement Kata?
+
+Today's technology landscape presents unprecedented complexity and dynamism. Improvement Kata provides a scientific, objective-driven working methodology that equips individuals and teams to address these challenges effectively. Mastering this technique yields benefits extending far beyond mere operational structure.
+
+### Teams aligned toward a single goal
+
+Shared success definitions foster collaboration, clarity, and productivity. When team members understand their contributions to larger objectives, they develop stronger work ownership, deeper vision commitment, and more proactive decision-making oriented toward goal achievement.
+
+### Experimentation leads to results
+
+Knowing your destination without understanding the path creates initial paralysis. Embracing regular experimentation dissolves uncertainty and propels progress. Formulate hypotheses about potential approaches, then test them. When experiments fail, course corrections come without penalty—each attempt refines your understanding of the correct direction. Experimentation fundamentally concerns learning and problem resolution.
+
+### Reduce waste significantly
+
+Concentrating on incremental, sustainable improvements minimizes time and energy spent on non-contributory activities. When reviewing backlog tasks, ask: does this advance my next milestone and ultimate objective? Push further: given remaining time and current knowledge, can I realistically overcome blockers and complete these tasks, or should I defer them? This tactic prevents wasting days or weeks on problems requiring significant detours to resolve obstacles.
+
+Improvement Kata reduces waste across development roles. Developers avoid building unnecessary features, focusing instead on intentional, milestone-aligned work. Managers and technical leaders practicing Improvement Kata principles actively remove impediments to immediate progress. Teams benefit holistically through enhanced communication, efficient feedback cycles, and continuous delivery.
+
+## Steps to implement Improvement Kata
+
+Coordinating between what we think will happen to what actually happens and what is learned from the discrepancies is at the heart of Improvement Kata. While this may seem simple enough, the challenge is that not all of us are wired to think like this. Integrating Improvement Kata practices into your workflow takes consistent, mindful practice.
+
+### Find your North Star
+
+The first step is to clearly understand the direction or challenge. This helps inform the planning and experimentation phases. If you struggle to identify what your North Star is, consider how your team might contribute to your organization's larger goals or how you can leverage your team's strengths to turn a particular vision into a reality.
+
+### Establish the current condition
+
+Before you begin working towards your North Star, take time to document current processes and workflows, review where your team stacks up against appropriate metrics, and assess the team's existing knowledge infrastructure. Be honest about what your current condition is so that you can identify meaningful steps towards your ultimate goal.
+
+### Choose your next target
+
+Once you have a clear understanding of current systems and processes, identify the next target condition, or where you want to be after your next iteration. The next target should be a single, tangible change that can be achieved in a matter of weeks/sprints and bring you closer to your North Star.
+
+### Conduct experiments until you reach your target
+
+Now that you have a vision of what your next target is, form a hypothesis about how you can get there. Come up with ideas on where to start and what to try, and don't be afraid to fail!
+
+### Get to the goal the fastest way possible
+
+Speed is necessary even if it means cutting corners and using clever hacks along the way. You'll either get confirmation early that it can be done, or you find unforeseen challenges to tackle. If it doesn't work, turn it into a learning opportunity.
+
+### Clean up the rough edges
+
+Once you verify it works, move backwards to polish the corners you've cut, and smooth out any rough edges that need to be refined.
+
+## What are some examples of Improvement Kata?
+
+Say you want to build a new service based on an idea, but you're not sure whether it will work. Rather than trying to get every layer perfectly worked out and incrementally expanding it until it's feature-complete, try picking a target that delivers some value and brings you closer to the system you envisioned. You'll probably have lots of unknowns, but you can learn a lot from challenges, and experiment with different ideas to find one that works. Once it does, reevaluate where you are, pick your next target, iterate, and reflect on your progress.
+
+Another example is if you maintain an internal system that needs improvements. Pick one you are ready to tackle and brainstorm some ideas on how to solve it. Experiment with different approaches and try to complete it as fast as possible to start getting some feedback about it. Once things are good enough, move on to the next problem to solve.
+
+## What are the differences between Improvement Kata and lean?
+
+Kata and lean are different, yet complement each other. Lean refers to processes to be implemented while kata refers to techniques to be practiced. Thus, kata became a mainstream business practice when Toyota adopted it into its lean production system. When combined into a unified approach, these concepts provide powerful results.
+
+Both kata and lean principles focus on enabling faster progress, but slightly differ in their approaches. Kata is a set of habits that can be deployed at the individual-level and focuses on continual improvement and learning through experimentation. It is useful for tackling problems with uncertainty, while learning and developing skills to repeat the solutions faster and faster. It helps embracing the unknown, and teaches not to fear challenges and obstacles.
+
+Lean principles help organizations and teams improve processes and workflows such that the greatest value can be extracted with minimal waste. Once a process is established, the focus is optimizing it to be as fast and efficient as possible.
+
+## How can you use Improvement Kata and lean together?
+
+Improvement Kata are habits and techniques that teams can use to reinforce lean principles. While the two approaches focus on different things, they both came from Toyota originally, and can be used well together. For example, the lean philosophy hinges on eliminating wasteful activities so teams can extract and deliver the most value. Improvement Kata supports this goal by minimizing waste through routine experimentation. If one method does not yield expected results, then it is removed from the process.
+
+The goal-oriented teachings of Improvement Kata encourage completing a task before moving to the next, so the process is continuously refined until it achieves intended results and thus achieves greater organizational efficiency, yet another pillar of the lean philosophy. Above all else, Improvement Kata offers tools that can be used in the present state to get to a lean future state. Breaking down larger objectives into smaller pieces means that each of those parts will be optimized for its intended purpose. Ultimately, this means that the entire system will thus be able to generate maximum value.

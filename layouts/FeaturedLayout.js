@@ -104,7 +104,7 @@ export default function ListLayout({ className, hideTitle }) {
             {featuredPost.tags && featuredPost.tags.length > 0 && (
               <div className='flex flex-wrap gap-2'>
                 {featuredPost.tags.slice(0, 4).map((tag) => (
-                  <a key={ tag } href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700  cursor-pointer'>
+                  <a key={ tag } href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer capitalize'>
                     {tag}
                   </a>
                 ))}
@@ -148,7 +148,7 @@ export default function ListLayout({ className, hideTitle }) {
                   {post.tags && post.tags.length > 0 && (
                     <div className='flex flex-wrap gap-2'>
                       {post.tags.slice(0, 3).map((tag) => (
-                        <a key={ tag } href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700  cursor-pointer'>
+                        <a key={ tag } href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer capitalize'>
                           {tag}
                         </a>
                       ))}

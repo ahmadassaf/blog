@@ -99,7 +99,7 @@ module.exports = {
       'typography': {
         'DEFAULT': {
           'css': {
-            'fontSize': '1.125rem',
+            'fontSize': '1rem',
             'lineHeight': '1.7',
             'maxWidth': 'none'
           }

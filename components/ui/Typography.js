@@ -73,11 +73,11 @@ const variants = {
     'element': 'p'
   },
   'post-subtitle': {
-    'className': 'text-2xl sm:text-2xl md:text-3xl lg:text-3xl tracking-tight text-gray-600 dark:text-gray-100 leading-snug capitalize break-words',
+    'className': 'text-xl sm:text-xl md:text-2xl lg:text-2xl tracking-tight text-gray-600 dark:text-gray-100 leading-snug capitalize break-words',
     'element': 'h3'
   },
   'post-title': {
-    'className': 'text-5xl sm:text-5xl md:text-6xl lg:text-6xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100 break-words',
+    'className': 'text-4xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100 break-words',
     'element': 'h1'
   },
   'subtitle-lg': {

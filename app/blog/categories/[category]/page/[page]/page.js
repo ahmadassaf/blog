@@ -34,9 +34,10 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  * // Returns: { title: 'Category: Web Development | Page 2' }
  */
 export async function generateMetadata({ params }) {
-  const category = decodeURI(params.category);
+  const { 'category': categoryParam, 'page': pageParam } = await params;
+  const category = decodeURI(categoryParam);
   const title = category.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-  const pageNumber = parseInt(params.page);
+  const pageNumber = parseInt(pageParam);
 
   return {
     'title': `Category: ${title} | Page ${pageNumber}`
@@ -89,11 +90,12 @@ export const generateStaticParams = async() => {
  * // Rendered at /blog/categories/technology/page/2
  * // Shows page 2 of posts in 'technology' category
  */
-export default function Page({ params }) {
-  const category = decodeURI(params.category);
+export default async function Page({ params }) {
+  const { 'category': categoryParam, 'page': pageParam } = await params;
+  const category = decodeURI(categoryParam);
   const title = category.replace('-', ' ');
   const posts = coreContent(sortPosts(allPosts)).filter((post) => post.category.replace(' ', '-').toLowerCase() === category);
-  const pageNumber = parseInt(params.page);
+  const pageNumber = parseInt(pageParam);
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 
   let pagination;

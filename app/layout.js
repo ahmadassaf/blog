@@ -9,8 +9,8 @@
  * @version 1.0.0
  */
 
-import { Inter } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Inter } from 'next/font/google';
 
 import LayoutContainer from '@/components/containers/layoutContainer';
 import CodeGroupTabs from '@/components/elements/CodeGroupTabs';

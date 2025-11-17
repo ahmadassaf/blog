@@ -10,6 +10,7 @@
  */
 
 import { Inter } from 'next/font/google';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import LayoutContainer from '@/components/containers/layoutContainer';
 import CodeGroupTabs from '@/components/elements/CodeGroupTabs';
@@ -96,6 +97,7 @@ export default function RootLayout({ children }) {
         <LayoutContainer>
           {children}
         </LayoutContainer>
+        <SpeedInsights />
       </body>
     </html>
   );

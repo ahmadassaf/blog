@@ -32,7 +32,8 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  * // Returns: { title: 'Category: Web Development' }
  */
 export async function generateMetadata({ params }) {
-  const category = decodeURI(params.category);
+  const { 'category': categoryParam } = await params;
+  const category = decodeURI(categoryParam);
   const title = category.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
   return {
@@ -79,11 +80,12 @@ export const generateStaticParams = async() => {
  * // Rendered at /blog/categories/technology
  * // Shows all posts in the 'technology' category
  */
-export default function Page({ params }) {
-  const category = decodeURI(params.category);
+export default async function Page({ params }) {
+  const { 'category': categoryParam } = await params;
+  const category = decodeURI(categoryParam);
   const title = category.replace('-', ' ');
   const sortedPosts = coreContent(sortPosts(allPosts));
-  const filteredPosts = sortedPosts.filter((post) => post.category.replace(' ', '-').toLowerCase() === params.category);
+  const filteredPosts = sortedPosts.filter((post) => post.category.replace(' ', '-').toLowerCase() === categoryParam);
 
   return (
     <>

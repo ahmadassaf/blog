@@ -2,7 +2,7 @@ const NavigationMetadata = {
   'categoriesMetadata': {
     'data': 'Everything AI, ML and Data',
     'engineering': 'Development, programming and code',
-    'leadership': 'Engineering management and leadership',
+    'management': 'Engineering management and leadership',
     'productivity': 'Productivity, tools and tips'
   },
   'links': [

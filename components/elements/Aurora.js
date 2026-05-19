@@ -43,25 +43,28 @@ const AuroraBackground = ({
     <div className={ cn('relative flex flex-col min-h-[100vh] items-center justify-center transition-bg', className) }
       { ...props }
     >
-      <div className='aurora absolute inset-0 overflow-hidden dark:hidden'>
+      <div className='aurora absolute inset-x-0 top-0 h-[48rem] overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_62%,transparent_100%)]'>
         <div
           className={ cn(`
                 bg-gradient-to-br from-blue-200/90 via-blue-100/80 to-transparent
+                dark:from-blue-950/80 dark:via-indigo-950/60 dark:to-transparent
                 pointer-events-none
                 absolute inset-0
-                [mask-image:radial-gradient(ellipse_at_100%_0%,black_20%,transparent_35%)]`) }
+                [mask-image:radial-gradient(ellipse_at_100%_0%,black_18%,transparent_42%)]`) }
         ></div>
         <div
           className='bg-gradient-to-tl from-transparent via-purple-200/30 to-transparent
+                dark:from-transparent dark:via-sky-900/30 dark:to-transparent
                 pointer-events-none
                 absolute inset-0
-                [mask-image:radial-gradient(ellipse_at_95%_5%,black_10%,transparent_30%)]'
+                [mask-image:radial-gradient(ellipse_at_95%_5%,black_12%,transparent_36%)]'
         ></div>
         <div
           className='bg-gradient-to-br from-transparent via-indigo-200/20 to-transparent
+                dark:from-transparent dark:via-violet-950/25 dark:to-transparent
                 pointer-events-none
                 absolute inset-0
-                [mask-image:radial-gradient(ellipse_at_90%_10%,black_10%,transparent_25%)]'
+                [mask-image:radial-gradient(ellipse_at_90%_10%,black_12%,transparent_32%)]'
         ></div>
       </div>
       {children}

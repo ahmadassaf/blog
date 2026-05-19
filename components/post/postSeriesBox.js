@@ -52,12 +52,12 @@ const PostSeriesBox = ({ series, slug }) => {
   const progressPercentage = (completedCount / totalCount) * 100;
 
   return (
-    <div className='mb-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-[#303030] rounded-lg'>
+    <div className='mb-6 overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-[#303030] dark:bg-gray-800'>
 
       {/* Header - Always Visible */}
       <button
         onClick={ () => setIsExpanded(!isExpanded) }
-        className='w-full p-3 sm:p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 cursor-pointer'
+        className='w-full p-3 text-left cursor-pointer sm:p-4'
         aria-expanded={ isExpanded }
         aria-controls='series-content'
       >

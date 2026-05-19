@@ -54,10 +54,10 @@ export default function ListLayout({ className, hideTitle }) {
   return (
     <div>
 
-      <div className={ `pb-16` }>
+      <div className={ `pb-10` }>
         {/* Clean Typography-focused Hero */}
         <article className='mx-auto w-full group'>
-          <div className='mb-6 flex items-center gap-3'>
+          <div className='mb-4 flex items-center gap-3'>
             <span className='inline-flex items-center rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white'>
               Featured
             </span>
@@ -77,16 +77,16 @@ export default function ListLayout({ className, hideTitle }) {
             )}
           </div>
 
-          <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-[1.1] tracking-tight mb-6'>
+          <h2 className='text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white leading-tight tracking-tight mb-4 max-w-4xl'>
             <a
               href={ `/blog/${featuredPost.slug}` }
               className='hover:text-blue-600 dark:hover:text-blue-400  duration-300 decoration-2 hover:underline underline-offset-4'
             >
               {featuredPost.title}
             </a>
-          </h1>
+          </h2>
 
-          <p className='text-xl md:text-2xl leading-relaxed text-gray-700 dark:text-gray-300 max-w-4xl mb-8 font-light'>
+          <p className='text-lg md:text-xl leading-8 text-gray-700 dark:text-gray-300 max-w-3xl mb-6'>
             {featuredPost.summary}
           </p>
 
@@ -114,8 +114,8 @@ export default function ListLayout({ className, hideTitle }) {
         </article>
         {/* Clean typography-focused additional posts */}
         {displayPosts.length > 0 && (
-          <div className='mx-auto w-full pt-16'>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
+          <div className='mx-auto w-full pt-10'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
               {displayPosts.map((post) => (
                 <article key={ post.slug } className='group'>
                   <div className='flex items-center gap-3 mb-3'>
@@ -135,13 +135,13 @@ export default function ListLayout({ className, hideTitle }) {
                     )}
                   </div>
 
-                  <h2 className='text-2xl font-bold text-gray-900 dark:text-white leading-tight mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400  duration-200'>
+                  <h2 className='text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-tight mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 duration-200'>
                     <a href={ `/blog/${post.slug}` } className='decoration-2 hover:underline underline-offset-2'>
                       {post.title}
                     </a>
                   </h2>
 
-                  <p className='text-gray-600 dark:text-gray-300 leading-relaxed mb-4'>
+                  <p className='text-base leading-7 text-gray-600 dark:text-gray-300 mb-4'>
                     {post.summary}
                   </p>
 

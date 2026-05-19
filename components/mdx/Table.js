@@ -83,14 +83,11 @@ const Table = ({ children, className = '', ...rest }) => {
   return (
     <div className='not-prose my-8'>
       {/* Breakout container that expands beyond prose width while maintaining side gaps */}
-      <div className='relative -mx-16 sm:-mx-24 md:-mx-40 lg:-mx-56 xl:-mx-80 2xl:-mx-96' style={{
-        'marginLeft': 'max(-12rem, calc(-50vw + 50% + 0.125rem))',
-        'marginRight': 'max(-12rem, calc(-50vw + 50% + 0.125rem))'
-      }}>
+      <div className='table-breakout relative -mx-16 sm:-mx-24 md:-mx-40 lg:-mx-56 xl:-mx-80 2xl:-mx-96'>
         {/* Enhanced responsive table container with horizontal scroll */}
         <div
           ref={ scrollContainerRef }
-          className='table-scroll'
+          className='table-scroll table-frame'
         >
           <div className='inline-block min-w-full align-middle'>
             <table
@@ -136,10 +133,9 @@ const TableRow = ({ children, className = '', ...rest }) => (
 /**
  * Enhanced table header cell component
  */
-const TableHeaderCell = ({ children, className = '', width, ...rest }) => (
+const TableHeaderCell = ({ children, className = '', ...rest }) => (
   <th
     className={ `table-cell-padding text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider ${className}` }
-    style={{ width, ...(rest.style || {}) }}
     { ...rest }
   >
     {children}
@@ -149,10 +145,9 @@ const TableHeaderCell = ({ children, className = '', width, ...rest }) => (
 /**
  * Enhanced table data cell component
  */
-const TableCell = ({ children, className = '', width, ...rest }) => (
+const TableCell = ({ children, className = '', ...rest }) => (
   <td
     className={ `table-cell-padding text-sm text-gray-900 dark:text-gray-100 align-top ${className}` }
-    style={{ width, ...(rest.style || {}) }}
     { ...rest }
   >
     <div className='overflow-hidden'>

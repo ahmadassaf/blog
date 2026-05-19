@@ -46,13 +46,8 @@ export default async function LayoutContainer({ children }) {
   return (
     <div className='bg-white text-black dark:bg-gray-900 dark:text-white antialiased'>
 
-      {/* This is the Aurora backgrounf animation enabled for light mode. It has to wrap all the content */}
+      {/* Aurora wraps all content and provides the shared light/dark background treatment. */}
       <Aurora>
-
-        {/* This is the dark shape overlay that appears when the dark mode is enabled */}
-        <div className='hidden h-[50rem] max-h-[50rem] w-full items-center justify-center dark:absolute dark:top-0 dark:left-0 dark:flex dark:bg-dot-white/[0.15] dark:z-0 dark:pointer-events-none'>
-          <div className='absolute flex bg-white items-center justify-center pointer-events-none inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-gray-900'></div>
-        </div>
 
         <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem/>
         <Analytics />

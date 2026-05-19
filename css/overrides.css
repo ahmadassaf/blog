@@ -336,26 +336,6 @@ input[type="button"]:not([disabled]),
 }
 
 /**
- * Dark mode aurora gradient
- * Creates a fade-to-dark effect for decorative backgrounds
- */
-@media (prefers-color-scheme: dark) {
-    .aurora:after {
-        background-image: linear-gradient(to bottom, rgba(23, 23, 23, 0), rgb(23, 23, 23) 75%);
-    }
-}
-
-/**
- * Light mode aurora gradient
- * Creates a fade-to-light effect for decorative backgrounds
- */
-@media (prefers-color-scheme: light) {
-    .aurora:after {
-        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 75%);
-    }
-}
-
-/**
  * Vertical alignment for stateful links
  * Ensures proper alignment for expandable/collapsible links
  */
@@ -723,15 +703,15 @@ a[href*="#bib-"]:not(.citation-group) {
     scroll-margin-top: 50px;
 }
 
-/* Style grouped citation links as connected rectangles */
+/* Style grouped citation links with the same circular badge as sidenotes */
 a.citation-link.citation-group {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     background: #3b82f6;
     color: white !important;
-    border-radius: 4px;
-    font-size: 11px;
+    border-radius: 50%;
+    font-size: 10px;
     font-weight: 600;
     text-decoration: none !important;
     transition: all 0.2s;
@@ -740,9 +720,11 @@ a.citation-link.citation-group {
     line-height: 1;
     vertical-align: sub;
     position: relative;
-    padding: 3px 8px;
-    min-height: 18px;
-    min-width: 20px;
+    width: 16px;
+    height: 16px;
+    min-height: 16px;
+    min-width: 16px;
+    padding: 0;
     scroll-margin-top: 50px;
 }
 
@@ -758,7 +740,7 @@ a[href*="#bib-"]:not(.citation-group):hover {
 }
 
 a.citation-link.citation-group:hover {
-    transform: translateY(-1px);
+    transform: scale(1.1);
 }
 
 .dark a.citation-link,
@@ -1026,6 +1008,11 @@ summary {
  * Optimized Tailwind Utility Classes
  * Common patterns extracted for better maintainability and performance
  */
+.table-breakout {
+    margin-left: max(-12rem, calc(-50vw + 50% + 0.125rem));
+    margin-right: max(-12rem, calc(-50vw + 50% + 0.125rem));
+}
+
 .table-scroll {
     overflow-x: auto;
     overflow-y: auto;
@@ -1033,8 +1020,24 @@ summary {
     scrollbar-width: thin;
     scrollbar-color: #d1d5db #f3f4f6;
     scroll-behavior: smooth;
-    padding: 0 1rem;
     position: relative;
+}
+
+.table-frame {
+    border: 1px solid #dbe2ea;
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.dark .table-frame {
+    border-color: #374151;
+    background: rgba(17, 24, 39, 0.88);
+}
+
+.table-scroll table {
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 /* Simple row hover */
@@ -1059,14 +1062,16 @@ summary {
 .table-scroll thead th {
     position: sticky;
     top: 0;
-    background-color: #f9fafb;
+    background-color: #f8fafc;
     z-index: 10;
-    box-shadow: 0 1px 0 rgba(229, 231, 235, 0.5);
+    border-bottom: 1px solid #dbe2ea;
+    box-shadow: none;
 }
 
 .dark .table-scroll thead th {
     background-color: #1f2937;
-    box-shadow: 0 1px 0 rgba(55, 65, 81, 0.5);
+    border-bottom-color: #374151;
+    box-shadow: none;
 }
 
 /* Override column hover for header cells - must come after thead th styles */
@@ -1085,13 +1090,13 @@ summary {
     left: 0;
     background-color: white;
     z-index: 5;
-    box-shadow: 1px 0 0 rgba(229, 231, 235, 0.5);
+    box-shadow: 1px 0 0 #dbe2ea;
 }
 
 .dark .table-scroll tbody td:first-child,
 .dark .table-scroll thead th:first-child {
     background-color: #111827;
-    box-shadow: 1px 0 0 rgba(55, 65, 81, 0.5);
+    box-shadow: 1px 0 0 #374151;
 }
 
 /* First column header needs header background */
@@ -1112,10 +1117,28 @@ summary {
     scrollbar-color: #6b7280 #374151;
 }
 
-@media (min-width: 640px) {
-    .table-scroll {
-        padding: 0 1.5rem;
-    }
+.table-scroll th,
+.table-scroll td {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.dark .table-scroll th,
+.dark .table-scroll td {
+    border-bottom-color: #374151;
+}
+
+.table-scroll th + th,
+.table-scroll td + td {
+    border-left: 1px solid #eef2f7;
+}
+
+.dark .table-scroll th + th,
+.dark .table-scroll td + td {
+    border-left-color: #374151;
+}
+
+.table-scroll tbody tr:last-child td {
+    border-bottom: 0;
 }
 
 .table-cell-padding {

@@ -10,11 +10,11 @@
 
 'use client';
 
-import { GoRepoForked, GoStar } from 'react-icons/go';
+import { Icon } from '@ahmadassaf/design-system';
 import { allProjects } from 'contentlayer/generated';
 import Link from 'next/link';
 
-import { cn } from '@/components/utils/TailwindUtils';
+import { cn } from '@/components/utilities/TailwindUtils';
 import GithubColors from '@/data/meta/githubMetaColors';
 
 /**
@@ -63,7 +63,7 @@ export default function Projects({ className }) {
  * @returns {JSX.Element} Clean project card with typography-focused design
  */
 export const ProjectCard = ({ project }) => (
-  <article className='group block p-4 border border-gray-200 dark:border-[#303030] rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 h-full bg-white dark:bg-gray-900'>
+  <article className='group block p-4 border border-gray-200 dark:border-border-dark rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 h-full bg-white dark:bg-gray-900'>
     <div className='flex flex-col h-full'>
       {/* Title */}
       <h3 className='text-lg font-semibold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 mb-2'>
@@ -78,11 +78,11 @@ export const ProjectCard = ({ project }) => (
       {/* Metadata - GitHub stats at bottom */}
       <div className='flex items-center gap-3 text-xs text-gray-400 dark:text-gray-500'>
         <div className='flex items-center gap-1'>
-          <GoStar className='w-3 h-3' />
+          <Icon name='Star' size='xs' decorative />
           <span>{project.meta.stargazers_count}</span>
         </div>
         <div className='flex items-center gap-1'>
-          <GoRepoForked className='w-3 h-3' />
+          <Icon name='Fork' size='xs' decorative />
           <span>{project.meta.forks_count}</span>
         </div>
         {project.meta.language && (
@@ -114,11 +114,11 @@ export const ProjectCard = ({ project }) => (
 export const CardMeta = ({ StargazersCount, ForksCount, Language }) => (
   <div className='flex group/meta mt-4'>
     <div className='flex items-center space-x-3 pr-4'>
-      <GoStar className='group-hover/meta:stroke-blue-700 dark:outline-white'/>
+      <Icon name='Star' decorative className='group-hover/meta:stroke-blue-700 dark:outline-white'/>
       <span className='text-xs font-medium text-gray-900 dark:text-gray-100 group-hover/meta:text-blue-700'>{StargazersCount}</span>
     </div>
     <div className='flex items-center space-x-3 pr-4'>
-      <GoRepoForked className='group-hover/meta:stroke-blue-700'/>
+      <Icon name='Fork' decorative className='group-hover/meta:stroke-blue-700'/>
       <span className='text-xs font-medium text-gray-900 dark:text-gray-100 group-hover/meta:text-blue-700'>{ForksCount}</span>
     </div>
     <div className='flex items-center space-x-3'>

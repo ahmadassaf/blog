@@ -1,0 +1,301 @@
+.root :global(code:not(pre code)) {
+  background-color: rgba(156, 163, 175, 0.2);
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  border-radius: 0.25rem;
+  color: rgb(31, 41, 55);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.85em;
+  margin: 0 0.125rem;
+  padding: 0.125rem 0.375rem;
+}
+
+.root :global(code:not(pre code)::before),
+.root :global(code:not(pre code)::after) {
+  content: none !important;
+}
+
+:global(.dark) .root :global(code:not(pre code)) {
+  background-color: rgba(75, 85, 99, 0.3);
+  border-color: rgba(75, 85, 99, 0.5);
+  color: rgb(229, 231, 235);
+}
+
+.root :global(pre) {
+  background-color: #070910;
+}
+
+.root :global(pre code) {
+  font-size: 0.8rem !important;
+}
+
+:global(.dark) .root {
+  color: white;
+}
+
+.root :global(.csl-entry) {
+  display: flex;
+  margin: 5px 0;
+}
+
+.root :global(.csl-left-margin) {
+  margin: 0 10px 0 0;
+}
+
+.root :global(.label foreignObject) {
+  overflow: visible;
+}
+
+.root :global(h2.references-title) {
+  margin-top: 0 !important;
+}
+
+.root :global(a[data-state='closed']),
+.root :global(a[data-state='open']) {
+  vertical-align: middle;
+}
+
+.root :global(span[data-preview-url]) {
+  vertical-align: top;
+}
+
+.root :global(.references) {
+  margin: 0 0 2em;
+}
+
+.root :global(.references div) {
+  font-size: 14px;
+}
+
+.root :global(.references::before) {
+  border-bottom: 1px solid #ddd;
+  content: 'References';
+  display: block;
+  font-family: var(--font-space-inter), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-size: 2.5em;
+  font-weight: bold;
+  margin: 0 0 0.5em;
+  width: 100%;
+}
+
+.root :global(.footnotes-section-hidden) {
+  display: none;
+}
+
+.root :global(sup) {
+  position: relative;
+  top: -0.4em;
+  vertical-align: baseline;
+}
+
+.root :global(sup a.footnote-link),
+.root :global(sup a[data-footnote-ref]) {
+  align-items: center;
+  background: #3b82f6;
+  border-radius: 50%;
+  color: white !important;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 9px;
+  font-weight: 600;
+  height: 14px;
+  justify-content: center;
+  margin: 0 1px 0 3px;
+  position: relative;
+  text-decoration: none;
+  top: 0;
+  transition: background-color 0.2s ease;
+  vertical-align: baseline;
+  width: 14px;
+}
+
+.root :global(sup a.footnote-link:hover),
+.root :global(sup a[data-footnote-ref]:hover) {
+  background: #2563eb;
+  text-decoration: none !important;
+}
+
+:global(.dark) .root :global(sup a.footnote-link),
+:global(.dark) .root :global(sup a[data-footnote-ref]) {
+  background: #60a5fa;
+  color: #111827 !important;
+}
+
+:global(.dark) .root :global(sup a.footnote-link:hover),
+:global(.dark) .root :global(sup a[data-footnote-ref]:hover) {
+  background: #93c5fd;
+}
+
+.root :global(a.citation-link:not(.citation-group)),
+.root :global(a[href*='#bib-']:not(.citation-group)),
+.root :global(a.citation-link.citation-group) {
+  align-items: center;
+  background: #3b82f6;
+  border-radius: 50%;
+  color: white !important;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 10px;
+  font-weight: 600;
+  height: 16px;
+  justify-content: center;
+  line-height: 1;
+  margin: 0 2px;
+  min-height: 16px;
+  min-width: 16px;
+  padding: 0;
+  position: relative;
+  scroll-margin-top: 50px;
+  text-decoration: none !important;
+  transition: all 0.2s;
+  vertical-align: sub;
+  width: 16px;
+}
+
+.root :global(a.citation-link:hover),
+.root :global(a[href*='#bib-']:hover) {
+  background: #2563eb;
+  text-decoration: none !important;
+}
+
+.root :global(a.citation-link:not(.citation-group):hover),
+.root :global(a[href*='#bib-']:not(.citation-group):hover),
+.root :global(a.citation-link.citation-group:hover) {
+  transform: scale(1.1);
+}
+
+:global(.dark) .root :global(a.citation-link),
+:global(.dark) .root :global(a[href*='#bib-']) {
+  background: #60a5fa;
+  color: #111827 !important;
+}
+
+:global(.dark) .root :global(a.citation-link:hover),
+:global(.dark) .root :global(a[href*='#bib-']:hover) {
+  background: #93c5fd;
+}
+
+.root :global(.citations-section) {
+  border-top: 1px solid #e5e7eb;
+  margin-top: 3rem;
+  padding-top: 2rem;
+}
+
+:global(.dark) .root :global(.citations-section) {
+  border-top-color: #374151;
+}
+
+.root :global(.citation-list) {
+  counter-reset: citation-counter;
+}
+
+.root :global(.citation-list li) {
+  counter-increment: citation-counter;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0.75rem 0;
+  scroll-margin-top: 50px;
+}
+
+.root :global(.citation-entry) {
+  color: #374151;
+}
+
+:global(.dark) .root :global(.citation-entry) {
+  color: #d1d5db;
+}
+
+.root :global(.citation-back-link) {
+  align-items: center;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  color: #374151 !important;
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 500;
+  justify-content: center;
+  line-height: 1;
+  margin-left: 0.5rem;
+  opacity: 0.8;
+  padding: 4px 8px;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+
+.root :global(.citation-back-link:hover) {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+  opacity: 1;
+  text-decoration: none !important;
+}
+
+.root :global(.citation-back-link[data-recently-clicked='true']) {
+  background: #dbeafe;
+  border-color: #3b82f6;
+  color: #1e40af !important;
+  opacity: 1;
+}
+
+:global(.dark) .root :global(.citation-back-link) {
+  background: #374151;
+  border-color: #4b5563;
+  color: #d1d5db !important;
+}
+
+:global(.dark) .root :global(.citation-back-link:hover) {
+  background: #4b5563;
+  border-color: #6b7280;
+}
+
+:global(.dark) .root :global(.citation-back-link[data-recently-clicked='true']) {
+  background: #1e3a8a;
+  border-color: #60a5fa;
+  color: #93c5fd !important;
+}
+
+.root :global(.katex) {
+  font-size: 0.95em !important;
+}
+
+.root :global(.caption) {
+  color: #6b7280;
+  display: table;
+  font-size: 14px;
+  margin: 1em 0;
+  text-align: center;
+  width: 100%;
+}
+
+.root :global(summary) {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.root :global([data-highlighted-line]) {
+  --tw-border-opacity: 1;
+  background: #c8c8ff1a;
+  border-left-color: rgb(96 165 250 / var(--tw-border-opacity));
+}
+
+.root :global([data-highlighted-chars]) {
+  background-color: #52525b80;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0 4px #52525b80;
+}
+
+.root :global(.relative) {
+  display: grid;
+}
+
+.root :global(figure[data-rehype-pretty-code-figure]) {
+  margin: 1em 0 !important;
+}
+
+.root :global(pre) {
+  margin: 0 !important;
+}
+
+.root :global(figcaption) {
+  margin-bottom: 1rem !important;
+}

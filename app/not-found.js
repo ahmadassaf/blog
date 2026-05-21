@@ -8,7 +8,7 @@
  * @version 1.0.0
  */
 
-import { Button, Typography } from '@/components/ui';
+import { Button, Typography } from '@ahmadassaf/design-system';
 
 /**
  * 404 error page component
@@ -35,7 +35,7 @@ export default function FourZeroFour() {
           <Typography variant='paragraph-md' className='mb-8'>
             But dont worry, you can find plenty of other things on the homepage
           </Typography>
-          <Button variant='primary-md' href='/'>
+          <Button variant='solid' tone='blue' size='md' href='/'>
             Back to homepage
           </Button>
         </div>

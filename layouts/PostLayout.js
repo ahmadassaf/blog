@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import SectionContainer from '@/components/containers/SectionContainer';
+import SectionContainer from '@/components/layout/SectionContainer';
 import Disclaimer from '@/components/post/Disclaimer';
 import PostComments from '@/components/post/PostComments';
 import PostHeader from '@/components/post/PostHeader';

@@ -1,0 +1,52 @@
+.root {
+  position: relative;
+}
+
+.root :global(.rcg-tab-container) {
+  background: #070910;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  margin: 0;
+  padding: 8px 0 0;
+  position: relative;
+}
+
+.root :global(.rcg-tab) {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0;
+  padding: 8px 16px 12px;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.root :global(.rcg-tab:hover) {
+  color: #9ca3af;
+}
+
+.root :global(.rcg-tab.active) {
+  color: #60a5fa;
+}
+
+.root :global(.rcg-block) {
+  display: none;
+}
+
+.root :global(.rcg-block.active) {
+  display: block;
+}
+
+.root :global(.rcg-block pre) {
+  background: #070910 !important;
+  border-radius: 0 0 6px 6px !important;
+  margin: 0 !important;
+}
+
+.root :global(.rcg-block pre) {
+  margin-top: -19px !important;
+}

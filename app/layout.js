@@ -12,14 +12,12 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from 'next/font/google';
 
-import LayoutContainer from '@/components/containers/layoutContainer';
-import CodeGroupTabs from '@/components/elements/CodeGroupTabs';
+import CodeGroupTabs from '@/components/content/CodeGroupTabs';
+import LayoutContainer from '@/components/layout/LayoutContainer';
 import CitationTracker from '@/components/mdx/CitationTracker';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
 
-import '@/css/tailwind.css';
-import '@/css/overrides.css';
-import '@/css/highlight.css';
+import '@ahmadassaf/design-system/global.css';
 import 'katex/dist/katex.css';
 import 'remark-github-blockquote-alert/alert.css';
 

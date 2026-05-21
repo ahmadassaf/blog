@@ -1,0 +1,66 @@
+{
+  "name": "@ahmadassaf/design-system",
+  "version": "0.1.0",
+  "description": "Local design system package for Ahmad Assaf's blog.",
+  "type": "module",
+  "private": true,
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "default": "./src/index.js"
+    },
+    "./global.css": "./src/global.css",
+    "./styles.css": "./src/styles.css",
+    "./components/*": {
+      "import": "./src/components/*",
+      "default": "./src/components/*"
+    },
+    "./icons": {
+      "import": "./src/icons/index.jsx",
+      "default": "./src/icons/index.jsx"
+    },
+    "./tailwind/addVariablesColors": {
+      "require": "./src/tailwind/addVariablesColors.cjs",
+      "default": "./src/tailwind/addVariablesColors.cjs"
+    },
+    "./tailwind/tailwindGrid": {
+      "require": "./src/tailwind/tailwindGrid.cjs",
+      "default": "./src/tailwind/tailwindGrid.cjs"
+    },
+    "./tailwind-preset": {
+      "require": "./tailwind-preset.cjs",
+      "default": "./tailwind-preset.cjs"
+    },
+    "./tokens": {
+      "import": "./src/tokens/index.js",
+      "default": "./src/tokens/index.js"
+    }
+  },
+  "scripts": {
+    "build-storybook": "storybook build",
+    "storybook": "storybook dev -p 6006"
+  },
+  "peerDependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@tabler/icons-react": "^3.31.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.9.2",
+    "lucide-react": "^0.544.0",
+    "next": ">=15.0.0",
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0",
+    "react-icons": "^5.5.0",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.0.8",
+    "@storybook/addon-docs": "^10.0.8",
+    "@storybook/nextjs-vite": "^10.0.8",
+    "esbuild": "^0.28.0",
+    "storybook": "^10.0.8"
+  }
+}

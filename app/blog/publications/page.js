@@ -11,12 +11,12 @@
 
 'use client';
 
-import { FaMinus, FaPlus } from 'react-icons/fa6';
+import { Icon } from '@ahmadassaf/design-system';
 import { Disclosure } from '@headlessui/react';
 import Link from 'next/link';
 
 import publications from '@/app/content/publications.json';
-import { cn } from '@/components/utils/TailwindUtils';
+import { cn } from '@/components/utilities/TailwindUtils';
 
 /**
  * Publications page component with year-based grouping and interactive disclosure panels
@@ -60,9 +60,9 @@ export default function Projects({ className }) {
                       <span className='text-base font-semibold leading-7'>{publicationsGroup}</span>
                       <span className='ml-6 flex h-7 items-center'>
                         {open ? (
-                          <FaMinus className='h-4 w-4' aria-hidden='true' />
+                          <Icon name='Minus' size='sm' decorative />
                         ) : (
-                          <FaPlus className='h-4 w-4' aria-hidden='true' />
+                          <Icon name='Plus' size='sm' decorative />
                         )}
                       </span>
                     </Disclosure.Button>
@@ -94,7 +94,7 @@ export default function Projects({ className }) {
  * @returns {JSX.Element} Clean publication card with typography-focused design
  */
 export const PublicationCard = ({ publication }) => (
-  <article className='group block p-4 border border-gray-200 dark:border-[#303030] rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 h-full bg-white dark:bg-gray-900'>
+  <article className='group block p-4 border border-gray-200 dark:border-border-dark rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 h-full bg-white dark:bg-gray-900'>
     <div className='flex flex-col h-full'>
       {/* Metadata */}
       <div className='flex items-center gap-2 mb-3 text-sm'>
@@ -143,7 +143,7 @@ export const PublicationCard = ({ publication }) => (
  */
 export const CardMeta = ({ year, type }) => (
   <div className='flex mt-4 gap-2'>
-    <span className='inline-flex items-center rounded-md bg-purple-50 dark:bg-purple-900/30 px-2 py-1 text-xs font-medium text-purple-700 dark:text-purple-200 ring-1 ring-inset ring-purple-700/10 dark:ring-purple-400/20'>{year}</span>
+    <span className='inline-flex items-center rounded-md bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 text-xs font-medium text-indigo-700 dark:text-indigo-200 ring-1 ring-inset ring-indigo-700/10 dark:ring-indigo-300/20'>{year}</span>
     {type && (
       <span className='inline-flex items-center rounded-md bg-yellow-50 dark:bg-yellow-900/30 px-2 py-1 text-xs font-medium text-yellow-800 dark:text-yellow-200 ring-1 ring-inset ring-yellow-600/20 dark:ring-yellow-400/20'>{type}</span>
     )}

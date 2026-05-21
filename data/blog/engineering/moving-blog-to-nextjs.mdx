@@ -75,9 +75,8 @@ Since Node.js was created, the ECMAScript module system (which uses import and e
    - `rehype-citation.js` - adds citation support to the MDX files.
    - `rehype-katex.js` - adds math display support to the MDX files.
 
-- `components`: The `components` folder contains the React components used in the blog. The `MDXComponents.js` file contains the components used to render the MDX files. The `social-icons` folder contains the SVG icons for social media.
-- `css`: The `css` folder contains the tailwind.css file which contains the tailwind stylesheet. The `prism.css` file contains the styles associated with the code blocks.
-- `app`: The `app` folder contains the main application files. The `pages` folder contains the pages to route to. The `api` folder contains the API routes. The `components` folder contains the components used in the pages. The `styles` folder contains the global styles.
+- `packages/design-system`: The local design-system package contains the reusable React components, MDX components, design tokens, Tailwind preset, global CSS entrypoint, and Storybook stories used by the blog.
+- `app`: The `app` folder contains the main application routes and application shell. Shared UI is imported from the design-system package instead of living in a root-level components folder.
 
 
 ## Quick Start Guide
@@ -142,13 +141,13 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 `public/static` - store assets such as images and favicons.
 
-`tailwind.config.js` and `css/tailwind.css` - contain the tailwind stylesheet which can be modified to change the overall look and feel of the site.
+`packages/design-system` - contains the local design-system package, including reusable components, tokens, Tailwind preset, Storybook stories, and global design-system CSS exports.
 
-`css/prism.css` - controls the styles associated with the code blocks. Feel free to customize it and use your preferred prismjs theme e.g. [prism themes](https://github.com/PrismJS/prism-themes).
+`tailwind.config.js` - consumes the design-system Tailwind preset and scans the app and design-system package for classes.
 
-`components/social-icons` - to add other icons, simply copy an svg file from [Simple Icons](https://simpleicons.org/) and map them in `index.js`. Other icons use [heroicons](https://heroicons.com/).
+`packages/design-system/src/global.css` - design-system global entrypoint imported by the app. It owns Tailwind and base browser compatibility only; component and MDX rendering styles live beside their owning design-system components.
 
-`components/MDXComponents.js` - pass your own JSX code or React component by specifying it over here. You can then call them directly in the `.mdx` or `.md` file. By default, a custom link and image component is passed.
+`packages/design-system/src/components/mdx/index.js` - exposes the JSX components available inside `.mdx` and `.md` content.
 
 `layouts` - main templates used in pages.
 

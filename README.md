@@ -178,13 +178,13 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 `public/static` - store assets such as images and favicons.
 
-`tailwind.config.js` and `css/tailwind.css` - contain the tailwind stylesheet which can be modified to change the overall look and feel of the site.
+`packages/design-system` - contains the local design-system package, including reusable components, tokens, Tailwind preset, Storybook stories, and global design-system CSS exports.
 
-`css/prism.css` - controls the styles associated with the code blocks. Feel free to customize it and use your preferred prismjs theme e.g. [prism themes](https://github.com/PrismJS/prism-themes).
+`tailwind.config.js` - consumes the design-system Tailwind preset and scans the app and design-system package for classes.
 
-`components/social-icons` - to add other icons, simply copy an svg file from [Simple Icons](https://simpleicons.org/) and map them in `index.js`. Other icons use [heroicons](https://heroicons.com/).
+`packages/design-system/src/global.css` - design-system global entrypoint imported by the app. It owns Tailwind and base browser compatibility only; component and MDX rendering styles live beside their owning design-system components.
 
-`components/MDXComponents.js` - pass your own JSX code or React component by specifying it over here. You can then call them directly in the `.mdx` or `.md` file. By default, a custom link and image component is passed.
+`packages/design-system/src/components/mdx/index.js` - exposes the JSX components available inside `.mdx` and `.md` content.
 
 `layouts` - main templates used in pages.
 

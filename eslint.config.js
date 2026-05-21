@@ -533,6 +533,15 @@ module.exports = [
     }
   },
   {
+    'files': [
+      'packages/design-system/.storybook/stories/**/*.stories.jsx',
+      'packages/design-system/src/components/**/*.stories.jsx'
+    ],
+    'rules': {
+      'quote-props': 'off'
+    }
+  },
+  {
     'ignores': [ 'node_modules/**', '.next/**', 'out/**', 'build/**', 'dist/**', '.contentlayer/**', '**/*.d.ts' ]
   }
 ];

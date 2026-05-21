@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import { LiaChartAreaSolid, LiaChessKnightSolid, LiaCodepen, LiaCubesSolid, LiaHandshake, LiaRobotSolid } from 'react-icons/lia';
+import { Icon } from '@ahmadassaf/design-system';
 
 import Preview from '@/components/mdx/Preview';
 
@@ -27,32 +27,32 @@ export default function About() {
   const values = [
     {
       'description': 'Providing strategic guidance to help you navigate complex business challenges and make informed decisions.',
-      'icon': <LiaChessKnightSolid/>,
+      'icon': <Icon name='ChessKnight' decorative />,
       'name': 'Advisory Services'
     },
     {
       'description': 'Offering personalized mentorship to emerging leaders and teams, fostering growth and development',
-      'icon': <LiaHandshake/>,
+      'icon': <Icon name='HandshakeLine' decorative />,
       'name': 'Mentorship'
     },
     {
       'description': 'Asisting in scaling operations and accelerating growth through proven strategies and industry insights',
-      'icon': <LiaChartAreaSolid/>,
+      'icon': <Icon name='ChartArea' decorative />,
       'name': 'Scaling and Growth'
     },
     {
       'description': 'Leading technical teams with a focus on innovation, efficiency, and achieving business goals',
-      'icon': <LiaCubesSolid/>,
+      'icon': <Icon name='Cubes' decorative />,
       'name': 'Technical Leadership'
     },
     {
       'description': 'Developing and implementing robust technical strategies that align with your business objectives and drive competitive advantage',
-      'icon': <LiaCodepen/>,
+      'icon': <Icon name='Codepen' decorative />,
       'name': 'Technical Strategy'
     },
     {
       'description': 'Conducting thorough assessments of AI and technology systems to ensure they meet industry standards and support business growth, while identifying potential risks and opportunities',
-      'icon': <LiaRobotSolid/>,
+      'icon': <Icon name='Robot' decorative />,
       'name': 'AI and Tech Due Diligence'
     }
   ];
@@ -83,7 +83,7 @@ export default function About() {
                 'clipPath':
                   'polygon(63.1% 29.5%, 100% 17.1%, 76.6% 3%, 48.4% 0%, 44.6% 4.7%, 54.5% 25.3%, 59.8% 49%, 55.2% 57.8%, 44.4% 57.2%, 27.8% 47.9%, 35.1% 81.5%, 0% 97.7%, 39.2% 100%, 35.2% 81.4%, 97.2% 52.8%, 63.1% 29.5%)'
               }}
-              className='aspect-801/1036 w-[50.0625rem] bg-linear-to-tr from-[#538fc1] to-[#9089fc] opacity-30'
+              className='aspect-801/1036 w-[50.0625rem] bg-linear-to-tr from-blue-300 to-indigo-300 opacity-30'
             />
           </div>
           <div className='overflow-hidden'>

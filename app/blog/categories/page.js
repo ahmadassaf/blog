@@ -11,13 +11,8 @@
 'use client';
 
 import { useState } from 'react';
+import { Icon } from '@ahmadassaf/design-system';
 import { allPosts } from 'contentlayer/generated';
-import { ChevronRight,
-  FileText,
-  Flame,
-  FolderOpen,
-  Grid3X3,
-  List } from 'lucide-react';
 import Link from 'next/link';
 
 import categories from '@/app/content/categories';
@@ -64,7 +59,7 @@ export default function Categories() {
           <div className='mb-6 grid grid-cols-2 gap-4 sm:grid-cols-3'>
             <div className='flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900'>
               <div className='rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20'>
-                <FolderOpen className='h-5 w-5 text-blue-600 dark:text-blue-400' />
+                <Icon name='FolderOpen' size='md' decorative className='text-blue-600 dark:text-blue-400' />
               </div>
               <div>
                 <div className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
@@ -78,7 +73,7 @@ export default function Categories() {
 
             <div className='flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900'>
               <div className='rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20'>
-                <FileText className='h-5 w-5 text-blue-600 dark:text-blue-400' />
+                <Icon name='FileText' size='md' decorative className='text-blue-600 dark:text-blue-400' />
               </div>
               <div>
                 <div className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
@@ -92,7 +87,7 @@ export default function Categories() {
 
             <div className='flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900'>
               <div className='rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20'>
-                <Flame className='h-5 w-5 text-blue-600 dark:text-blue-400' />
+                <Icon name='Flame' size='md' decorative className='text-blue-600 dark:text-blue-400' />
               </div>
               <div>
                 <div className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
@@ -112,14 +107,14 @@ export default function Categories() {
                 onClick={ () => setViewMode('cards') }
                 className={ `flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-l-lg ${viewMode === 'cards' ? 'bg-blue-600 text-white dark:bg-blue-500' : 'bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800'}` }
               >
-                <Grid3X3 className='h-4 w-4' />
+                <Icon name='Grid3X3' size='sm' decorative />
                 Cards
               </button>
               <button
                 onClick={ () => setViewMode('list') }
                 className={ `flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-r-lg border-l border-gray-200 dark:border-gray-700 ${viewMode === 'list' ? 'bg-blue-600 text-white dark:bg-blue-500' : 'bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800'}` }
               >
-                <List className='h-4 w-4' />
+                <Icon name='List' size='sm' decorative />
                 List
               </button>
             </div>
@@ -187,7 +182,7 @@ export default function Categories() {
                           </time>
                           <div className='flex items-center gap-1 text-gray-400 group-hover:text-blue-500'>
                             <span className='text-xs'>Read</span>
-                            <ChevronRight className='h-3 w-3' />
+                            <Icon name='ChevronRight' size='xs' decorative />
                           </div>
                         </div>
                       </article>

@@ -11,7 +11,7 @@
 
 import { allPosts } from 'contentlayer/generated';
 
-import { POSTS_PER_PAGE } from '@/components/elements/Pagination';
+import { POSTS_PER_PAGE } from '@/components/content/Pagination';
 import ListLayout from '@/layouts/ListLayout';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
 

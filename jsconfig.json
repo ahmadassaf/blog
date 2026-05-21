@@ -3,12 +3,13 @@
     "baseUrl": ".",
     "paths": {
       "contentlayer/generated": ["./.contentlayer/generated"],
-      "@/components/*": ["components/*"],
+      "@/components/*": ["packages/design-system/src/components/*"],
       "@/data/*": ["data/*"],
       "@/app/*": ["app/*"],
       "@/layouts/*": ["layouts/*"],
       "@/lib/*": ["lib/*"],
-      "@/css/*": ["css/*"],
+      "@ahmadassaf/design-system": ["packages/design-system/src/index.js"],
+      "@ahmadassaf/design-system/*": ["packages/design-system/src/*"],
       "@/public/*": ["public/*"],
     }  
   },

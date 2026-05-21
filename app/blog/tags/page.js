@@ -11,15 +11,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Icon } from '@ahmadassaf/design-system';
 import { allPosts } from 'contentlayer/generated';
-import { ChevronRight,
-  FileText,
-  Flame,
-  FolderOpen,
-  Hash,
-  Loader2,
-  Search,
-  X } from 'lucide-react';
 import Link from 'next/link';
 
 import tags from '@/app/content/tags';
@@ -102,7 +95,7 @@ export default function Tags() {
           <div className='mb-6 grid grid-cols-2 gap-4 sm:grid-cols-3'>
             <div className='flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900'>
               <div className='rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20'>
-                <FolderOpen className='h-5 w-5 text-blue-600 dark:text-blue-400' />
+                <Icon name='FolderOpen' size='md' decorative className='text-blue-600 dark:text-blue-400' />
               </div>
               <div>
                 <div className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
@@ -116,7 +109,7 @@ export default function Tags() {
 
             <div className='flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900'>
               <div className='rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20'>
-                <FileText className='h-5 w-5 text-blue-600 dark:text-blue-400' />
+                <Icon name='FileText' size='md' decorative className='text-blue-600 dark:text-blue-400' />
               </div>
               <div>
                 <div className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
@@ -130,7 +123,7 @@ export default function Tags() {
 
             <div className='flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900'>
               <div className='rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20'>
-                <Flame className='h-5 w-5 text-blue-600 dark:text-blue-400' />
+                <Icon name='Flame' size='md' decorative className='text-blue-600 dark:text-blue-400' />
               </div>
               <div>
                 <div className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
@@ -146,7 +139,7 @@ export default function Tags() {
           {/* Search Bar */}
           <div className='relative mb-8'>
             <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
-              <Search className='h-4 w-4 text-gray-400' />
+              <Icon name='Search' size='sm' decorative className='text-gray-400' />
             </div>
             <input
               type='text'
@@ -203,7 +196,7 @@ export default function Tags() {
                 <div className='flex items-center justify-between'>
                   <div>
                     <div className='flex items-center gap-2'>
-                      <Hash className='h-5 w-5 text-gray-600 dark:text-gray-400' />
+                      <Icon name='Tags' size='md' decorative className='text-gray-600 dark:text-gray-400' />
                       <h2 className='text-lg font-semibold text-gray-900 dark:text-gray-100'>
                         {selectedTag?.display}
                       </h2>
@@ -216,7 +209,7 @@ export default function Tags() {
                     onClick={ closeSidebar }
                     className='rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300'
                   >
-                    <X className='h-5 w-5' />
+                    <Icon name='X' size='md' decorative />
                   </button>
                 </div>
               </div>
@@ -225,7 +218,7 @@ export default function Tags() {
               <div className='flex-1 overflow-y-auto'>
                 {loading && (
                   <div className='flex items-center justify-center py-12'>
-                    <Loader2 className='h-6 w-6 animate-spin text-gray-400' />
+                    <Icon name='Search' size='lg' decorative className='animate-pulse text-gray-400' />
                   </div>
                 )}
                 {!loading && tagPosts.length === 0 && (
@@ -259,7 +252,7 @@ export default function Tags() {
                             </time>
                             <div className='flex items-center gap-1 text-gray-400 group-hover:text-blue-500 transition-colors'>
                               <span className='text-xs'>Read</span>
-                              <ChevronRight className='h-3 w-3' />
+                              <Icon name='ChevronRight' size='xs' decorative />
                             </div>
                           </div>
                         </article>

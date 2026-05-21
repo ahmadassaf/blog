@@ -13,7 +13,7 @@
 
 import { useState } from 'react';
 
-import Search from '@/components/elements/Search';
+import Search from '@/components/content/Search';
 import Post from '@/components/post/Post';
 
 const POSTS_PER_PAGE = 7;
@@ -102,7 +102,7 @@ export default function ListLayout({ posts, filter = true }) {
                 <button
                   onClick={ () => handlePageChange(currentPage - 1) }
                   disabled={ isLoading }
-                  className='group inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-[#303030] rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed'
+                  className='group inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-border-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed'
                 >
                   {isLoading ? (
                     <svg className='animate-spin mr-2 h-4 w-4' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
@@ -119,7 +119,7 @@ export default function ListLayout({ posts, filter = true }) {
               ) : (
                 <button
                   disabled
-                  className='inline-flex items-center px-4 py-2 text-sm font-medium text-gray-400 dark:text-gray-600 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-[#303030] rounded-lg cursor-not-allowed'
+                  className='inline-flex items-center px-4 py-2 text-sm font-medium text-gray-400 dark:text-gray-600 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-border-dark rounded-lg cursor-not-allowed'
                 >
                   <svg className='mr-2 h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                     <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M15 19l-7-7 7-7' />
@@ -208,7 +208,7 @@ export default function ListLayout({ posts, filter = true }) {
                 <button
                   onClick={ () => handlePageChange(currentPage + 1) }
                   disabled={ isLoading }
-                  className='group inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-[#303030] rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed'
+                  className='group inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-border-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed'
                 >
                   Next
                   {isLoading ? (
@@ -225,7 +225,7 @@ export default function ListLayout({ posts, filter = true }) {
               ) : (
                 <button
                   disabled
-                  className='inline-flex items-center px-4 py-2 text-sm font-medium text-gray-400 dark:text-gray-600 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-[#303030] rounded-lg cursor-not-allowed'
+                  className='inline-flex items-center px-4 py-2 text-sm font-medium text-gray-400 dark:text-gray-600 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-border-dark rounded-lg cursor-not-allowed'
                 >
                   Next
                   <svg className='ml-2 h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>

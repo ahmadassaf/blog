@@ -1,0 +1,37 @@
+@layer base {
+  :root {
+    --ds-color-accent: #2563eb;
+    --ds-color-accent-dark: #1d4ed8;
+    --ds-color-accent-foreground: #ffffff;
+    --ds-color-accent-muted: #dbeafe;
+    --ds-color-accent-subtle: #eff6ff;
+    --ds-color-border: #d4d4d4;
+    --ds-color-border-dark: #303030;
+    --ds-color-border-muted: #f5f5f5;
+    --ds-color-surface: #ffffff;
+    --ds-color-surface-dark: #171717;
+    --ds-color-surface-muted: #fafafa;
+    --ds-color-text: #171717;
+    --ds-color-text-inverse: #ffffff;
+    --ds-color-text-muted: #404040;
+    --ds-color-text-subtle: #737373;
+    --ds-font-sans: var(--font-space-inter), "Inter Variable", system-ui, sans-serif;
+    --ds-font-mono: "JetBrains Mono", Menlo, Monaco, monospace;
+    --ds-line-height-body: 1.6;
+    --ds-line-height-prose: 1.7;
+    --ds-radius-card: 0.5rem;
+    --ds-radius-control: 0.5rem;
+    --ds-radius-pill: 0.125rem;
+    --ds-shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --ds-shadow-card-hover: 0 10px 20px -12px rgb(0 0 0 / 0.25);
+  }
+
+  .dark {
+    --ds-color-border: #303030;
+    --ds-color-surface: #171717;
+    --ds-color-surface-muted: #262626;
+    --ds-color-text: #f5f5f5;
+    --ds-color-text-muted: #d4d4d4;
+    --ds-color-text-subtle: #a3a3a3;
+  }
+}

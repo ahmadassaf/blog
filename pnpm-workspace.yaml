@@ -1,0 +1,12 @@
+packages:
+  - '.'
+  - 'packages/*'
+
+allowBuilds:
+  '@vercel/speed-insights': false
+  citation-js: false
+  contentlayer2: false
+  esbuild: false
+  protobufjs: false
+  sharp: false
+  unrs-resolver: false

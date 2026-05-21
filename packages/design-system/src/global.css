@@ -1,0 +1,58 @@
+/**
+ * Tailwind CSS v4 Configuration
+ *
+ * @description Modern Tailwind CSS v4 configuration with optimized imports
+ * and enhanced styles for improved performance and maintainability.
+ *
+ * @author Ahmad Assaf
+ * @version 2.0.0
+ */
+
+@import 'tailwindcss';
+@config '../../../tailwind.config.js';
+@import './styles.css';
+
+/**
+ * Border Color Compatibility Layer
+ *
+ * @description The default border color has changed to `currentColor` in Tailwind CSS v4,
+ * so we've added these compatibility styles to make sure everything still
+ * looks the same as it did with Tailwind CSS v3.
+ *
+ * @note If we ever want to remove these styles, we need to add an explicit border
+ * color utility to any element that depends on these defaults.
+ */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+  
+  /**
+   * Base font size for optimal readability
+   */
+  body {
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+  }
+
+  :where(a, button, input, textarea, select, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 2px solid var(--ds-color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+}

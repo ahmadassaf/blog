@@ -9,13 +9,11 @@
  * @version 1.0.0
  */
 
+import { Button, Link, TextHighlight, Typography } from '@ahmadassaf/design-system';
 import { allPosts, allThoughts } from 'contentlayer/generated';
 
-import LauncherShortcut from '@/components/cmd/CmdLauncherShortcut';
-import Link from '@/components/elements/Link';
-import { TextHighlight } from '@/components/elements/TextHighlight';
-import ThoughtsSection from '@/components/thoughts/ThoughtsSection';
-import { Button, Typography } from '@/components/ui';
+import LauncherShortcut from '@/components/command/CmdLauncherShortcut';
+import ThoughtsSection from '@/components/content/ThoughtsSection';
 import siteMetadata from '@/data/meta/metadata';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import ListLayout from '@/layouts/ListLayout';
@@ -95,7 +93,7 @@ export default function Home() {
               )}
             </div>
             <div className='flex justify-end md:flex-shrink-0'>
-              <Button variant='link-primary-md' href='/blog' aria-label='View all blog posts'>
+              <Button variant='outline' tone='blue' size='md' href='/blog' aria-label='View all blog posts'>
                 View All Posts
                 <svg className='w-4 h-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />

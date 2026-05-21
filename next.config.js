@@ -65,7 +65,7 @@ module.exports = () => {
 
   return plugins.reduce((acc, next) => next(acc), {
     'eslint': {
-      'dirs': [ 'app', 'components', 'layouts', 'scripts' ]
+      'dirs': [ 'app', 'layouts', 'packages/design-system/src/components', 'scripts' ]
     },
     'experimental': {
       'optimizePackageImports': [ '@radix-ui/themes', 'framer-motion', '@tabler/icons-react', '@heroicons/react', 'react-icons' ]
@@ -95,6 +95,7 @@ module.exports = () => {
     },
     'pageExtensions': [ 'ts', 'tsx', 'js', 'jsx', 'md', 'mdx' ],
     'reactStrictMode': true,
+    'transpilePackages': [ '@ahmadassaf/design-system' ],
     'turbopack': {
       'rules': {
         '*.svg': {

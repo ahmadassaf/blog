@@ -1,40 +1,55 @@
+/* eslint-disable quote-props */
 import './preview.css';
 
 const preview = {
-  'parameters': {
-    'a11y': {
-      'options': {
-        'runOnly': {
-          'type': 'tag',
-          'values': [ 'wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa' ]
+  parameters: {
+    a11y: {
+      options: {
+        runOnly: {
+          type: 'tag',
+          values: [ 'wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa' ]
         }
       },
-      'test': 'error'
+      test: 'error'
     },
-    'actions': {
-      'argTypesRegex': '^on.*'
+    actions: {
+      argTypesRegex: '^on.*'
     },
-    'backgrounds': {
-      'options': {
-        'dark': { 'name': 'Dark', 'value': '#171717' },
-        'light': { 'name': 'Light', 'value': '#ffffff' }
+    backgrounds: {
+      options: {
+        dark: { name: 'Dark', value: '#171717' },
+        light: { name: 'Light', value: '#ffffff' }
       }
     },
-    'controls': {
-      'matchers': {
-        'color': /(?:background|color)$/i,
-        'date': /Date$/i
+    controls: {
+      matchers: {
+        color: /(?:background|color)$/i,
+        date: /Date$/i
       }
     },
-    'nextjs': {
-      'appDirectory': true
+    nextjs: {
+      appDirectory: true
     },
-    'options': {
-      'storySort': {
-        'order': [
-          'Introduction',
-          'Foundations',
-          'Primitives',
+    options: {
+      storySort: {
+        method: 'alphabetical',
+        order: [
+          'Overview',
+          [
+            'Welcome',
+            'Getting Started',
+            'Conventions',
+            'Accessibility',
+            'Colors & Tokens',
+            'Typography',
+            'Icons',
+            'Indicators',
+            'Writing Stories',
+            'Testing'
+          ],
+          'Core',
+          'Blocks',
+          'Charting',
           'Content',
           'Command',
           'MDX',
@@ -42,8 +57,7 @@ const preview = {
           'Post',
           'Layout',
           'Forms',
-          'Utilities',
-          'Overview'
+          'Utilities'
         ]
       }
     }

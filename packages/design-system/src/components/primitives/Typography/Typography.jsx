@@ -66,11 +66,11 @@ export const typographyVariants = {
     'element': 'p'
   },
   'post-subtitle': {
-    'className': 'max-w-3xl text-lg leading-8 text-gray-600 dark:text-gray-300 sm:text-xl sm:leading-9 md:text-2xl md:leading-10 text-balance',
+    'className': 'w-full text-lg leading-8 text-gray-600 dark:text-gray-300 sm:text-xl sm:leading-9 md:text-2xl md:leading-10',
     'element': 'h3'
   },
   'post-title': {
-    'className': 'max-w-4xl text-4xl font-extrabold leading-[1.16] tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl sm:leading-[1.14] lg:text-6xl lg:leading-[1.12] text-balance break-words',
+    'className': 'w-full text-4xl font-extrabold leading-[1.16] tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl sm:leading-[1.14] lg:text-6xl lg:leading-[1.12] break-words',
     'element': 'h1'
   },
   'prose-lead': {

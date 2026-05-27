@@ -9,9 +9,8 @@
  * @version 1.0.0
  */
 
-import { Icon } from '@ahmadassaf/design-system';
-
-import Preview from '@/components/mdx/Preview';
+import { Card, Grid, Icon, Typography } from '@gaudi/design-system';
+import { Preview } from '@gaudi/design-system/mdx';
 
 /**
  * About page component displaying professional background and services
@@ -90,12 +89,12 @@ export default function About() {
             <div className='pb-32 pt-8'>
               <div className='max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center'>
                 <div className='w-full max-w-xl lg:shrink-0 xl:max-w-2xl'>
-                  <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl dark:text-white'>
+                  <Typography variant='title-xl'>
                     Artificial Intelligence Leader, Advisor and Mentor
-                  </h1>
-                  <p className='relative mt-6 text-lg leading-8 text-gray-600 dark:text-white sm:max-w-md lg:max-w-none'>
+                  </Typography>
+                  <Typography variant='paragraph-lg' className='relative mt-6 sm:max-w-md lg:max-w-none'>
                    A seasoned senior AI and Data Leader and strategic operator more than a decade of experience in scaling SaaS and technology businesses across engineering, data, and AI. Ahmad has a proven track record in engineering leadership, encompassing engineering operations, innovation strategies, and product development.
-                  </p>
+                  </Typography>
                 </div>
               </div>
             </div>
@@ -104,19 +103,19 @@ export default function About() {
 
         <div className='mt-12 sm:mt-0 xl:-mt-8'>
           <div className='max-w-2xl lg:mx-0 lg:max-w-none'>
-            <h2 className='text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl'>A Brief History</h2>
+            <Typography variant='heading-xl' as='h2'>A Brief History</Typography>
             <div className='mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row'>
               <div className='lg:w-full lg:max-w-2xl lg:flex-auto'>
-                <p className='text-xl leading-8 text-gray-600 dark:text-white'>
+                <Typography variant='paragraph-lg'>
                 As a founding engineer at <Preview url='https://beamery.com' title='Beamery' />, I've had the unique opportunity to shape the company's technological journey from its inception. Starting with a hands-on approach, I quickly transitioned into leadership roles, serving as the Head of Engineering, and currently as the VP of AI. In this capacity, I've built and led the AI and Data Science functions, which stand at the core of Beamery's R&D and innovation efforts.
-                </p>
+                </Typography>
                 <div className='mt-10 max-w-xl text-base leading-7 text-gray-700 dark:text-white'>
-                  <p>
+                  <Typography variant='paragraph-md'>
                   As a continuous learner, I love working in collaborative environments, tackling challenging problems with my team and providing strategic leadership to achieve product-market fit and growth. I have vast expertise at aligning technology with business objectives and effectively communicating transformative and innovative strategies to the market.
-                  </p>
-                  <p className='mt-10'>
+                  </Typography>
+                  <Typography variant='paragraph-md' className='mt-10'>
                   In addition to my technical and leadership roles, I am deeply committed to fostering a culture of growth and continuous learning. As a coach and mentor, I provide guidance on AI, growth strategies, and productivity, helping both individuals and teams to unlock their full potential.
-                  </p>
+                  </Typography>
                 </div>
               </div>
               <div className='lg:flex lg:flex-auto lg:justify-center'>
@@ -125,19 +124,19 @@ export default function About() {
                     <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
                       <Preview url='https://beamery.com' title='Beamery' className='text-lg'/>
                     </dt>
-                    <dd className='text-3xl font-semibold tracking-tight text-gray-900 dark:text-white'>VP AI and Data</dd>
+                    <Typography as='dd' variant='heading-lg'>VP AI and Data</Typography>
                   </div>
                   <div className='flex flex-col-reverse gap-y-4'>
                     <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
                       <Preview url='https://beamery.com' title='Beamery' className='text-lg' />
                     </dt>
-                    <dd className='text-3xl font-semibold tracking-tight text-gray-900 dark:text-white'>Head of Engineering</dd>
+                    <Typography as='dd' variant='heading-lg'>Head of Engineering</Typography>
                   </div>
                   <div className='flex flex-col-reverse gap-y-4'>
                     <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
                       <Preview url='https://sap.com' title='SAP' className='text-lg' />
                     </dt>
-                    <dd className='text-3xl font-semibold tracking-tight text-gray-900 dark:text-white'>Research Scientist</dd>
+                    <Typography as='dd' variant='heading-lg'>Research Scientist</Typography>
                   </div>
                 </dl>
               </div>
@@ -147,22 +146,32 @@ export default function About() {
 
         <div className='mt-32 sm:mt-40 py-2'>
           <div className='max-w-2xl lg:mx-0'>
-            <h2 className='text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl'>How Can I Help?</h2>
-            <p className='mt-6 text-lg leading-8 text-gray-600 dark:text-white'>
+            <Typography variant='heading-xl' as='h2'>How Can I Help?</Typography>
+            <Typography variant='paragraph-lg' className='mt-6'>
             As an experienced leader in the technology and SaaS industry, I am committed to helping businesses achieve their full potential. My approach is grounded in core values of collaboration, innovation, and integrity, which guide all aspects of my work. Whether you're an individual, a startup looking to scale or an established company seeking to refine your strategy, I can provide the expertise and guidance you need to succeed.
-            </p>
+            </Typography>
           </div>
-          <dl className='my-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3'>
+          <Grid columns='3' gap='lg' className='my-16 max-w-2xl lg:mx-0 lg:max-w-none'>
             {values.map((value) => (
-              <div key={ value.name }>
-                <dt className='flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-white'>
-                  {value.icon}
-                  {value.name}
-                </dt>
-                <dd className='mt-1 text-gray-600 dark:text-gray-300'>{value.description}</dd>
-              </div>
+              <Card
+                key={ value.name }
+                title={ (
+                  <>
+                    {value.icon}
+                    {value.name}
+                  </>
+                ) }
+                subtitle={ value.description }
+                variant='flat'
+                padding='none'
+                classNames={{
+                  'body': 'space-y-2',
+                  'subtitle': 'text-base',
+                  'title': 'flex items-center gap-2 text-xl'
+                }}
+              />
             ))}
-          </dl>
+          </Grid>
         </div>
       </main>
     </div>

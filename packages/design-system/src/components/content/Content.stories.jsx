@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 import { createComponentDocsPage, getComponentDocs } from '../../../.storybook/stories/ComponentDocs';
+import Button from '../core/Button';
+import PaginationBar from '../core/Pagination';
 
 import Aurora from './Aurora';
 import MenuDropDown from './DropDown';
 import ImageModal from './ImageModal';
-import { Pagination } from './Pagination';
 import Search from './Search';
 
 const componentDocs = getComponentDocs('Content/Overview');
@@ -56,9 +57,9 @@ export const Dropdown = {
 export const PaginationStates = {
   'render': () => (
     <div className='max-w-3xl space-y-10 p-6'>
-      <Pagination totalPages={ 5 } currentPage={ 1 } baseURL='blog' paginationURL='blog/page' />
-      <Pagination totalPages={ 5 } currentPage={ 3 } baseURL='blog' paginationURL='blog/page' />
-      <Pagination totalPages={ 5 } currentPage={ 5 } baseURL='blog' paginationURL='blog/page' />
+      <PaginationBar totalPages={ 5 } currentPage={ 1 } getHref={ () => '' } />
+      <PaginationBar totalPages={ 5 } currentPage={ 3 } getHref={ () => '' } />
+      <PaginationBar totalPages={ 5 } currentPage={ 5 } getHref={ () => '' } />
     </div>
   )
 };
@@ -69,9 +70,9 @@ export const ModalOpen = {
 
     return (
       <div className='p-6'>
-        <button className='rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white' onClick={ () => setOpen(true) }>
+        <Button onClick={ () => setOpen(true) }>
           Open modal
-        </button>
+        </Button>
         <ImageModal
           isOpen={ open }
           onClose={ () => setOpen(false) }

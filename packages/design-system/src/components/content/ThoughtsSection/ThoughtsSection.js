@@ -8,8 +8,8 @@
  * @version 2.0.0
  */
 
-import Button from '@/components/primitives/Button';
-import Link from '@/components/primitives/Link';
+import Button from '@/components/core/Button';
+import Link from '@/components/core/Link';
 
 /**
  * Renders a special thoughts section for the homepage

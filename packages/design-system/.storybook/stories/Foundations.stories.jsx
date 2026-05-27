@@ -97,15 +97,8 @@ const Section = ({ children, description, title }) => (
 );
 
 export default {
-  parameters: {
-    docs: {
-      description: {
-        component: 'The color and token foundation for the blog design system. These values are exported from the package, mirrored into Tailwind, and exposed through CSS custom properties.'
-      }
-    }
-  },
-  tags: [ 'autodocs' ],
-  title: 'Foundations/Colors & Tokens'
+  tags: [ '!autodocs' ],
+  title: 'Overview/Colors & Tokens'
 };
 
 export const Default = {
@@ -113,7 +106,7 @@ export const Default = {
     <div className='space-y-10 p-6 text-gray-900 dark:bg-gray-950 dark:text-gray-100'>
       <Section
         title='Color System'
-        description='The DS palette is intentionally small: gray, neutral, blue, green, yellow, red, and indigo. Each family exposes eight useful shades only, keeping choices clear and repeatable. Click any token to copy its value.'
+        description='The Gaudi palette is intentionally small: gray, neutral, blue, green, yellow, red, and indigo. Each family exposes eight useful shades only, keeping choices clear and repeatable. Click any token to copy its value.'
       >
         <div className='grid gap-5'>
           {paletteFamilies.map((family) => (
@@ -149,7 +142,7 @@ export const Default = {
 
       <Section
         title='Radii, Shadows, Type Tokens'
-        description='Non-color values are kept small and deliberate. They describe product primitives rather than one-off page decoration.'
+        description='Non-color values are kept small and deliberate. They describe reusable product elements rather than one-off page decoration.'
       >
         <div className='grid gap-4 lg:grid-cols-3'>
           <div className='rounded-md border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900'>
@@ -195,15 +188,15 @@ export const Default = {
 
       <Section
         title='Package Contract'
-        description='Consumers can import tokens directly from the package today. The same contract remains valid if the design system is later published to npm.'
+        description='Consumers import tokens directly from the package. The same contract is used by the blog, Storybook, and published consumers.'
       >
         <CopyableToken
-          value={ `import { colors, radii, shadows, tokens, typography } from '@ahmadassaf/design-system';\n\nconst accent = colors.accent.DEFAULT;\nconst cardRadius = radii.card;\nconst tokenSnapshot = ${JSON.stringify(Object.keys(tokens), null, 2)};` }
+          value={ `import { colors, radii, shadows, tokens, typography } from '@gaudi/design-system';\n\nconst accent = colors.accent.DEFAULT;\nconst cardRadius = radii.card;\nconst tokenSnapshot = ${JSON.stringify(Object.keys(tokens), null, 2)};` }
           label='package token import example'
           className='block w-full'
         >
           <HighlightedCode
-            code={ `import { colors, radii, shadows, tokens, typography } from '@ahmadassaf/design-system';\n\nconst accent = colors.accent.DEFAULT;\nconst cardRadius = radii.card;\nconst tokenSnapshot = ${JSON.stringify(Object.keys(tokens), null, 2)};` }
+            code={ `import { colors, radii, shadows, tokens, typography } from '@gaudi/design-system';\n\nconst accent = colors.accent.DEFAULT;\nconst cardRadius = radii.card;\nconst tokenSnapshot = ${JSON.stringify(Object.keys(tokens), null, 2)};` }
             language='js'
           />
         </CopyableToken>
@@ -211,14 +204,14 @@ export const Default = {
 
       <Section
         title='Implementation Alignment'
-        description='These docs are generated from the DS token exports. The blog consumes the same package through Tailwind, CSS variables, and package imports.'
+        description='These docs are generated from the Gaudi token exports. The blog consumes the same package through Tailwind, CSS variables, and package imports.'
       >
         <div className='grid gap-4 md:grid-cols-2'>
           <div className='rounded-md border border-gray-200 bg-white p-4 text-sm leading-7 dark:border-gray-700 dark:bg-gray-900'>
             <div className='mb-2 font-semibold'>What The Blog Uses</div>
             <ul className='list-disc space-y-1 pl-5 text-gray-600 dark:text-gray-300'>
-              <li><code>tailwind.config.js</code> extends the DS Tailwind preset.</li>
-              <li><code>app/layout.js</code> imports <code>@ahmadassaf/design-system/global.css</code> once.</li>
+              <li><code>tailwind.config.js</code> extends the Gaudi Tailwind preset.</li>
+              <li><code>app/layout.js</code> imports <code>@gaudi/design-system/global.css</code> once.</li>
               <li><code>global.css</code> imports <code>styles.css</code>, so CSS variables and base rules come from the package.</li>
               <li>The dynamic Tailwind safelist is limited to these seven palette families and eight shades.</li>
             </ul>

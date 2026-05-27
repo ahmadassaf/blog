@@ -16,6 +16,7 @@ import { useState } from 'react';
 import NextImage from 'next/image';
 
 import ImageModal from '@/components/content/ImageModal';
+import Button from '@/components/core/Button';
 
 /**
  * Renders an optimized image using Next.js Image component with modal functionality
@@ -39,7 +40,7 @@ const Image = ({ alt = 'post-image', src, ...rest }) => {
 
   return (
     <div>
-      <button type='button' className='block max-w-full' onClick={ handleImageClick } aria-label={ `Open image: ${alt}` }>
+      <Button variant='ghost' tone='gray' size='sm' className='block max-w-full p-0 hover:bg-transparent dark:hover:bg-transparent' onClick={ handleImageClick } aria-label={ `Open image: ${alt}` }>
         <NextImage
           { ...rest }
           alt={ alt }
@@ -51,7 +52,7 @@ const Image = ({ alt = 'post-image', src, ...rest }) => {
           priority={ false }
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
         />
-      </button>
+      </Button>
 
       <ImageModal
         isOpen={ isModalOpen }

@@ -40,16 +40,11 @@ const IconTile = ({ name }) => (
 
 export default {
   parameters: {
-    docs: {
-      description: {
-        component: 'Central icon registry for blog and design-system UI. Components should import Icon from the DS instead of importing icon libraries directly.'
-      }
-    },
     layout: 'fullscreen',
     options: { 'showPanel': false }
   },
-  tags: [ 'autodocs' ],
-  title: 'Foundations/Icons'
+  tags: [ '!autodocs' ],
+  title: 'Overview/Icons'
 };
 
 export const Default = {
@@ -59,7 +54,7 @@ export const Default = {
       title='Icons'
       intro='All icons used across the blog are routed through the design-system icon registry. The registry centralizes vendor imports, aliases legacy names, keeps sizing consistent, and makes accessibility behavior explicit.'
     >
-      <Section title='Icon Contract' description='The DS icon component accepts a registry name, an optional size, optional color, and an accessibility mode.'>
+      <Section title='Icon Contract' description='The Gaudi icon component accepts a registry name, an optional size, optional color, and an accessibility mode.'>
         <Table>
           <thead><tr><Th>Use</Th><Th>Requirement</Th><Th>Example</Th></tr></thead>
           <tbody>
@@ -71,8 +66,8 @@ export const Default = {
         </Table>
       </Section>
 
-      <Section title='Blog Consumption' description='The blog and DS components consume icons through the registry only. Direct vendor imports are limited to packages/design-system/src/icons/index.jsx.'>
-        <CodeBlock code={ `import { Icon } from '@ahmadassaf/design-system';
+      <Section title='Blog Consumption' description='The blog and Gaudi components consume icons through the registry only. Direct vendor imports are limited to packages/design-system/src/icons/index.jsx.'>
+        <CodeBlock code={ `import { Icon } from '@gaudi/design-system';
 
 <Icon name='Search' size='sm' decorative />
 <Icon name='Github' href='https://github.com/ahmadassaf' />
@@ -81,7 +76,7 @@ export const Default = {
 rg "from ['"](@heroicons|react-icons|lucide-react|@tabler/icons-react)" packages/design-system/src app layouts lib scripts | rg -v "packages/design-system/src/icons/index.jsx"` } />
       </Section>
 
-      <Section title='Sizing, Color & Stroke' description='Prefer DS props for common changes. Use className only for local layout adjustments or one-off sizing inside tight UI.'>
+      <Section title='Sizing, Color & Stroke' description='Prefer Gaudi props for common changes. Use className only for local layout adjustments or one-off sizing inside tight UI.'>
         <div className='grid gap-4 lg:grid-cols-3'>
           <div className='rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900'>
             <h3 className='mb-3 text-sm font-semibold'>Sizes</h3>
@@ -140,7 +135,7 @@ rg "from ['"](@heroicons|react-icons|lucide-react|@tabler/icons-react)" packages
         </Section>
       ))}
 
-      <Section title='Extending The Registry' description='Add new icons in one place, expose a stable registry name, document the icon in Storybook, then consume it through the DS Icon component.'>
+      <Section title='Extending The Registry' description='Add new icons in one place, expose a stable registry name, document the icon in Storybook, then consume it through the Gaudi Icon component.'>
         <div className='grid gap-4 lg:grid-cols-2'>
           <div className='rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900'>
             <h3 className='mb-3 text-sm font-semibold'>Workflow</h3>
@@ -192,7 +187,7 @@ rg 'from ['\\''"](@heroicons|react-icons|lucide-react|@tabler/icons-react)' pack
           <div className='rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900'>
             <h3 className='mb-3 text-sm font-semibold'>Do</h3>
             <CheckList items={ [
-              'Import icons from the DS Icon component or icons export only.',
+              'Import icons from the Gaudi Icon component or icons export only.',
               'Pair unfamiliar icons with visible text.',
               'Use decorative for icons that repeat nearby text.',
               'Use label for icon-only links, buttons, and status symbols.',

@@ -5,7 +5,8 @@ export default {
     layout: 'fullscreen',
     options: { 'showPanel': false, 'showToolbar': false }
   },
-  title: 'Introduction/Writing Stories'
+  tags: [ '!autodocs' ],
+  title: 'Overview/Writing Stories'
 };
 
 export const Default = {
@@ -13,7 +14,7 @@ export const Default = {
   'render': () => (
     <Page
       title='Writing Stories'
-      intro='Stories are the public contract for the DS. They should show realistic usage, expected variants, accessibility states, and code consumers can trust.'
+      intro='Stories are the public contract for Gaudi. They should show realistic usage, expected variants, accessibility states, and code consumers can trust.'
     >
       <Section title='Required Story Coverage'>
         <Table>
@@ -33,7 +34,7 @@ export const Default = {
           code={ `import { Button } from '../../src/index';
 
 export default {
-  title: 'Components/Button',
+  title: 'Core/Button',
   component: Button,
   tags: [ 'autodocs' ],
   parameters: {
@@ -48,7 +49,9 @@ export default {
 export const Primary = {
   args: {
     children: 'Read article',
-    variant: 'primary-md'
+    variant: 'solid',
+    tone: 'blue',
+    size: 'md'
   }
 };` }
         />
@@ -61,7 +64,7 @@ export const Primary = {
             'Prefer args for component APIs and render functions for layout examples.',
             'Document accessibility behavior in the story description.',
             'Avoid hiding broken states with decorators or global CSS.',
-            'Keep stories under .storybook/stories, never under src.',
+            'Keep component stories colocated with the owning component; keep overview and block docs under .storybook/stories.',
             'Use explicit story titles that match the sidebar taxonomy.'
           ] }
         />
@@ -69,13 +72,12 @@ export const Primary = {
 
       <Section title='Sidebar Taxonomy'>
         <div className='flex flex-wrap gap-2'>
-          <Badge>Introduction/*</Badge>
-          <Badge>Foundations/*</Badge>
-          <Badge>Components/*</Badge>
-          <Badge>Blog UI/*</Badge>
+          <Badge>Overview/*</Badge>
+          <Badge>Core/*</Badge>
+          <Badge>Blocks/*</Badge>
           <Badge>MDX/*</Badge>
           <Badge>Post/*</Badge>
-          <Badge>Command Palette/*</Badge>
+          <Badge>Command/*</Badge>
         </div>
       </Section>
     </Page>

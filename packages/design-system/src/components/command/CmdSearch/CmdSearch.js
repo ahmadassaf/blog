@@ -14,7 +14,7 @@ import CommandPalette, { getItemIndex } from '@tmikeladze/react-cmdk';
 import pkg from 'flexsearch';
 
 import CmdItem from '@/components/command/CmdItem';
-import Icon from '@/components/primitives/Icon';
+import Icon from '@/components/core/Icon';
 
 const { Index } = pkg;
 

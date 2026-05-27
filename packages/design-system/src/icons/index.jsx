@@ -1,6 +1,7 @@
 import { FaLinkedin, FaYoutube } from 'react-icons/fa';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { GoRepoForked, GoStar } from 'react-icons/go';
+import { HiSquare3Stack3D } from 'react-icons/hi2';
 import { IoArrowUpCircleOutline } from 'react-icons/io5';
 import { LiaChartAreaSolid,
   LiaChessKnightSolid,
@@ -143,7 +144,7 @@ export const iconRegistry = {
   'RectangleStackIcon': SquareStack,
   'Robot': LiaRobotSolid,
   'Search': Search,
-  'Square3Stack3DIcon': SquareStack,
+  'Square3Stack3DIcon': HiSquare3Stack3D,
   'Star': GoStar,
   'Sun': Sun,
   'SunFill': RiSunFill,

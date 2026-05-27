@@ -27,16 +27,11 @@ const PulsingStatusDot = ({ label, tone }) => (
 
 export default {
   parameters: {
-    docs: {
-      description: {
-        component: 'Accessible status indicators for dots, labels, pills, and compact state messaging.'
-      }
-    },
     layout: 'fullscreen',
     options: { 'showPanel': false }
   },
-  tags: [ 'autodocs' ],
-  title: 'Foundations/Indicators'
+  tags: [ '!autodocs' ],
+  title: 'Overview/Indicators'
 };
 
 export const Default = {
@@ -95,7 +90,7 @@ export const Default = {
       <section className='rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900'>
         <Typography variant='heading-md'>Implementation Alignment</Typography>
         <p className='mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300'>
-          Indicators are intentionally small: visible text plus an approved DS palette color. The reusable pill is
+          Indicators are intentionally small: visible text plus an approved Gaudi palette color. The reusable pill is
           <code> Pill</code> from the package; dots are lightweight status patterns for docs, tables, and metadata.
           Pulsing dots use <code>motion-safe:animate-ping</code> so reduced-motion users do not receive decorative animation.
         </p>

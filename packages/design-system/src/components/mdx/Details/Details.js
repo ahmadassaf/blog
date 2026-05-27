@@ -13,7 +13,7 @@
 
 import { Disclosure } from '@headlessui/react';
 
-import Icon from '@/components/primitives/Icon';
+import Icon from '@/components/core/Icon';
 
 const Details = ({ title, children, ...rest }) => (
   <div className='mx-auto divide-y divide-gray-900/10 my-8'>

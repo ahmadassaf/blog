@@ -1,9 +1,11 @@
 {
-  "name": "@ahmadassaf/design-system",
+  "name": "@gaudi/design-system",
   "version": "0.1.0",
-  "description": "Local design system package for Ahmad Assaf's blog.",
+  "description": "Gaudi design system package for the blog, themes, plugins, and reusable interface work.",
   "type": "module",
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": [
     "**/*.css"
   ],
@@ -18,9 +20,25 @@
       "import": "./src/components/*",
       "default": "./src/components/*"
     },
+    "./charting": {
+      "import": "./src/components/charting/Chart/index.js",
+      "default": "./src/components/charting/Chart/index.js"
+    },
+    "./core": {
+      "import": "./src/components/core/index.js",
+      "default": "./src/components/core/index.js"
+    },
     "./icons": {
       "import": "./src/icons/index.jsx",
       "default": "./src/icons/index.jsx"
+    },
+    "./layout": {
+      "import": "./src/components/layout/index.js",
+      "default": "./src/components/layout/index.js"
+    },
+    "./mdx": {
+      "import": "./src/components/mdx/index.js",
+      "default": "./src/components/mdx/index.js"
     },
     "./tailwind/addVariablesColors": {
       "require": "./src/tailwind/addVariablesColors.cjs",
@@ -45,6 +63,7 @@
   },
   "peerDependencies": {
     "@heroicons/react": "^2.2.0",
+    "@radix-ui/react-hover-card": "^1.1.15",
     "@tabler/icons-react": "^3.31.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.9.2",

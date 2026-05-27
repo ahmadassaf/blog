@@ -18,4 +18,4 @@ const AuthorMetadata = {
   'youtube': 'https://www.youtube.com/ahmadassafa'
 };
 
-module.exports = AuthorMetadata;
+export default AuthorMetadata;

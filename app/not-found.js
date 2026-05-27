@@ -8,7 +8,7 @@
  * @version 1.0.0
  */
 
-import { Button, Typography } from '@ahmadassaf/design-system';
+import { Button, Typography } from '@gaudi/design-system';
 
 /**
  * 404 error page component

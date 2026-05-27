@@ -5,7 +5,8 @@ export default {
     layout: 'fullscreen',
     options: { 'showPanel': false, 'showToolbar': false }
   },
-  title: 'Introduction/Conventions'
+  tags: [ '!autodocs' ],
+  title: 'Overview/Conventions'
 };
 
 export const Default = {
@@ -13,11 +14,11 @@ export const Default = {
   'render': () => (
     <Page
       title='Conventions'
-      intro='The DS follows strict boundaries for exports, styling, accessibility, Storybook docs, and app consumption. These conventions keep the package portable.'
+      intro='Gaudi follows strict boundaries for exports, styling, accessibility, Storybook docs, and app consumption. These conventions keep the package portable.'
     >
       <Section title='Architecture Rules'>
         <div className='grid gap-4 md:grid-cols-2 xl:grid-cols-3'>
-          <PrincipleCard number='1' title='Own Reusable UI In The DS' description='If a component is reusable across the blog, Storybook, MDX, navigation, or posts, it belongs in the design-system package.' />
+          <PrincipleCard number='1' title='Own Reusable UI In Gaudi' description='If a component is reusable across the blog, Storybook, MDX, navigation, posts, or future Gaudi projects, it belongs in the Gaudi package.' />
           <PrincipleCard number='2' title='Keep App Glue In The App' description='Route-level data fetching, metadata, and one-off page composition stay outside the package.' />
           <PrincipleCard number='3' title='Export Deliberately' description='Public APIs go through package exports. Internal file paths can change without breaking consumers.' />
           <PrincipleCard number='4' title='Storybook Outside src' description='Stories, Storybook preview styles, and docs helpers live under .storybook/stories, not in src.' />
@@ -42,11 +43,11 @@ export const Default = {
       <Section title='Naming And Exports'>
         <CodeBlock
           code={ `// Preferred
-import { Button, Typography } from '@ahmadassaf/design-system';
-import { colors } from '@ahmadassaf/design-system/tokens';
+import { Button, Typography } from '@gaudi/design-system';
+import { colors } from '@gaudi/design-system/tokens';
 
 // Avoid
-import Button from '../../components/primitives/Button/Button';
+import Button from '../../components/core/Button/Button';
 import '@/css/overrides.css';` }
         />
         <p className='text-sm leading-7 text-gray-600 dark:text-gray-300'>

@@ -1,12 +1,13 @@
 .root {
   margin-bottom: 2rem;
   margin-top: 2rem;
+  max-width: 100%;
+  width: 100%;
 }
 
 .breakout {
-  margin-left: max(-12rem, calc(-50vw + 50% + 0.125rem));
-  margin-right: max(-12rem, calc(-50vw + 50% + 0.125rem));
   position: relative;
+  width: 100%;
 }
 
 .scroll {
@@ -132,44 +133,13 @@
 }
 
 @media (min-width: 640px) {
-  .breakout {
-    margin-left: -6rem;
-    margin-right: -6rem;
-  }
-
   .cellPadding {
     padding: 1rem;
   }
 }
 
-@media (min-width: 768px) {
-  .breakout {
-    margin-left: -10rem;
-    margin-right: -10rem;
-  }
-}
-
 @media (min-width: 1024px) {
-  .breakout {
-    margin-left: -14rem;
-    margin-right: -14rem;
-  }
-
   .cellPadding {
-    padding: 1.5rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .breakout {
-    margin-left: -20rem;
-    margin-right: -20rem;
-  }
-}
-
-@media (min-width: 1536px) {
-  .breakout {
-    margin-left: -24rem;
-    margin-right: -24rem;
+    padding: 1rem;
   }
 }

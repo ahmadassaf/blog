@@ -36,8 +36,8 @@ export default {
     layout: 'fullscreen',
     options: { 'showPanel': false, 'showToolbar': false }
   },
-  tags: [ 'autodocs' ],
-  title: 'Foundations/Accessibility'
+  tags: [ '!autodocs' ],
+  title: 'Overview/Accessibility'
 };
 
 export const Default = {
@@ -56,7 +56,7 @@ export const Default = {
       <Section
         title='Keyboard Navigation'
         description={ <>
-            All interactive components are fully keyboard accessible. The DS enforces semantic <InlineCode>button</InlineCode> or <InlineCode>a</InlineCode> elements, never <InlineCode>div onClick</InlineCode>.
+            All interactive components are fully keyboard accessible. Gaudi enforces semantic <InlineCode>button</InlineCode> or <InlineCode>a</InlineCode> elements, never <InlineCode>div onClick</InlineCode>.
         </> }
       >
         <Table>
@@ -74,7 +74,7 @@ export const Default = {
       <Section title='Screen Readers' description='Components use semantic HTML and proper ARIA attributes for a meaningful screen reader experience.'>
         <div className='grid gap-4 md:grid-cols-3'>
           <InfoCard title='Semantic HTML'>
-            The DS mandates semantic elements: <InlineCode>button</InlineCode> for actions, <InlineCode>a</InlineCode> for navigation, <InlineCode>nav</InlineCode> for navigation groups, <InlineCode>main</InlineCode> for primary content, and <InlineCode>table</InlineCode> for tabular data.
+            Gaudi mandates semantic elements: <InlineCode>button</InlineCode> for actions, <InlineCode>a</InlineCode> for navigation, <InlineCode>nav</InlineCode> for navigation groups, <InlineCode>main</InlineCode> for primary content, and <InlineCode>table</InlineCode> for tabular data.
           </InfoCard>
           <InfoCard title='ARIA Labels'>
             Dialogs, image modals, command triggers, icon-only links, and compact controls require accessible names. Avoid redundant ARIA when semantic HTML already provides the correct role.
@@ -93,7 +93,7 @@ export const Default = {
             <tr><Td>Large text, 18px+ or 14px+ bold</Td><Td mono>3:1</Td><Td>400 can be acceptable for headings only after contrast is checked.</Td></tr>
             <tr><Td>UI components, borders, icons</Td><Td mono>3:1</Td><Td>Meet WCAG 1.4.11 non-text contrast for interactive boundaries.</Td></tr>
             <tr><Td>Disabled elements</Td><Td mono>Exempt</Td><Td>400 shades are allowed only for disabled or inactive UI.</Td></tr>
-            <tr><Td>Badge text on tinted backgrounds</Td><Td mono>4.5:1</Td><Td>Use 700 text on 100 backgrounds.</Td></tr>
+            <tr><Td>Pill text on tinted backgrounds</Td><Td mono>4.5:1</Td><Td>Use 700 text on 100 backgrounds.</Td></tr>
           </tbody>
         </Table>
 
@@ -121,12 +121,12 @@ export const Default = {
         </div>
       </Section>
 
-      <Section title='Motion Preferences' description='The DS respects prefers-reduced-motion. Motion should support comprehension, never be required for understanding.'>
+      <Section title='Motion Preferences' description='Gaudi respects prefers-reduced-motion. Motion should support comprehension, never be required for understanding.'>
         <div className='grid gap-4 md:grid-cols-2'>
           <InfoCard title='Reduced Motion Contract'>
             CSS transitions on overlays, tooltips, media reveals, and command palette states must honor <InlineCode>prefers-reduced-motion</InlineCode>. Framer Motion components should disable or simplify animations when reduced motion is preferred.
           </InfoCard>
-          <CodeBlock code={ `/* DS stylesheet enforces reduced motion globally */
+          <CodeBlock code={ `/* Gaudi stylesheet enforces reduced motion globally */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -167,7 +167,7 @@ export const Default = {
         </Table>
       </Section>
 
-      <Section title='Deferred Exceptions' description='Known limitations must be explicitly marked, documented, and tracked. The blog DS currently has no approved deferred accessibility exceptions.'>
+      <Section title='Deferred Exceptions' description='Known limitations must be explicitly marked, documented, and tracked. Gaudi currently has no approved deferred accessibility exceptions.'>
         <div className='grid gap-4 md:grid-cols-2'>
           <InfoCard title='Allowed Only For Real Limitations'>
             Temporary exceptions are reserved for third-party rendering constraints or inherently visual demos. They must include the failing rule, reason, owner, and removal path.
@@ -190,7 +190,7 @@ export const MyStory = {
         </div>
       </Section>
 
-      <Section title='A11y Testing' description='The DS uses a layered testing strategy to catch accessibility regressions before components land in the blog.'>
+      <Section title='A11y Testing' description='Gaudi uses a layered testing strategy to catch accessibility regressions before components land in the blog.'>
         <div className='grid gap-4 md:grid-cols-2'>
           <InfoCard title='Automated axe-core'>
             <CodeBlock code='pnpm storybook:build' />
@@ -198,7 +198,7 @@ export const MyStory = {
           </InfoCard>
           <InfoCard title='Static Analysis'>
             <CodeBlock code='pnpm lint' />
-            <p className='mt-3'>ESLint runs against the app, layouts, scripts, and DS package. Accessibility-specific lint rules should be added before publishing the DS outside this repo.</p>
+            <p className='mt-3'>ESLint runs against the app, layouts, scripts, and Gaudi package. Accessibility-specific lint rules should be part of the package quality gate.</p>
           </InfoCard>
         </div>
 

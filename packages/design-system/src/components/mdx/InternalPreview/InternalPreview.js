@@ -14,9 +14,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import Link from 'next/link';
 
-import Icon from '@/components/primitives/Icon';
+import Icon from '@/components/core/Icon';
+import Link from '@/components/core/Link';
+import Pill from '@/components/core/Pill';
 
 /**
  * Internal link preview for blog posts
@@ -284,12 +285,16 @@ const InternalPreview = ({
         {post.tags && post.tags.length > 0 && (
           <div className='flex flex-wrap gap-2'>
             {post.tags.slice(0, 5).map((tag) => (
-              <span
+              <Pill
                 key={ tag }
-                className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400'
+                tone='gray'
+                variant='soft'
+                size='xs'
+                radius='md'
+                className='my-0 mr-0 normal-case tracking-normal'
               >
                 {tag}
-              </span>
+              </Pill>
             ))}
             {post.tags.length > 5 && (
               <span className='text-xs text-gray-500 dark:text-gray-400 self-center'>

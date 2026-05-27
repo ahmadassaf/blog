@@ -17,7 +17,7 @@ import pkg from 'flexsearch';
 
 import CmdPost from '@/components/command/types/CmdPost';
 import CmdProject from '@/components/command/types/CmdProject';
-import Icon from '@/components/primitives/Icon';
+import Icon from '@/components/core/Icon';
 
 import '@tmikeladze/react-cmdk/dist/cmdk.css';
 

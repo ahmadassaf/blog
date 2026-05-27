@@ -12,8 +12,9 @@
 import { allProjects } from 'contentlayer/generated';
 
 import categories from '@/app/content/categories';
+import Icon from '@/components/core/Icon';
+import Link from '@/components/core/Link';
 import NewsletterForm from '@/components/forms/NewsletterForm';
-import Icon from '@/components/primitives/Icon';
 import siteMetadata from '@/data/meta/metadata';
 import { sortPosts } from '@/lib/utils/contentlayer';
 
@@ -37,9 +38,9 @@ const Footer = () => (
                 <ul role='list' className='mt-4 space-y-4'>
                   {categories.slice(0, 4).reverse().map((category) => (
                     <li key={ category.id }>
-                      <a href={ category.href } className='text-base capitalize text-gray-500 dark:text-gray-400 hover:text-blue-700'>
+                      <Link href={ category.href } variant='muted' className='text-base font-normal capitalize'>
                         {category.title.replace('-', ' ')}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -51,9 +52,9 @@ const Footer = () => (
               <ul role='list' className='mt-4 space-y-4'>
                 {sortPosts(allProjects).slice(0, 4).map((project) => (
                   <li key={ project.slug }>
-                    <a href={ project.path } className='text-base text-gray-500 hover:text-blue-700 dark:text-gray-400'>
+                    <Link href={ project.path } variant='muted' className='text-base font-normal'>
                       {project.title}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -63,13 +64,13 @@ const Footer = () => (
               <h3 className='text-base font-medium text-gray-900 dark:text-white'>About</h3>
               <ul role='list' className='mt-4 space-y-4'>
                 <li key='summary'>
-                  <a href={ '/about' } className='text-base text-gray-500 dark:text-gray-400 hover:text-blue-700'>Summary</a>
+                  <Link href='/about' variant='muted' className='text-base font-normal'>Summary</Link>
                 </li>
                 <li key='press'>
-                  <a href={ '/press' } className='text-base text-gray-500 dark:text-gray-400 hover:text-blue-700'>Press</a>
+                  <Link href='/press' variant='muted' className='text-base font-normal'>Press</Link>
                 </li>
                 <li key='pub'>
-                  <a href={ '/blog/publications' } className='text-base text-gray-500 dark:text-gray-400 hover:text-blue-700'>Publications</a>
+                  <Link href='/blog/publications' variant='muted' className='text-base font-normal'>Publications</Link>
                 </li>
               </ul>
             </div>

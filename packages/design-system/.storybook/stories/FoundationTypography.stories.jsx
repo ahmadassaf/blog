@@ -140,22 +140,15 @@ const apiProps = [
 ];
 
 const exportedApis = [
-  [ 'Typography', 'React component used by blog posts, cards, metadata, and DS examples.' ],
+  [ 'Typography', 'React component used by blog posts, cards, metadata, and Gaudi examples.' ],
   [ 'typographyVariants', 'Variant map containing each element and className contract.' ],
   [ 'TypographyVariants', 'Backwards-compatible alias for typographyVariants.' ],
   [ 'typography', 'Token object for font family and line-height values.' ]
 ];
 
 export default {
-  parameters: {
-    docs: {
-      description: {
-        component: 'Typography foundations for editorial blog posts, long-form prose, cards, metadata, and application surfaces.'
-      }
-    }
-  },
-  tags: [ 'autodocs' ],
-  title: 'Foundations/Typography'
+  tags: [ '!autodocs' ],
+  title: 'Overview/Typography'
 };
 
 export const Default = {
@@ -164,7 +157,7 @@ export const Default = {
       <section className='max-w-3xl space-y-3'>
         <Typography variant='heading-xl'>Typography</Typography>
         <Typography variant='paragraph-lg'>
-          The DS typography scale is optimized for blog posts first: readable titles, calm subtitles, generous prose line-height, metadata that stays quiet, and compact UI text for cards.
+          The Gaudi typography scale is optimized for blog posts first: readable titles, calm subtitles, generous prose line-height, metadata that stays quiet, and compact UI text for cards.
         </Typography>
       </section>
 
@@ -230,7 +223,7 @@ export const Default = {
         <div className='grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.8fr)]'>
           <HighlightedCode
             language='jsx'
-            code={ `import { Typography, typographyVariants } from '@ahmadassaf/design-system';
+            code={ `import { Typography, typographyVariants } from '@gaudi/design-system';
 
 <Typography variant='heading-xl'>
   Design systems make product code boring in the right way.
@@ -292,7 +285,7 @@ export const Default = {
           </div>
           <div>
             Font families and line-height tokens come from <code>packages/design-system/src/tokens/index.js</code>
-            and are mirrored through the DS Tailwind preset and CSS variables.
+            and are mirrored through the Gaudi Tailwind preset and CSS variables.
           </div>
         </div>
       </section>

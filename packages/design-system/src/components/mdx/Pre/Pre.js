@@ -13,7 +13,8 @@
 
 import { useRef, useState } from 'react';
 
-import Icon from '@/components/primitives/Icon';
+import Button from '@/components/core/Button';
+import Icon from '@/components/core/Icon';
 
 /**
  * Interactive code block component with copy functionality
@@ -45,16 +46,18 @@ const Pre = (props) => {
 
   return (
     <div ref={ textInput } className='relative'>
-      <button
+      <Button
         aria-label={ copied ? 'Code copied' : 'Copy code' }
-        type='button'
+        variant='ghost'
+        tone='gray'
+        size='xs'
         className={ `code-copy-button absolute right-3 z-10 flex h-6 w-6 items-center justify-center rounded-md text-zinc-400 transition-colors hover:text-zinc-200 focus:outline-hidden focus:ring-2 focus:ring-blue-400 ${
           copied ? 'text-green-400 hover:text-green-300' : ''
         }` }
         onClick={ onCopy }
       >
         {copied ? <Icon name='CheckIcon' decorative className='h-3.5 w-3.5' stroke={ 2 } /> : <Icon name='CopyIcon' decorative className='h-3.5 w-3.5' stroke={ 2 } />}
-      </button>
+      </Button>
 
       <pre>{props.children}</pre>
     </div>

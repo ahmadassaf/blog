@@ -1,9 +1,9 @@
 /**
  * Table Component for MDX
  *
- * @description A responsive table component that expands beyond the standard content width
- * to provide more space for tabular data. Features horizontal scrolling on mobile,
- * subtle shadows for depth, and proper styling for both light and dark themes.
+ * @description A responsive article table component that stays within the reading column.
+ * Features horizontal scrolling for wide data, subtle framing, and proper styling for both
+ * light and dark themes.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
@@ -16,11 +16,10 @@ import { useEffect, useRef } from 'react';
 import styles from './Table.module.css';
 
 /**
- * Enhanced table component that breaks out of content width constraints
+ * Enhanced table component for article content
  *
- * @description Creates a full-width responsive table that extends beyond the normal prose
- * width. On larger screens, it uses negative margins to expand into the available space.
- * On smaller screens, it provides horizontal scrolling with visual indicators.
+ * @description Creates a responsive table that belongs to the article flow. Wide tables
+ * scroll inside their frame instead of escaping the post layout.
  *
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Table content (thead, tbody, etc.)
@@ -84,7 +83,7 @@ const Table = ({ children, className = '', ...rest }) => {
 
   return (
     <div className={ `not-prose ${styles.root}` }>
-      {/* Breakout container that expands beyond prose width while maintaining side gaps */}
+      {/* Article-width container. Wide tables scroll inside the frame. */}
       <div className={ styles.breakout }>
         {/* Enhanced responsive table container with horizontal scroll */}
         <div

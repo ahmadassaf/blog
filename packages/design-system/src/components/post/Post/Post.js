@@ -9,7 +9,8 @@
  * @version 1.0.0
  */
 
-import Link from '@/components/primitives/Link';
+import Link from '@/components/core/Link';
+import Pill from '@/components/core/Pill';
 import formatDate from '@/lib/utils/formatDate';
 
 /**
@@ -39,12 +40,9 @@ const Post = ({ frontMatter }) => {
               {frontMatter.category && (
                 <>
                   <span className='text-gray-300 dark:text-gray-600'>·</span>
-                  <Link
-                    href={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` }
-                    className='font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 capitalize text-xs transition-colors duration-200'
-                  >
+                  <Pill href={ `/blog/categories/${frontMatter.category.replace(' ', '-').toLowerCase()}` } tone='blue' variant='subtle' size='xs' radius='md' className='my-0 mr-0 normal-case tracking-normal capitalize'>
                     {frontMatter.category}
-                  </Link>
+                  </Pill>
                 </>
               )}
 
@@ -58,7 +56,7 @@ const Post = ({ frontMatter }) => {
             </div>
 
             <h3 className='text-lg md:text-xl font-semibold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400  mb-1'>
-              <Link href={ `${baseUrl}/${frontMatter.slug}` } className='decoration-2 hover:underline underline-offset-2'>
+              <Link href={ `${baseUrl}/${frontMatter.slug}` }>
                 {frontMatter.title}
               </Link>
             </h3>

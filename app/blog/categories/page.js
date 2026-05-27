@@ -11,9 +11,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Icon } from '@ahmadassaf/design-system';
+import { Button, Card, Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
 import { allPosts } from 'contentlayer/generated';
-import Link from 'next/link';
 
 import categories from '@/app/content/categories';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
@@ -49,146 +48,86 @@ export default function Categories() {
   return (
     <>
       <div className='mx-auto max-w-6xl'>
-        {/* Header */}
         <div className='mb-8'>
-          <h1 className='mb-6 text-3xl font-semibold text-gray-900 dark:text-gray-100'>
+          <Typography variant='title-md' className='mb-6'>
             Categories
-          </h1>
+          </Typography>
 
-          {/* Clean Stats with Lucide Icons */}
-          <div className='mb-6 grid grid-cols-2 gap-4 sm:grid-cols-3'>
-            <div className='flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900'>
-              <div className='rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20'>
-                <Icon name='FolderOpen' size='md' decorative className='text-blue-600 dark:text-blue-400' />
-              </div>
-              <div>
-                <div className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
-                  {categories.length}
-                </div>
-                <div className='text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide'>
-                  Categories
-                </div>
-              </div>
-            </div>
+          <Grid columns='3' gap='md' className='mb-6'>
+            <StatCard icon='FolderOpen' value={ categories.length } label='Categories' />
+            <StatCard icon='FileText' value={ totalArticles } label='Articles' />
+            <StatCard icon='Flame' value={ mostPopularCategory?.count || 0 } label='Most popular' />
+          </Grid>
 
-            <div className='flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900'>
-              <div className='rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20'>
-                <Icon name='FileText' size='md' decorative className='text-blue-600 dark:text-blue-400' />
-              </div>
-              <div>
-                <div className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
-                  {totalArticles}
-                </div>
-                <div className='text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide'>
-                  Articles
-                </div>
-              </div>
-            </div>
-
-            <div className='flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900'>
-              <div className='rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20'>
-                <Icon name='Flame' size='md' decorative className='text-blue-600 dark:text-blue-400' />
-              </div>
-              <div>
-                <div className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
-                  {mostPopularCategory?.count || 0}
-                </div>
-                <div className='text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide'>
-                  Most popular
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* View Mode Toggle */}
           <div className='mb-8 flex justify-end'>
-            <div className='inline-flex rounded-lg border border-gray-200 dark:border-gray-700'>
-              <button
+            <div className='inline-flex gap-2'>
+              <Button
                 onClick={ () => setViewMode('cards') }
-                className={ `flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-l-lg ${viewMode === 'cards' ? 'bg-blue-600 text-white dark:bg-blue-500' : 'bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800'}` }
+                variant={ viewMode === 'cards' ? 'solid' : 'outline' }
+                tone={ viewMode === 'cards' ? 'blue' : 'gray' }
+                size='sm'
               >
                 <Icon name='Grid3X3' size='sm' decorative />
                 Cards
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={ () => setViewMode('list') }
-                className={ `flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-r-lg border-l border-gray-200 dark:border-gray-700 ${viewMode === 'list' ? 'bg-blue-600 text-white dark:bg-blue-500' : 'bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800'}` }
+                variant={ viewMode === 'list' ? 'solid' : 'outline' }
+                tone={ viewMode === 'list' ? 'blue' : 'gray' }
+                size='sm'
               >
                 <Icon name='List' size='sm' decorative />
                 List
-              </button>
+              </Button>
             </div>
           </div>
         </div>
 
-        {/* Categories with Posts */}
         <div className='space-y-12'>
           {categoriesWithPosts.map((category, index) => (
-            <div key={ category.id } className=''>
+            <section key={ category.id }>
               {index > 0 && viewMode === 'list' && (
                 <div className='border-t border-gray-100 dark:border-gray-800 mb-12' />
               )}
-              {/* Category Header */}
               <div className='mb-2 flex items-center justify-between'>
                 <div className='flex items-center gap-3'>
-                  <h2 className='text-2xl font-bold text-gray-900 dark:text-gray-100 capitalize'>
+                  <Typography variant='heading-md' as='h2' className='capitalize'>
                     {category.title.replace('-', ' ')}
-                  </h2>
-                  <span className='inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/20 dark:text-blue-400 mt-1'>
+                  </Typography>
+                  <Pill tone='blue' variant='soft' radius='full' size='sm'>
                     {category.count} {category.count === 1 ? 'article' : 'articles'}
-                  </span>
+                  </Pill>
                 </div>
                 <Link
                   href={ `/blog/categories/${category.slug}` }
-                  className='text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium'
+                  tone='blue'
                 >
                   View all →
                 </Link>
               </div>
 
-              {/* Category Description */}
-              <p className='mb-6 text-gray-600 dark:text-gray-400'>
+              <Typography variant='paragraph-md' className='mb-6'>
                 {category.description}
-              </p>
+              </Typography>
 
-              {/* Sample Posts */}
               {category.samplePosts.length === 0 && (
                 <div className='py-8 text-center'>
-                  <p className='text-sm text-gray-400'>No articles in this category yet</p>
+                  <Typography variant='paragraph-sm'>No articles in this category yet</Typography>
                 </div>
               )}
               {category.samplePosts.length > 0 && viewMode === 'cards' && (
-                <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+                <Grid columns='3' gap='lg'>
                   {category.samplePosts.map((post) => (
                     <Link
                       key={ post.slug }
                       href={ `/blog/${post.slug}` }
-                      className='group block rounded-lg border border-gray-200 bg-white p-4 hover:border-gray-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600'
+                      variant='bare'
+                      className='block h-full'
                     >
-                      <article>
-                        <h3 className='mb-2 text-base font-bold text-gray-900 group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400 line-clamp-2 leading-snug'>
-                          {post.title}
-                        </h3>
-                        <p className='mb-3 text-sm text-gray-600 dark:text-gray-400 line-clamp-3 leading-relaxed'>
-                          {post.summary || post.description}
-                        </p>
-                        <div className='flex items-center justify-between text-xs text-gray-500 dark:text-gray-500'>
-                          <time className='font-medium'>
-                            {new Date(post.date).toLocaleDateString('en-US', {
-                              'day': 'numeric',
-                              'month': 'short',
-                              'year': 'numeric'
-                            })}
-                          </time>
-                          <div className='flex items-center gap-1 text-gray-400 group-hover:text-blue-500'>
-                            <span className='text-xs'>Read</span>
-                            <Icon name='ChevronRight' size='xs' decorative />
-                          </div>
-                        </div>
-                      </article>
+                      <PostSummaryCard post={ post } />
                     </Link>
                   ))}
-                </div>
+                </Grid>
               )}
               {category.samplePosts.length > 0 && viewMode === 'list' && (
                 <div className='space-y-2'>
@@ -196,40 +135,78 @@ export default function Categories() {
                     <Link
                       key={ post.slug }
                       href={ `/blog/${post.slug}` }
-                      className='group block py-3'
+                      variant='bare'
+                      className='block py-3'
                     >
                       <article>
-                        <time className='text-xs text-gray-500 dark:text-gray-500 font-medium mb-1 block'>
+                        <Typography as='time' variant='metadata' className='mb-1 block'>
                           {new Date(post.date).toLocaleDateString('en-US', {
                             'day': 'numeric',
                             'month': 'short',
                             'year': 'numeric'
                           })}
-                        </time>
-                        <h3 className='mb-1 text-lg font-bold text-gray-900 group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400 leading-snug'>
+                        </Typography>
+                        <Typography variant='heading-sm' as='h3' className='mb-1'>
                           {post.title}
-                        </h3>
+                        </Typography>
                         {post.subtitle && (
-                          <p className='text-sm text-gray-600 dark:text-gray-400 leading-relaxed'>
+                          <Typography variant='paragraph-sm'>
                             {post.subtitle}
-                          </p>
+                          </Typography>
                         )}
                       </article>
                     </Link>
                   ))}
                 </div>
               )}
-            </div>
+            </section>
           ))}
         </div>
 
-        {/* Empty State */}
         {categoriesWithPosts.length === 0 && (
           <div className='py-8 text-center'>
-            <p className='text-sm text-gray-400'>No categories yet</p>
+            <Typography variant='paragraph-sm'>No categories yet</Typography>
           </div>
         )}
       </div>
     </>
   );
 }
+
+const StatCard = ({ icon, label, value }) => (
+  <Card variant='outline'>
+    <div className='flex items-center gap-3'>
+      <Icon name={ icon } size='md' decorative color='primary' />
+      <div>
+        <Typography variant='heading-sm'>{value}</Typography>
+        <Typography variant='metadata'>{label}</Typography>
+      </div>
+    </div>
+  </Card>
+);
+
+const PostSummaryCard = ({ post }) => (
+  <Card interactive className='h-full' variant='outline'>
+    <article>
+      <Typography variant='heading-sm' as='h3' className='mb-2 line-clamp-2'>
+        {post.title}
+      </Typography>
+      <Typography variant='paragraph-sm' className='mb-3 line-clamp-3'>
+        {post.summary || post.description}
+      </Typography>
+      <div className='flex items-center justify-between'>
+        <Typography as='time' variant='metadata'>
+          {new Date(post.date).toLocaleDateString('en-US', {
+            'day': 'numeric',
+            'month': 'short',
+            'year': 'numeric'
+          })}
+        </Typography>
+        <span className='inline-flex items-center gap-1 text-xs font-medium text-gray-500 dark:text-gray-400'>
+          Read
+          <Icon name='ChevronRight' size='xs' decorative />
+        </span>
+      </div>
+    </article>
+  </Card>
+);

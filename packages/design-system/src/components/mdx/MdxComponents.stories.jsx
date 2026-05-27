@@ -5,6 +5,7 @@ import Callout from './Callout';
 import Details from './Details';
 import Faq from './Faq';
 import FileTree from './FileTree';
+import HeroVideoDialog from './HeroVideoDialog';
 import Highlight from './Highlight';
 import LatexText from './LatexText';
 import PostImage from './PostImage';
@@ -59,6 +60,12 @@ export const ContentBlocks = {
         { 'answer': 'It keeps long-running articles scannable.', 'question': 'Why use FAQ blocks?' },
         { 'answer': 'They are interactive and accessible through Headless UI.', 'question': 'Are they accessible?' }
       ] } />
+      <HeroVideoDialog
+        thumbnailSrc='/static/images/og-card.jpg'
+        thumbnailAlt='Blog video preview'
+        title='Article walkthrough'
+        videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'
+      />
     </div>
   )
 };
@@ -83,7 +90,7 @@ export const RichContent = {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell>Primitives</TableCell>
+            <TableCell>Core</TableCell>
             <TableCell>Covered</TableCell>
             <TableCell>Design system</TableCell>
           </TableRow>

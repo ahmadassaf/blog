@@ -14,6 +14,9 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
+import Button from '@/components/core/Button';
+import Icon from '@/components/core/Icon';
+
 /**
  * Renders a full-screen modal overlay for displaying enlarged images
  *
@@ -110,27 +113,17 @@ const ImageModal = ({ isOpen, onClose, src, alt, caption }) => {
       {/* Modal content container */}
       <div className='relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-[70vw] max-h-[70vh] overflow-hidden'>
         {/* Close button */}
-        <button
+        <Button
           ref={ closeButtonRef }
-          type='button'
+          variant='ghost'
+          tone='gray'
+          size='sm'
           onClick={ onClose }
-          className='absolute top-4 right-4 z-10 p-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white bg-white/90 dark:bg-gray-800/90 rounded-full transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+          className='absolute right-4 top-4 z-10 h-10 w-10 rounded-full bg-white/90 p-0 text-gray-600 hover:bg-white dark:bg-gray-800/90 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white'
           aria-label='Close modal'
         >
-          <svg
-            className='w-6 h-6'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth={ 2 }
-              d='M6 18L18 6M6 6l12 12'
-            />
-          </svg>
-        </button>
+          <Icon name='X' decorative size='md' />
+        </Button>
 
         {/* Image container */}
         <div className='flex flex-col items-center p-6'>

@@ -13,9 +13,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 
-import Icon from '@/components/primitives/Icon';
+import Button from '@/components/core/Button';
+import Icon from '@/components/core/Icon';
+import Link from '@/components/core/Link';
 import { cn } from '@/components/utilities/TailwindUtils';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
 
@@ -98,11 +99,11 @@ const FloatingMenu = ({ className }) => {
           <span className='block text-sm'>{navItem.title}</span>
         </Link>
       ))}
-      <button type='button' onClick={ () => handleScrollTop() } className='border hover:bg-blue-600 hover:text-white text-sm font-medium relative border-neutral-200 dark:border-black/[0.2] text-white dark:text-black px-4 py-2 rounded-full max-sm:p-0 max-sm:border-none' aria-label='Back to top'>
+      <Button variant='outline' tone='neutral' size='sm' onClick={ () => handleScrollTop() } className='relative rounded-full border-neutral-200 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 hover:text-white dark:border-black/[0.2] dark:text-black max-sm:border-none max-sm:p-0' aria-label='Back to top'>
         <Icon name='ArrowUpCircle' size='md' decorative className='inline mx-2 align-middle max-sm:m-0!'/>
         <span className='max-sm:hidden'>Back Top</span>
         <span className='absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-linear-to-r from-transparent via-blue-500 to-transparent h-px' />
-      </button>
+      </Button>
     </div>
   );
 };

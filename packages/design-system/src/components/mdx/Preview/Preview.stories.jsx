@@ -21,3 +21,15 @@ export default {
 export const Example = {
   'render': () => renderComponentExample('MDX/Preview', componentModule)
 };
+
+export const Loading = {
+  name: 'Loading',
+  parameters: {
+    chromatic: { disableSnapshot: false }
+  },
+  render: () => (
+    <div className='p-6'>
+      <componentModule.PreviewLoadingSkeleton />
+    </div>
+  )
+};

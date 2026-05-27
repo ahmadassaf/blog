@@ -1,0 +1,44 @@
+import Icon from '@/components/core/Icon';
+import Link from '@/components/core/Link';
+import { cn } from '@/components/utilities/cn';
+
+export const Breadcrumb = ({ children, className, label = 'Breadcrumb' }) => (
+  <nav aria-label={ label } className={ cn('flex', className) }>{children}</nav>
+);
+
+export const BreadcrumbList = ({ children, className }) => (
+  <ol className={ cn('flex flex-wrap items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400', className) }>{children}</ol>
+);
+
+export const BreadcrumbItem = ({ children, className }) => <li className={ cn('inline-flex items-center gap-1.5', className) }>{children}</li>;
+
+export const BreadcrumbLink = ({ children, className, href }) => (
+  <Link href={ href } variant='muted' className={ cn('hover:text-gray-950 dark:hover:text-white', className) }>{children}</Link>
+);
+
+export const BreadcrumbPage = ({ children, className }) => (
+  <span aria-current='page' className={ cn('font-medium text-gray-950 dark:text-white', className) }>{children}</span>
+);
+
+export const BreadcrumbSeparator = ({ children, className }) => (
+  <li aria-hidden='true' className={ cn('inline-flex items-center text-gray-400', className) }>{children || <Icon name='ChevronRight' decorative size='xs' />}</li>
+);
+
+export const BreadcrumbEllipsis = ({ className }) => (
+  <span className={ cn('inline-flex size-8 items-center justify-center rounded-md text-gray-500', className) } aria-label='More pages'>...</span>
+);
+
+export const BreadcrumbTrail = ({ items = [], className }) => (
+  <Breadcrumb className={ className }>
+    <BreadcrumbList>
+      {items.map((item, index) => (
+        <BreadcrumbItem key={ item.href || item.label }>
+          {index > 0 ? <BreadcrumbSeparator /> : null}
+          {item.current || index === items.length - 1 ? <BreadcrumbPage>{item.label}</BreadcrumbPage> : <BreadcrumbLink href={ item.href }>{item.label}</BreadcrumbLink>}
+        </BreadcrumbItem>
+      ))}
+    </BreadcrumbList>
+  </Breadcrumb>
+);
+
+export default BreadcrumbTrail;

@@ -10,12 +10,8 @@
 
 'use client';
 
-import { Icon } from '@ahmadassaf/design-system';
+import { Card, Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
 import { allProjects } from 'contentlayer/generated';
-import Link from 'next/link';
-
-import { cn } from '@/components/utilities/TailwindUtils';
-import GithubColors from '@/data/meta/githubMetaColors';
 
 /**
  * Projects page component displaying GitHub projects in an interactive grid
@@ -33,22 +29,23 @@ export default function Projects({ className }) {
     <>
       <div className='divide-y divide-gray-200 dark:divide-gray-700'>
         <div className='space-y-2 pt-6 pb-8 md:space-y-5'>
-          <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14'>
+          <Typography variant='title-xl'>
             Projects
-          </h1>
+          </Typography>
         </div>
         <div>
-          <div className={ cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-10', className) }>
+          <Grid columns='3' gap='md' className={ `py-10 ${className || ''}` }>
             {allProjects.map((project) => (
               <Link
                 href={ `/blog/${project.externalLink}` }
                 key={ project?.externalLink }
-                className='block h-full w-full'
+                variant='bare'
+                className='block h-full'
               >
                 <ProjectCard project={ project } />
               </Link>
             ))}
-          </div>
+          </Grid>
         </div>
       </div>
     </>
@@ -63,19 +60,16 @@ export default function Projects({ className }) {
  * @returns {JSX.Element} Clean project card with typography-focused design
  */
 export const ProjectCard = ({ project }) => (
-  <article className='group block p-4 border border-gray-200 dark:border-border-dark rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 h-full bg-white dark:bg-gray-900'>
-    <div className='flex flex-col h-full'>
-      {/* Title */}
-      <h3 className='text-lg font-semibold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 mb-2'>
+  <Card interactive className='h-full' variant='outline'>
+    <article className='flex h-full flex-col'>
+      <Typography variant='heading-sm' as='h3' className='mb-2'>
         {project.title}
-      </h3>
+      </Typography>
 
-      {/* Description */}
-      <p className='text-sm text-gray-600 dark:text-gray-300 leading-relaxed flex-grow mb-3'>
+      <Typography variant='paragraph-sm' className='mb-3 flex-grow'>
         {project.subtitle}
-      </p>
+      </Typography>
 
-      {/* Metadata - GitHub stats at bottom */}
       <div className='flex items-center gap-3 text-xs text-gray-400 dark:text-gray-500'>
         <div className='flex items-center gap-1'>
           <Icon name='Star' size='xs' decorative />
@@ -86,17 +80,13 @@ export const ProjectCard = ({ project }) => (
           <span>{project.meta.forks_count}</span>
         </div>
         {project.meta.language && (
-          <div className='flex items-center gap-1'>
-            <span
-              className='rounded-sm inline-block h-2 w-2'
-              style={{ 'background': GithubColors[project.meta.language] }}
-            ></span>
-            <span>{project.meta.language}</span>
-          </div>
+          <Pill tone='gray' variant='soft' size='xs'>
+            {project.meta.language}
+          </Pill>
         )}
       </div>
-    </div>
-  </article>
+    </article>
+  </Card>
 );
 
 /**
@@ -112,18 +102,15 @@ export const ProjectCard = ({ project }) => (
  * <CardMeta StargazersCount={42} ForksCount={12} Language="JavaScript" />
  */
 export const CardMeta = ({ StargazersCount, ForksCount, Language }) => (
-  <div className='flex group/meta mt-4'>
+  <div className='flex mt-4 items-center gap-3'>
     <div className='flex items-center space-x-3 pr-4'>
-      <Icon name='Star' decorative className='group-hover/meta:stroke-blue-700 dark:outline-white'/>
-      <span className='text-xs font-medium text-gray-900 dark:text-gray-100 group-hover/meta:text-blue-700'>{StargazersCount}</span>
+      <Icon name='Star' decorative />
+      <Typography variant='metadata'>{StargazersCount}</Typography>
     </div>
     <div className='flex items-center space-x-3 pr-4'>
-      <Icon name='Fork' decorative className='group-hover/meta:stroke-blue-700'/>
-      <span className='text-xs font-medium text-gray-900 dark:text-gray-100 group-hover/meta:text-blue-700'>{ForksCount}</span>
+      <Icon name='Fork' decorative />
+      <Typography variant='metadata'>{ForksCount}</Typography>
     </div>
-    <div className='flex items-center space-x-3'>
-      <span className={ `rounded-sm inline-block h-3 w-3` } style={{ 'background': `${GithubColors[Language]}` }}></span>
-      <span className='text-xs font-medium text-gray-90 dark:text-gray-100 group-hover/meta:text-blue-700'>{Language}</span>
-    </div>
+    <Pill tone='gray' variant='soft' size='xs'>{Language}</Pill>
   </div>
 );

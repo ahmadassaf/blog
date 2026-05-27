@@ -95,7 +95,7 @@ module.exports = () => {
     },
     'pageExtensions': [ 'ts', 'tsx', 'js', 'jsx', 'md', 'mdx' ],
     'reactStrictMode': true,
-    'transpilePackages': [ '@ahmadassaf/design-system' ],
+    'transpilePackages': [ '@gaudi/design-system' ],
     'turbopack': {
       'rules': {
         '*.svg': {

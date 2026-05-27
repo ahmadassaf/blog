@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import Icon from '@/components/primitives/Icon';
+import BreadcrumbTrail from '@/components/core/Breadcrumb';
 
 /**
  * Renders a breadcrumb navigation trail
@@ -40,32 +40,16 @@ import Icon from '@/components/primitives/Icon';
  * // Where 'Project Nero' is not clickable (current page)
  */
 export default function Breadcrumbs({ pages }) {
-  return (
-    <nav aria-label='Breadcrumb' className='flex'>
-      <ol role='list' className='flex items-center space-x-4'>
-        <li>
-          <div>
-            <a href='/' className='text-gray-400 hover:text-gray-500'>
-              <Icon name='Home' size='md' decorative />
-              <span className='sr-only'>Home</span>
-            </a>
-          </div>
-        </li>
-        {pages.map((page) => (
-          <li key={ page.name }>
-            <div className='flex items-center'>
-              <Icon name='ChevronRight' size='md' decorative className='text-gray-400' />
-              <a
-                href={ page.href }
-                aria-current={ page.current ? 'page' : undefined }
-                className='ml-4 text-sm font-medium text-gray-500 hover:text-gray-700'
-              >
-                {page.name}
-              </a>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
+  const items = [
+    { 'href': '/', 'label': 'Home' },
+    ...pages.map((page) => {
+      return {
+        'current': page.current,
+        'href': page.href,
+        'label': page.name
+      };
+    })
+  ];
+
+  return <BreadcrumbTrail items={ items } />;
 }

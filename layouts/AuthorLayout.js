@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import { Typography } from '@ahmadassaf/design-system';
+import { Typography } from '@gaudi/design-system';
 
 /**
  * Author page layout with header and content sections

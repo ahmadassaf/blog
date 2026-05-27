@@ -9,9 +9,9 @@
  * @version 2.0.0
  */
 
-const designSystemPreset = require('@ahmadassaf/design-system/tailwind-preset');
-const addVariablesColors = require('@ahmadassaf/design-system/tailwind/addVariablesColors');
-const tailwindGrid = require('@ahmadassaf/design-system/tailwind/tailwindGrid');
+const designSystemPreset = require('@gaudi/design-system/tailwind-preset');
+const addVariablesColors = require('@gaudi/design-system/tailwind/addVariablesColors');
+const tailwindGrid = require('@gaudi/design-system/tailwind/tailwindGrid');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

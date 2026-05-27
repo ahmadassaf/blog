@@ -60,7 +60,7 @@ export const QuickLink = ({ description, storyId, title }) => (
     href={ `?path=/story/${storyId}` }
     className='block rounded-lg border border-gray-200 bg-white p-4 text-left transition-colors hover:border-blue-300 hover:no-underline dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-700'
   >
-    <p className='mb-1 text-sm font-semibold text-blue-600 dark:text-blue-400'>{title}</p>
+    <p className='mb-1 text-sm font-semibold text-gray-950 dark:text-white'>{title}</p>
     <p className='text-xs leading-5 text-gray-500 dark:text-gray-400'>{description}</p>
   </a>
 );

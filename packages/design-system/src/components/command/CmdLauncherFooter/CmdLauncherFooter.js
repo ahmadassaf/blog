@@ -10,7 +10,7 @@
  * @version 2.0.0
  */
 
-import Kbd from '@/components/primitives/Kbd';
+import Kbd from '@/components/core/Kbd';
 
 /**
  * CmdLauncherFooter component renders the footer with keyboard shortcuts guide

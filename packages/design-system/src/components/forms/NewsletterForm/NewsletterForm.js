@@ -13,7 +13,7 @@
 
 import { useRef, useState } from 'react';
 
-import Button from '@/components/primitives/Button';
+import Button from '@/components/core/Button';
 import { cn } from '@/components/utilities/cn';
 
 /**

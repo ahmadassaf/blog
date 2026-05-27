@@ -9,11 +9,9 @@
  * @version 1.0.0
  */
 
+import { CitationPopover, FootnotePopover, MDXComponents, MDXLayoutRenderer } from '@gaudi/design-system/mdx';
 import { allProjects } from 'contentlayer/generated';
 
-import { MDXComponents, MDXLayoutRenderer } from '@/components/mdx';
-import CitationPopover from '@/components/mdx/CitationPopover';
-import FootnotePopover from '@/components/mdx/FootnotePopover';
 import { linkedDataGenerator, metadataGenertaor } from '@/data/meta/generator/post';
 import ProjectLayout from '@/layouts/ProjectLayout';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';

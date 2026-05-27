@@ -1,2 +1,3 @@
-export { default } from './Icon';
-export * from './Icon';
+// Compatibility path. Canonical implementation lives in ../core/Icon.
+export { default } from '../../core/Icon';
+export * from '../../core/Icon';

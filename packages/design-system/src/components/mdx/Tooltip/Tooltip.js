@@ -10,7 +10,7 @@
 
 'use client';
 
-import Icon from '@/components/primitives/Icon';
+import Icon from '@/components/core/Icon';
 
 /**
  * Renders an interactive tooltip with hover effects

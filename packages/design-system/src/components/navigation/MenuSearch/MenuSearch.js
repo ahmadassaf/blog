@@ -9,7 +9,9 @@
  * @version 2.0.0
  */
 
-import Kbd from '@/components/primitives/Kbd';
+import Button from '@/components/core/Button';
+import Kbd from '@/components/core/Kbd';
+import { cn } from '@/components/utilities/cn';
 
 /**
  * Renders a search input button that opens the command palette
@@ -32,20 +34,23 @@ import Kbd from '@/components/primitives/Kbd';
  * // Used within mobile menu
  * <MenuSearch setOpen={setLauncherOpen} />
  */
-const MenuSearch = ({ setOpen }) => (
+const MenuSearch = ({ className, setOpen }) => (
 
-  <div className='w-full lg:max-w-xs max-sm:w-[95%]'>
-    <button className='relative w-full' type='button' onClick={ () => setOpen(true) } aria-label='Open search'>
-      <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 right-0'>
-        <div className='absolute right-1.5 top-1.5 flex items-center gap-0.5'>
-          <Kbd keys='command' className='!py-0.5 !text-[10px] !min-w-[20px]' />
-          <Kbd keys='k' className='!py-0.5 !text-[10px] !min-w-[20px]' />
-        </div>
-      </div>
-      <span className='outline-hidden! ring-1 ring-gray-300 cursor-pointer block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-left text-gray-400 sm:text-sm sm:leading-6'>
-        Search
+  <div className={ cn('w-full sm:w-56 lg:w-48 xl:w-56', className) }>
+    <Button
+      variant='outline'
+      tone='gray'
+      size='sm'
+      className='group h-10 w-full justify-between gap-3 rounded-lg border-gray-200 bg-white/85 px-3 text-left text-sm font-normal text-gray-500 shadow-sm backdrop-blur hover:border-blue-200 hover:bg-white hover:text-gray-950 dark:border-gray-800 dark:bg-gray-950/80 dark:text-gray-400 dark:hover:border-blue-800 dark:hover:bg-gray-950 dark:hover:text-gray-100'
+      onClick={ () => setOpen(true) }
+      aria-label='Open search'
+    >
+      <span className='truncate'>Search</span>
+      <span className='flex shrink-0 items-center gap-1' aria-hidden='true'>
+        <Kbd keys='command' size='xs' variant='flat' />
+        <Kbd keys='k' size='xs' variant='flat' />
       </span>
-    </button>
+    </Button>
   </div>
 
 );

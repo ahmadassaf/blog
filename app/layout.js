@@ -9,15 +9,15 @@
  * @version 1.0.0
  */
 
+import { CodeGroupTabs } from '@gaudi/design-system';
+import { LayoutContainer } from '@gaudi/design-system/layout';
+import { CitationTracker } from '@gaudi/design-system/mdx';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from 'next/font/google';
 
-import CodeGroupTabs from '@/components/content/CodeGroupTabs';
-import LayoutContainer from '@/components/layout/LayoutContainer';
-import CitationTracker from '@/components/mdx/CitationTracker';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
 
-import '@ahmadassaf/design-system/global.css';
+import '@gaudi/design-system/global.css';
 import 'katex/dist/katex.css';
 import 'remark-github-blockquote-alert/alert.css';
 

@@ -13,4 +13,4 @@ const SiteMetadata = {
   'title': `Ahmad Assaf's Personal Space`
 };
 
-module.exports = SiteMetadata;
+export default SiteMetadata;

@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import Icon from '@/components/primitives/Icon';
+import Icon from '@/components/core/Icon';
 
 /**
  * Utility function to combine CSS class names

@@ -11,8 +11,8 @@
 
 /* eslint-disable no-shadow */
 
-import SocialIcon from '@/components/primitives/Icon';
-import Link from '@/components/primitives/Link';
+import SocialIcon from '@/components/core/Icon';
+import Link from '@/components/core/Link';
 import { cn } from '@/components/utilities/cn';
 
 /**

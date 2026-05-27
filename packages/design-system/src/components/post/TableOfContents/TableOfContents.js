@@ -13,6 +13,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+import { cn } from '@/components/utilities/cn';
+
 /**
  * Renders an interactive table of contents with scroll tracking
  *
@@ -45,7 +47,7 @@ import { useEffect, useRef, useState } from 'react';
  * // TOC automatically expands when there are 4 or fewer level-1 headings
  * <TableOfContents toc={smallTocData} />
  */
-const TableOfContents = ({ toc }) => {
+const TableOfContents = ({ className, toc }) => {
   const [ activeSlug, setActiveSlug ] = useState('');
   const isTableOfContentsLoaded = useRef(false);
 
@@ -134,7 +136,7 @@ const TableOfContents = ({ toc }) => {
   const expandAll = level1HeadingsCount <= 4;
 
   return (
-    <div className='p-4 sticky top-20 text-gray-800 col-span-3 max-xl:hidden max-h-[calc(100vh-5rem)] overflow-y-auto'>
+    <div className={ cn('p-4 sticky top-20 text-gray-800 col-span-3 max-xl:hidden max-h-[calc(100vh-5rem)] overflow-y-auto', className) }>
       {renderToc(toc, false, expandAll)}
     </div>
   );

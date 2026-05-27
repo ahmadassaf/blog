@@ -16,13 +16,17 @@ import React from 'react';
 import * as _jsx_runtime from 'react/jsx-runtime';
 import ReactDOM from 'react-dom';
 
+import CustomLink from '@/components/core/Link';
 import { BlogNewsletterForm } from '@/components/forms/NewsletterForm';
 import Aside from '@/components/mdx/Aside';
 import Callout from '@/components/mdx/Callout';
 import CitationPopover from '@/components/mdx/CitationPopover';
+import CitationTracker from '@/components/mdx/CitationTracker';
 import Details from '@/components/mdx/Details';
 import Faq from '@/components/mdx/Faq';
 import FileTree from '@/components/mdx/FileTree';
+import FootnotePopover from '@/components/mdx/FootnotePopover';
+import HeroVideoDialog, { heroVideoDialogAnimationStyles } from '@/components/mdx/HeroVideoDialog';
 import Highlight from '@/components/mdx/Highlight';
 import Image from '@/components/mdx/Image';
 import InternalPreview from '@/components/mdx/InternalPreview';
@@ -31,10 +35,10 @@ import PostImage from '@/components/mdx/PostImage';
 import Pre from '@/components/mdx/Pre';
 import Preview from '@/components/mdx/Preview';
 import Quote from '@/components/mdx/Quote';
+import ReferencePopover from '@/components/mdx/ReferencePopover';
 import Stats from '@/components/mdx/Stats';
 import Table, { TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '@/components/mdx/Table';
 import Tooltip from '@/components/mdx/Tooltip';
-import CustomLink from '@/components/primitives/Link';
 
 import styles from './MdxContent/MdxContent.module.css';
 
@@ -47,9 +51,12 @@ export const MDXComponents = {
   BlogNewsletterForm,
   Callout,
   CitationPopover,
+  CitationTracker,
   Details,
   Faq,
   FileTree,
+  FootnotePopover,
+  HeroVideoDialog,
   Highlight,
   Image,
   InternalPreview,
@@ -57,6 +64,7 @@ export const MDXComponents = {
   PostImage,
   Preview,
   Quote,
+  ReferencePopover,
   Stats,
   Table,
   Tooltip,
@@ -69,6 +77,34 @@ export const MDXComponents = {
   'thead': TableHead,
   'tr': TableRow
 };
+
+export { Aside,
+  Callout,
+  CitationPopover,
+  CitationTracker,
+  Details,
+  Faq,
+  FileTree,
+  FootnotePopover,
+  HeroVideoDialog,
+  heroVideoDialogAnimationStyles,
+  Highlight,
+  Image,
+  InternalPreview,
+  Mermaid,
+  PostImage,
+  Pre,
+  Preview,
+  Quote,
+  ReferencePopover,
+  Stats,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  Tooltip };
 
 /**
  * Dynamically creates an MDX component from compiled code

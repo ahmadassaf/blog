@@ -9,13 +9,14 @@
  * @version 1.0.0
  */
 
-import SectionContainer from '@/components/layout/SectionContainer';
-import Disclaimer from '@/components/post/Disclaimer';
-import PostComments from '@/components/post/PostComments';
-import PostHeader from '@/components/post/PostHeader';
-import PostNavigation from '@/components/post/PostNavigation';
-import TableOfContents from '@/components/post/TableOfContents';
+import { Disclaimer,
+  PostComments,
+  PostNavigation,
+  SectionContainer } from '@gaudi/design-system';
+
 import siteMetadata from '@/data/meta/metadata';
+
+import PostArticleFrame from './PostArticleFrame';
 
 /**
  * Post layout component for individual blog post pages
@@ -44,22 +45,14 @@ import siteMetadata from '@/data/meta/metadata';
  * </PostLayout>
  */
 export default function PostLayout({ content, next, prev, toc, children }) {
-
   return (
     <SectionContainer>
       <article>
         <div>
-          <PostHeader frontMatter={ content } siteMetadata={ siteMetadata } toc={ toc }/>
-
-          <div className={ `divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:gap-x-6 xl:divide-y-0 ${(toc.length > 3 && content.tableOfContents) ? 'xl:grid-cols-9' : 'xl:grid-cols-1'}` } style={{ 'gridTemplateRows': 'auto 1fr' }}>
-            <div className={ `divide-y divide-gray-200 dark:divide-gray-700 xl:row-span-2 xl:pb-0 ${(toc.length > 3 && content.tableOfContents) && 'xl:col-span-6'}` }>
-              <div className='prose max-w-none pt-8 pb-8 dark:prose-invert'>
-                {children}
-                <Disclaimer/>
-              </div>
-            </div>
-            { (toc.length > 3 && content.tableOfContents) && <TableOfContents toc={ toc } />}
-          </div>
+          <PostArticleFrame content={ content } siteMetadata={ siteMetadata } toc={ toc }>
+            {children}
+            <Disclaimer/>
+          </PostArticleFrame>
           <PostNavigation next={ next } prev={ prev } type={ content.type }></PostNavigation>
           { content.comments && (<PostComments/>)}
         </div>

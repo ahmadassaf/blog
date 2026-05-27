@@ -8,7 +8,7 @@
  * @version 1.0.0
  */
 
-import Icon from '@/components/primitives/Icon';
+import Icon from '@/components/core/Icon';
 
 /**
  * Get the appropriate icon for a file based on its extension or name

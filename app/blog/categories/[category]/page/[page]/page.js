@@ -9,10 +9,10 @@
  * @version 1.0.0
  */
 
+import { POSTS_PER_PAGE } from '@gaudi/design-system';
 import { allPosts } from 'contentlayer/generated';
 
 import categories from '@/app/content/categories';
-import { POSTS_PER_PAGE } from '@/components/content/Pagination';
 import ListLayout from '@/layouts/ListLayout';
 import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
 

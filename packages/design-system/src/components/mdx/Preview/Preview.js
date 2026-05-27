@@ -16,7 +16,8 @@ import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 
-import Icon from '@/components/primitives/Icon';
+import Icon from '@/components/core/Icon';
+import Link from '@/components/core/Link';
 
 /**
  * Advanced cache implementation with size limits and TTL
@@ -98,6 +99,13 @@ const performanceMonitor = {
 
   'startTime': null
 };
+
+export const PreviewLoadingSkeleton = ({ className = '' }) => (
+  <span className={ `inline-flex items-start ${className}` } aria-hidden='true'>
+    <span className='inline-block h-4 w-4 mr-1 bg-gray-200 rounded animate-pulse flex-shrink-0 dark:bg-gray-700' />
+    <span className='inline-block h-4 w-32 bg-gray-200 rounded animate-pulse dark:bg-gray-700' />
+  </span>
+);
 
 /**
  * Generate preview image URL based on platform
@@ -576,12 +584,7 @@ const Preview = memo(function Preview({
   // Removed lazy loading placeholder - always load immediately
 
   // Loading state with skeleton
-  if (loading) return (
-    <span className={ `inline-flex items-start ${className}` }>
-      <span className='inline-block h-4 w-4 mr-1 bg-gray-200 rounded animate-pulse flex-shrink-0' />
-      <span className='inline-block h-4 w-32 bg-gray-200 rounded animate-pulse' />
-    </span>
-  );
+  if (loading) return <PreviewLoadingSkeleton className={ className } />;
 
   // Custom fallback
   if (fallback && (error || data?.error || data?.status === 404)) return <>{fallback}</>;
@@ -590,15 +593,13 @@ const Preview = memo(function Preview({
   if (data?.error) return (
     <span className={ `inline-flex items-center align-top ${className}` }>
       <Icon name='LinkSlashIcon' size='sm' decorative className='m-0 mr-1 text-red-500 inline-block align-text-top' />
-      <a
+      <Link
         href={ url }
-        className='text-red-600 hover:text-red-800 transition-colors'
-        target='_blank'
-        rel='noopener noreferrer'
+        tone='red'
         aria-label={ `${formattedTitle} (link may be unavailable)` }
       >
         {formattedTitle}
-      </a>
+      </Link>
     </span>
   );
 
@@ -606,14 +607,12 @@ const Preview = memo(function Preview({
   if (!data) return (
     <span className={ `inline-flex items-center align-top ${className}` }>
       <Icon name='LinkIcon' size='sm' decorative className='m-0 mr-1 text-gray-400 inline-block align-text-top' />
-      <a
+      <Link
         href={ url }
-        className='text-blue-600 hover:text-blue-800 transition-colors'
-        target='_blank'
-        rel='noopener noreferrer'
+        tone='blue'
       >
         {title || url}
-      </a>
+      </Link>
     </span>
   );
 
@@ -648,15 +647,13 @@ const Preview = memo(function Preview({
       ) : (
         <Icon name='LinkIcon' size='sm' decorative className='m-0 mr-1 text-blue-500 inline-block align-text-top' />
       )}
-      <a
-        className='text-blue-600 hover:text-blue-800 transition-colors'
+      <Link
+        tone='blue'
         href={ url }
-        target='_blank'
-        rel='noopener noreferrer'
         aria-label={ `${formattedTitle}${data?.siteName ? ` - ${data.siteName}` : ''}` }
       >
         {formattedTitle}
-      </a>
+      </Link>
       {getPlatformIcon(url, data?.type, !!normalizedFavicon)}
       {data?.duration && (
         <span className='text-xs text-gray-500 ml-1'>{data.duration}</span>

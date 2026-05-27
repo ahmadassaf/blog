@@ -5,7 +5,8 @@ export default {
     layout: 'fullscreen',
     options: { 'showPanel': false, 'showToolbar': false }
   },
-  title: 'Introduction/Testing'
+  tags: [ '!autodocs' ],
+  title: 'Overview/Testing'
 };
 
 export const Default = {
@@ -13,7 +14,7 @@ export const Default = {
   'render': () => (
     <Page
       title='Testing'
-      intro='Testing is the guardrail that keeps package extraction safe. Every DS change should be verified in Storybook and in the consuming blog app.'
+      intro='Testing is the guardrail that keeps package extraction safe. Every Gaudi change should be verified in Storybook and in the consuming blog app.'
     >
       <Section title='Quality Gates'>
         <div className='grid gap-3 md:grid-cols-3'>

@@ -1,4 +1,4 @@
-import Icon from '@/components/primitives/Icon';
+import Icon from '@/components/core/Icon';
 
 const CmdIcon = ({ name, className = '', style = {} }) => (
   <Icon

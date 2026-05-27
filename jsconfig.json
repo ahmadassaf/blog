@@ -8,8 +8,8 @@
       "@/app/*": ["app/*"],
       "@/layouts/*": ["layouts/*"],
       "@/lib/*": ["lib/*"],
-      "@ahmadassaf/design-system": ["packages/design-system/src/index.js"],
-      "@ahmadassaf/design-system/*": ["packages/design-system/src/*"],
+      "@gaudi/design-system": ["packages/design-system/src/index.js"],
+      "@gaudi/design-system/*": ["packages/design-system/src/*"],
       "@/public/*": ["public/*"],
     }  
   },

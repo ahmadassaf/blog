@@ -12,6 +12,7 @@
 import React from 'react';
 
 import MenuDropDown from '@/components/content/DropDown';
+import Link from '@/components/core/Link';
 
 /**
  * Renders a dropdown menu for blog categories navigation
@@ -46,23 +47,23 @@ import MenuDropDown from '@/components/content/DropDown';
 const MenuBlog = ({ categories }) => {
   const [ menuBlogOpen, setMenuBlogOpen ] = React.useState(false);
 
-  return (<>
+  return (<li className='relative'>
 
     <MenuDropDown name='Categories' menuDropDownOpen={ menuBlogOpen } setMenuDropDownOpen={ setMenuBlogOpen }></MenuDropDown>
 
     {menuBlogOpen ? (
-      <div className='absolute left-1/2 z-50 mt-5 flex w-screen max-w-max -translate-x-1/2 px-3 py-2 top-10'>
-        <div className='w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5'>
+      <div className='absolute left-1/2 top-full z-50 mt-3 flex w-screen max-w-max -translate-x-1/2 px-3 py-2'>
+        <div className='w-screen max-w-md flex-auto overflow-hidden rounded-2xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/10 dark:bg-gray-900 dark:ring-gray-700/60'>
           <div className='p-4'>
 
             {categories.map((category) => (
-              <div key={ category.id } className='group relative flex rounded-lg p-2 hover:bg-gray-50'>
+              <div key={ category.id } className='group relative flex rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-800'>
                 <div>
-                  <a href={ `/blog/categories/${category.id}` } className='font-semibold text-gray-900 hover:text-blue-600 capitalize'>
+                  <Link href={ `/blog/categories/${category.id}` } className='font-medium capitalize text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400'>
                     {category.title.replace('-', ' ')}
                     <span className='absolute inset-0'></span>
-                    <p className='mt-1 text-gray-600 font-light text-s'>{category.description}</p>
-                  </a>
+                    <p className='mt-1 text-sm font-light text-gray-600 dark:text-gray-300'>{category.description}</p>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -72,7 +73,7 @@ const MenuBlog = ({ categories }) => {
       </div>
     ) : null}
 
-  </>);
+  </li>);
 };
 
 export default MenuBlog;

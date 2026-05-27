@@ -12,7 +12,7 @@
 
 import React from 'react';
 
-import Icon, { getIcon } from '@/components/primitives/Icon';
+import Icon, { getIcon } from '@/components/core/Icon';
 
 /**
  * Configuration for different item types with styling and display rules

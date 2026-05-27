@@ -14,7 +14,7 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 
-import Icon from '@/components/primitives/Icon';
+import Icon from '@/components/core/Icon';
 import ThemeProvider from '@/components/utilities/ThemeProvider';
 import siteMetadata from '@/data/meta/metadata';
 
@@ -41,9 +41,9 @@ function Provider() {
       aria-label='Toggle Dark Mode'
       type='button'
       style={{ 'outline': 'none' }}
-      className='mx-4 h-8 w-8 rounded-sm p-1 cursor-pointer'
+      className='inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-gray-950 transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-gray-100 dark:hover:bg-gray-800'
     >
-      <Icon name='SunFill' decorative className='h-5 w-5 text-gray-900 dark:text-gray-100' />
+      <Icon name='SunFill' decorative className='h-5 w-5' />
     </button>
   );
 
@@ -52,10 +52,10 @@ function Provider() {
       aria-label='Toggle Dark Mode'
       type='button'
       style={{ 'outline': 'none' }}
-      className='mx-4 h-8 w-8 rounded-sm p-1 cursor-pointer'
+      className='inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-gray-950 transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-gray-100 dark:hover:bg-gray-800'
       onClick={ () => setTheme(theme === 'dark' ? 'light' : 'dark') }
     >
-      {theme === 'dark' ? <Icon name='MoonFill' decorative className='h-5 w-5 text-gray-900 dark:text-gray-100' /> : <Icon name='SunFill' decorative className='h-5 w-5 text-gray-900 dark:text-gray-100' />}
+      {theme === 'dark' ? <Icon name='MoonFill' decorative className='h-5 w-5' /> : <Icon name='SunFill' decorative className='h-5 w-5' />}
     </button>
   );
 }

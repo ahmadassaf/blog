@@ -1,1 +1,3 @@
-export { Grid, GridItem, gridItemVariants, gridVariants } from './Grid';
+// Compatibility path. Canonical implementation lives in ../core/Grid.
+export { default } from '../../core/Grid';
+export * from '../../core/Grid';

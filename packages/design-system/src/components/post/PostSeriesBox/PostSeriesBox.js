@@ -12,9 +12,10 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 
-import Icon from '@/components/primitives/Icon';
+import Button from '@/components/core/Button';
+import Icon from '@/components/core/Icon';
+import Link from '@/components/core/Link';
 import { cn } from '@/components/utilities/cn';
 
 /**
@@ -57,17 +58,18 @@ const PostSeriesBox = ({ className, classNames = {}, series, slug }) => {
     <div className={ cn('mb-6 overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-border-dark dark:bg-gray-800', className, classNames.root) }>
 
       {/* Header - Always Visible */}
-      <button
-        type='button'
+      <Button
+        variant='ghost'
+        tone='gray'
+        size='sm'
         onClick={ () => setIsExpanded(!isExpanded) }
-        className={ cn('w-full cursor-pointer p-3 text-left sm:p-4', classNames.trigger) }
+        className={ cn('w-full cursor-pointer rounded-none p-3 text-left font-normal hover:bg-transparent dark:hover:bg-transparent sm:p-4', classNames.trigger) }
         aria-expanded={ isExpanded }
         aria-controls='series-content'
       >
-        <div className='flex items-center justify-between'>
-          <div className='flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0'>
+        <div className='flex w-full items-center justify-between gap-4'>
+          <div className='flex min-w-0 flex-1 items-center gap-2 sm:gap-3'>
             <Icon name='Square3Stack3DIcon' size='sm' decorative className='text-blue-500' />
-            <span className='text-xs sm:text-sm text-gray-600 dark:text-gray-400 hidden xs:inline'>Part of</span>
             <span className='text-sm sm:text-[15px] font-medium text-gray-900 dark:text-gray-100 truncate'>
               {series[0].series}
             </span>
@@ -94,7 +96,7 @@ const PostSeriesBox = ({ className, classNames = {}, series, slug }) => {
             />
           </div>
         </div>
-      </button>
+      </Button>
 
       {/* Expandable Content */}
       <div

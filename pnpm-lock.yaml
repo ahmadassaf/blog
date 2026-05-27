@@ -8,15 +8,15 @@ importers:
 
   .:
     dependencies:
-      '@ahmadassaf/design-system':
-        specifier: workspace:*
-        version: link:packages/design-system
       '@emotion/is-prop-valid':
         specifier: ^1.2.2
         version: 1.4.0
       '@fontsource-variable/inter':
         specifier: ^5.2.5
         version: 5.2.8
+      '@gaudi/design-system':
+        specifier: workspace:*
+        version: link:packages/design-system
       '@giscus/react':
         specifier: ^3.1.0
         version: 3.1.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -303,6 +303,9 @@ importers:
       '@heroicons/react':
         specifier: ^2.2.0
         version: 2.2.0(react@19.2.0)
+      '@radix-ui/react-hover-card':
+        specifier: ^1.1.15
+        version: 1.1.15(@types/react@19.2.14)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@tabler/icons-react':
         specifier: ^3.31.0
         version: 3.35.0(react@19.2.0)

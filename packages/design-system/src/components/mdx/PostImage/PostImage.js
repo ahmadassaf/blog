@@ -16,6 +16,7 @@ import { useState } from 'react';
 import NextImage from 'next/image';
 
 import ImageModal from '@/components/content/ImageModal';
+import Button from '@/components/core/Button';
 
 /**
  * Renders a blog post image with theme support and optional caption
@@ -57,20 +58,20 @@ const PostImage = ({ dark, title, caption, width = 800, height = 800, ...rest })
 
   if (dark) return (
     <div>
-      <button type='button' className='block w-full dark:hidden' onClick={ () => handleImageClick(`/static/images/posts/${title}.svg`) } aria-label={ `Open image: ${title}` }>
+      <Button variant='ghost' tone='gray' size='sm' className='block w-full p-0 hover:bg-transparent dark:hidden dark:hover:bg-transparent' onClick={ () => handleImageClick(`/static/images/posts/${title}.svg`) } aria-label={ `Open image: ${title}` }>
         <NextImage
           { ...imageProps }
           className='mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200'
           src={ `/static/images/posts/${title}.svg` }
         />
-      </button>
-      <button type='button' className='hidden w-full dark:block' onClick={ () => handleImageClick(`/static/images/posts/${title}-dark.svg`) } aria-label={ `Open image: ${title}` }>
+      </Button>
+      <Button variant='ghost' tone='gray' size='sm' className='hidden w-full p-0 hover:bg-transparent dark:block dark:hover:bg-transparent' onClick={ () => handleImageClick(`/static/images/posts/${title}-dark.svg`) } aria-label={ `Open image: ${title}` }>
         <NextImage
           { ...imageProps }
           className='mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200'
           src={ `/static/images/posts/${title}-dark.svg` }
         />
-      </button>
+      </Button>
       { caption && <p className='text-center text-sm text-gray-500 dark:text-gray-400'>{ caption }</p> }
 
       <ImageModal
@@ -85,12 +86,12 @@ const PostImage = ({ dark, title, caption, width = 800, height = 800, ...rest })
 
   return (
     <div>
-      <button type='button' className='block w-full' onClick={ () => handleImageClick(`/static/images/posts/${title}.svg`) } aria-label={ `Open image: ${title}` }>
+      <Button variant='ghost' tone='gray' size='sm' className='block w-full p-0 hover:bg-transparent dark:hover:bg-transparent' onClick={ () => handleImageClick(`/static/images/posts/${title}.svg`) } aria-label={ `Open image: ${title}` }>
         <NextImage
           { ...imageProps }
           src={ `/static/images/posts/${title}.svg` }
         />
-      </button>
+      </Button>
       { caption && <p className='text-center text-sm text-gray-500 dark:text-gray-400'>{ caption }</p> }
 
       <ImageModal

@@ -8,22 +8,22 @@ const componentsDir = dirname(fileURLToPath(import.meta.url));
 const packageSrcDir = dirname(componentsDir);
 const publicIndex = readFileSync(join(packageSrcDir, 'index.js'), 'utf8');
 
-const customisedPrimitives = [
-  [ 'Avatar', 'primitives/Avatar/Avatar.stories.jsx', 'avatarVariants' ],
-  [ 'Banner', 'primitives/Banner/Banner.stories.jsx', 'bannerVariants' ],
-  [ 'Button', 'primitives/Button/Button.stories.jsx', 'buttonVariants' ],
-  [ 'Card', 'primitives/Card/Card.stories.jsx', 'cardVariants' ],
-  [ 'Carousel', 'primitives/Carousel/Carousel.stories.jsx', 'carouselVariants' ],
-  [ 'Grid', 'primitives/Grid/Grid.stories.jsx', 'gridVariants' ],
-  [ 'Kbd', 'primitives/Kbd/Kbd.stories.jsx', 'kbdVariants' ],
-  [ 'Link', 'primitives/Link/Link.stories.jsx', 'linkVariants' ],
-  [ 'Pill', 'primitives/Pill/Pill.stories.jsx', 'pillVariants' ],
-  [ 'Terminal', 'primitives/Terminal/Terminal.stories.jsx', 'terminalVariants' ],
-  [ 'TextHighlight', 'primitives/TextHighlight/TextHighlight.stories.jsx', 'textHighlightVariants' ]
+const customisedCoreComponents = [
+  [ 'Avatar', 'core/Avatar/Avatar.stories.jsx', 'avatarVariants' ],
+  [ 'Banner', 'core/Banner/Banner.stories.jsx', 'bannerVariants' ],
+  [ 'Button', 'core/Button/Button.stories.jsx', 'buttonVariants' ],
+  [ 'Card', 'core/Card/Card.stories.jsx', 'cardVariants' ],
+  [ 'Carousel', 'core/Carousel/Carousel.stories.jsx', 'carouselVariants' ],
+  [ 'Grid', 'core/Grid/Grid.stories.jsx', 'gridVariants' ],
+  [ 'Kbd', 'core/Kbd/Kbd.stories.jsx', 'kbdVariants' ],
+  [ 'Link', 'core/Link/Link.stories.jsx', 'linkVariants' ],
+  [ 'Pill', 'core/Pill/Pill.stories.jsx', 'pillVariants' ],
+  [ 'Terminal', 'core/Terminal/Terminal.stories.jsx', 'terminalVariants' ],
+  [ 'TextHighlight', 'core/TextHighlight/TextHighlight.stories.jsx', 'textHighlightVariants' ]
 ];
 
-test('customised primitives keep public stories and variant map exports', () => {
-  for (const [ componentName, storyPath, variantExport ] of customisedPrimitives) {
+test('customised core components keep public stories and variant map exports', () => {
+  for (const [ componentName, storyPath, variantExport ] of customisedCoreComponents) {
     assert.ok(
       existsSync(join(componentsDir, storyPath)), `${componentName} must keep its colocated Storybook story`
     );

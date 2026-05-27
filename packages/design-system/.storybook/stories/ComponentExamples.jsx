@@ -364,7 +364,7 @@ const renderContentExample = (name, componentModule) => {
         <Component />
         <div className='code-group'>
           <div className='code-group-tab' data-language='js'>JavaScript</div>
-          <pre><code>import &#123; Button &#125; from '@ahmadassaf/design-system';</code></pre>
+          <pre><code>import &#123; Button &#125; from '@gaudi/design-system';</code></pre>
         </div>
       </ExampleFrame>
     );
@@ -490,6 +490,18 @@ const renderMdxExample = (name, componentModule) => {
     return <ExampleFrame><Component questions={ [{ 'answer': 'They keep repeated article explanations structured and accessible.', 'question': 'Why use FAQ blocks?' }] } /></ExampleFrame>;
   case 'FileTree':
     return <ExampleFrame><Component data={ fileTreeData } /></ExampleFrame>;
+  case 'HeroVideoDialog':
+    return (
+      <ExampleFrame width='max-w-4xl'>
+        <Component
+          animationStyle='from-center'
+          thumbnailSrc='/static/images/og-card.jpg'
+          thumbnailAlt='Knowledge graph article video preview'
+          title='Knowledge graph walkthrough'
+          videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'
+        />
+      </ExampleFrame>
+    );
   case 'FootnotePopover':
     return (
       <MdxArticleFrame>

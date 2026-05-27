@@ -1,2 +1,3 @@
-export { default } from './Terminal';
-export * from './Terminal';
+// Compatibility path. Canonical implementation lives in ../core/Terminal.
+export { default } from '../../core/Terminal';
+export * from '../../core/Terminal';

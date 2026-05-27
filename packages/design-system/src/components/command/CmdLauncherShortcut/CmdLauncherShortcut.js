@@ -9,7 +9,7 @@
  * @version 2.0.0
  */
 
-import Kbd from '@/components/primitives/Kbd';
+import Kbd from '@/components/core/Kbd';
 
 /**
  * Component displaying the keyboard shortcut for command launcher

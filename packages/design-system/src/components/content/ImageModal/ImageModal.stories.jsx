@@ -3,7 +3,7 @@ import { renderComponentExample } from '../../../../.storybook/stories/Component
 
 import * as componentModule from './index';
 
-const componentDocs = getComponentDocs('Content/ImageModal');
+const componentDocs = getComponentDocs('MDX/ImageModal');
 
 export default {
   parameters: {
@@ -15,9 +15,9 @@ export default {
     }
   },
   tags: [ 'autodocs' ],
-  title: 'Content/ImageModal'
+  title: 'MDX/ImageModal'
 };
 
 export const Example = {
-  'render': () => renderComponentExample('Content/ImageModal', componentModule)
+  'render': () => renderComponentExample('MDX/ImageModal', componentModule)
 };

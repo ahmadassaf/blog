@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const sourceDir = resolve(rootDir, 'packages/design-system/src');
+const lodashEsDir = resolve(rootDir, 'node_modules/lodash-es');
 
 const config = {
   'addons': [
@@ -31,6 +32,29 @@ const config = {
       },
       'optimizeDeps': {
         ...viteConfig.optimizeDeps,
+        'include': [
+          ...(viteConfig.optimizeDeps?.include || []),
+          'recharts/lib/cartesian/Area.js',
+          'recharts/lib/cartesian/Bar.js',
+          'recharts/lib/cartesian/CartesianGrid.js',
+          'recharts/lib/cartesian/Line.js',
+          'recharts/lib/cartesian/Scatter.js',
+          'recharts/lib/cartesian/XAxis.js',
+          'recharts/lib/cartesian/YAxis.js',
+          'recharts/lib/chart/AreaChart.js',
+          'recharts/lib/chart/BarChart.js',
+          'recharts/lib/chart/ComposedChart.js',
+          'recharts/lib/chart/LineChart.js',
+          'recharts/lib/chart/PieChart.js',
+          'recharts/lib/chart/RadialBarChart.js',
+          'recharts/lib/chart/ScatterChart.js',
+          'recharts/lib/component/Cell.js',
+          'recharts/lib/component/Legend.js',
+          'recharts/lib/component/ResponsiveContainer.js',
+          'recharts/lib/component/Tooltip.js',
+          'recharts/lib/polar/Pie.js',
+          'recharts/lib/polar/RadialBar.js'
+        ],
         'rolldownOptions': {
           ...viteConfig.optimizeDeps?.rolldownOptions,
           'moduleTypes': {
@@ -46,6 +70,22 @@ const config = {
       'resolve': {
         ...viteConfig.resolve,
         'alias': [
+          {
+            'find': /^lodash\/(?<path>.+)\.js$/,
+            'replacement': `${lodashEsDir}/$<path>.js`
+          },
+          {
+            'find': /^lodash\/(?<path>.+)$/,
+            'replacement': `${lodashEsDir}/$<path>.js`
+          },
+          {
+            'find': /^recharts$/,
+            'replacement': resolve(rootDir, 'node_modules/recharts/lib/index.js')
+          },
+          {
+            'find': /^recharts\/es6\/(?<path>.+)$/,
+            'replacement': `${resolve(rootDir, 'node_modules/recharts/lib')}/$<path>`
+          },
           {
             'find': 'contentlayer/generated',
             'replacement': resolve(rootDir, '.contentlayer/generated')

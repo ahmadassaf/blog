@@ -3,7 +3,7 @@ import { renderComponentExample } from '../../../../.storybook/stories/Component
 
 import * as componentModule from './index';
 
-const componentDocs = getComponentDocs('Content/CodeGroupTabs');
+const componentDocs = getComponentDocs('MDX/CodeGroupTabs');
 
 export default {
   parameters: {
@@ -15,9 +15,9 @@ export default {
     }
   },
   tags: [ 'autodocs' ],
-  title: 'Content/CodeGroupTabs'
+  title: 'MDX/CodeGroupTabs'
 };
 
 export const Example = {
-  'render': () => renderComponentExample('Content/CodeGroupTabs', componentModule)
+  'render': () => renderComponentExample('MDX/CodeGroupTabs', componentModule)
 };

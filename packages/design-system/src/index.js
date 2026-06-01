@@ -1,4 +1,3 @@
-export { BarChart, BarChart as Chart, Sparkline } from './components/charting/Chart';
 export { default as CmdLauncherShortcut } from './components/command/CmdLauncherShortcut';
 export { default as CodeGroupTabs } from './components/content/CodeGroupTabs';
 export { default as Search } from './components/content/Search';

@@ -55,8 +55,8 @@ const Post = ({ frontMatter }) => {
               )}
             </div>
 
-            <h3 className='text-lg md:text-xl font-semibold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400  mb-1'>
-              <Link href={ `${baseUrl}/${frontMatter.slug}` }>
+            <h3 className='mb-1 text-lg font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white'>
+              <Link href={ `${baseUrl}/${frontMatter.slug}` } className='font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400'>
                 {frontMatter.title}
               </Link>
             </h3>

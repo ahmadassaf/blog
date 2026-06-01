@@ -4,6 +4,10 @@ import { Description, Primary, Stories, Subtitle, Title } from '@storybook/addon
 import { HighlightedCode } from './HighlightedCode';
 
 const groupDocs = {
+  'Blocks': {
+    'accessibility': 'Blocks compose exported Gaudi components into full page sections. They must preserve semantic headings, readable focus order, and links/buttons with accessible names.',
+    'description': 'documents full-section page compositions built from Gaudi primitives and domain components.'
+  },
   'Command': {
     'accessibility': 'Command components are keyboard-first surfaces. Keep focus visible, use Escape to close overlays, and expose readable result labels to assistive technology.',
     'description': 'supports keyboard navigation, search, and grouped command-palette rendering.'
@@ -58,22 +62,20 @@ const usageExamples = {
   'Command/Types/CmdProject': "import { CmdProject } from '@gaudi/design-system';\n\n<CmdProject title='Gaudi' subtitle='Developer tooling' showType />",
   'Command/Types/CmdPublication': "import { CmdPublication } from '@gaudi/design-system';\n\n<CmdPublication title='Linked Data Quality' year='2026' />",
   'Command/Types/CmdTag': "import { CmdTag } from '@gaudi/design-system';\n\n<CmdTag title='Design Systems' count={8} />",
-  'Content/Aurora': "import { Aurora } from '@gaudi/design-system';\n\n<Aurora className='min-h-[320px]'>\n  <section>Editorial content</section>\n</Aurora>",
-  'Content/CodeGroupTabs': "import { CodeGroupTabs } from '@gaudi/design-system';\n\n<CodeGroupTabs />",
-  'Content/DropDown': "import { DropDown } from '@gaudi/design-system';\n\n<DropDown name='Content sections' menuDropDownOpen={open} setMenuDropDownOpen={setOpen} />",
-  'Content/Footer': "import { Footer } from '@gaudi/design-system';\n\n<Footer />",
-  'Content/ImageModal': "import { ImageModal } from '@gaudi/design-system';\n\n<ImageModal\n  isOpen={open}\n  onClose={() => setOpen(false)}\n  src='/static/images/logo.svg'\n  alt='Blog logo'\n/>",
-  'Content/Overview': "import { PaginationBar, Search } from '@gaudi/design-system';\n\n<Search setSearchValue={setSearchValue} />\n<PaginationBar currentPage={3} totalPages={8} getHref={() => ''} />",
-  'Content/Search': "import { Search } from '@gaudi/design-system';\n\n<Search setSearchValue={setSearchValue} />",
-  'Content/ThoughtsSection': "import { ThoughtsSection } from '@gaudi/design-system';\n\n<ThoughtsSection thoughts={thoughts} />",
+  'Blocks/Thoughts': "import { ThoughtsSection } from '@gaudi/design-system';\n\n<ThoughtsSection thoughts={thoughts} />",
   'Forms/NewsletterForm': "import { NewsletterForm } from '@gaudi/design-system';\n\n<NewsletterForm />",
+  'Layout/Aurora': "import { Aurora } from '@gaudi/design-system';\n\n<Aurora className='min-h-[320px]'>\n  <section>Editorial content</section>\n</Aurora>",
+  'Layout/Footer': "import { Footer } from '@gaudi/design-system';\n\n<Footer />",
   'Layout/LayoutContainer': "import { LayoutContainer } from '@gaudi/design-system';\n\n<LayoutContainer>{children}</LayoutContainer>",
   'Layout/LayoutWrapper': "import { LayoutWrapper } from '@gaudi/design-system';\n\n<LayoutWrapper>\n  <main>{children}</main>\n</LayoutWrapper>",
+  'Layout/Search': "import { Search } from '@gaudi/design-system';\n\n<Search setSearchValue={setSearchValue} />",
   'Layout/SectionContainer': "import { SectionContainer } from '@gaudi/design-system';\n\n<SectionContainer>\n  <section>Article section</section>\n</SectionContainer>",
   'MDX/Aside': "import { Aside } from '@gaudi/design-system/mdx';\n\n<Aside>Additional context for the article.</Aside>",
   'MDX/Callout': "import { Callout } from '@gaudi/design-system/mdx';\n\n<Callout type='info'>Useful article context.</Callout>",
+  'MDX/Chart': "import { BarChart, LineChart } from '@gaudi/design-system/mdx';\n\n<BarChart\n  title='Article views'\n  ariaLabel='Article views by day'\n  data={[\n    { label: 'Mon', views: 124 },\n    { label: 'Tue', views: 168 },\n  ]}\n  yKey='views'\n/>\n\n<LineChart\n  title='Subscriber trend'\n  ariaLabel='Subscribers by day'\n  data={[\n    { label: 'Mon', subscribers: 8 },\n    { label: 'Tue', subscribers: 12 },\n  ]}\n  yKey='subscribers'\n/>",
   'MDX/CitationPopover': "import { CitationPopover } from '@gaudi/design-system/mdx';\n\n<CitationPopover />",
   'MDX/CitationTracker': "import { CitationTracker } from '@gaudi/design-system/mdx';\n\n<CitationTracker />",
+  'MDX/CodeGroupTabs': "import { CodeGroupTabs } from '@gaudi/design-system';\n\n<CodeGroupTabs />",
   'MDX/Details': "import { Details } from '@gaudi/design-system/mdx';\n\n<Details title='Implementation detail'>Expanded article content.</Details>",
   'MDX/Faq': "import { Faq } from '@gaudi/design-system/mdx';\n\n<Faq questions={[{ question: 'Why use FAQ blocks?', answer: 'They structure repeated article answers.' }]} />",
   'MDX/FileTree': "import { FileTree } from '@gaudi/design-system/mdx';\n\n<FileTree data={files} />",
@@ -81,6 +83,7 @@ const usageExamples = {
   'MDX/HeroVideoDialog': "import { HeroVideoDialog } from '@gaudi/design-system/mdx';\n\n<HeroVideoDialog\n  animationStyle='from-center'\n  videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'\n  thumbnailSrc='/static/images/og-card.jpg'\n  thumbnailAlt='Knowledge graph article video preview'\n  title='Knowledge graph walkthrough'\n/>",
   'MDX/Highlight': "import { Highlight } from '@gaudi/design-system/mdx';\n\n<p>Use <Highlight>inline emphasis</Highlight> inside prose.</p>",
   'MDX/Image': "import { Image } from '@gaudi/design-system/mdx';\n\n<Image src='/static/images/logo.svg' alt='Blog logo' width={160} height={160} />",
+  'MDX/ImageModal': "import { ImageModal } from '@gaudi/design-system';\n\n<ImageModal\n  isOpen={open}\n  onClose={() => setOpen(false)}\n  src='/static/images/logo.svg'\n  alt='Blog logo'\n/>",
   'MDX/InternalPreview': "import { InternalPreview } from '@gaudi/design-system/mdx';\n\n<InternalPreview href='/blog/design-systems' title='Design systems keep editorial rhythm predictable'>Internal post preview</InternalPreview>",
   'MDX/LatexText': "import { LatexText } from '@gaudi/design-system/mdx';\n\n<LatexText>11$^{th}$ International Conference</LatexText>",
   'MDX/Mermaid': "import { Mermaid } from '@gaudi/design-system/mdx';\n\n<Mermaid id='architecture-flow' chart='graph TD; A[Draft] --> B[Review];' />",
@@ -94,6 +97,7 @@ const usageExamples = {
   'MDX/Table': "import { Table } from '@gaudi/design-system/mdx';\n\n<Table>\n  <thead><tr><th>Component</th><th>Status</th></tr></thead>\n  <tbody><tr><td>Callout</td><td>Documented</td></tr></tbody>\n</Table>",
   'MDX/Tooltip': "import { Tooltip } from '@gaudi/design-system/mdx';\n\n<Tooltip message='Compact supporting context.'>Hover this term</Tooltip>",
   'Navigation/FloatingMenu': "import { FloatingMenu } from '@gaudi/design-system';\n\n<FloatingMenu />",
+  'Navigation/DropDown': "import { DropDown } from '@gaudi/design-system';\n\n<DropDown name='Content sections' menuDropDownOpen={open} setMenuDropDownOpen={setOpen} />",
   'Navigation/Menu': "import { Menu } from '@gaudi/design-system';\n\n<Menu categories={categories} posts={posts} />",
   'Navigation/MenuBlog': "import { MenuBlog } from '@gaudi/design-system';\n\n<MenuBlog categories={categories} />",
   'Navigation/MenuLogo': "import { MenuLogo } from '@gaudi/design-system';\n\n<MenuLogo />",
@@ -222,6 +226,27 @@ const componentDocs = {
       [ 'interactive', 'boolean', 'false', 'Adds hover elevation for cards containing a real link or button.' ],
       [ 'className', 'string', '-', 'Root class override.' ],
       [ 'classNames', '{ root, body, title, subtitle }', '-', 'Slot-level class overrides.' ]
+    ]
+  },
+  'MDX/Chart': {
+    'accessibility': 'Charts render as labelled figures with role img and deterministic Recharts rendering. Provide ariaLabel, title, and description so the visual has a readable summary in article content.',
+    'description': 'Chart renders Recharts-based article data visualisations for MDX posts.',
+    'overview': 'Use Chart and the named chart exports inside MDX when an article needs inline data visualisation. The components wrap Recharts with Gaudi spacing, borders, tooltips, tokens, and reduced-motion-safe rendering.',
+    'props': [
+      [ 'type', 'bar | line | area | pie | donut | composed | scatter | radial', 'bar', 'Generic Chart type. Named exports are preferred when the chart shape is known.' ],
+      [ 'data', 'Array<Record<string, unknown>>', '[]', 'Recharts data array for the selected chart.' ],
+      [ 'xKey', 'string', 'label', 'Field used for the x axis on axis-based charts.' ],
+      [ 'yKey', 'string', 'value', 'Primary value key for bar, line, and area charts.' ],
+      [ 'series', 'Array<{ key, label }>', '-', 'Multiple data series for bar, line, and area charts.' ],
+      [ 'title', 'ReactNode', '-', 'Figure title shown above the chart.' ],
+      [ 'description', 'ReactNode', '-', 'Supporting caption copy shown above the chart.' ],
+      [ 'ariaLabel', 'string', 'title or Chart', 'Accessible summary for the chart figure.' ],
+      [ 'height', 'number', '320', 'Responsive container height.' ],
+      [ 'colors', 'string[]', 'Gaudi chart palette', 'Optional color sequence for series or slices.' ],
+      [ 'showGrid', 'boolean', 'true', 'Shows chart grid lines on axis-based charts.' ],
+      [ 'showLegend', 'boolean', 'false', 'Shows a Recharts legend when useful.' ],
+      [ 'showTooltip', 'boolean', 'true', 'Shows a token-styled tooltip.' ],
+      [ 'className', 'string', '-', 'Root figure class override.' ]
     ]
   },
   'Core/Carousel': {

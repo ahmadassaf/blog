@@ -2,6 +2,7 @@ import { createComponentDocsPage, getComponentDocs } from '../../../.storybook/s
 
 import Aside from './Aside';
 import Callout from './Callout';
+import { BarChart } from './Chart';
 import Details from './Details';
 import Faq from './Faq';
 import FileTree from './FileTree';
@@ -33,6 +34,13 @@ const stats = [
   { 'change': '12%', 'changeType': 'increase', 'name': 'Components', 'previousStat': '8', 'stat': '19' },
   { 'change': '4%', 'changeType': 'increase', 'name': 'Stories', 'previousStat': '24', 'stat': '40' },
   { 'change': '1%', 'changeType': 'decrease', 'name': 'Drift', 'previousStat': '9%', 'stat': '2%' }
+];
+
+const chartData = [
+  { 'label': 'Mon', 'views': 124 },
+  { 'label': 'Tue', 'views': 168 },
+  { 'label': 'Wed', 'views': 141 },
+  { 'label': 'Thu', 'views': 226 }
 ];
 
 export default {
@@ -80,6 +88,7 @@ export const RichContent = {
       <Quote text='Good component systems make product code calmer.' author='Design System' title='Internal principle' />
       <FileTree data={ fileTreeData } />
       <Stats text='Coverage snapshot' stats={ stats } />
+      <BarChart ariaLabel='Article views by day' data={ chartData } title='Article views' yKey='views' />
       <Table>
         <TableHead>
           <TableRow>

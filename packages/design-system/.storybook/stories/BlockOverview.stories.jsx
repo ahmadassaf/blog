@@ -32,6 +32,12 @@ const blockGroups = [
     'icon': 'Panels',
     'title': 'Footers',
     'variants': [ 'current footer', 'editorial', 'newsletter', 'compact' ]
+  },
+  {
+    'description': 'Homepage thoughts feed composition used to surface short-form writing.',
+    'icon': 'MessageSquare',
+    'title': 'Thoughts',
+    'variants': [ 'homepage feed' ]
   }
 ];
 

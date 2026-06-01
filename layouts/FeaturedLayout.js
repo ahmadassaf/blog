@@ -80,6 +80,7 @@ export default function ListLayout({ className, hideTitle }) {
               href={ `/blog/${featuredPost.slug}` }
               variant='inline'
               tone='neutral'
+              className='font-bold'
             >
               {featuredPost.title}
             </Link>
@@ -133,7 +134,7 @@ export default function ListLayout({ className, hideTitle }) {
                 </div>
 
                 <Typography variant='heading-md' as='h2' className='mb-3'>
-                  <Link href={ `/blog/${post.slug}` } tone='neutral'>
+                  <Link href={ `/blog/${post.slug}` } tone='neutral' className='font-bold'>
                     {post.title}
                   </Link>
                 </Typography>

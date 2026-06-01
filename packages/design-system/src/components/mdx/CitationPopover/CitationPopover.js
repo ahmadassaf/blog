@@ -76,36 +76,21 @@ const parseCitationContent = (citationTexts, citationNumbers, citationKeys, cita
   }
 };
 
-/**
- * Calculate popover position based on citation element, avoiding cursor overlap
- */
 const calculatePosition = (targetRect, popoverWidth, popoverHeight) => {
-  const offset = 12; // Increased offset to ensure no overlap with cursor
-  const centerY = targetRect.top + (targetRect.height / 2);
+  const margin = 12;
+  const offset = 8;
+  const centerX = targetRect.left + (targetRect.width / 2);
+  const below = targetRect.bottom + offset;
+  const above = targetRect.top - popoverHeight - offset;
 
-  // Default to positioning to the right side of the citation
-  let left = targetRect.right + offset;
-  let top = centerY - (popoverHeight / 2);
+  let left = centerX - (popoverWidth / 2);
+  let top = below;
 
-  // If no space to the right, position to the left
-  if (left + popoverWidth > window.innerWidth - 8)
-    left = targetRect.left - popoverWidth - offset;
+  if (below + popoverHeight > window.innerHeight - margin && above > margin)
+    top = above;
 
-  // If still no space (narrow screen), try above
-  if (left < 8) {
-    left = targetRect.left + (targetRect.width / 2) - (popoverWidth / 2);
-    top = targetRect.top - popoverHeight - offset;
-  }
-
-  // If no space above, position below
-  if (top < 8) {
-    left = targetRect.left + (targetRect.width / 2) - (popoverWidth / 2);
-    top = targetRect.bottom + offset;
-  }
-
-  // Final bounds check - ensure popover stays within viewport
-  left = Math.max(8, Math.min(left, window.innerWidth - popoverWidth - 8));
-  top = Math.max(8, Math.min(top, window.innerHeight - popoverHeight - 8));
+  left = Math.max(margin, Math.min(left, window.innerWidth - popoverWidth - margin));
+  top = Math.max(margin, Math.min(top, window.innerHeight - popoverHeight - margin));
 
   return { left, top };
 };
@@ -230,8 +215,9 @@ const CitationPopover = () => {
 
           // Use element-based positioning for better accuracy
           const rect = target.getBoundingClientRect();
-          const popoverWidth = 280; // Matching the max-width from CSS
-          const popoverHeight = citationTexts ? 160 : 100;
+          const itemCount = readJsonArray(citationNumbers).length || 1;
+          const popoverWidth = itemCount > 1 ? 360 : 320;
+          const popoverHeight = itemCount > 1 ? Math.min(260, 88 + (itemCount * 74)) : 120;
           const position = calculatePosition(rect, popoverWidth, popoverHeight);
 
           setPopover({

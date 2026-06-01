@@ -3,7 +3,7 @@ import { renderComponentExample } from '../../../../.storybook/stories/Component
 
 import * as componentModule from './index';
 
-const componentDocs = getComponentDocs('Content/DropDown');
+const componentDocs = getComponentDocs('Navigation/DropDown');
 
 export default {
   parameters: {
@@ -15,9 +15,9 @@ export default {
     }
   },
   tags: [ 'autodocs' ],
-  title: 'Content/DropDown'
+  title: 'Navigation/DropDown'
 };
 
 export const Example = {
-  'render': () => renderComponentExample('Content/DropDown', componentModule)
+  'render': () => renderComponentExample('Navigation/DropDown', componentModule)
 };

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Button } from '../../src/index';
+
 const categories = [
   { 'description': 'Posts about applied AI systems and product engineering.', 'id': 'ai-engineering', 'title': 'ai-engineering' },
   { 'description': 'Notes on RDF, linked data, and graph-backed applications.', 'id': 'knowledge-graphs', 'title': 'knowledge-graphs' }
@@ -99,6 +101,14 @@ const stats = [
   { 'change': '6%', 'changeType': 'decrease', 'name': 'Drift', 'previousStat': '11%', 'stat': '5%' }
 ];
 
+const chartData = [
+  { 'label': 'Mon', 'readTime': 6, 'subscribers': 8, 'views': 124 },
+  { 'label': 'Tue', 'readTime': 8, 'subscribers': 12, 'views': 168 },
+  { 'label': 'Wed', 'readTime': 7, 'subscribers': 10, 'views': 141 },
+  { 'label': 'Thu', 'readTime': 11, 'subscribers': 16, 'views': 226 },
+  { 'label': 'Fri', 'readTime': 9, 'subscribers': 14, 'views': 194 }
+];
+
 const ExampleFrame = ({ children, width = 'max-w-3xl' }) => (
   <div className={ `${width} rounded-lg border border-gray-200 bg-white p-6 text-gray-900 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100` }>
     {children}
@@ -120,11 +130,11 @@ const MdxArticleFrame = ({ children }) => (
   </ExampleFrame>
 );
 
-const CitationMarker = ({ children, id, href, keys, numbers, texts }) => (
-  <sup className='mx-0.5 align-super text-xs'>
+const CitationMarker = ({ id, href, keys, numbers, texts }) => (
+  <sup className='mx-1 inline align-[0.45em] text-[0.55em] leading-none'>
     <a
       id={ id }
-      className='citation-link citation-group inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-blue-50 px-1.5 text-[11px] font-semibold text-blue-700 underline-offset-2 hover:bg-blue-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:bg-blue-950 dark:text-blue-300 dark:hover:bg-blue-900'
+      className='citation-link citation-group inline-flex min-h-[1.45em] min-w-[1.45em] items-center justify-center gap-[0.28em] rounded-full bg-blue-600 px-[0.42em] font-bold leading-none text-white no-underline hover:-translate-y-px hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:bg-blue-400 dark:text-gray-950 dark:hover:bg-blue-300'
       href={ href }
       data-citation-popover='true'
       data-citation-keys={ JSON.stringify(keys) }
@@ -132,7 +142,7 @@ const CitationMarker = ({ children, id, href, keys, numbers, texts }) => (
       data-citation-texts={ JSON.stringify(texts) }
       aria-label={ numbers.length === 1 ? `Reference ${numbers[0]}` : `References ${numbers.join(', ')}` }
     >
-      {children}
+      {numbers.map((number) => <span key={ number }>{number}</span>)}
     </a>
   </sup>
 );
@@ -346,61 +356,18 @@ const renderCommandExample = (name, componentModule) => {
 };
 
 const renderContentExample = (name, componentModule) => {
+  switch (name) {
+  default:
+    return null;
+  }
+};
+
+const renderBlocksExample = (name, componentModule) => {
   const Component = componentOf(componentModule);
 
   switch (name) {
-  case 'Aurora':
-    return (
-      <Component className='min-h-[320px] overflow-hidden rounded-xl'>
-        <div className='relative z-10 max-w-xl p-8 text-center'>
-          <h2 className='text-3xl font-bold'>Editorial systems, documented</h2>
-          <p className='mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300'>A background treatment used behind full page content.</p>
-        </div>
-      </Component>
-    );
-  case 'CodeGroupTabs':
-    return (
-      <ExampleFrame>
-        <Component />
-        <div className='code-group'>
-          <div className='code-group-tab' data-language='js'>JavaScript</div>
-          <pre><code>import &#123; Button &#125; from '@gaudi/design-system';</code></pre>
-        </div>
-      </ExampleFrame>
-    );
-  case 'DropDown':
-    return (
-      <OpenState initial={ false }>
-        {(open, setOpen) => (
-          <ExampleFrame width='max-w-sm'>
-            <Component name='Content sections' menuDropDownOpen={ open } setMenuDropDownOpen={ setOpen } />
-            {open ? <div className='mt-3 rounded-lg border border-gray-200 p-3 text-sm dark:border-gray-700'>Articles, thoughts, and projects</div> : null}
-          </ExampleFrame>
-        )}
-      </OpenState>
-    );
-  case 'Footer':
-    return <ExampleFrame width='max-w-5xl'><Component /></ExampleFrame>;
-  case 'ImageModal':
-    return (
-      <OpenState>
-        {(open, setOpen) => (
-          <ExampleFrame>
-            <button type='button' className='rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white' onClick={ () => setOpen(true) }>Open image modal</button>
-            <Component isOpen={ open } onClose={ () => setOpen(false) } src='/static/images/logo.svg' alt='Blog logo' caption='Accessible image preview with focus management.' />
-          </ExampleFrame>
-        )}
-      </OpenState>
-    );
-  case 'Pagination':
-    return <ExampleFrame><Component totalPages={ 8 } currentPage={ 3 } baseURL='blog' paginationURL='blog/page' /></ExampleFrame>;
-  case 'Search':
-    return (
-      <ExampleFrame width='max-w-md'>
-        <Component setSearchValue={ noop } />
-      </ExampleFrame>
-    );
   case 'ThoughtsSection':
+  case 'Thoughts':
     return <ExampleFrame><Component thoughts={ thoughts } /></ExampleFrame>;
   default:
     return null;
@@ -411,10 +378,43 @@ const renderMdxExample = (name, componentModule) => {
   const Component = componentOf(componentModule);
 
   switch (name) {
+  case 'CodeGroupTabs':
+    return (
+      <ExampleFrame>
+        <Component />
+        <div className='code-group'>
+          <div className='code-group-tab' data-language='js'>JavaScript</div>
+          <pre><code>import &#123; Button &#125; from '@gaudi/design-system';</code></pre>
+        </div>
+      </ExampleFrame>
+    );
+  case 'ImageModal':
+    return (
+      <OpenState>
+        {(open, setOpen) => (
+          <ExampleFrame>
+            <Button type='button' onClick={ () => setOpen(true) }>Open image modal</Button>
+            <Component isOpen={ open } onClose={ () => setOpen(false) } src='/static/images/logo.svg' alt='Blog logo' caption='Accessible image preview with focus management.' />
+          </ExampleFrame>
+        )}
+      </OpenState>
+    );
   case 'Aside':
     return <ExampleFrame><Component>Additional context that supports the article without interrupting the main argument.</Component></ExampleFrame>;
   case 'Callout':
     return <ExampleFrame><Component type='info'>Use callouts for important editorial context, warnings, and implementation notes.</Component></ExampleFrame>;
+  case 'Chart':
+    return (
+      <ExampleFrame width='max-w-4xl'>
+        <Component
+          ariaLabel='Article views by day'
+          data={ chartData }
+          description='A Recharts-backed chart embedded through the MDX registry.'
+          title='Article views'
+          yKey='views'
+        />
+      </ExampleFrame>
+    );
   case 'CitationPopover':
     return (
       <MdxArticleFrame>
@@ -593,6 +593,17 @@ const renderNavigationExample = (name, componentModule) => {
   const Component = componentOf(componentModule);
 
   switch (name) {
+  case 'DropDown':
+    return (
+      <OpenState initial={ false }>
+        {(open, setOpen) => (
+          <ExampleFrame width='max-w-sm'>
+            <Component name='Content sections' menuDropDownOpen={ open } setMenuDropDownOpen={ setOpen } />
+            {open ? <div className='mt-3 rounded-lg border border-gray-200 p-3 text-sm dark:border-gray-700'>Articles, thoughts, and projects</div> : null}
+          </ExampleFrame>
+        )}
+      </OpenState>
+    );
   case 'FloatingMenu':
     return <ExampleFrame width='max-w-sm'><div className='relative min-h-32'><Component className='static opacity-100' /></div></ExampleFrame>;
   case 'Menu':
@@ -651,6 +662,17 @@ const renderLayoutExample = (name, componentModule) => {
   const Component = componentOf(componentModule);
 
   switch (name) {
+  case 'Aurora':
+    return (
+      <Component className='min-h-[320px] overflow-hidden rounded-xl'>
+        <div className='relative z-10 max-w-xl p-8 text-center'>
+          <h2 className='text-3xl font-bold'>Editorial systems, documented</h2>
+          <p className='mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300'>A background treatment used behind full page content.</p>
+        </div>
+      </Component>
+    );
+  case 'Footer':
+    return <ExampleFrame width='max-w-5xl'><Component /></ExampleFrame>;
   case 'LayoutContainer':
     return (
       <ExampleFrame>
@@ -662,6 +684,12 @@ const renderLayoutExample = (name, componentModule) => {
     );
   case 'LayoutWrapper':
     return <ExampleFrame width='max-w-4xl'><Component><div className='rounded-lg bg-gray-50 p-6 text-sm dark:bg-gray-900'>Page content area</div></Component></ExampleFrame>;
+  case 'Search':
+    return (
+      <ExampleFrame width='max-w-md'>
+        <Component setSearchValue={ noop } />
+      </ExampleFrame>
+    );
   case 'SectionContainer':
     return <ExampleFrame><Component><section className='rounded-lg bg-gray-50 p-5 text-sm dark:bg-gray-900'>Section content keeps its semantic structure.</section></Component></ExampleFrame>;
   default:
@@ -673,6 +701,7 @@ export const renderComponentExample = (title, componentModule) => {
   const [ group, ...nameParts ] = title.split('/');
   const name = nameParts[nameParts.length - 1];
   const renderers = {
+    'Blocks': renderBlocksExample,
     'Command': renderCommandExample,
     'Content': renderContentExample,
     'Forms': renderFormsExample,

@@ -3,7 +3,7 @@ import { renderComponentExample } from '../../../../.storybook/stories/Component
 
 import * as componentModule from './index';
 
-const componentDocs = getComponentDocs('Content/ThoughtsSection');
+const componentDocs = getComponentDocs('Blocks/Thoughts');
 
 export default {
   parameters: {
@@ -15,9 +15,9 @@ export default {
     }
   },
   tags: [ 'autodocs' ],
-  title: 'Content/ThoughtsSection'
+  title: 'Blocks/Thoughts'
 };
 
 export const Example = {
-  'render': () => renderComponentExample('Content/ThoughtsSection', componentModule)
+  'render': () => renderComponentExample('Blocks/Thoughts', componentModule)
 };

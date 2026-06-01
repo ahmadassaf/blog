@@ -49,7 +49,6 @@ const preview = {
           ],
           'Core',
           'Blocks',
-          'Charting',
           'Content',
           'Command',
           'MDX',

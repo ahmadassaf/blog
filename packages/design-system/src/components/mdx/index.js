@@ -20,6 +20,7 @@ import CustomLink from '@/components/core/Link';
 import { BlogNewsletterForm } from '@/components/forms/NewsletterForm';
 import Aside from '@/components/mdx/Aside';
 import Callout from '@/components/mdx/Callout';
+import Chart, { AreaChart, BarChart, ComposedChart, DonutChart, LineChart, PieChart, RadialBarChart, ScatterChart } from '@/components/mdx/Chart';
 import CitationPopover from '@/components/mdx/CitationPopover';
 import CitationTracker from '@/components/mdx/CitationTracker';
 import Details from '@/components/mdx/Details';
@@ -47,12 +48,17 @@ import styles from './MdxContent/MdxContent.module.css';
  * Maps component names to their implementations for use in MDX content
  */
 export const MDXComponents = {
+  AreaChart,
   Aside,
+  BarChart,
   BlogNewsletterForm,
   Callout,
+  Chart,
   CitationPopover,
   CitationTracker,
+  ComposedChart,
   Details,
+  DonutChart,
   Faq,
   FileTree,
   FootnotePopover,
@@ -60,11 +66,15 @@ export const MDXComponents = {
   Highlight,
   Image,
   InternalPreview,
+  LineChart,
   Mermaid,
+  PieChart,
   PostImage,
   Preview,
   Quote,
+  RadialBarChart,
   ReferencePopover,
+  ScatterChart,
   Stats,
   Table,
   Tooltip,
@@ -78,11 +88,16 @@ export const MDXComponents = {
   'tr': TableRow
 };
 
-export { Aside,
+export { AreaChart,
+  Aside,
+  BarChart,
   Callout,
+  Chart,
   CitationPopover,
   CitationTracker,
+  ComposedChart,
   Details,
+  DonutChart,
   Faq,
   FileTree,
   FootnotePopover,
@@ -91,12 +106,16 @@ export { Aside,
   Highlight,
   Image,
   InternalPreview,
+  LineChart,
   Mermaid,
+  PieChart,
   PostImage,
   Pre,
   Preview,
   Quote,
+  RadialBarChart,
   ReferencePopover,
+  ScatterChart,
   Stats,
   Table,
   TableBody,

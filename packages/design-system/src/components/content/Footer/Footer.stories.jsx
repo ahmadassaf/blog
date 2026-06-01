@@ -3,7 +3,7 @@ import { renderComponentExample } from '../../../../.storybook/stories/Component
 
 import * as componentModule from './index';
 
-const componentDocs = getComponentDocs('Content/Footer');
+const componentDocs = getComponentDocs('Layout/Footer');
 
 export default {
   parameters: {
@@ -15,9 +15,9 @@ export default {
     }
   },
   tags: [ 'autodocs' ],
-  title: 'Content/Footer'
+  title: 'Layout/Footer'
 };
 
 export const Example = {
-  'render': () => renderComponentExample('Content/Footer', componentModule)
+  'render': () => renderComponentExample('Layout/Footer', componentModule)
 };

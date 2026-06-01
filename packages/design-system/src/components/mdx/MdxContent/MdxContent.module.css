@@ -130,36 +130,38 @@
 .root :global(a.citation-link.citation-group) {
   align-items: center;
   background: #3b82f6;
-  border-radius: 50%;
+  border-radius: 999px;
   color: white !important;
   cursor: pointer;
   display: inline-flex;
-  font-size: 10px;
-  font-weight: 600;
-  height: 16px;
+  font-size: 0.55em;
+  font-weight: 700;
+  gap: 0.28em;
+  height: 1.45em;
   justify-content: center;
   line-height: 1;
-  margin: 0 2px;
-  min-height: 16px;
-  min-width: 16px;
-  padding: 0;
+  margin: 0 0.22em;
+  min-height: 1.45em;
+  min-width: 1.45em;
+  padding: 0 0.42em;
   position: relative;
   scroll-margin-top: 50px;
   text-decoration: none !important;
   transition: all 0.2s;
-  vertical-align: sub;
-  width: 16px;
+  vertical-align: 0.45em;
+  width: auto;
+}
+
+.root :global(a.citation-link:not(.citation-group)),
+.root :global(a[href*='#bib-']:not(.citation-group)) {
+  border-radius: 50%;
+  padding: 0;
+  width: 1.45em;
 }
 
 .root :global(a.citation-link.citation-group) {
-  border-radius: 999px;
-  height: 18px;
-  min-height: 18px;
-  min-width: 18px;
-  padding: 0 8px;
   white-space: nowrap;
-  word-spacing: 0.35em;
-  width: auto;
+  word-spacing: normal;
 }
 
 .root :global(.citation-cluster) {
@@ -183,7 +185,7 @@
 .root :global(a.citation-link:not(.citation-group):hover),
 .root :global(a[href*='#bib-']:not(.citation-group):hover),
 .root :global(a.citation-link.citation-group:hover) {
-  transform: scale(1.1);
+  transform: translateY(-1px);
 }
 
 :global(.dark) .root :global(a.citation-link),

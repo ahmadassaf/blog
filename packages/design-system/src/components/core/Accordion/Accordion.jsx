@@ -30,7 +30,7 @@ export const AccordionItem = ({ children, className, value }) => (
 export const AccordionTrigger = ({ children, className, isOpen, onClick }) => (
   <button
     type='button'
-    className={ cn('flex w-full items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold text-gray-950 transition hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-white dark:hover:bg-gray-900', className) }
+    className={ cn('flex w-full items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold text-gray-950 transition hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 dark:text-white dark:hover:bg-gray-900', className) }
     aria-expanded={ isOpen }
     onClick={ onClick }
   >

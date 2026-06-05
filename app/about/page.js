@@ -93,7 +93,7 @@ export default function About() {
                     Artificial Intelligence Leader, Advisor and Mentor
                   </Typography>
                   <Typography variant='paragraph-lg' className='relative mt-6 sm:max-w-md lg:max-w-none'>
-                   A seasoned senior AI and Data Leader and strategic operator more than a decade of experience in scaling SaaS and technology businesses across engineering, data, and AI. Ahmad has a proven track record in engineering leadership, encompassing engineering operations, innovation strategies, and product development.
+                   Ahmad is CTO at Mav9 and a seasoned AI and data leader with more than a decade of experience scaling SaaS and technology businesses across engineering, data, and AI. He has a proven track record in engineering leadership, encompassing engineering operations, innovation strategy, and product development.
                   </Typography>
                 </div>
               </div>
@@ -107,7 +107,7 @@ export default function About() {
             <div className='mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row'>
               <div className='lg:w-full lg:max-w-2xl lg:flex-auto'>
                 <Typography variant='paragraph-lg'>
-                As a founding engineer at <Preview url='https://beamery.com' title='Beamery' />, I've had the unique opportunity to shape the company's technological journey from its inception. Starting with a hands-on approach, I quickly transitioned into leadership roles, serving as the Head of Engineering, and currently as the VP of AI. In this capacity, I've built and led the AI and Data Science functions, which stand at the core of Beamery's R&D and innovation efforts.
+                I am currently CTO at <Preview url='https://mav9.com' title='Mav9' />, where I lead technology strategy across AI, data, knowledge graphs, and product engineering. Before Mav9, as a founding engineer at <Preview url='https://beamery.com' title='Beamery' />, I had the unique opportunity to shape the company's technological journey from its inception. Starting with a hands-on approach, I transitioned into leadership roles, serving as Head of Engineering and VP of AI and Data, building the AI and Data Science functions at the core of Beamery's R&D and innovation efforts.
                 </Typography>
                 <div className='mt-10 max-w-xl text-base leading-7 text-gray-700 dark:text-white'>
                   <Typography variant='paragraph-md'>
@@ -119,24 +119,24 @@ export default function About() {
                 </div>
               </div>
               <div className='lg:flex lg:flex-auto lg:justify-center'>
-                <dl className='w-auto space-y-8 xl:w-80'>
+                <dl className='w-auto space-y-6 xl:w-72'>
+                  <div className='flex flex-col-reverse gap-y-4'>
+                    <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
+                      <Preview url='https://mav9.com' title='Mav9' className='text-lg'/>
+                    </dt>
+                    <Typography as='dd' variant='heading-sm'>CTO</Typography>
+                  </div>
                   <div className='flex flex-col-reverse gap-y-4'>
                     <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
                       <Preview url='https://beamery.com' title='Beamery' className='text-lg'/>
                     </dt>
-                    <Typography as='dd' variant='heading-lg'>VP AI and Data</Typography>
-                  </div>
-                  <div className='flex flex-col-reverse gap-y-4'>
-                    <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
-                      <Preview url='https://beamery.com' title='Beamery' className='text-lg' />
-                    </dt>
-                    <Typography as='dd' variant='heading-lg'>Head of Engineering</Typography>
+                    <Typography as='dd' variant='heading-sm'>VP AI and Data</Typography>
                   </div>
                   <div className='flex flex-col-reverse gap-y-4'>
                     <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
                       <Preview url='https://sap.com' title='SAP' className='text-lg' />
                     </dt>
-                    <Typography as='dd' variant='heading-lg'>Research Scientist</Typography>
+                    <Typography as='dd' variant='heading-sm'>Research Scientist</Typography>
                   </div>
                 </dl>
               </div>

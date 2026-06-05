@@ -22,7 +22,7 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  *
  * @description Displays the author's profile information, featured posts section, and a selection of the latest posts.
  * The page includes a hero section with the author's name, title, description, and a brief bio highlighting their
- * AI/ML expertise and current role at Beamery.
+ * AI/ML expertise and current role at Mav9.
  *
  * @returns {JSX.Element} The rendered home page component
  *
@@ -43,13 +43,12 @@ export default function Home() {
           </Typography>
           <Typography variant='heading-lg' as='h2'>
             <TextHighlight className='text-black dark:text-white'>
-              AI and Machine Learning Leader, Mentor and Advisor
+              CTO at Mav9, AI and Machine Learning Leader, Mentor and Advisor
             </TextHighlight>
           </Typography>
           <Typography variant='subtitle-md' className='max-w-5xl max-sm:py-3'>{`${siteMetadata.description}`}</Typography>
-          <Typography variant='paragraph-md' className='max-w-6xl'>A driven AI and Machine Learning (ML) leader with a passion for discovering solutions to create the future of work through my current role as <strong >VP of AI and Data <Link tone='blue' href='https://beamery.com'>@Beamery</Link></strong>. As one of the founding engineers, I have built and scaled engineering and data science teams and helped Beamery become one of the latest tech unicorns.</Typography>
+          <Typography variant='paragraph-md' className='max-w-6xl'>A driven AI and Machine Learning (ML) leader with a passion for building intelligent systems and turning complex technology into useful products through my current role as <strong>CTO <Link tone='blue' href='https://mav9.com'>@Mav9</Link></strong>, where I lead technology strategy across AI, data, knowledge graphs, and product engineering; previously, as one of the founding engineers at <Link tone='blue' href='https://beamery.com'>Beamery</Link>, I built and scaled engineering, AI, and data science teams and helped the company become one of the latest tech unicorns.</Typography>
           <Typography variant='paragraph-md' className='max-w-6xl'>I am a Knowledge Graph and Semantic Web Enthusiast (<strong>PhD in Semantic Web and Information Retrieval</strong>) with <Link tone='blue' href='/blog/publications'>publications</Link> on Linked Data, Data Quality and Recommender Systems.</Typography>
-          <Typography variant='paragraph-md' className='max-w-6xl'>I am currently leading the team working on various exciting AI and Machine Learning technologies, from Natural Language Processing (NLP) methods for text understanding and generation, entity disambiguation and reconciliation, and Large Language Models (LLMs) to Deep Learning (DL) methods such as Convolutional Neural Networks (CNNs) and Generative Adversarial Networks (GANs) for recommender systems and personalization.</Typography>
           <CmdLauncherShortcut />
         </div>
         <FeaturedPostsLayout />

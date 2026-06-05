@@ -4,7 +4,7 @@ import { cn } from '@/components/utilities/cn';
 import { createVariants } from '@/components/utilities/variants';
 
 export const pillVariants = createVariants({
-  'base': 'my-1 mr-1 inline-flex select-none items-center gap-1 whitespace-nowrap font-medium uppercase tracking-wide transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950',
+  'base': 'my-1 mr-1 inline-flex select-none items-center gap-1 whitespace-nowrap font-medium uppercase tracking-wide transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950',
   'compoundVariants': [
     { 'className': 'bg-blue-600 text-white hover:bg-blue-700', 'tone': 'blue', 'variant': 'solid' },
     { 'className': 'bg-gray-600 text-white hover:bg-gray-700', 'tone': 'gray', 'variant': 'solid' },

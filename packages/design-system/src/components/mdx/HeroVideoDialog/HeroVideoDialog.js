@@ -152,7 +152,7 @@ const HeroVideoDialog = ({
                 variant='ghost'
                 tone='gray'
                 size='sm'
-                className={ cn('inline-flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500', classNames.close) }
+                className={ cn('inline-flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400', classNames.close) }
                 aria-label='Close video dialog'
                 onClick={ () => setOpen(false) }
               >

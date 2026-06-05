@@ -41,7 +41,7 @@ const MenuSearch = ({ className, setOpen }) => (
       variant='outline'
       tone='gray'
       size='sm'
-      className='group h-10 w-full justify-between gap-3 rounded-lg border-gray-200 bg-white/85 px-3 text-left text-sm font-normal text-gray-500 shadow-sm backdrop-blur hover:border-blue-200 hover:bg-white hover:text-gray-950 dark:border-gray-800 dark:bg-gray-950/80 dark:text-gray-400 dark:hover:border-blue-800 dark:hover:bg-gray-950 dark:hover:text-gray-100'
+      className='group h-10 w-full justify-between gap-3 rounded-lg border-gray-200 bg-white/85 px-3 text-left text-sm font-normal text-gray-500 shadow-sm backdrop-blur hover:border-blue-200 hover:bg-white hover:text-gray-950 focus-visible:border-gray-300 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-gray-800 dark:bg-gray-950/80 dark:text-gray-400 dark:hover:border-blue-800 dark:hover:bg-gray-950 dark:hover:text-gray-100 dark:focus-visible:border-gray-700'
       onClick={ () => setOpen(true) }
       aria-label='Open search'
     >

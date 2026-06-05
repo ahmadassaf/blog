@@ -170,51 +170,6 @@ const ReferenceList = ({ references }) => (
   </section>
 );
 
-const CommandShell = ({ children }) => (
-  <ExampleFrame width='max-w-2xl'>
-    <div className='overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900'>
-      <div className='border-b border-gray-100 px-4 py-3 text-sm font-semibold text-gray-500 dark:border-gray-800 dark:text-gray-400'>
-        Command palette
-      </div>
-      <div className='p-2'>{children}</div>
-    </div>
-  </ExampleFrame>
-);
-
-const toneClasses = {
-  'blue': 'bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300',
-  'gray': 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-  'green': 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300',
-  'indigo': 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300',
-  'yellow': 'bg-yellow-50 text-yellow-800 dark:bg-yellow-950 dark:text-yellow-300'
-};
-
-const CommandRow = ({ title, subtitle, meta = 'Open', tone = 'blue' }) => (
-  <div className='flex items-start justify-between gap-4 rounded-lg px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800'>
-    <div className='min-w-0'>
-      <div className='truncate font-medium text-gray-900 dark:text-gray-100'>{title}</div>
-      {subtitle ? <div className='mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400'>{subtitle}</div> : null}
-    </div>
-    <span className={ `shrink-0 rounded px-2 py-0.5 text-[11px] font-semibold ${toneClasses[tone] || toneClasses.blue}` }>
-      {meta}
-    </span>
-  </div>
-);
-
-const CommandPageExample = ({ heading, description, rows }) => (
-  <CommandShell>
-    <div className='space-y-3'>
-      <div className='px-3'>
-        <div className='text-sm font-semibold text-gray-900 dark:text-gray-100'>{heading}</div>
-        <div className='mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400'>{description}</div>
-      </div>
-      <div className='space-y-1'>
-        {rows.map((row) => <CommandRow key={ row.title } { ...row } />)}
-      </div>
-    </div>
-  </CommandShell>
-);
-
 const OpenState = ({ children, initial = true }) => {
   const [ open, setOpen ] = useState(initial);
 
@@ -229,127 +184,24 @@ const renderCommandExample = (name, componentModule) => {
   const Component = componentOf(componentModule);
 
   switch (name) {
-  case 'CmdIcon':
-    return <CommandShell><Component name='BookOpenIcon' className='text-blue-600' /></CommandShell>;
-  case 'CmdItem':
-    return <CommandShell><Component title='Design systems keep editorial rhythm predictable' category='engineering' type='post' icon='BookOpenIcon' /></CommandShell>;
   case 'CmdLauncher':
     return (
-      <CommandPageExample
-        heading='Command launcher'
-        description='The production launcher composes search, navigation pages, recent content, and keyboard shortcuts behind the Command K trigger.'
-        rows={ [
-          { 'meta': 'Post', 'subtitle': 'engineering', 'title': 'Design systems keep editorial rhythm predictable', 'tone': 'green' },
-          { 'meta': 'Project', 'subtitle': 'Developer tooling', 'title': 'Gaudi', 'tone': 'blue' },
-          { 'meta': 'Tag', 'subtitle': '8 posts', 'title': 'Design Systems', 'tone': 'indigo' }
-        ] }
-      />
+      <OpenState>
+        {(open, setOpen) => (
+          <Component
+            open={ open }
+            posts={ posts }
+            projects={ projects }
+            publications={ publications }
+            setOpen={ setOpen }
+            tags={ tags }
+            thoughts={ thoughts }
+          />
+        )}
+      </OpenState>
     );
-  case 'CmdLauncherFooter':
   case 'CmdLauncherShortcut':
-    return <CommandShell><Component /></CommandShell>;
-  case 'CmdLauncherPosts':
-    return (
-      <CommandPageExample
-        heading='Posts page'
-        description='Post results expose title, category, and navigation intent inside the launcher.'
-        rows={ posts.map((post) => {
-          return { 'meta': 'Post', 'subtitle': post.category, 'title': post.title, 'tone': 'green' };
-        }) }
-      />
-    );
-  case 'CmdLauncherProjects':
-    return (
-      <CommandPageExample
-        heading='Projects page'
-        description='Project results keep descriptions compact so the command surface stays scannable.'
-        rows={ projects.map((project) => {
-          return { 'meta': 'Project', 'subtitle': project.subtitle, 'title': project.title, 'tone': 'blue' };
-        }) }
-      />
-    );
-  case 'CmdLauncherPublications':
-    return (
-      <CommandPageExample
-        heading='Publications page'
-        description='Publication rows include the title and year while preserving the same keyboard target shape.'
-        rows={ publications.map((publication) => {
-          return { 'meta': publication.year, 'subtitle': publication.subtitle, 'title': publication.title, 'tone': 'yellow' };
-        }) }
-      />
-    );
-  case 'CmdLauncherTags':
-    return (
-      <CommandPageExample
-        heading='Tags page'
-        description='Tags act as navigation filters and show the available article count.'
-        rows={ tags.map((tag) => {
-          return { 'meta': `${tag.count} posts`, 'subtitle': 'Topic filter', 'title': tag.title, 'tone': 'indigo' };
-        }) }
-      />
-    );
-  case 'CmdLauncherThoughts':
-    return (
-      <CommandPageExample
-        heading='Thoughts page'
-        description='Thought rows use the same result affordance as posts but keep summary text lighter.'
-        rows={ thoughts.map((thought) => {
-          return { 'meta': thought.featured ? 'Featured' : 'Thought', 'subtitle': thought.summary, 'title': thought.title, 'tone': thought.featured ? 'green' : 'gray' };
-        }) }
-      />
-    );
-  case 'CmdLauncherSearch':
-    return (
-      <CommandPageExample
-        heading='Search results'
-        description='Full-text search groups matching blog content without mounting command-palette internals in docs.'
-        rows={ [
-          { 'meta': 'Post', 'subtitle': 'Matched title and subtitle for "design"', 'title': posts[0].title, 'tone': 'green' },
-          { 'meta': 'Project', 'subtitle': 'Matched project description', 'title': projects[0].title, 'tone': 'blue' }
-        ] }
-      />
-    );
-  case 'CmdLauncherSocial':
-    return (
-      <CommandPageExample
-        heading='Contact page'
-        description='Social links are presented as explicit navigation rows with readable labels.'
-        rows={ [
-          { 'meta': 'Email', 'subtitle': 'Start an email', 'title': 'Contact Ahmad', 'tone': 'blue' },
-          { 'meta': 'GitHub', 'subtitle': siteMetadata.github, 'title': 'Open GitHub profile', 'tone': 'gray' },
-          { 'meta': 'LinkedIn', 'subtitle': 'Professional profile', 'title': 'Open LinkedIn', 'tone': 'indigo' }
-        ] }
-      />
-    );
-  case 'CmdSearch':
-    return (
-      <CommandPageExample
-        heading='Search command'
-        description='Search composes recent queries and grouped results while preserving keyboard navigation contracts.'
-        rows={ [
-          { 'meta': 'Recent', 'subtitle': 'Previous query', 'title': 'design systems', 'tone': 'gray' },
-          { 'meta': 'Post', 'subtitle': posts[0].subtitle, 'title': posts[0].title, 'tone': 'green' },
-          { 'meta': 'Publication', 'subtitle': publications[0].subtitle, 'title': publications[0].title, 'tone': 'yellow' }
-        ] }
-      />
-    );
-  case 'useCmdLauncher':
-    return (
-      <CommandShell>
-        <div className='space-y-2 text-sm'>
-          <div className='font-semibold'>Hook result shape</div>
-          <code className='block rounded bg-gray-100 p-3 text-xs dark:bg-gray-800'>page, search, collections, selected, setOpen, setSearch</code>
-        </div>
-      </CommandShell>
-    );
-  case 'CmdPost':
-    return <CommandShell><Component title='Design systems keep editorial rhythm predictable' category='engineering' /></CommandShell>;
-  case 'CmdProject':
-    return <CommandShell><Component title='Gaudi' subtitle='Developer toolkit for structured data' showType /></CommandShell>;
-  case 'CmdPublication':
-    return <CommandShell><Component title='Linked Data Quality' year='2026' /></CommandShell>;
-  case 'CmdTag':
-    return <CommandShell><Component title='Design Systems' count={ 8 } /></CommandShell>;
+    return <ExampleFrame width='max-w-sm'><Component /></ExampleFrame>;
   default:
     return null;
   }

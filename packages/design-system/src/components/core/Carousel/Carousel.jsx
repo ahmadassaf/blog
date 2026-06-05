@@ -49,7 +49,7 @@ export const carouselSlideVariants = createVariants({
 });
 
 export const carouselCardVariants = createVariants({
-  'base': 'group relative isolate flex shrink-0 snap-start overflow-hidden border bg-gray-950 text-white shadow-sm transition duration-200 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:border-gray-800 dark:focus-within:ring-offset-gray-950',
+  'base': 'group relative isolate flex shrink-0 snap-start overflow-hidden border bg-gray-950 text-white shadow-sm transition duration-200 focus-within:ring-2 focus-within:ring-gray-400 focus-within:ring-offset-2 dark:border-gray-800 dark:focus-within:ring-offset-gray-950',
   'defaultVariants': {
     'radius': 'lg',
     'size': 'md'
@@ -92,7 +92,7 @@ const CarouselControl = ({ children, className, disabled, label, onClick }) => (
   <button
     aria-label={ label }
     className={ cn(
-      'inline-flex size-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:border-blue-200 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-700 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-950', className
+      'inline-flex size-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:border-blue-200 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-700 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-950', className
     ) }
     disabled={ disabled }
     type='button'
@@ -160,7 +160,7 @@ const CarouselDialog = ({ classNames, item, onClose }) => {
       <article className='relative z-10 max-h-[85vh] w-full max-w-3xl overflow-auto rounded-lg bg-white p-6 shadow-xl dark:bg-gray-950 sm:p-8'>
         <button
           aria-label='Close carousel card'
-          className='absolute right-4 top-4 inline-flex size-9 items-center justify-center rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'
+          className='absolute right-4 top-4 inline-flex size-9 items-center justify-center rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'
           type='button'
           onClick={ onClose }
         >
@@ -279,7 +279,7 @@ const Carousel = ({
             aria-label={ `Go to slide ${index + 1}` }
             aria-current={ index === current ? 'true' : undefined }
             className={ cn(
-              'h-2.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950', index === current ? 'w-7 bg-blue-600' : 'w-2.5 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600', classNames.indicator
+              'h-2.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950', index === current ? 'w-7 bg-blue-600' : 'w-2.5 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600', classNames.indicator
             ) }
             type='button'
             onClick={ () => goTo(index) }

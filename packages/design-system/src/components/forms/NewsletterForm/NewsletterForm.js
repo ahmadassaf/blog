@@ -90,7 +90,7 @@ const NewsletterForm = ({ className, classNames = {}, title = 'Subscribe to the 
           type='email'
           disabled={ subscribed }
           aria-invalid={ error || undefined }
-          className={ cn('w-full min-w-0 appearance-none rounded-sm border border-gray-300 bg-white px-4 py-2 text-base text-gray-900 shadow-xs placeholder-gray-500 focus:border-indigo-500 focus:outline-hidden focus:ring-indigo-500 md:text-sm', classNames.input) }
+          className={ cn('w-full min-w-0 appearance-none rounded-sm border border-gray-300 bg-white px-4 py-2 text-base text-gray-900 shadow-xs placeholder-gray-500 focus:border-gray-400 focus:outline-hidden focus:ring-0 md:text-sm', classNames.input) }
         />
         <div className={ cn('mt-3 sm:ml-3 sm:mt-0 sm:shrink-0', classNames.action) }>
           <Button

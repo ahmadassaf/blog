@@ -1,17 +1,17 @@
 .root :global([data-cmdk-root]) {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(20px);
-  border: 2px solid rgba(156, 163, 175, 1);
+  border: 1px solid rgb(229, 231, 235);
   border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 24px 48px -18px rgba(15, 23, 42, 0.32);
   color: #111827;
   overflow: hidden;
 }
 
 .dark :global([data-cmdk-root]) {
-  background: rgba(23, 23, 23, 0.95);
-  border-color: rgba(107, 114, 128, 1);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  background: rgba(17, 24, 39, 0.96);
+  border-color: rgb(55, 65, 81);
+  box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.72);
   color: rgb(243, 244, 246);
 }
 
@@ -35,71 +35,27 @@
   display: none !important;
 }
 
-.dark :global(.command-palette .bg-white),
-.dark :global(.command-palette-content) {
-  background-color: #171717;
-}
-
-.dark :global(.command-palette .bg-gray-200\/50) {
-  background-color: rgba(64, 64, 64, 0.5);
-}
-
-.dark :global(.command-palette .text-gray-500) {
-  color: rgb(156, 163, 175);
-}
-
-.dark :global(.command-palette .text-gray-400) {
-  color: rgb(209, 213, 219);
-}
-
-.dark :global(.command-palette .text-gray-300) {
-  color: rgb(243, 244, 246);
-}
-
-.dark :global(.command-palette .hover\:bg-gray-100:hover) {
-  background-color: rgba(64, 64, 64, 0.5);
-}
-
-.dark :global(.command-palette .hover\:text-gray-500:hover) {
-  color: rgb(209, 213, 219);
-}
-
-@media (prefers-color-scheme: dark) {
-  .root :global(.command-palette .bg-gray-900) {
-    background-color: rgb(36 37 40 / 70%);
-  }
-}
-
-.dark :global(.command-palette .hover\:bg-gray-100:hover) {
-  background-color: rgb(36 37 40 / 70%) !important;
-}
-
-.dark :global(.command-palette *) {
-  border-color: #404040;
-}
-
 .root :global([data-cmdk-input]) {
   background: transparent;
-  border: none;
-  border-bottom: 2px solid rgb(209, 213, 219);
-  color: rgba(17, 24, 39, 0.9);
+  border: 0;
+  border-bottom: 1px solid rgb(229, 231, 235);
+  color: rgba(17, 24, 39, 0.95);
   font-size: 16px;
   outline: none;
   padding: 16px 20px;
-  transition: all 0.2s ease;
 }
 
 .dark :global([data-cmdk-input]) {
-  border-bottom-color: rgb(107, 114, 128);
-  color: rgba(243, 244, 246, 1);
+  border-bottom-color: rgb(55, 65, 81);
+  color: rgb(243, 244, 246);
 }
 
 .root :global([data-cmdk-input]::placeholder) {
-  color: rgba(107, 114, 128, 0.6);
+  color: rgba(107, 114, 128, 0.75);
 }
 
 .dark :global([data-cmdk-input]::placeholder) {
-  color: rgba(156, 163, 175, 0.8);
+  color: rgba(156, 163, 175, 0.85);
 }
 
 .root :global([data-cmdk-list]) {
@@ -109,11 +65,10 @@
 }
 
 .root :global([data-cmdk-item]) {
-  border-radius: 8px;
+  border-radius: 10px;
   color: #374151;
   cursor: pointer;
   outline: none;
-  transition: all 0.2s ease;
 }
 
 .dark :global([data-cmdk-item]) {
@@ -122,16 +77,15 @@
 
 .root :global([data-cmdk-item][aria-selected='true']) {
   background: rgba(59, 130, 246, 0.1);
-  transform: translateY(-1px);
 }
 
 .dark :global([data-cmdk-item][aria-selected='true']) {
-  background: rgba(59, 130, 246, 0.3);
+  background: rgba(59, 130, 246, 0.24);
   color: rgb(243, 244, 246);
 }
 
 .root :global([data-cmdk-group-heading]) {
-  color: rgba(107, 114, 128, 0.8);
+  color: rgba(107, 114, 128, 0.9);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -145,13 +99,13 @@
 }
 
 .root :global([data-cmdk-separator]) {
-  background: rgb(209, 213, 219);
+  background: rgb(229, 231, 235);
   height: 1px;
   margin: 8px 0;
 }
 
 .dark :global([data-cmdk-separator]) {
-  background: rgb(107, 114, 128);
+  background: rgb(55, 65, 81);
 }
 
 .root :global([data-cmdk-list]::-webkit-scrollbar) {
@@ -163,18 +117,10 @@
 }
 
 .root :global([data-cmdk-list]::-webkit-scrollbar-thumb) {
-  background: rgba(156, 163, 175, 0.3);
-  border-radius: 3px;
+  background: rgba(156, 163, 175, 0.35);
+  border-radius: 999px;
 }
 
 .dark :global([data-cmdk-list]::-webkit-scrollbar-thumb) {
-  background: rgba(75, 85, 99, 0.6);
-}
-
-.root :global([data-cmdk-list]::-webkit-scrollbar-thumb:hover) {
-  background: rgba(156, 163, 175, 0.5);
-}
-
-.dark :global([data-cmdk-list]::-webkit-scrollbar-thumb:hover) {
-  background: rgba(75, 85, 99, 0.8);
+  background: rgba(75, 85, 99, 0.7);
 }

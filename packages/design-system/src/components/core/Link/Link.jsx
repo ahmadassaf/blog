@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 import { createVariants } from '@/components/utilities/variants';
 
 export const linkVariants = createVariants({
-  'base': 'transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950',
+  'base': 'transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950',
   'compoundVariants': [
     { 'className': 'text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300', 'tone': 'blue', 'variant': 'inline' },
     { 'className': 'text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100', 'tone': 'gray', 'variant': 'inline' },

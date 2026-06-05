@@ -17,7 +17,7 @@ export function author() {
     'email': 'me@assaf.website',
     'familyName': 'Assaf',
     'givenName': 'Ahmad',
-    'jobTitle': 'VP of AI & Data',
+    'jobTitle': 'CTO at Mav9',
     'name': 'Ahmad Assaf',
     'sameAs': [
       'https://twitter.com/ahmadaassaf',

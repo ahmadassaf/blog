@@ -43,25 +43,8 @@ const groupDocs = {
 };
 
 const usageExamples = {
-  'Command/CmdIcon': "import { CmdIcon } from '@gaudi/design-system';\n\n<CmdIcon name='BookOpenIcon' className='text-blue-600' />",
-  'Command/CmdItem': "import { CmdItem } from '@gaudi/design-system';\n\n<CmdItem title='Design systems keep editorial rhythm predictable' category='engineering' type='post' icon='BookOpenIcon' />",
-  'Command/CmdLauncher': "import { CmdLauncher } from '@gaudi/design-system';\n\n<CmdLauncher\n  posts={posts}\n  projects={projects}\n  publications={publications}\n  tags={tags}\n  thoughts={thoughts}\n/>",
-  'Command/CmdLauncherFooter': "import { CmdLauncherFooter } from '@gaudi/design-system';\n\n<CmdLauncherFooter />",
-  'Command/CmdLauncherPosts': "import { CmdLauncherPosts } from '@gaudi/design-system';\n\n<CmdLauncherPosts posts={posts} />",
-  'Command/CmdLauncherProjects': "import { CmdLauncherProjects } from '@gaudi/design-system';\n\n<CmdLauncherProjects projects={projects} />",
-  'Command/CmdLauncherPublications': "import { CmdLauncherPublications } from '@gaudi/design-system';\n\n<CmdLauncherPublications publications={publications} />",
-  'Command/CmdLauncherSearch': "import { CmdLauncherSearch } from '@gaudi/design-system';\n\n<CmdLauncherSearch results={results} query='design systems' />",
+  'Command/CmdLauncher': "import { CmdLauncher } from '@gaudi/design-system';\n\n<CmdLauncher\n  open={open}\n  setOpen={setOpen}\n  posts={posts}\n  projects={projects}\n  publications={publications}\n  tags={tags}\n  thoughts={thoughts}\n/>",
   'Command/CmdLauncherShortcut': "import { CmdLauncherShortcut } from '@gaudi/design-system';\n\n<CmdLauncherShortcut />",
-  'Command/CmdLauncherSocial': "import { CmdLauncherSocial } from '@gaudi/design-system';\n\n<CmdLauncherSocial siteMetadata={siteMetadata} />",
-  'Command/CmdLauncherTags': "import { CmdLauncherTags } from '@gaudi/design-system';\n\n<CmdLauncherTags tags={tags} />",
-  'Command/CmdLauncherThoughts': "import { CmdLauncherThoughts } from '@gaudi/design-system';\n\n<CmdLauncherThoughts thoughts={thoughts} />",
-  'Command/CmdSearch': "import { CmdSearch } from '@gaudi/design-system';\n\n<CmdSearch posts={posts} projects={projects} publications={publications} tags={tags} />",
-  'Command/Hooks/useCmdLauncher': "import { useCmdLauncher } from '@gaudi/design-system';\n\nconst launcher = useCmdLauncher({ posts, projects, publications, tags, thoughts });",
-  'Command/Overview': "import { CmdLauncher } from '@gaudi/design-system';\n\n<CmdLauncher posts={posts} projects={projects} tags={tags} />",
-  'Command/Types/CmdPost': "import { CmdPost } from '@gaudi/design-system';\n\n<CmdPost title='Design systems keep editorial rhythm predictable' category='engineering' />",
-  'Command/Types/CmdProject': "import { CmdProject } from '@gaudi/design-system';\n\n<CmdProject title='Gaudi' subtitle='Developer tooling' showType />",
-  'Command/Types/CmdPublication': "import { CmdPublication } from '@gaudi/design-system';\n\n<CmdPublication title='Linked Data Quality' year='2026' />",
-  'Command/Types/CmdTag': "import { CmdTag } from '@gaudi/design-system';\n\n<CmdTag title='Design Systems' count={8} />",
   'Blocks/Thoughts': "import { ThoughtsSection } from '@gaudi/design-system';\n\n<ThoughtsSection thoughts={thoughts} />",
   'Forms/NewsletterForm': "import { NewsletterForm } from '@gaudi/design-system';\n\n<NewsletterForm />",
   'Layout/Aurora': "import { Aurora } from '@gaudi/design-system';\n\n<Aurora className='min-h-[320px]'>\n  <section>Editorial content</section>\n</Aurora>",
@@ -277,6 +260,25 @@ const componentDocs = {
       [ 'onCheckedChange', '(checked) => void', '-', 'Called with the next checked state.' ],
       [ 'className', 'string', '-', 'Root class override.' ]
     ]
+  },
+  'Command/CmdLauncher': {
+    'accessibility': 'CmdLauncher opens with Command K, closes with Escape, supports keyboard and mouse selection, and exposes grouped result labels for posts, projects, publications, thoughts, tags, navigation, and contact actions.',
+    'description': 'CmdLauncher is the blog command menu. It keeps the previous command-palette behavior but owns the implementation in one component folder instead of exposing many internal fragments.',
+    'overview': 'Use CmdLauncher once in the blog shell. Data comes in through props; internal pages, result rows, footer hints, and contact actions are private implementation details.',
+    'props': [
+      [ 'open', 'boolean', '-', 'Controlled open state.' ],
+      [ 'setOpen', '(open | updater) => void', '-', 'Updates launcher open state and supports the Command K toggle.' ],
+      [ 'posts', 'Array<Post>', '[]', 'Post results included in search.' ],
+      [ 'projects', 'Array<Project>', '[]', 'Project results included in search.' ],
+      [ 'publications', 'Array<Publication>', '[]', 'Publication results. External href values open in a new tab.' ],
+      [ 'tags', 'Array<Tag>', '[]', 'Tag navigation filters.' ],
+      [ 'thoughts', 'Array<Thought>', '[]', 'Thought note results.' ]
+    ]
+  },
+  'Command/CmdLauncherShortcut': {
+    'accessibility': 'CmdLauncherShortcut is static helper text. It should sit near the search trigger and must not be the only way to discover search.',
+    'description': 'CmdLauncherShortcut renders the compact Command K hint used beside launcher triggers.',
+    'props': []
   },
   'Core/DataTable': {
     'accessibility': 'DataTable renders a real table with column headers and optional caption. Use render functions for cells without changing table semantics.',

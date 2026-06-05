@@ -51,7 +51,7 @@ const Pre = (props) => {
         variant='ghost'
         tone='gray'
         size='xs'
-        className={ `code-copy-button absolute right-3 z-10 flex h-6 w-6 items-center justify-center rounded-md text-zinc-400 transition-colors hover:text-zinc-200 focus:outline-hidden focus:ring-2 focus:ring-blue-400 ${
+        className={ `code-copy-button absolute right-3 z-10 flex h-6 w-6 items-center justify-center rounded-md text-zinc-400 transition-colors hover:text-zinc-200 focus:outline-hidden focus:ring-2 focus:ring-gray-400 ${
           copied ? 'text-green-400 hover:text-green-300' : ''
         }` }
         onClick={ onCopy }

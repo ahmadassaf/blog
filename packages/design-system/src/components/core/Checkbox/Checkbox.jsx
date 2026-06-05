@@ -27,7 +27,7 @@ const Checkbox = ({ checked, className, defaultChecked = false, disabled = false
         role='checkbox'
         aria-checked={ isChecked }
         disabled={ disabled }
-        className={ cn('inline-flex size-5 items-center justify-center rounded border border-gray-300 bg-white text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:bg-gray-950 dark:focus-visible:ring-offset-gray-950', isChecked && 'border-blue-600 bg-blue-600') }
+        className={ cn('inline-flex size-5 items-center justify-center rounded border border-gray-300 bg-white text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:bg-gray-950 dark:focus-visible:ring-offset-gray-950', isChecked && 'border-blue-600 bg-blue-600') }
         onClick={ toggle }
       >
         {isChecked ? <Icon name='Check' decorative size='xs' /> : null}

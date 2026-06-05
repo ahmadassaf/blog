@@ -35,7 +35,7 @@ const blockGroups = [
   },
   {
     'description': 'Homepage thoughts feed composition used to surface short-form writing.',
-    'icon': 'MessageSquare',
+    'icon': 'LightBulbIcon',
     'title': 'Thoughts',
     'variants': [ 'homepage feed' ]
   }

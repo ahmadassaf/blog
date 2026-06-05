@@ -48,7 +48,7 @@ const Switch = ({ checked, className, defaultChecked = false, disabled = false, 
         role='switch'
         aria-checked={ isChecked }
         disabled={ disabled }
-        className={ cn('relative inline-flex shrink-0 items-center rounded-full border border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:focus-visible:ring-offset-gray-950', sizeConfig.track, isChecked ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-800') }
+        className={ cn('relative inline-flex shrink-0 items-center rounded-full border border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:focus-visible:ring-offset-gray-950', sizeConfig.track, isChecked ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-800') }
         onClick={ toggle }
       >
         <span data-checked={ isChecked } className={ cn('pointer-events-none inline-block translate-x-0 rounded-full bg-white shadow-sm ring-1 ring-gray-950/5 transition-transform', sizeConfig.thumb) } />

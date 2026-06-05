@@ -36,16 +36,12 @@ const preview = {
         order: [
           'Overview',
           [
-            'Welcome',
             'Getting Started',
-            'Conventions',
             'Accessibility',
             'Colors & Tokens',
             'Typography',
             'Icons',
-            'Indicators',
-            'Writing Stories',
-            'Testing'
+            'Indicators'
           ],
           'Core',
           'Blocks',

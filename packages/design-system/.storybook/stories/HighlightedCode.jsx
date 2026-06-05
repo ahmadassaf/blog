@@ -38,6 +38,7 @@ const highlightCode = (code) => {
 const languageLabels = {
   'js': 'JavaScript',
   'jsx': 'JSX',
+  'mdx': 'MDX',
   'ts': 'TypeScript',
   'tsx': 'TSX'
 };

@@ -77,15 +77,6 @@ module.exports = {
       },
       'lineHeight': {
         'relaxed': '1.7'
-      },
-      'typography': {
-        'DEFAULT': {
-          'css': {
-            'fontSize': '1rem',
-            'lineHeight': '1.7',
-            'maxWidth': 'none'
-          }
-        }
       }
     }
   }

@@ -43,6 +43,27 @@ const setStoredCitation = (citationKey, originCitationId) => {
   }
 };
 
+const normalizeCitationGroupMarkers = () => {
+  const citationGroups = document.querySelectorAll('a.citation-link.citation-group[data-citation-popover="true"]');
+
+  citationGroups.forEach((citationGroup) => {
+    if (citationGroup.querySelector('[data-citation-marker-number]')) return;
+
+    const numbers = readJsonArray(citationGroup.dataset.citationNumbers);
+
+    if (!numbers.length) return;
+
+    citationGroup.textContent = '';
+    numbers.forEach((number) => {
+      const marker = document.createElement('span');
+
+      marker.dataset.citationMarkerNumber = 'true';
+      marker.textContent = String(number);
+      citationGroup.appendChild(marker);
+    });
+  });
+};
+
 /**
  * Parse citation content for popover display
  */
@@ -135,11 +156,11 @@ const hideBackLink = (citationKey) => {
  */
 const CitationPopover = () => {
   const [ popover, setPopover ] = useState(null);
-  const [ isReady, setIsReady ] = useState(false);
   const popoverRef = useRef(null);
   const timeoutRef = useRef(null);
 
   useEffect(() => {
+    normalizeCitationGroupMarkers();
 
     // Handle back-link clicks to hide them after use
     const handleBackLinkClick = (event) => {
@@ -192,7 +213,10 @@ const CitationPopover = () => {
     };
 
     const handleCitationHover = (event) => {
-      const target = event.target.closest?.('[data-citation-popover="true"]');
+      let target = event.target.closest?.('[data-citation-popover="true"]');
+
+      if (event.currentTarget?.matches?.('[data-citation-popover="true"]'))
+        target = event.currentTarget;
 
       if (!target)
         return;
@@ -202,7 +226,7 @@ const CitationPopover = () => {
       if (timeoutRef.current)
         clearTimeout(timeoutRef.current);
 
-      if (event.type === 'mouseenter' || event.type === 'focusin') {
+      if (event.type === 'pointerenter' || event.type === 'pointermove' || event.type === 'mouseenter' || event.type === 'mousemove' || event.type === 'mouseover' || event.type === 'focus') {
         const { citationText, citationTexts, citationNumbers, citationKeys } = target.dataset;
         const displayNumber = target.textContent;
         const parsedContent = parseCitationContent(citationTexts, citationNumbers, citationKeys, citationText);
@@ -210,37 +234,36 @@ const CitationPopover = () => {
         if (!parsedContent)
           return;
 
-        timeoutRef.current = setTimeout(() => {
-          setIsReady(false);
+        // Use element-based positioning for better accuracy
+        const rect = target.getBoundingClientRect();
+        const itemCount = readJsonArray(citationNumbers).length || 1;
+        const popoverWidth = itemCount > 1 ? 420 : 360;
+        const popoverHeight = itemCount > 1 ? Math.min(320, 96 + (itemCount * 86)) : 150;
+        const position = calculatePosition(rect, popoverWidth, popoverHeight);
 
-          // Use element-based positioning for better accuracy
-          const rect = target.getBoundingClientRect();
-          const itemCount = readJsonArray(citationNumbers).length || 1;
-          const popoverWidth = itemCount > 1 ? 360 : 320;
-          const popoverHeight = itemCount > 1 ? Math.min(260, 88 + (itemCount * 74)) : 120;
-          const position = calculatePosition(rect, popoverWidth, popoverHeight);
-
-          setPopover({
-            'content': parsedContent,
-            'left': Math.round(position.left),
-            'number': displayNumber,
-            'originCitationId': target.id,
-            'top': Math.round(position.top)
-          });
-
-          setTimeout(() => setIsReady(true), 50);
-        }, 200);
-      } else if (event.type === 'mouseleave' || event.type === 'focusout') {
+        setPopover({
+          'content': parsedContent,
+          'left': Math.round(position.left),
+          'number': displayNumber,
+          'originCitationId': target.id,
+          'top': Math.round(position.top)
+        });
+      } else if (event.type === 'blur') {
         timeoutRef.current = setTimeout(() => {
           setPopover(null);
-          setIsReady(false);
+        }, 300);
+      } else if (event.type === 'pointerleave' || event.type === 'mouseleave' || event.type === 'mouseout') {
+        if (event.relatedTarget && target.contains(event.relatedTarget))
+          return;
+
+        timeoutRef.current = setTimeout(() => {
+          setPopover(null);
         }, 300);
       }
     };
 
     const handleScroll = () => {
       setPopover(null);
-      setIsReady(false);
       if (timeoutRef.current)
         clearTimeout(timeoutRef.current);
 
@@ -268,25 +291,82 @@ const CitationPopover = () => {
 
           // Hide the popover
           setPopover(null);
-          setIsReady(false);
         }
       }
     };
 
-    document.addEventListener('mouseenter', handleCitationHover, true);
-    document.addEventListener('mouseleave', handleCitationHover, true);
-    document.addEventListener('focusin', handleCitationHover, true);
-    document.addEventListener('focusout', handleCitationHover, true);
+    const citationLinks = new Set();
+    const bindCitationLink = (citationLink) => {
+      if (citationLinks.has(citationLink)) return;
+
+      citationLinks.add(citationLink);
+      citationLink.dataset.citationPopoverBound = 'true';
+      citationLink.onmouseover = handleCitationHover;
+      citationLink.onmousemove = handleCitationHover;
+      citationLink.onmouseout = handleCitationHover;
+      citationLink.onmouseenter = handleCitationHover;
+      citationLink.onmouseleave = handleCitationHover;
+      citationLink.onfocus = handleCitationHover;
+      citationLink.onblur = handleCitationHover;
+      citationLink.addEventListener('mouseover', handleCitationHover);
+      citationLink.addEventListener('mousemove', handleCitationHover);
+      citationLink.addEventListener('mouseout', handleCitationHover);
+      citationLink.addEventListener('pointerenter', handleCitationHover);
+      citationLink.addEventListener('pointermove', handleCitationHover);
+      citationLink.addEventListener('pointerleave', handleCitationHover);
+      citationLink.addEventListener('focus', handleCitationHover);
+      citationLink.addEventListener('blur', handleCitationHover);
+    };
+
+    const bindCitationLinks = () => {
+      normalizeCitationGroupMarkers();
+      document.querySelectorAll('[data-citation-popover="true"]').forEach(bindCitationLink);
+    };
+
+    bindCitationLinks();
+
+    const bindTimer = window.setTimeout(bindCitationLinks, 0);
+    const observer = new MutationObserver(bindCitationLinks);
+
+    if (document.body)
+      observer.observe(document.body, { 'childList': true, 'subtree': true });
+
+    document.addEventListener('mouseover', handleCitationHover, true);
+    document.addEventListener('mousemove', handleCitationHover, true);
+    document.addEventListener('mouseout', handleCitationHover, true);
+    document.addEventListener('pointermove', handleCitationHover, true);
     document.addEventListener('click', handleCitationClick, true);
     document.addEventListener('click', handleCitationLinkClick, true);
     document.addEventListener('click', handleBackLinkClick, true);
     window.addEventListener('scroll', handleScroll, true);
 
     return () => {
-      document.removeEventListener('mouseenter', handleCitationHover, true);
-      document.removeEventListener('mouseleave', handleCitationHover, true);
-      document.removeEventListener('focusin', handleCitationHover, true);
-      document.removeEventListener('focusout', handleCitationHover, true);
+      window.clearTimeout(bindTimer);
+      observer.disconnect();
+
+      citationLinks.forEach((citationLink) => {
+        citationLink.removeEventListener('mouseover', handleCitationHover);
+        citationLink.removeEventListener('mousemove', handleCitationHover);
+        citationLink.removeEventListener('mouseout', handleCitationHover);
+        citationLink.removeEventListener('pointerenter', handleCitationHover);
+        citationLink.removeEventListener('pointermove', handleCitationHover);
+        citationLink.removeEventListener('pointerleave', handleCitationHover);
+        citationLink.removeEventListener('focus', handleCitationHover);
+        citationLink.removeEventListener('blur', handleCitationHover);
+        citationLink.onmouseover = null;
+        citationLink.onmousemove = null;
+        citationLink.onmouseout = null;
+        citationLink.onmouseenter = null;
+        citationLink.onmouseleave = null;
+        citationLink.onfocus = null;
+        citationLink.onblur = null;
+        delete citationLink.dataset.citationPopoverBound;
+      });
+
+      document.removeEventListener('mouseover', handleCitationHover, true);
+      document.removeEventListener('mousemove', handleCitationHover, true);
+      document.removeEventListener('mouseout', handleCitationHover, true);
+      document.removeEventListener('pointermove', handleCitationHover, true);
       document.removeEventListener('click', handleCitationClick, true);
       document.removeEventListener('click', handleCitationLinkClick, true);
       document.removeEventListener('click', handleBackLinkClick, true);
@@ -297,63 +377,63 @@ const CitationPopover = () => {
     };
   }, [ popover ]);
 
-  if (!popover)
-    return null;
-
   return (
-    <div
-      ref={ popoverRef }
-      className={ `${styles.popover} fixed z-[9999] ${isReady ? styles.ready : ''}` }
-      style={{
-        'left': `${popover.left}px`,
-        'top': `${popover.top}px`
-      }}
-      onMouseEnter={ () => {
-        if (timeoutRef.current)
-          clearTimeout(timeoutRef.current);
+    <div data-gaudi-citation-popover-root='true'>
+      {popover ? (
+        <div
+          ref={ popoverRef }
+          className={ `${styles.popover} ${styles.ready}` }
+          style={{
+            'left': `${popover.left}px`,
+            'top': `${popover.top}px`
+          }}
+          onMouseEnter={ () => {
+            if (timeoutRef.current)
+              clearTimeout(timeoutRef.current);
 
-      } }
-      onMouseLeave={ () => {
-        timeoutRef.current = setTimeout(() => {
-          setPopover(null);
-          setIsReady(false);
-        }, 150);
-      } }
-    >
-      <div className={ styles.content }>
-        <div className={ styles.body }>
-          {popover.content.type === 'single' && (
-            <div className={ styles.item }>
-              <LatexText>{popover.content.content}</LatexText>
-            </div>
-          )}
-
-          {popover.content.type === 'multiple' && (
-            popover.content.items.map((item, index) => (
-              <div
-                key={ index }
-                className={ `${styles.item} ${styles.multiple}` }
-                data-citation-key={ item.key }
-                data-citation-popover-item='multiple'
-                role='link'
-                tabIndex={ 0 }
-                onKeyDown={ (event) => {
-                  if (event.key === 'Enter' || event.key === ' ') event.currentTarget.click();
-                } }
-              >
-                <div className={ styles.number }>{item.number}</div>
-                <div className={ styles.citationContent }>
-                  <LatexText>{item.text}</LatexText>
+          } }
+          onMouseLeave={ () => {
+            timeoutRef.current = setTimeout(() => {
+              setPopover(null);
+            }, 150);
+          } }
+        >
+          <div className={ styles.content }>
+            <div className={ styles.body }>
+              {popover.content.type === 'single' && (
+                <div className={ styles.item }>
+                  <LatexText>{popover.content.content}</LatexText>
                 </div>
-              </div>
-            ))
-          )}
+              )}
 
-          {popover.content.type === 'text' && (
-            <LatexText>{popover.content.content}</LatexText>
-          )}
+              {popover.content.type === 'multiple' && (
+                popover.content.items.map((item, index) => (
+                  <div
+                    key={ index }
+                    className={ `${styles.item} ${styles.multiple}` }
+                    data-citation-key={ item.key }
+                    data-citation-popover-item='multiple'
+                    role='link'
+                    tabIndex={ 0 }
+                    onKeyDown={ (event) => {
+                      if (event.key === 'Enter' || event.key === ' ') event.currentTarget.click();
+                    } }
+                  >
+                    <div className={ styles.number }>{item.number}</div>
+                    <div className={ styles.citationContent }>
+                      <LatexText>{item.text}</LatexText>
+                    </div>
+                  </div>
+                ))
+              )}
+
+              {popover.content.type === 'text' && (
+                <LatexText>{popover.content.content}</LatexText>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

@@ -49,6 +49,29 @@ const tokens = {
   fontFamily: {
     mono: [ 'JetBrains Mono', 'Menlo', 'Monaco', 'monospace' ],
     sans: [ 'var(--font-space-inter)', 'Inter Variable', 'system-ui', 'sans-serif' ]
+  },
+  typography: {
+    prose: {
+      fontSize: 'var(--ds-prose-font-size)',
+      h1: {
+        marginBottom: 'var(--ds-prose-h1-margin-bottom)',
+        marginTop: 'var(--ds-prose-h1-margin-top)'
+      },
+      h2: {
+        marginBottom: 'var(--ds-prose-h2-margin-bottom)',
+        marginTop: 'var(--ds-prose-h2-margin-top)'
+      },
+      h3: {
+        marginBottom: 'var(--ds-prose-h3-margin-bottom)',
+        marginTop: 'var(--ds-prose-h3-margin-top)'
+      },
+      h4: {
+        marginBottom: 'var(--ds-prose-h4-margin-bottom)',
+        marginTop: 'var(--ds-prose-h4-margin-top)'
+      },
+      lineHeight: 'var(--ds-line-height-prose)',
+      maxWidth: 'var(--ds-prose-max-width)'
+    }
   }
 };
 
@@ -92,9 +115,13 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
-            fontSize: '1rem',
-            lineHeight: '1.7',
-            maxWidth: 'none'
+            fontSize: tokens.typography.prose.fontSize,
+            h1: tokens.typography.prose.h1,
+            h2: tokens.typography.prose.h2,
+            h3: tokens.typography.prose.h3,
+            h4: tokens.typography.prose.h4,
+            lineHeight: tokens.typography.prose.lineHeight,
+            maxWidth: tokens.typography.prose.maxWidth
           }
         }
       }

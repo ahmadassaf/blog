@@ -8,10 +8,6 @@ const groupDocs = {
     'accessibility': 'Blocks compose exported Gaudi components into full page sections. They must preserve semantic headings, readable focus order, and links/buttons with accessible names.',
     'description': 'documents full-section page compositions built from Gaudi primitives and domain components.'
   },
-  'Command': {
-    'accessibility': 'Command components are keyboard-first surfaces. Keep focus visible, use Escape to close overlays, and expose readable result labels to assistive technology.',
-    'description': 'supports keyboard navigation, search, and grouped command-palette rendering.'
-  },
   'Content': {
     'accessibility': 'Content components should preserve semantic structure, readable labels, image alt text, and keyboard access for modals, search, pagination, and dropdown controls.',
     'description': 'supports reusable blog browsing, reading, and supporting page composition.'
@@ -43,8 +39,7 @@ const groupDocs = {
 };
 
 const usageExamples = {
-  'Command/CmdLauncher': "import { CmdLauncher } from '@gaudi/design-system';\n\n<CmdLauncher\n  open={open}\n  setOpen={setOpen}\n  posts={posts}\n  projects={projects}\n  publications={publications}\n  tags={tags}\n  thoughts={thoughts}\n/>",
-  'Command/CmdLauncherShortcut': "import { CmdLauncherShortcut } from '@gaudi/design-system';\n\n<CmdLauncherShortcut />",
+  'Core/CmdLauncher': "import { CmdLauncher } from '@gaudi/design-system';\n\n<MenuSearch setOpen={setOpen} />\n<CmdLauncher\n  open={open}\n  setOpen={setOpen}\n  posts={posts}\n  projects={projects}\n  publications={publications}\n  tags={tags}\n  thoughts={thoughts}\n/>",
   'Blocks/Thoughts': "import { ThoughtsSection } from '@gaudi/design-system';\n\n<ThoughtsSection thoughts={thoughts} />",
   'Forms/NewsletterForm': "import { NewsletterForm } from '@gaudi/design-system';\n\n<NewsletterForm />",
   'Layout/Aurora': "import { Aurora } from '@gaudi/design-system';\n\n<Aurora className='min-h-[320px]'>\n  <section>Editorial content</section>\n</Aurora>",
@@ -53,32 +48,27 @@ const usageExamples = {
   'Layout/LayoutWrapper': "import { LayoutWrapper } from '@gaudi/design-system';\n\n<LayoutWrapper>\n  <main>{children}</main>\n</LayoutWrapper>",
   'Layout/Search': "import { Search } from '@gaudi/design-system';\n\n<Search setSearchValue={setSearchValue} />",
   'Layout/SectionContainer': "import { SectionContainer } from '@gaudi/design-system';\n\n<SectionContainer>\n  <section>Article section</section>\n</SectionContainer>",
-  'MDX/Aside': "import { Aside } from '@gaudi/design-system/mdx';\n\n<Aside>Additional context for the article.</Aside>",
-  'MDX/Callout': "import { Callout } from '@gaudi/design-system/mdx';\n\n<Callout type='info'>Useful article context.</Callout>",
-  'MDX/Chart': "import { BarChart, LineChart } from '@gaudi/design-system/mdx';\n\n<BarChart\n  title='Article views'\n  ariaLabel='Article views by day'\n  data={[\n    { label: 'Mon', views: 124 },\n    { label: 'Tue', views: 168 },\n  ]}\n  yKey='views'\n/>\n\n<LineChart\n  title='Subscriber trend'\n  ariaLabel='Subscribers by day'\n  data={[\n    { label: 'Mon', subscribers: 8 },\n    { label: 'Tue', subscribers: 12 },\n  ]}\n  yKey='subscribers'\n/>",
-  'MDX/CitationPopover': "import { CitationPopover } from '@gaudi/design-system/mdx';\n\n<CitationPopover />",
-  'MDX/CitationTracker': "import { CitationTracker } from '@gaudi/design-system/mdx';\n\n<CitationTracker />",
-  'MDX/CodeGroupTabs': "import { CodeGroupTabs } from '@gaudi/design-system';\n\n<CodeGroupTabs />",
-  'MDX/Details': "import { Details } from '@gaudi/design-system/mdx';\n\n<Details title='Implementation detail'>Expanded article content.</Details>",
-  'MDX/Faq': "import { Faq } from '@gaudi/design-system/mdx';\n\n<Faq questions={[{ question: 'Why use FAQ blocks?', answer: 'They structure repeated article answers.' }]} />",
-  'MDX/FileTree': "import { FileTree } from '@gaudi/design-system/mdx';\n\n<FileTree data={files} />",
-  'MDX/FootnotePopover': "import { FootnotePopover } from '@gaudi/design-system/mdx';\n\n<FootnotePopover />",
-  'MDX/HeroVideoDialog': "import { HeroVideoDialog } from '@gaudi/design-system/mdx';\n\n<HeroVideoDialog\n  animationStyle='from-center'\n  videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'\n  thumbnailSrc='/static/images/og-card.jpg'\n  thumbnailAlt='Knowledge graph article video preview'\n  title='Knowledge graph walkthrough'\n/>",
-  'MDX/Highlight': "import { Highlight } from '@gaudi/design-system/mdx';\n\n<p>Use <Highlight>inline emphasis</Highlight> inside prose.</p>",
-  'MDX/Image': "import { Image } from '@gaudi/design-system/mdx';\n\n<Image src='/static/images/logo.svg' alt='Blog logo' width={160} height={160} />",
-  'MDX/ImageModal': "import { ImageModal } from '@gaudi/design-system';\n\n<ImageModal\n  isOpen={open}\n  onClose={() => setOpen(false)}\n  src='/static/images/logo.svg'\n  alt='Blog logo'\n/>",
-  'MDX/InternalPreview': "import { InternalPreview } from '@gaudi/design-system/mdx';\n\n<InternalPreview href='/blog/design-systems' title='Design systems keep editorial rhythm predictable'>Internal post preview</InternalPreview>",
-  'MDX/LatexText': "import { LatexText } from '@gaudi/design-system/mdx';\n\n<LatexText>11$^{th}$ International Conference</LatexText>",
-  'MDX/Mermaid': "import { Mermaid } from '@gaudi/design-system/mdx';\n\n<Mermaid id='architecture-flow' chart='graph TD; A[Draft] --> B[Review];' />",
-  'MDX/Overview': "import { Callout, Table, Quote } from '@gaudi/design-system/mdx';\n\n<Callout type='info'>Article context.</Callout>",
-  'MDX/PostImage': "import { PostImage } from '@gaudi/design-system/mdx';\n\n<PostImage title='gaudi' caption='Project architecture diagram.' width={420} height={260} />",
-  'MDX/Pre': "import { Pre } from '@gaudi/design-system/mdx';\n\n<Pre><code>{`const token = colors.blue[500];`}</code></Pre>",
-  'MDX/Preview': "import { Preview } from '@gaudi/design-system/mdx';\n\n<Preview url='https://ahmadassaf.com' title='Ahmad Assaf' showImage={false} />",
-  'MDX/Quote': "import { Quote } from '@gaudi/design-system/mdx';\n\n<Quote text='Good component systems make product code calmer.' author='Design System' />",
-  'MDX/ReferencePopover': "import { ReferencePopover } from '@gaudi/design-system/mdx';\n\n<ReferencePopover />",
-  'MDX/Stats': "import { Stats } from '@gaudi/design-system/mdx';\n\n<Stats text='Design system coverage' stats={stats} />",
-  'MDX/Table': "import { Table } from '@gaudi/design-system/mdx';\n\n<Table>\n  <thead><tr><th>Component</th><th>Status</th></tr></thead>\n  <tbody><tr><td>Callout</td><td>Documented</td></tr></tbody>\n</Table>",
-  'MDX/Tooltip': "import { Tooltip } from '@gaudi/design-system/mdx';\n\n<Tooltip message='Compact supporting context.'>Hover this term</Tooltip>",
+  'MDX/Aside': '<Aside>\n  Additional context for the article that should sit outside the main argument.\n</Aside>',
+  'MDX/Callout': "<Callout type='info'>\n  Useful article context that readers should notice before continuing.\n</Callout>",
+  'MDX/Chart': "<BarChart\n  title='Article views'\n  ariaLabel='Article views by day'\n  data={[\n    { label: 'Mon', views: 124 },\n    { label: 'Tue', views: 168 },\n  ]}\n  yKey='views'\n/>\n\n<LineChart\n  title='Subscriber trend'\n  ariaLabel='Subscribers by day'\n  data={[\n    { label: 'Mon', subscribers: 8 },\n    { label: 'Tue', subscribers: 12 },\n  ]}\n  yKey='subscribers'\n/>",
+  'MDX/CitationPopover': "import { CitationPopover, CitationTracker } from '@gaudi/design-system/mdx';\n\n<article>\n  <p>\n    Knowledge graphs need durable identifiers\n    <sup>\n      <a\n        id='cite-ref-1'\n        className='citation-link'\n        href='#citation-source-1'\n        data-citation-popover='true'\n        data-citation-keys='[\"source-1\"]'\n        data-citation-numbers='[1]'\n        data-citation-texts='[\"Source metadata rendered in the popover.\"]'\n      >1</a>\n    </sup>.\n  </p>\n  <CitationTracker />\n  <CitationPopover />\n</article>",
+  'MDX/CitationTracker': "import { CitationPopover, CitationTracker } from '@gaudi/design-system/mdx';\n\n<article>\n  <p>\n    Repeat citations can update bibliography back-links\n    <sup>\n      <a\n        id='cite-ref-1'\n        className='citation-link'\n        href='#citation-source-1'\n        data-citation-popover='true'\n        data-citation-keys='[\"source-1\"]'\n        data-citation-numbers='[1]'\n        data-citation-texts='[\"Tracked source metadata.\"]'\n      >1</a>\n    </sup>.\n  </p>\n  <CitationTracker />\n  <CitationPopover />\n</article>",
+  'MDX/Details': "<Details title='Implementation detail'>\n  Expanded article content that is useful but not required for the main reading path.\n</Details>",
+  'MDX/Faq': "<Faq questions={[\n  {\n    question: 'Why use FAQ blocks?',\n    answer: 'They structure repeated article answers.'\n  }\n]} />",
+  'MDX/FileTree': "<FileTree data={[\n  { name: 'content', isFolder: true, childrenProp: [{ name: 'post.mdx' }] },\n  { name: 'package.json' }\n]} />",
+  'MDX/FootnotePopover': "A compact aside can live in a footnote <FootnotePopover id='note-1'>More context.</FootnotePopover>.",
+  'MDX/Video': "<Video\n  animationStyle='from-center'\n  videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'\n  thumbnailSrc='/static/images/og-card.jpg'\n  thumbnailAlt='Knowledge graph article video preview'\n  title='Knowledge graph walkthrough'\n/>",
+  'MDX/Highlight': 'Use <Highlight>inline emphasis</Highlight> inside normal article prose.',
+  'MDX/Image': "<Image\n  src='/static/images/posts/gaudi.svg'\n  darkSrc='/static/images/posts/gaudi-dark.svg'\n  alt='Gaudi diagram'\n  caption='Project architecture diagram.'\n  width={420}\n  height={260}\n/>",
+  'MDX/ImageModal': "<ImageModal src='/static/images/diagram.png' alt='Architecture diagram' />",
+  'MDX/LatexText': '<LatexText>11$^{th}$ International Conference</LatexText>',
+  'MDX/Mermaid': "<Mermaid\n  id='architecture-flow'\n  chart={`graph TD; A[Draft] --> B[Review];`}\n/>",
+  'MDX/Overview': "# Article title\n\nIntroductory prose can use normal markdown.\n\n<Callout type='info'>Article context.</Callout>\n\n<Quote text='Readable examples matter.' author='Gaudi' />",
+  'MDX/Pre': '```js\nconst token = colors.blue[500];\n```',
+  'MDX/Preview': "<Preview url='https://assaf.website' title='assaf.website' />\n<Preview url='https://this-link-will-not-work.invalid' title='Unavailable link' showImage={false} />\n<Preview internal url='/blog' title='Internal blog link' />",
+  'MDX/Quote': "<Quote text='Good component systems make product code calmer.' author='Design System' />",
+  'MDX/Table': '| Component | Status |\n| --- | --- |\n| Callout | Documented |\n| Chart | Ready for article embeds |',
+  'MDX/Tooltip': "A <Tooltip message='Compact supporting context.'>technical term</Tooltip> can carry a short explanation.",
   'Navigation/FloatingMenu': "import { FloatingMenu } from '@gaudi/design-system';\n\n<FloatingMenu />",
   'Navigation/DropDown': "import { DropDown } from '@gaudi/design-system';\n\n<DropDown name='Content sections' menuDropDownOpen={open} setMenuDropDownOpen={setOpen} />",
   'Navigation/Menu': "import { Menu } from '@gaudi/design-system';\n\n<Menu categories={categories} posts={posts} />",
@@ -126,6 +116,20 @@ const usageExamples = {
 };
 
 const componentDocs = {
+  'Core/CmdLauncher': {
+    'accessibility': 'CmdLauncher is a keyboard-first overlay. Keep focus visible, support Escape close/back behavior, expose readable result labels, and make Cmd/Ctrl + K available without hiding the visible trigger.',
+    'description': 'CmdLauncher provides the blog-wide command palette for navigation, content search, and theme actions.',
+    'overview': 'Use CmdLauncher with a visible trigger such as MenuSearch. MenuSearch already includes the keyboard hint, so do not render CmdLauncherShortcut beside it in the header example.',
+    'props': [
+      [ 'open', 'boolean', '-', 'Controlled palette state.' ],
+      [ 'setOpen', '(open: boolean) => void', '-', 'State setter used by the trigger, shortcut, keyboard handler, and close behavior.' ],
+      [ 'posts', 'Array', '[]', 'Searchable post records.' ],
+      [ 'projects', 'Array', '[]', 'Searchable project records.' ],
+      [ 'publications', 'Array', '[]', 'Searchable publication records.' ],
+      [ 'tags', 'Array', '[]', 'Searchable tag records.' ],
+      [ 'thoughts', 'Array', '[]', 'Searchable thought records.' ]
+    ]
+  },
   'Core/Accordion': {
     'accessibility': 'Accordion triggers are native buttons with aria-expanded. Content is only rendered when open so the tab order stays predictable.',
     'description': 'Accordion groups expandable sections for FAQs, settings, and compact supporting content.',
@@ -261,25 +265,6 @@ const componentDocs = {
       [ 'className', 'string', '-', 'Root class override.' ]
     ]
   },
-  'Command/CmdLauncher': {
-    'accessibility': 'CmdLauncher opens with Command K, closes with Escape, supports keyboard and mouse selection, and exposes grouped result labels for posts, projects, publications, thoughts, tags, navigation, and contact actions.',
-    'description': 'CmdLauncher is the blog command menu. It keeps the previous command-palette behavior but owns the implementation in one component folder instead of exposing many internal fragments.',
-    'overview': 'Use CmdLauncher once in the blog shell. Data comes in through props; internal pages, result rows, footer hints, and contact actions are private implementation details.',
-    'props': [
-      [ 'open', 'boolean', '-', 'Controlled open state.' ],
-      [ 'setOpen', '(open | updater) => void', '-', 'Updates launcher open state and supports the Command K toggle.' ],
-      [ 'posts', 'Array<Post>', '[]', 'Post results included in search.' ],
-      [ 'projects', 'Array<Project>', '[]', 'Project results included in search.' ],
-      [ 'publications', 'Array<Publication>', '[]', 'Publication results. External href values open in a new tab.' ],
-      [ 'tags', 'Array<Tag>', '[]', 'Tag navigation filters.' ],
-      [ 'thoughts', 'Array<Thought>', '[]', 'Thought note results.' ]
-    ]
-  },
-  'Command/CmdLauncherShortcut': {
-    'accessibility': 'CmdLauncherShortcut is static helper text. It should sit near the search trigger and must not be the only way to discover search.',
-    'description': 'CmdLauncherShortcut renders the compact Command K hint used beside launcher triggers.',
-    'props': []
-  },
   'Core/DataTable': {
     'accessibility': 'DataTable renders a real table with column headers and optional caption. Use render functions for cells without changing table semantics.',
     'description': 'DataTable renders small tabular datasets with tokenized table chrome.',
@@ -290,10 +275,10 @@ const componentDocs = {
       [ 'className', 'string', '-', 'Scrollable wrapper class override.' ]
     ]
   },
-  'MDX/HeroVideoDialog': {
-    'accessibility': 'HeroVideoDialog uses a native button for the thumbnail trigger, an aria-modal dialog, Escape-to-close behavior, labelled close controls, and returns focus to the trigger when closed.',
-    'description': 'HeroVideoDialog renders a video thumbnail that opens an embedded video in an accessible modal dialog.',
-    'overview': 'Use HeroVideoDialog inside MDX when an article needs a focused video walkthrough without embedding an always-loaded iframe in the page flow.',
+  'MDX/Video': {
+    'accessibility': 'Video uses a native button for the thumbnail trigger, an aria-modal dialog, Escape-to-close behavior, labelled close controls, and returns focus to the trigger when closed.',
+    'description': 'Video renders a video thumbnail that opens an embedded video in an accessible modal dialog.',
+    'overview': 'Use Video inside MDX when an article needs a focused video walkthrough without embedding an always-loaded iframe in the page flow.',
     'props': [
       [ 'videoSrc', 'YouTube embed URL or embeddable URL', '-' ],
       [ 'thumbnailSrc / thumbnailAlt', 'image source and accessible alt text', '-' ],
@@ -567,7 +552,8 @@ export const getComponentDocs = (title) => {
     'dos': overrides.dos || [],
     'group': group,
     'title': title,
-    'usage': usage
+    'usage': usage,
+    'usageLanguage': overrides.usageLanguage || (group === 'MDX' ? 'mdx' : 'jsx')
   };
 };
 
@@ -669,7 +655,7 @@ export const ComponentDocumentation = ({ docs }) => (
     ) : null}
 
     <Section title='Usage'>
-      <HighlightedCode code={ docs.usage } language='jsx' />
+      <HighlightedCode code={ docs.usage } language={ docs.usageLanguage } />
     </Section>
 
     {docs.related ? <Section title='Related'><Related docs={ docs } /></Section> : null}
@@ -722,7 +708,7 @@ export const createComponentDocsPage = (docs, options = {}) => {
         ) : null}
 
         <Section title='Usage'>
-          <HighlightedCode code={ docs.usage } language='jsx' />
+          <HighlightedCode code={ docs.usage } language={ docs.usageLanguage } />
         </Section>
 
         {docs.related ? <Section title='Related'><Related docs={ docs } /></Section> : null}

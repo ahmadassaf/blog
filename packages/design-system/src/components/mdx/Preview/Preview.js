@@ -14,10 +14,10 @@
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
 
 import Icon from '@/components/core/Icon';
 import Link from '@/components/core/Link';
+import Pill from '@/components/core/Pill';
 
 /**
  * Advanced cache implementation with size limits and TTL
@@ -112,6 +112,8 @@ export const PreviewLoadingSkeleton = ({ className = '' }) => (
  */
 const getPreviewImageUrl = (url, data) => {
   try {
+    if (data?.image) return data.image;
+
     const urlObj = new URL(url);
     const hostname = urlObj.hostname.toLowerCase();
     const { pathname } = urlObj;
@@ -154,9 +156,6 @@ const getPreviewImageUrl = (url, data) => {
     // Medium articles
     if (hostname.includes('medium.com')) if (data?.image) return data.image;
 
-    // Default: Use OpenGraph image if available
-    if (data?.image) return data.image;
-
     /*
      * Fallback to screenshot service (you can use various services)
      * Option 1: Microlink API (free tier available)
@@ -185,12 +184,33 @@ function usePreviewData(url, customTitle, options = {}) {
   const retryCountRef = useRef(0);
 
   const {
-    timeout = 10000,
+    previewData = null,
+    skip = false,
+    timeout = 20000,
     maxRetries = 2,
     retryDelay = 1000
   } = options;
 
   const fetchPreview = useCallback(async() => {
+    if (previewData) {
+      setData(customTitle ? { ...previewData, 'title': customTitle } : previewData);
+      setLoading(false);
+      setError(null);
+
+      return;
+    }
+
+    if (skip) {
+      setData({
+        'siteName': 'Internal',
+        'title': customTitle || url,
+        'type': 'internal'
+      });
+      setLoading(false);
+      setError(null);
+
+      return;
+    }
 
     // Skip if no URL provided
     if (!url) {
@@ -302,7 +322,7 @@ function usePreviewData(url, customTitle, options = {}) {
 
           return {
             'error': true,
-            'errorMessage': parsedData.error,
+            'errorMessage': parsedData.errorMessage || 'Failed to fetch preview',
             'status': parsedData.status || 404,
             'title': customTitle || new URL(url).hostname
           };
@@ -374,7 +394,7 @@ function usePreviewData(url, customTitle, options = {}) {
       retryCountRef.current = 0;
       pendingRequests.delete(url);
     }
-  }, [ url, customTitle, timeout, maxRetries, retryDelay ]);
+  }, [ url, customTitle, previewData, skip, timeout, maxRetries, retryDelay ]);
 
   useEffect(() => {
     fetchPreview();
@@ -396,6 +416,9 @@ const normalizeFaviconURL = (favicon) => {
 
   // Handle protocol-relative URLs
   if (favicon.startsWith('//')) return `https:${favicon}`;
+
+  // Handle app-root relative URLs
+  if (favicon.startsWith('/')) return favicon;
 
   // Handle relative URLs
   if (!favicon.startsWith('http')) return `https://${favicon}`;
@@ -450,6 +473,16 @@ const formatTitle = (title, url) => {
   return cleanTitle.length > maxLength ? `${cleanTitle.substring(0, maxLength - 3)}...` : cleanTitle;
 };
 
+const formatPreviewDate = (date) => {
+  if (!date) return '';
+
+  return new Date(date).toLocaleDateString('en-US', {
+    'day': 'numeric',
+    'month': 'long',
+    'year': 'numeric'
+  });
+};
+
 /**
  * Helper function to get platform-specific icon (only when no favicon is available)
  */
@@ -495,6 +528,9 @@ const getPlatformIcon = (url, type, hasFavicon) => {
  * @param {string} props.url - The URL to preview and link to
  * @param {string} [props.title] - Optional custom title to override fetched title
  * @param {string} [props.className] - Additional CSS classes for styling
+ * @param {boolean} [props.defaultOpen] - Start the hover preview open for deterministic demos
+ * @param {boolean} [props.internal] - Render a local app link without remote preview fetching
+ * @param {Object} [props.previewData] - Preloaded preview metadata for docs and deterministic renders
  * @param {boolean} [props.showImage] - Show image preview on hover (default: true)
  * @param {number} [props.timeout] - Request timeout in milliseconds (default: 10000)
  * @param {Function} [props.onLoad] - Callback when preview loads successfully
@@ -506,6 +542,9 @@ const Preview = memo(function Preview({
   url,
   title,
   className = '',
+  defaultOpen = false,
+  internal = false,
+  previewData = null,
 
   // Default back to true to show hover previews
   showImage = true,
@@ -521,12 +560,15 @@ const Preview = memo(function Preview({
 
     return <span className='text-gray-500'>No URL provided</span>;
   }
-  const [ isHoverCardOpen, setIsHoverCardOpen ] = useState(false);
+
+  const isInternal = internal || url.startsWith('/');
+
+  const [ isHoverCardOpen, setIsHoverCardOpen ] = useState(defaultOpen);
   const [ imageLoaded, setImageLoaded ] = useState(false);
   const [ imageError, setImageError ] = useState(false);
 
   // Always fetch data immediately (no lazy loading)
-  const { data, loading, error } = usePreviewData(url, title, { timeout });
+  const { data, loading, error } = usePreviewData(url, title, { previewData, 'skip': isInternal, timeout });
 
   // Handle callbacks
   useEffect(() => {
@@ -658,7 +700,7 @@ const Preview = memo(function Preview({
       {data?.duration && (
         <span className='text-xs text-gray-500 ml-1'>{data.duration}</span>
       )}
-      {data?.readingTime && (
+      {!isInternal && data?.readingTime && (
         <span className='text-xs text-gray-500 ml-1'>· {data.readingTime}</span>
       )}
       {/* Performance indicator in development */}
@@ -671,13 +713,23 @@ const Preview = memo(function Preview({
   );
 
   // Check if we should show hover card - show it when showImage is true and we have data
-  const shouldShowHoverCard = showImage && data && !loading;
+  const hasPreviewDetails = !!(
+    previewImageUrl ||
+    data?.description ||
+    data?.excerpt ||
+    data?.publishedTime ||
+    data?.readingTime ||
+    data?.siteName !== 'Internal'
+  );
+
+  const shouldShowHoverCard = showImage && data && !loading && hasPreviewDetails;
 
   // If we shouldn't show hover card, return simple link
   if (!shouldShowHoverCard) return (
     <span
       className={ `inline-flex items-center align-top ${className}` }
       data-preview-url={ url }
+      data-preview-internal={ isInternal ? 'true' : undefined }
     >
       {linkContent}
     </span>
@@ -686,6 +738,7 @@ const Preview = memo(function Preview({
   // Return link with hover card (only when we have an image)
   return (
     <HoverCardPrimitive.Root
+      open={ isHoverCardOpen }
       openDelay={ 200 }
       closeDelay={ 100 }
       onOpenChange={ (open) => {
@@ -702,6 +755,7 @@ const Preview = memo(function Preview({
         <span
           className={ `inline-flex items-center align-top ${className}` }
           data-preview-url={ url }
+          data-preview-internal={ isInternal ? 'true' : undefined }
         >
           {linkContent}
         </span>
@@ -729,115 +783,179 @@ const Preview = memo(function Preview({
                   'transition': { 'duration': 0.1 },
                   'y': 8
                 }}
-                className='bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-border-dark overflow-hidden'
-                style={{ 'width': '320px' }}
+                className={ `bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-border-dark ${isInternal ? 'p-4' : 'overflow-hidden'}` }
+                style={{
+                  'maxWidth': 'calc(100vw - 2rem)',
+                  'width': isInternal ? '384px' : '320px'
+                }}
               >
-                {/* Special content display for Wikipedia instead of image */}
-                {data?.type === 'wikipedia' && data?.excerpt ? (
-                  <div className='bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-6'>
-                    <div className='flex items-center gap-2 mb-3'>
-                      <svg className='h-5 w-5 text-gray-600 dark:text-gray-400' fill='currentColor' viewBox='0 0 20 20'>
-                        <path d='M9 4.804A1 1 0 017.53 5.02L5.032 9.513a1 1 0 00.268 1.537l2.5 1.5a1 1 0 001.2-.268l2.5-3.5a1 1 0 00-.134-1.366l-2-1.612zM11 4.804a1 1 0 011.47.216l2.498 4.493a1 1 0 01-.268 1.537l-2.5 1.5a1 1 0 01-1.2-.268l-2.5-3.5a1 1 0 01.134-1.366l2-1.612z'/>
-                      </svg>
-                      <span className='text-sm font-semibold text-gray-700 dark:text-gray-300'>Wikipedia Article</span>
-                    </div>
-                    <div className='space-y-2'>
-                      <h4 className='text-base font-bold text-gray-900 dark:text-gray-100'>
-                        {data.articleName || formattedTitle}
-                      </h4>
-                      {data.description && (
-                        <p className='text-sm font-medium text-gray-700 dark:text-gray-300'>
-                          {data.description}
-                        </p>
-                      )}
-                      <p className='text-xs text-gray-600 dark:text-gray-400 leading-relaxed'>
-                        {data.excerpt}
+                {isInternal ? (
+                  <div>
+                    {data?.category && (
+                      <div className='mb-3'>
+                        <span className='inline-block rounded bg-blue-50 px-2 py-1 text-xs font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'>
+                          {data.category}
+                        </span>
+                      </div>
+                    )}
+
+                    <h3 className='mb-2 line-clamp-2 text-lg font-bold text-gray-900 dark:text-gray-100'>
+                      {formattedTitle}
+                    </h3>
+
+                    {(data?.summary || data?.description) && (
+                      <p className='mb-3 line-clamp-3 text-sm text-gray-600 dark:text-gray-400'>
+                        {data.summary || data.description}
                       </p>
-                    </div>
+                    )}
+
+                    {(data?.publishedTime || data?.readingTime) && (
+                      <div className='mb-3 flex flex-wrap gap-3 text-xs text-gray-500 dark:text-gray-400'>
+                        {data?.publishedTime && (
+                          <div className='flex items-center gap-1'>
+                            <Icon name='Calendar' size='xs' decorative />
+                            <span>{formatPreviewDate(data.publishedTime)}</span>
+                          </div>
+                        )}
+                        {data?.readingTime && (
+                          <div className='flex items-center gap-1'>
+                            <Icon name='Clock' size='xs' decorative />
+                            <span>{data.readingTime}</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {Array.isArray(data?.tags) && data.tags.length > 0 && (
+                      <div className='flex flex-wrap gap-2'>
+                        {data.tags.slice(0, 5).map((tag) => (
+                          <Pill
+                            key={ tag }
+                            tone='gray'
+                            variant='soft'
+                            size='xs'
+                            radius='md'
+                            className='my-0 mr-0 normal-case tracking-normal'
+                          >
+                            {tag}
+                          </Pill>
+                        ))}
+                        {data.tags.length > 5 && (
+                          <span className='self-center text-xs text-gray-500 dark:text-gray-400'>
+                            +{data.tags.length - 5} more
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 ) : (
-
-                  /* Regular image preview for other sites */
-                  previewImageUrl && !imageError && (
-                    <div className='relative w-full h-48 bg-gray-100 dark:bg-gray-900'>
-                      {!imageLoaded && (
-                        <div className='absolute inset-0 flex items-center justify-center'>
-                          <div className='animate-pulse'>
-                            <Icon name='PhotoIcon' size='xl' decorative className='text-gray-400' />
-                          </div>
+                  <>
+                    {/* Special content display for Wikipedia instead of image */}
+                    {data?.type === 'wikipedia' && data?.excerpt ? (
+                      <div className='bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-6'>
+                        <div className='flex items-center gap-2 mb-3'>
+                          <svg className='h-5 w-5 text-gray-600 dark:text-gray-400' fill='currentColor' viewBox='0 0 20 20'>
+                            <path d='M9 4.804A1 1 0 017.53 5.02L5.032 9.513a1 1 0 00.268 1.537l2.5 1.5a1 1 0 001.2-.268l2.5-3.5a1 1 0 00-.134-1.366l-2-1.612zM11 4.804a1 1 0 011.47.216l2.498 4.493a1 1 0 01-.268 1.537l-2.5 1.5a1 1 0 01-1.2-.268l-2.5-3.5a1 1 0 01.134-1.366l2-1.612z'/>
+                          </svg>
+                          <span className='text-sm font-semibold text-gray-700 dark:text-gray-300'>Wikipedia Article</span>
                         </div>
-                      )}
-                      <Image
-                        src={ previewImageUrl }
-                        alt={ formattedTitle }
-                        fill
-                        className='object-cover'
-                        onLoad={ () => {
-                          setImageLoaded(true);
-                          setImageError(false);
-                        } }
-                        onError={ () => {
-                          console.log('Image failed to load:', previewImageUrl);
-                          setImageError(true);
-                          setImageLoaded(false);
-                        } }
-                        unoptimized
-                      />
-                    </div>
-                  )
-                )}
-
-                {/* Content Footer - Skip for Wikipedia since content is shown above */}
-                {data?.type !== 'wikipedia' && (
-                  <div className='p-4'>
-                    <div className='flex items-start gap-2'>
-                      {normalizedFavicon && (
-                        <img
-                          className='h-4 w-4 mt-0.5 flex-shrink-0'
-                          src={ normalizedFavicon }
-                          width={ 16 }
-                          height={ 16 }
-                          alt=''
-                          onError={ (event) => {
-                            event.target.style.display = 'none';
-                          } }
-                        />
-                      )}
-                      <div className='flex-1 min-w-0'>
-                        <h3 className='font-medium text-sm text-gray-900 dark:text-gray-100 line-clamp-2'>
-                          {formattedTitle}
-                        </h3>
-
-                        {data?.description && (
-                          <p className='text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2'>
-                            {data.description}
+                        <div className='space-y-2'>
+                          <h4 className='text-base font-bold text-gray-900 dark:text-gray-100'>
+                            {data.articleName || formattedTitle}
+                          </h4>
+                          {data.description && (
+                            <p className='text-sm font-medium text-gray-700 dark:text-gray-300'>
+                              {data.description}
+                            </p>
+                          )}
+                          <p className='text-xs text-gray-600 dark:text-gray-400 leading-relaxed'>
+                            {data.excerpt}
                           </p>
-                        )}
-
-                        <div className='flex items-center gap-2 mt-2'>
-                          <span className='text-xs text-gray-500 dark:text-gray-500'>
-                            {siteName}
-                          </span>
-                          {data?.publishedTime && (
-                            <>
-                              <span className='text-xs text-gray-400'>·</span>
-                              <span className='text-xs text-gray-500'>
-                                {new Date(data.publishedTime).toLocaleDateString()}
-                              </span>
-                            </>
-                          )}
-                          {data?.readingTime && (
-                            <>
-                              <span className='text-xs text-gray-400'>·</span>
-                              <span className='text-xs text-gray-500'>
-                                {data.readingTime}
-                              </span>
-                            </>
-                          )}
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    ) : (
+
+                    /* Regular image preview for other sites */
+                      previewImageUrl && !imageError && (
+                        <div className='relative w-full h-48 bg-gray-100 dark:bg-gray-900'>
+                          {!imageLoaded && (
+                            <div className='absolute inset-0 flex items-center justify-center'>
+                              <div className='animate-pulse'>
+                                <Icon name='PhotoIcon' size='xl' decorative className='text-gray-400' />
+                              </div>
+                            </div>
+                          )}
+                          <img
+                            src={ previewImageUrl }
+                            alt={ formattedTitle }
+                            className='h-full w-full object-cover'
+                            onLoad={ () => {
+                              setImageLoaded(true);
+                              setImageError(false);
+                            } }
+                            onError={ () => {
+                              console.log('Image failed to load:', previewImageUrl);
+                              setImageError(true);
+                              setImageLoaded(false);
+                            } }
+                          />
+                        </div>
+                      )
+                    )}
+
+                    {/* Content Footer - Skip for Wikipedia since content is shown above */}
+                    {data?.type !== 'wikipedia' && (
+                      <div className='p-4'>
+                        <div className='flex items-start gap-2'>
+                          {normalizedFavicon && (
+                            <img
+                              className='h-4 w-4 mt-0.5 flex-shrink-0'
+                              src={ normalizedFavicon }
+                              width={ 16 }
+                              height={ 16 }
+                              alt=''
+                              onError={ (event) => {
+                                event.target.style.display = 'none';
+                              } }
+                            />
+                          )}
+                          <div className='flex-1 min-w-0'>
+                            <h3 className='font-medium text-sm text-gray-900 dark:text-gray-100 line-clamp-2'>
+                              {formattedTitle}
+                            </h3>
+
+                            {data?.description && (
+                              <p className='text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2'>
+                                {data.description}
+                              </p>
+                            )}
+
+                            <div className='flex items-center gap-2 mt-2'>
+                              <span className='text-xs text-gray-500 dark:text-gray-500'>
+                                {siteName}
+                              </span>
+                              {data?.publishedTime && (
+                                <>
+                                  <span className='text-xs text-gray-400'>·</span>
+                                  <span className='text-xs text-gray-500'>
+                                    {new Date(data.publishedTime).toLocaleDateString()}
+                                  </span>
+                                </>
+                              )}
+                              {data?.readingTime && (
+                                <>
+                                  <span className='text-xs text-gray-400'>·</span>
+                                  <span className='text-xs text-gray-500'>
+                                    {data.readingTime}
+                                  </span>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
               </motion.div>
             )}

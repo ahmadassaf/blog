@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import NextImageModule from 'next/image';
 
 import { cn } from '@/components/utilities/cn';
+import resolveNextImage from '@/components/utilities/resolveNextImage';
 
-const NextImage = typeof Image === 'function' ? Image : Image?.default;
+const NextImage = resolveNextImage(NextImageModule);
 
 const isValidImageSource = (src) => {
   if (!src) return false;

@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const componentDir = dirname(fileURLToPath(import.meta.url));
 
-test('HeroVideoDialog owns its component folder contract', () => {
+test('Video owns its component folder contract', () => {
   const files = readdirSync(componentDir);
 
   assert.ok(existsSync(join(componentDir, 'index.js')));

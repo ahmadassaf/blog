@@ -6,7 +6,7 @@ import Button from '@/components/core/Button';
 import Icon from '@/components/core/Icon';
 import { cn } from '@/components/utilities/cn';
 
-export const heroVideoDialogAnimationStyles = {
+export const videoAnimationStyles = {
   'fade': 'opacity-0 data-open:opacity-100',
   'from-bottom': 'translate-y-8 opacity-0 data-open:translate-y-0 data-open:opacity-100',
   'from-center': 'scale-95 opacity-0 data-open:scale-100 data-open:opacity-100',
@@ -45,7 +45,7 @@ const PlayGlyph = () => (
   <span className='ml-0.5 size-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-current' aria-hidden='true' />
 );
 
-const HeroVideoDialog = ({
+const Video = ({
   animationStyle = 'from-center',
   ariaLabel,
   autoplay = true,
@@ -61,7 +61,7 @@ const HeroVideoDialog = ({
   const dialogTitleId = useId();
   const triggerRef = useRef(null);
   const closeRef = useRef(null);
-  const panelAnimation = heroVideoDialogAnimationStyles[animationStyle] || heroVideoDialogAnimationStyles['from-center'];
+  const panelAnimation = videoAnimationStyles[animationStyle] || videoAnimationStyles['from-center'];
   const iframeSrc = getEmbeddableSrc(videoSrc);
   const srcWithAutoplay = autoplay && iframeSrc ? `${iframeSrc}${iframeSrc.includes('?') ? '&' : '?'}autoplay=1` : iframeSrc;
 
@@ -82,7 +82,7 @@ const HeroVideoDialog = ({
 
       if (event.key !== 'Tab') return;
 
-      const focusable = Array.from(document.querySelectorAll('[data-hero-video-dialog] button, [data-hero-video-dialog] iframe')).filter((element) => !element.disabled);
+      const focusable = Array.from(document.querySelectorAll('[data-video-dialog] button, [data-video-dialog] iframe')).filter((element) => !element.disabled);
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
 
@@ -137,7 +137,7 @@ const HeroVideoDialog = ({
       </Button>
 
       {open ? (
-        <div className={ cn('fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6', classNames.dialog) } role='dialog' aria-modal='true' aria-labelledby={ dialogTitleId } data-hero-video-dialog>
+        <div className={ cn('fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6', classNames.dialog) } role='dialog' aria-modal='true' aria-labelledby={ dialogTitleId } data-video-dialog>
           <Button variant='ghost' tone='gray' size='sm' className={ cn('absolute inset-0 rounded-none bg-gray-950/80 p-0 backdrop-blur-sm hover:bg-gray-950/80', classNames.overlay) } aria-label='Close video dialog' onClick={ () => setOpen(false) } />
           <div
             className={ cn(
@@ -177,4 +177,4 @@ const HeroVideoDialog = ({
   );
 };
 
-export default HeroVideoDialog;
+export default Video;

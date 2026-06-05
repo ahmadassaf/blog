@@ -55,6 +55,28 @@ export const typography = {
     'body': '1.6',
     'prose': '1.7',
     'tight': '1.15'
+  },
+  'prose': {
+    'fontSize': '1rem',
+    'headingMargin': {
+      'h1': {
+        'bottom': '0.95em',
+        'top': '1.25em'
+      },
+      'h2': {
+        'bottom': '0.9em',
+        'top': '1.2em'
+      },
+      'h3': {
+        'bottom': '0.8em',
+        'top': '1.1em'
+      },
+      'h4': {
+        'bottom': '0.7em',
+        'top': '1em'
+      }
+    },
+    'maxWidth': 'none'
   }
 };
 

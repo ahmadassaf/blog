@@ -64,8 +64,18 @@ export function generateViewport() {
 export const font = Inter({ subsets: [ 'latin' ], weight: [ '400', '500', '600', '700', '800' ], variable: '--font-space-inter' });
 
 const footerProps = {
+  'brandDescription': 'Writing about AI, semantic systems, data products, and engineering practice.',
+  'brandTitle': siteMetadata.shortname,
   'copyrightName': siteMetadata.author,
   'sections': [
+    {
+      'links': [
+        { 'href': '/about', 'label': 'Summary' },
+        { 'href': '/blog/publications', 'label': 'Publications' },
+        { 'href': '/blog/projects', 'label': 'Projects' }
+      ],
+      'title': 'About'
+    },
     {
       'links': categories.slice(0, 4).reverse().map((category) => {
         return {
@@ -73,7 +83,7 @@ const footerProps = {
           'label': category.title.replace('-', ' ')
         };
       }),
-      'title': 'Categories'
+      'title': 'Blog'
     },
     {
       'links': sortPosts(allProjects).slice(0, 4).map((project) => {
@@ -83,23 +93,14 @@ const footerProps = {
         };
       }),
       'title': 'Projects'
-    },
-    {
-      'links': [
-        { 'href': '/about', 'label': 'Summary' },
-        { 'href': '/press', 'label': 'Press' },
-        { 'href': '/blog/publications', 'label': 'Publications' }
-      ],
-      'title': 'About'
     }
   ],
   'socialLinks': [
-    { 'href': `mailto:${siteMetadata.email}`, 'kind': 'mail' },
     { 'href': siteMetadata.github, 'kind': 'github' },
-    { 'href': siteMetadata.youtube, 'kind': 'youtube' },
     { 'href': siteMetadata.linkedin, 'kind': 'linkedin' },
     { 'href': siteMetadata.twitter, 'kind': 'twitter' }
-  ]
+  ],
+  'variant': 'editorial'
 };
 
 /**

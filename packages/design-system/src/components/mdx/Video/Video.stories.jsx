@@ -1,10 +1,10 @@
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 
-import HeroVideoDialog from './HeroVideoDialog';
 import * as componentModule from './index';
+import Video from './Video';
 
-const componentDocs = getComponentDocs('MDX/HeroVideoDialog');
+const componentDocs = getComponentDocs('MDX/Video');
 
 const sharedArgs = {
   'thumbnailAlt': 'Knowledge graph article video preview',
@@ -25,7 +25,7 @@ export default {
     ...sharedArgs,
     'animationStyle': 'from-center'
   },
-  component: HeroVideoDialog,
+  component: Video,
   parameters: {
     docs: {
       description: {
@@ -35,11 +35,11 @@ export default {
     }
   },
   tags: [ 'autodocs' ],
-  title: 'MDX/HeroVideoDialog'
+  title: 'MDX/Video'
 };
 
 export const Example = {
-  'render': () => renderComponentExample('MDX/HeroVideoDialog', componentModule)
+  'render': () => renderComponentExample('MDX/Video', componentModule)
 };
 
 export const AnimationStyles = {
@@ -53,7 +53,7 @@ export const AnimationStyles = {
       ].map((animationStyle) => (
         <div key={ animationStyle } className='space-y-2'>
           <p className='text-sm font-semibold text-gray-700 dark:text-gray-200'>{animationStyle}</p>
-          <HeroVideoDialog { ...sharedArgs } animationStyle={ animationStyle } title={ `Video dialog: ${animationStyle}` } />
+          <Video { ...sharedArgs } animationStyle={ animationStyle } title={ `Video dialog: ${animationStyle}` } />
         </div>
       ))}
     </div>

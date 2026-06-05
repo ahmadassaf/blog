@@ -1,6 +1,10 @@
 import { useState } from 'react';
 
+import CitationPopoverRuntime from '../../src/components/mdx/CitationPopover';
+import CitationTrackerRuntime from '../../src/components/mdx/CitationTracker';
 import { Button } from '../../src/index';
+
+import mdxContentStyles from '../../src/components/mdx/MdxContent/MdxContent.module.css';
 
 const categories = [
   { 'description': 'Posts about applied AI systems and product engineering.', 'id': 'ai-engineering', 'title': 'ai-engineering' },
@@ -96,11 +100,6 @@ const fileTreeData = [
   { 'name': 'package.json' }
 ];
 
-const stats = [
-  { 'change': '14%', 'changeType': 'increase', 'name': 'Coverage', 'previousStat': '72', 'stat': '88' },
-  { 'change': '6%', 'changeType': 'decrease', 'name': 'Drift', 'previousStat': '11%', 'stat': '5%' }
-];
-
 const chartData = [
   { 'label': 'Mon', 'readTime': 6, 'subscribers': 8, 'views': 124 },
   { 'label': 'Tue', 'readTime': 8, 'subscribers': 12, 'views': 168 },
@@ -117,7 +116,7 @@ const ExampleFrame = ({ children, width = 'max-w-3xl' }) => (
 
 const MdxArticleFrame = ({ children }) => (
   <ExampleFrame width='max-w-4xl'>
-    <article className='space-y-6 text-[15px] leading-7 text-gray-700 dark:text-gray-300'>
+    <article className={ `${mdxContentStyles.root} space-y-6 text-[15px] leading-7 text-gray-700 dark:text-gray-300` }>
       <div className='space-y-2 border-b border-gray-200 pb-4 dark:border-gray-800'>
         <p className='text-xs font-semibold uppercase tracking-[0.12em] text-gray-500 dark:text-gray-400'>MDX article output</p>
         <h2 className='text-2xl font-bold leading-tight text-gray-950 dark:text-white'>References in editorial prose</h2>
@@ -131,10 +130,10 @@ const MdxArticleFrame = ({ children }) => (
 );
 
 const CitationMarker = ({ id, href, keys, numbers, texts }) => (
-  <sup className='mx-1 inline align-[0.45em] text-[0.55em] leading-none'>
+  <sup>
     <a
       id={ id }
-      className='citation-link citation-group inline-flex min-h-[1.45em] min-w-[1.45em] items-center justify-center gap-[0.28em] rounded-full bg-blue-600 px-[0.42em] font-bold leading-none text-white no-underline hover:-translate-y-px hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:bg-blue-400 dark:text-gray-950 dark:hover:bg-blue-300'
+      className={ `citation-link ${numbers.length > 1 ? 'citation-group' : ''}` }
       href={ href }
       data-citation-popover='true'
       data-citation-keys={ JSON.stringify(keys) }
@@ -176,7 +175,19 @@ const OpenState = ({ children, initial = true }) => {
   return children(open, setOpen);
 };
 
-const componentOf = (componentModule) => componentModule.default || componentModule.Pagination || componentModule.ClientReload || null;
+const unwrapComponent = (candidate) => {
+  let component = candidate;
+  let depth = 0;
+
+  while (component && typeof component === 'object' && 'default' in component && depth < 3) {
+    component = component.default;
+    depth += 1;
+  }
+
+  return component;
+};
+
+const componentOf = (componentModule) => unwrapComponent(componentModule.default || componentModule.Pagination || componentModule.ClientReload || null);
 
 const noop = () => undefined;
 
@@ -230,19 +241,9 @@ const renderMdxExample = (name, componentModule) => {
   const Component = componentOf(componentModule);
 
   switch (name) {
-  case 'CodeGroupTabs':
-    return (
-      <ExampleFrame>
-        <Component />
-        <div className='code-group'>
-          <div className='code-group-tab' data-language='js'>JavaScript</div>
-          <pre><code>import &#123; Button &#125; from '@gaudi/design-system';</code></pre>
-        </div>
-      </ExampleFrame>
-    );
   case 'ImageModal':
     return (
-      <OpenState>
+      <OpenState initial={ false }>
         {(open, setOpen) => (
           <ExampleFrame>
             <Button type='button' onClick={ () => setOpen(true) }>Open image modal</Button>
@@ -303,6 +304,7 @@ const renderMdxExample = (name, componentModule) => {
             { 'href': '#cite-ref-story-2', 'key': 'rivera-2024', 'text': 'Rivera (2024). <strong>Editorial provenance in public knowledge systems</strong>. Web Semantics.' }
           ] }
         />
+        <CitationTrackerRuntime />
         <Component />
       </MdxArticleFrame>
     );
@@ -334,6 +336,7 @@ const renderMdxExample = (name, componentModule) => {
         </p>
         <ReferenceList references={ [{ 'href': '#cite-ref-tracker-1', 'key': 'tracker-1', 'text': 'Tracked reference used by multiple citation instances.' }] } />
         <Component />
+        <CitationPopoverRuntime />
       </MdxArticleFrame>
     );
   case 'Details':
@@ -342,7 +345,7 @@ const renderMdxExample = (name, componentModule) => {
     return <ExampleFrame><Component questions={ [{ 'answer': 'They keep repeated article explanations structured and accessible.', 'question': 'Why use FAQ blocks?' }] } /></ExampleFrame>;
   case 'FileTree':
     return <ExampleFrame><Component data={ fileTreeData } /></ExampleFrame>;
-  case 'HeroVideoDialog':
+  case 'Video':
     return (
       <ExampleFrame width='max-w-4xl'>
         <Component
@@ -386,43 +389,53 @@ const renderMdxExample = (name, componentModule) => {
   case 'Highlight':
     return <ExampleFrame><p>Use <Component>highlight</Component> for inline emphasis inside prose.</p></ExampleFrame>;
   case 'Image':
-    return <ExampleFrame><Component src='/static/images/logo.svg' alt='Blog logo' width={ 160 } height={ 160 } /></ExampleFrame>;
-  case 'InternalPreview':
-    return <ExampleFrame><p><Component href='/blog/design-systems' title='Design systems keep editorial rhythm predictable'>Internal post preview</Component></p></ExampleFrame>;
+    return <ExampleFrame><Component src='/static/images/posts/gaudi.svg' darkSrc='/static/images/posts/gaudi-dark.svg' alt='Gaudi diagram' caption='Project architecture diagram rendered as a post image.' width={ 420 } height={ 260 } /></ExampleFrame>;
   case 'LatexText':
     return <ExampleFrame><p>Ordinal text stays readable: <Component>11$^&#123;th&#125;$ International Conference</Component></p></ExampleFrame>;
   case 'Mermaid':
     return <ExampleFrame><Component id='storybook-mermaid-example' chart={ 'graph TD; A[Draft] --> B[Review]; B --> C[Publish];' } /></ExampleFrame>;
-  case 'PostImage':
-    return <ExampleFrame><Component title='gaudi' caption='Project architecture diagram rendered as a post image.' width={ 420 } height={ 260 } /></ExampleFrame>;
   case 'Pre':
     return <ExampleFrame><Component><code>{'const token = colors.blue[500];'}</code></Component></ExampleFrame>;
   case 'Preview':
-    return <ExampleFrame><Component url='https://ahmadassaf.com' title='Ahmad Assaf' showImage={ false } /></ExampleFrame>;
+    return (
+      <ExampleFrame>
+        <div className='space-y-3'>
+          <p>
+            <Component
+              url='https://assaf.website'
+              previewData={{
+                'description': 'Personal website and writing archive for Ahmad Assaf.',
+                'favicon': '/static/favicons/favicon-32x32.png',
+                'image': '/static/images/og-card.jpg',
+                'siteName': 'assaf.website',
+                'title': 'assaf.website',
+                'type': 'website'
+              }}
+            />
+          </p>
+          <p><Component url='https://this-link-will-not-work.invalid' title='Unavailable link' showImage={ false } /></p>
+          <p>
+            <Component
+              defaultOpen
+              internal
+              url='/blog'
+              previewData={{
+                'category': 'engineering',
+                'description': 'Browse the latest posts, projects, and notes from the blog archive.',
+                'publishedTime': '2026-06-05',
+                'readingTime': '8 min read',
+                'siteName': 'Internal',
+                'tags': [ 'design systems', 'mdx', 'preview' ],
+                'title': 'Internal blog link',
+                'type': 'internal'
+              }}
+            />
+          </p>
+        </div>
+      </ExampleFrame>
+    );
   case 'Quote':
     return <ExampleFrame><Component text='Good component systems make product code calmer.' author='Design System' title='Internal principle' /></ExampleFrame>;
-  case 'ReferencePopover':
-    return (
-      <MdxArticleFrame>
-        <p>
-          Legacy references now use the same citation popover behavior, so old MDX output remains supported
-          <CitationMarker
-            id='cite-ref-reference-1'
-            href='#citation-reference-1'
-            keys={ [ 'reference-1' ] }
-            numbers={ [ 1 ] }
-            texts={ [ 'Reference metadata for the cited source. Rendered through the CitationPopover compatibility path.' ] }
-          >
-            1
-          </CitationMarker>
-          .
-        </p>
-        <ReferenceList references={ [{ 'href': '#cite-ref-reference-1', 'key': 'reference-1', 'text': 'Reference metadata for the cited source. Rendered through the CitationPopover compatibility path.' }] } />
-        <Component />
-      </MdxArticleFrame>
-    );
-  case 'Stats':
-    return <ExampleFrame><Component text='Design system coverage' stats={ stats } /></ExampleFrame>;
   case 'Table':
     return (
       <ExampleFrame>

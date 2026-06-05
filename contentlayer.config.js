@@ -81,6 +81,7 @@ export const Thought = defineDocumentType(() => {
 });
 
 export default makeSource({
+  'contentDirInclude': [ 'authors', 'blog', 'thoughts' ],
   'contentDirPath': 'data',
   'documentTypes': [ Author, Project, Post, Thought ],
   'mdx': {

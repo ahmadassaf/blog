@@ -16,9 +16,9 @@ import { Disclosure } from '@headlessui/react';
 import Icon from '@/components/core/Icon';
 
 const Details = ({ title, children, ...rest }) => (
-  <div className='mx-auto divide-y divide-gray-900/10 my-8'>
-    <h2 className='text-2xl font-bold leading-10 tracking-tight text-gray-900 dark:text-white mt-0'>{title}</h2>
-    <dl className='mt-10 space-y-6 divide-y divide-gray-900/10 dark:divide-white'>
+  <div className='mx-auto my-8'>
+    <h2 className='mt-0 border-b border-gray-900/10 pb-3 text-2xl font-bold leading-10 tracking-tight text-gray-900 dark:border-white/10 dark:text-white'>{title}</h2>
+    <dl className='mt-8 space-y-6 divide-y divide-gray-900/10 dark:divide-white/10'>
 
       <Disclosure as='div' key={ title } className='pt-6'>
         {({ open }) => (

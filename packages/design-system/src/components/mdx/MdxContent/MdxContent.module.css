@@ -87,6 +87,11 @@
   vertical-align: baseline;
 }
 
+.root :global(sup:has(a.citation-link)),
+.root :global(sup:has(a[href*='#bib-'])) {
+  top: -0.16em;
+}
+
 .root :global(sup a.footnote-link),
 .root :global(sup a[data-footnote-ref]) {
   align-items: center;
@@ -130,50 +135,77 @@
 .root :global(a.citation-link.citation-group) {
   align-items: center;
   background: #3b82f6;
-  border-radius: 999px;
+  border-radius: 50%;
   color: white !important;
   cursor: pointer;
   display: inline-flex;
-  font-size: 0.55em;
+  font-size: 9px;
   font-weight: 700;
-  gap: 0.28em;
-  height: 1.45em;
+  gap: 3px;
+  height: 17px;
   justify-content: center;
   line-height: 1;
-  margin: 0 0.22em;
-  min-height: 1.45em;
-  min-width: 1.45em;
-  padding: 0 0.42em;
+  margin: 0 2px;
+  min-height: 17px;
+  min-width: 17px;
+  padding: 0 2px;
   position: relative;
   scroll-margin-top: 50px;
   text-decoration: none !important;
-  transition: all 0.2s;
-  vertical-align: 0.45em;
-  width: auto;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  vertical-align: baseline;
+  width: 17px;
 }
 
 .root :global(a.citation-link:not(.citation-group)),
 .root :global(a[href*='#bib-']:not(.citation-group)) {
-  border-radius: 50%;
-  padding: 0;
-  width: 1.45em;
+  width: 17px;
 }
 
 .root :global(a.citation-link.citation-group) {
-  white-space: nowrap;
-  word-spacing: normal;
+  background: transparent;
+  border-radius: 0;
+  gap: 3px;
+  height: auto;
+  margin: 0 3px;
+  min-height: 0;
+  min-width: 0;
+  width: auto;
+}
+
+.root :global(a.citation-link.citation-group span) {
+  align-items: center;
+  background: #3b82f6;
+  border-radius: 50%;
+  color: white;
+  display: inline-flex;
+  font-size: 9px;
+  height: 17px;
+  justify-content: center;
+  line-height: 1;
+  min-width: 17px;
+  padding: 0 2px;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  width: 17px;
 }
 
 .root :global(.citation-cluster) {
   display: inline-flex;
-  gap: 0.4rem;
+  gap: 1px;
   line-height: 1;
-  margin: 0 2px;
-  vertical-align: super;
+  margin: 0;
+  vertical-align: baseline;
 }
 
 .root :global(.citation-cluster sup) {
   line-height: 1;
+}
+
+.root :global(td a.citation-link.citation-group),
+.root :global(th a.citation-link.citation-group) {
+  gap: 2px;
+  margin: 0 2px;
 }
 
 .root :global(a.citation-link:hover),
@@ -182,9 +214,20 @@
   text-decoration: none !important;
 }
 
-.root :global(a.citation-link:not(.citation-group):hover),
-.root :global(a[href*='#bib-']:not(.citation-group):hover),
 .root :global(a.citation-link.citation-group:hover) {
+  background: transparent;
+}
+
+.root :global(a.citation-link.citation-group:hover span) {
+  background: #2563eb;
+}
+
+.root :global(a.citation-link:not(.citation-group):hover),
+.root :global(a[href*='#bib-']:not(.citation-group):hover) {
+  transform: translateY(-1px);
+}
+
+.root :global(a.citation-link.citation-group:hover span) {
   transform: translateY(-1px);
 }
 
@@ -194,8 +237,25 @@
   color: #111827 !important;
 }
 
+:global(.dark) .root :global(a.citation-link.citation-group) {
+  background: transparent;
+}
+
+:global(.dark) .root :global(a.citation-link.citation-group span) {
+  background: #60a5fa;
+  color: #111827;
+}
+
 :global(.dark) .root :global(a.citation-link:hover),
 :global(.dark) .root :global(a[href*='#bib-']:hover) {
+  background: #93c5fd;
+}
+
+:global(.dark) .root :global(a.citation-link.citation-group:hover) {
+  background: transparent;
+}
+
+:global(.dark) .root :global(a.citation-link.citation-group:hover span) {
   background: #93c5fd;
 }
 

@@ -22,6 +22,7 @@ const memoryCache = new Map();
 
 // 1 hour
 const CACHE_TTL = 3600000;
+const REQUEST_TIMEOUT = 15000;
 
 /**
  * Simple cache implementation
@@ -72,6 +73,31 @@ const cache = {
     }
   }
 };
+
+function getHostname(url) {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
+  }
+}
+
+function createErrorData(url, {
+  errorMessage,
+  status = 404
+}) {
+  return {
+    'error': true,
+    errorMessage,
+    status,
+    'title': getHostname(url),
+    url
+  };
+}
+
+function isAbortError(error) {
+  return error?.name === 'AbortError' || error?.code === 20;
+}
 
 /**
  * Checks if a URL is a YouTube video URL
@@ -301,28 +327,28 @@ export async function GET(request) {
 
     const controller = new AbortController();
 
-    // 10 second timeout
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
 
-    const response = await fetch(url, {
-      'headers': {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'User-Agent': 'Mozilla/5.0 (compatible; PreviewBot/1.0)'
-      },
-      'signal': controller.signal
-    });
+    let response;
 
-    clearTimeout(timeoutId);
+    try {
+      response = await fetch(url, {
+        'headers': {
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'User-Agent': 'Mozilla/5.0 (compatible; PreviewBot/1.0)'
+        },
+        'signal': controller.signal
+      });
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     // Handle non-OK responses gracefully instead of throwing
     if (!response.ok) {
-      const errorData = {
-        'error': true,
+      const errorData = createErrorData(url, {
         'errorMessage': `HTTP ${response.status}: ${response.statusText || 'Not Found'}`,
-        'status': response.status,
-        'title': new URL(url).hostname,
-        'url': url
-      };
+        'status': response.status
+      });
 
       // Cache the error result to prevent repeated failed requests
       await cache.set(cacheKey, errorData);
@@ -341,34 +367,30 @@ export async function GET(request) {
     return NextResponse.json(data, { 'status': 200 });
 
   } catch (error) {
-    console.error('Preview API error:', error);
-
     let errorData;
 
     // Handle different types of errors appropriately
-    if (error.name === 'AbortError')
-      errorData = {
-        'error': true,
+    if (isAbortError(error)) {
+      console.warn(`Preview API timeout after ${REQUEST_TIMEOUT}ms: ${url}`);
+      errorData = createErrorData(url, {
         'errorMessage': 'Request timeout',
-        'status': 504,
-        'title': new URL(url).hostname,
-        'url': url
-      };
-    else
-      errorData = {
-        'error': true,
+        'status': 504
+      });
+    } else {
+      console.error('Preview API error:', error);
+      errorData = createErrorData(url, {
         'errorMessage': error.message || 'Failed to fetch preview',
-        'status': error.status || 404,
-        'title': new URL(url).hostname,
-        'url': url
-      };
+        'status': error.status || 404
+      });
+    }
 
     // Cache error responses to prevent repeated failed requests
-    try {
-      await cache.set(cacheKey, errorData);
-    } catch (cacheError) {
-      console.error('Failed to cache error response:', cacheError);
-    }
+    if (!isAbortError(error))
+      try {
+        await cache.set(cacheKey, errorData);
+      } catch (cacheError) {
+        console.error('Failed to cache error response:', cacheError);
+      }
 
     // Always return 200 with error data for consistent client-side handling
     return NextResponse.json(errorData, { 'status': 200 });

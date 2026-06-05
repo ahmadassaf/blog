@@ -71,12 +71,12 @@ const config = {
         ...viteConfig.resolve,
         'alias': [
           {
-            'find': /^lodash\/(?<path>.+)\.js$/,
-            'replacement': `${lodashEsDir}/$<path>.js`
+            'find': /^lodash\/(.+)\.js$/,
+            'replacement': `${lodashEsDir}/$1.js`
           },
           {
-            'find': /^lodash\/(?<path>.+)$/,
-            'replacement': `${lodashEsDir}/$<path>.js`
+            'find': /^lodash\/(.+)$/,
+            'replacement': `${lodashEsDir}/$1.js`
           },
           {
             'find': /^recharts$/,

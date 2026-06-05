@@ -44,15 +44,24 @@ const preview = {
             'Indicators'
           ],
           'Core',
+          [ 'Overview', '*' ],
           'Blocks',
           'Content',
+          [ 'Overview', '*' ],
           'Command',
+          [ 'Overview', '*' ],
           'MDX',
+          [ 'Overview', '*' ],
           'Navigation',
+          [ 'Overview', '*' ],
           'Post',
+          [ 'Overview', '*' ],
           'Layout',
+          [ 'Overview', '*' ],
           'Forms',
-          'Utilities'
+          [ 'Overview', '*' ],
+          'Utilities',
+          [ 'Overview', '*' ]
         ]
       }
     }

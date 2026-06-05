@@ -13,9 +13,13 @@ import { CodeGroupTabs } from '@gaudi/design-system';
 import { LayoutContainer } from '@gaudi/design-system/layout';
 import { CitationTracker } from '@gaudi/design-system/mdx';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { allProjects } from 'contentlayer/generated';
 import { Inter } from 'next/font/google';
 
+import categories from '@/app/content/categories';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
+import siteMetadata from '@/data/meta/metadata';
+import { sortPosts } from '@/lib/utils/contentlayer';
 
 import '@gaudi/design-system/global.css';
 import 'katex/dist/katex.css';
@@ -59,6 +63,45 @@ export function generateViewport() {
 // eslint-disable-next-line quote-props, sort-keys, sort-keys-fix/sort-keys-fix
 export const font = Inter({ subsets: [ 'latin' ], weight: [ '400', '500', '600', '700', '800' ], variable: '--font-space-inter' });
 
+const footerProps = {
+  'copyrightName': siteMetadata.author,
+  'sections': [
+    {
+      'links': categories.slice(0, 4).reverse().map((category) => {
+        return {
+          'href': category.href,
+          'label': category.title.replace('-', ' ')
+        };
+      }),
+      'title': 'Categories'
+    },
+    {
+      'links': sortPosts(allProjects).slice(0, 4).map((project) => {
+        return {
+          'href': project.path,
+          'label': project.title
+        };
+      }),
+      'title': 'Projects'
+    },
+    {
+      'links': [
+        { 'href': '/about', 'label': 'Summary' },
+        { 'href': '/press', 'label': 'Press' },
+        { 'href': '/blog/publications', 'label': 'Publications' }
+      ],
+      'title': 'About'
+    }
+  ],
+  'socialLinks': [
+    { 'href': `mailto:${siteMetadata.email}`, 'kind': 'mail' },
+    { 'href': siteMetadata.github, 'kind': 'github' },
+    { 'href': siteMetadata.youtube, 'kind': 'youtube' },
+    { 'href': siteMetadata.linkedin, 'kind': 'linkedin' },
+    { 'href': siteMetadata.twitter, 'kind': 'twitter' }
+  ]
+};
+
 /**
  * Root layout component that wraps all pages in the application
  *
@@ -92,7 +135,7 @@ export default function RootLayout({ children }) {
       <body>
         <CodeGroupTabs />
         <CitationTracker />
-        <LayoutContainer>
+        <LayoutContainer footerProps={ footerProps }>
           {children}
         </LayoutContainer>
         <SpeedInsights />

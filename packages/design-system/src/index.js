@@ -88,11 +88,9 @@ export { Accordion,
   TextHighlight,
   textHighlightVariants } from './components/core';
 export { default as ArticleContentLayout } from './components/layout/ArticleContentLayout';
-export { default as SectionContainer } from './components/layout/SectionContainer';
 export { default as Video, videoAnimationStyles } from './components/mdx/Video';
 export { default as Disclaimer } from './components/post/Disclaimer';
 export { default as Post } from './components/post/Post';
-export { default as PostComments } from './components/post/PostComments';
 export { default as PostHeader } from './components/post/PostHeader';
 export { default as PostNavigation } from './components/post/PostNavigation';
 export { default as TableOfContents } from './components/post/TableOfContents';

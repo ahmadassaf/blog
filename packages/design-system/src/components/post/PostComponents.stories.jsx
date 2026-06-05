@@ -4,9 +4,7 @@ import Breadcrumbs from './Breadcrumbs';
 import Disclaimer from './Disclaimer';
 import PostHeader, { PostTimestamps } from './PostHeader';
 import PostNavigation from './PostNavigation';
-import PostSeriesBox from './PostSeriesBox';
 import PostSharing from './PostSharing';
-import TableOfContents from './TableOfContents';
 
 const componentDocs = getComponentDocs('Post/Overview');
 
@@ -40,13 +38,45 @@ const frontMatter = {
 const toc = [
   {
     'children': [
-      { 'children': [], 'depth': 2, 'id': 'tokens', 'url': '#tokens', 'value': 'Tokens' },
-      { 'children': [], 'depth': 2, 'id': 'components', 'url': '#components', 'value': 'Components' }
+      { 'children': [], 'depth': 2, 'id': 'design-tokens', 'url': '#design-tokens', 'value': 'Design tokens' },
+      { 'children': [], 'depth': 2, 'id': 'semantic-scales', 'url': '#semantic-scales', 'value': 'Semantic scales' }
     ],
     'depth': 1,
     'id': 'foundations',
     'url': '#foundations',
     'value': 'Foundations'
+  },
+  {
+    'children': [
+      { 'children': [], 'depth': 2, 'id': 'component-contracts', 'url': '#component-contracts', 'value': 'Component contracts' },
+      { 'children': [], 'depth': 2, 'id': 'composition-rules', 'url': '#composition-rules', 'value': 'Composition rules' }
+    ],
+    'depth': 1,
+    'id': 'components',
+    'url': '#components',
+    'value': 'Components'
+  },
+  {
+    'children': [
+      { 'children': [], 'depth': 2, 'id': 'keyboard-flow', 'url': '#keyboard-flow', 'value': 'Keyboard flow' },
+      { 'children': [], 'depth': 2, 'id': 'semantic-html', 'url': '#semantic-html', 'value': 'Semantic HTML' }
+    ],
+    'depth': 1,
+    'id': 'accessibility',
+    'url': '#accessibility',
+    'value': 'Accessibility'
+  },
+  {
+    'children': [
+      { 'children': [], 'depth': 2, 'id': 'mdx-registry', 'url': '#mdx-registry', 'value': 'MDX registry' },
+      { 'children': [], 'depth': 2, 'id': 'storybook-coverage', 'url': '#storybook-coverage', 'value': 'Storybook coverage' },
+      { 'children': [], 'depth': 2, 'id': 'release-checks', 'url': '#release-checks', 'value': 'Release checks' },
+      { 'children': [], 'depth': 2, 'id': 'documentation', 'url': '#documentation', 'value': 'Documentation' }
+    ],
+    'depth': 1,
+    'id': 'implementation',
+    'url': '#implementation',
+    'value': 'Implementation'
   }
 ];
 
@@ -65,7 +95,7 @@ export default {
 
 export const Header = {
   'render': () => (
-    <div className='max-w-4xl p-6'>
+    <div className='max-w-5xl p-6'>
       <PostHeader frontMatter={ frontMatter } siteMetadata={ siteMetadata } toc={ toc } />
     </div>
   )
@@ -91,22 +121,6 @@ export const NavigationAndSharing = {
         next={{ 'slug': 'next-post', title: 'Next post title' }}
       />
       <Disclaimer />
-    </div>
-  )
-};
-
-export const SeriesAndToc = {
-  'render': () => (
-    <div className='grid max-w-5xl grid-cols-1 gap-8 p-6 xl:grid-cols-4'>
-      <div className='xl:col-span-3'>
-        <PostSeriesBox series={ series } slug='components' />
-      </div>
-      <TableOfContents toc={ toc } />
-      <div className='hidden'>
-        <h2 id='foundations'>Foundations</h2>
-        <h3 id='tokens'>Tokens</h3>
-        <h3 id='components'>Components</h3>
-      </div>
     </div>
   )
 };

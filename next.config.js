@@ -116,9 +116,11 @@ module.exports = () => {
         '@/components': path.join(designSystemSrcDir, 'components'),
         '@/css': path.join(designSystemSrcDir, 'styles'),
         '@/data': path.join(rootDir, 'data'),
+        '@/foundations': path.join(designSystemSrcDir, 'foundations'),
         '@/layouts': path.join(rootDir, 'layouts'),
         '@/lib': path.join(rootDir, 'lib'),
-        '@/public': path.join(rootDir, 'public')
+        '@/public': path.join(rootDir, 'public'),
+        '@/utilities': path.join(designSystemSrcDir, 'utilities')
       };
       config.resolve.alias['contentlayer/generated'] = path.join(rootDir, '.contentlayer/generated');
 

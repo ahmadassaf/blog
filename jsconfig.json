@@ -4,6 +4,8 @@
     "paths": {
       "contentlayer/generated": ["./.contentlayer/generated"],
       "@/components/*": ["node_modules/@gaudi/design-system/src/components/*"],
+      "@/foundations/*": ["node_modules/@gaudi/design-system/src/foundations/*"],
+      "@/utilities/*": ["node_modules/@gaudi/design-system/src/utilities/*"],
       "@/data/*": ["data/*"],
       "@/app/*": ["app/*"],
       "@/layouts/*": ["layouts/*"],

@@ -16,7 +16,7 @@ importers:
         version: 5.2.8
       '@gaudi/design-system':
         specifier: github:ahmadassaf/design-system#main
-        version: https://codeload.github.com/ahmadassaf/design-system/tar.gz/a6d6a65583f3efc4f8aa280c05eca3f9dbda0770(542ff6396db43317ef576fcfb7548e49)
+        version: https://codeload.github.com/ahmadassaf/design-system/tar.gz/1a9afb53c4b985339775b863be88e421ecff3e85(542ff6396db43317ef576fcfb7548e49)
       '@giscus/react':
         specifier: ^3.1.0
         version: 3.1.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -1294,8 +1294,8 @@ packages:
   '@fontsource-variable/inter@5.2.8':
     resolution: {integrity: sha512-kOfP2D+ykbcX/P3IFnokOhVRNoTozo5/JxhAIVYLpea/UBmCQ/YWPBfWIDuBImXX/15KH+eKh4xpEUyS2sQQGQ==}
 
-  '@gaudi/design-system@https://codeload.github.com/ahmadassaf/design-system/tar.gz/a6d6a65583f3efc4f8aa280c05eca3f9dbda0770':
-    resolution: {gitHosted: true, integrity: sha512-umkkbzKon14WEPVGB18wthkiT/OnELChld4aCOMQ5rUf3nnaGKar/HiRuXQnYXM6DtiKK48W5bbmxI9MBAhJaA==, tarball: https://codeload.github.com/ahmadassaf/design-system/tar.gz/a6d6a65583f3efc4f8aa280c05eca3f9dbda0770}
+  '@gaudi/design-system@https://codeload.github.com/ahmadassaf/design-system/tar.gz/1a9afb53c4b985339775b863be88e421ecff3e85':
+    resolution: {gitHosted: true, integrity: sha512-rXh9t23JT+ZT7i0YN+Gms89AMPw+nJorSwfsW0PDN7iiGDzINcqeHFDED2ofXbfJTMdq9UBNxQK5sDOW1IXpaQ==, tarball: https://codeload.github.com/ahmadassaf/design-system/tar.gz/1a9afb53c4b985339775b863be88e421ecff3e85}
     version: 0.1.0
     peerDependencies:
       '@headlessui/react': ^1.7.19
@@ -9438,7 +9438,7 @@ snapshots:
 
   '@fontsource-variable/inter@5.2.8': {}
 
-  '@gaudi/design-system@https://codeload.github.com/ahmadassaf/design-system/tar.gz/a6d6a65583f3efc4f8aa280c05eca3f9dbda0770(542ff6396db43317ef576fcfb7548e49)':
+  '@gaudi/design-system@https://codeload.github.com/ahmadassaf/design-system/tar.gz/1a9afb53c4b985339775b863be88e421ecff3e85(542ff6396db43317ef576fcfb7548e49)':
     dependencies:
       '@headlessui/react': 1.7.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@heroicons/react': 2.2.0(react@19.2.0)

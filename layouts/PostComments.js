@@ -1,10 +1,11 @@
 'use client';
 
+import { Skeleton } from '@gaudi/design-system';
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 
 const Giscus = dynamic(() => import('@giscus/react'), {
-  'loading': () => <div className='h-32 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800' />,
+  'loading': () => <Skeleton className='h-32' />,
   'ssr': false
 });
 

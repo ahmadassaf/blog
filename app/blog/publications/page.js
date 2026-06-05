@@ -82,7 +82,7 @@ export default function Projects({ className }) {
 export const PublicationCard = ({ publication }) => (
   <Card interactive className='h-full' variant='outline'>
     <article className='flex h-full flex-col'>
-      <div className='flex items-center gap-2 mb-3 text-sm'>
+      <div className='flex items-center gap-2 mb-3'>
         {publication.venueType && (
           <Pill tone='yellow' variant='soft' size='xs'>
             {publication.venueType}
@@ -103,7 +103,7 @@ export const PublicationCard = ({ publication }) => (
         {publication.venue}
       </Typography>
 
-      <Typography variant='metadata' className='normal-case tracking-normal'>
+      <Typography variant='paragraph-sm'>
         {publication.authors}
       </Typography>
     </article>

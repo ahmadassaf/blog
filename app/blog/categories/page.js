@@ -86,9 +86,7 @@ export default function Categories() {
         <div className='space-y-12'>
           {categoriesWithPosts.map((category, index) => (
             <section key={ category.id }>
-              {index > 0 && viewMode === 'list' && (
-                <div className='border-t border-gray-100 dark:border-gray-800 mb-12' />
-              )}
+              {index > 0 && viewMode === 'list' ? <div className='mb-12' /> : null}
               <div className='mb-2 flex items-center justify-between'>
                 <div className='flex items-center gap-3'>
                   <Typography variant='heading-md' as='h2' className='capitalize'>
@@ -202,10 +200,10 @@ const PostSummaryCard = ({ post }) => (
             'year': 'numeric'
           })}
         </Typography>
-        <span className='inline-flex items-center gap-1 text-xs font-medium text-gray-500 dark:text-gray-400'>
+        <Typography as='span' variant='metadata' className='inline-flex items-center gap-1'>
           Read
           <Icon name='ChevronRight' size='xs' decorative />
-        </span>
+        </Typography>
       </div>
     </article>
   </Card>

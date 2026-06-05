@@ -97,7 +97,7 @@ export default function Tags() {
 
           <div className='relative mb-8'>
             <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
-              <Icon name='Search' size='sm' decorative className='text-gray-400' />
+              <Icon name='Search' size='sm' decorative />
             </div>
             <FieldInput
               type='text'
@@ -140,13 +140,13 @@ export default function Tags() {
             onClick={ closeSidebar }
           />
 
-          <div className='absolute right-0 top-0 h-full w-full max-w-lg bg-white shadow-lg dark:bg-gray-900'>
+          <Card variant='outline' radius='none' padding='none' className='absolute right-0 top-0 h-full w-full max-w-lg shadow-lg'>
             <div className='flex h-full flex-col'>
-              <div className='border-b border-gray-200 p-6 dark:border-gray-700'>
+              <Card variant='flat' radius='none' className='border-x-0 border-t-0 p-6'>
                 <div className='flex items-center justify-between'>
                   <div>
                     <div className='flex items-center gap-2'>
-                      <Icon name='Tags' size='md' decorative className='text-gray-600 dark:text-gray-400' />
+                      <Icon name='Tags' size='md' decorative />
                       <Typography variant='heading-sm' as='h2'>
                         {selectedTag?.display}
                       </Typography>
@@ -165,7 +165,7 @@ export default function Tags() {
                     <Icon name='X' size='md' decorative />
                   </Button>
                 </div>
-              </div>
+              </Card>
 
               <div className='flex-1 overflow-y-auto'>
                 {loading && (
@@ -179,7 +179,7 @@ export default function Tags() {
                   </div>
                 )}
                 {!loading && tagPosts.length > 0 && (
-                  <div className='divide-y divide-gray-100 dark:divide-gray-800'>
+                  <div>
                     {tagPosts.map((post) => (
                       <Link
                         key={ post.slug }
@@ -195,7 +195,7 @@ export default function Tags() {
                 )}
               </div>
 
-              <div className='border-t border-gray-200 p-6 dark:border-gray-700'>
+              <Card variant='flat' radius='none' className='border-x-0 border-b-0 p-6'>
                 <Button
                   href={ `/blog/tags/${selectedTag?.slug}` }
                   onClick={ closeSidebar }
@@ -205,9 +205,9 @@ export default function Tags() {
                 >
                   View All Articles →
                 </Button>
-              </div>
+              </Card>
             </div>
-          </div>
+          </Card>
         </div>
       )}
     </>
@@ -242,10 +242,10 @@ const PostSummary = ({ post }) => (
           'year': 'numeric'
         })}
       </Typography>
-      <span className='inline-flex items-center gap-1 text-xs font-medium text-gray-500 dark:text-gray-400'>
+      <Typography as='span' variant='metadata' className='inline-flex items-center gap-1'>
         Read
         <Icon name='ChevronRight' size='xs' decorative />
-      </span>
+      </Typography>
     </div>
   </article>
 );

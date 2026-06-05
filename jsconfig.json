@@ -3,13 +3,13 @@
     "baseUrl": ".",
     "paths": {
       "contentlayer/generated": ["./.contentlayer/generated"],
-      "@/components/*": ["packages/design-system/src/components/*"],
+      "@/components/*": ["node_modules/@gaudi/design-system/src/components/*"],
       "@/data/*": ["data/*"],
       "@/app/*": ["app/*"],
       "@/layouts/*": ["layouts/*"],
       "@/lib/*": ["lib/*"],
-      "@gaudi/design-system": ["packages/design-system/src/index.js"],
-      "@gaudi/design-system/*": ["packages/design-system/src/*"],
+      "@gaudi/design-system": ["node_modules/@gaudi/design-system/src/index.js"],
+      "@gaudi/design-system/*": ["node_modules/@gaudi/design-system/src/*"],
       "@/public/*": ["public/*"],
     }  
   },

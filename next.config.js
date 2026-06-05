@@ -1,7 +1,12 @@
+const path = require('node:path');
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   'enabled': process.env.ANALYZE === 'true'
 });
 const { withContentlayer } = require('next-contentlayer2');
+
+const rootDir = process.cwd();
+const designSystemSrcDir = path.join(rootDir, 'node_modules/@gaudi/design-system/src');
 
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
@@ -65,7 +70,7 @@ module.exports = () => {
 
   return plugins.reduce((acc, next) => next(acc), {
     'eslint': {
-      'dirs': [ 'app', 'layouts', 'packages/design-system/src/components', 'scripts' ]
+      'dirs': [ 'app', 'layouts', 'scripts' ]
     },
     'experimental': {
       'optimizePackageImports': [ '@radix-ui/themes', 'framer-motion', '@tabler/icons-react', '@heroicons/react', 'react-icons' ]
@@ -105,6 +110,18 @@ module.exports = () => {
       }
     },
     'webpack': (config, { dev, isServer }) => {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@/app': path.join(rootDir, 'app'),
+        '@/components': path.join(designSystemSrcDir, 'components'),
+        '@/css': path.join(designSystemSrcDir, 'styles'),
+        '@/data': path.join(rootDir, 'data'),
+        '@/layouts': path.join(rootDir, 'layouts'),
+        '@/lib': path.join(rootDir, 'lib'),
+        '@/public': path.join(rootDir, 'public')
+      };
+      config.resolve.alias['contentlayer/generated'] = path.join(rootDir, '.contentlayer/generated');
+
       config.module.rules.push({
         'test': /\.svg$/,
         'use': [ '@svgr/webpack' ]

@@ -59,15 +59,16 @@ export default function ListLayout({ className, hideTitle }) {
         <article className='mx-auto w-full group'>
           <div className='mb-4 flex items-center gap-3'>
             <Pill tone='blue' variant='solid' radius='full' size='sm'>Featured</Pill>
-            <time
+            <Typography
+              as='time'
+              variant='metadata'
               dateTime={ formatDate(featuredPost.date) }
-              className='text-sm font-medium text-gray-600 dark:text-gray-400'
             >
               {formatDate(featuredPost.date)}
-            </time>
+            </Typography>
             {featuredPost.category && (
               <>
-                <span className='text-gray-300 dark:text-gray-600'>•</span>
+                <Typography as='span' variant='metadata'>•</Typography>
                 <Pill tone='blue' variant='subtle' size='sm' className='capitalize'>
                   {featuredPost.category}
                 </Pill>
@@ -80,7 +81,6 @@ export default function ListLayout({ className, hideTitle }) {
               href={ `/blog/${featuredPost.slug}` }
               variant='inline'
               tone='neutral'
-              className='font-bold'
             >
               {featuredPost.title}
             </Link>
@@ -117,15 +117,16 @@ export default function ListLayout({ className, hideTitle }) {
             {displayPosts.map((post) => (
               <article key={ post.slug } className='group'>
                 <div className='mb-3 flex items-center gap-3'>
-                  <time
+                  <Typography
+                    as='time'
+                    variant='metadata'
                     dateTime={ post.datetime }
-                    className='text-sm font-medium text-gray-500 dark:text-gray-400'
                   >
                     {formatDate(post.date)}
-                  </time>
+                  </Typography>
                   {post.category && (
                     <>
-                      <span className='text-gray-300 dark:text-gray-600'>•</span>
+                      <Typography as='span' variant='metadata'>•</Typography>
                       <Pill tone='blue' variant='subtle' size='sm' className='capitalize'>
                         {post.category}
                       </Pill>
@@ -134,7 +135,7 @@ export default function ListLayout({ className, hideTitle }) {
                 </div>
 
                 <Typography variant='heading-md' as='h2' className='mb-3'>
-                  <Link href={ `/blog/${post.slug}` } tone='neutral' className='font-bold'>
+                  <Link href={ `/blog/${post.slug}` } tone='neutral'>
                     {post.title}
                   </Link>
                 </Typography>

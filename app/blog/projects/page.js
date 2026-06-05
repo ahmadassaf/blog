@@ -70,7 +70,7 @@ export const ProjectCard = ({ project }) => (
         {project.subtitle}
       </Typography>
 
-      <div className='flex items-center gap-3 text-xs text-gray-400 dark:text-gray-500'>
+      <Typography as='div' variant='metadata' className='flex items-center gap-3'>
         <div className='flex items-center gap-1'>
           <Icon name='Star' size='xs' decorative />
           <span>{project.meta.stargazers_count}</span>
@@ -84,7 +84,7 @@ export const ProjectCard = ({ project }) => (
             {project.meta.language}
           </Pill>
         )}
-      </div>
+      </Typography>
     </article>
   </Card>
 );

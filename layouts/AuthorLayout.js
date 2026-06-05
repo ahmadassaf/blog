@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import { Typography } from '@gaudi/design-system';
+import { ArticleContentLayout, Typography } from '@gaudi/design-system';
 
 /**
  * Author page layout with header and content sections
@@ -31,16 +31,14 @@ export default function AuthorLayout({ content, children }) {
 
   return (
     <>
-      <div className='divide-y divide-gray-200 dark:divide-gray-700'>
+      <div>
         <div className='space-y-2 pt-6 pb-8 md:space-y-5'>
           <Typography variant='author-name'>{name}</Typography>
           <Typography variant='author-role'>{occupation}</Typography>
         </div>
-        <div >
-          <div className='prose max-w-none pt-8 pb-8 dark:prose-invert xl:col-span-2'>
-            {children}
-          </div>
-        </div>
+        <ArticleContentLayout>
+          {children}
+        </ArticleContentLayout>
       </div>
     </>
   );

@@ -20,7 +20,7 @@ module.exports = {
     './data/**/*.{js,ts,jsx,tsx,mdx}',
     './layouts/**/*.{js,ts,jsx,tsx}',
     './lib/**/*.{js,ts,jsx,tsx}',
-    './packages/design-system/src/**/*.{js,jsx,mdx}'
+    './node_modules/@gaudi/design-system/src/**/*.{js,jsx,mdx}'
   ],
   'darkMode': 'class',
   'plugins': [

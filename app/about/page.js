@@ -61,30 +61,7 @@ export default function About() {
 
       <main className='isolate'>
 
-        <div className='relative isolate -z-10 max-md:hidden'>
-          <svg aria-hidden='true' className='absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 max-lg:stroke-gray-200/20 dark:stroke-gray-800 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]'>
-            <defs>
-              <pattern x='50%' y={ -1 } id='1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84' width={ 200 } height={ 200 } patternUnits='userSpaceOnUse'>
-                <path d='M.5 200V.5H200' fill='none' />
-              </pattern>
-            </defs>
-            <svg x='50%' y={ -1 } className='overflow-visible fill-blue-100 dark:fill-gray-800 max-lg:hidden'>
-              <path d='M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z' strokeWidth={ 0 } />
-            </svg>
-            <rect fill='url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)' width='100%' height='100%' strokeWidth={ 0 } />
-          </svg>
-          <div
-            aria-hidden='true'
-            className='absolute left-1/2 right-0 top-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48'
-          >
-            <div
-              style={{
-                'clipPath':
-                  'polygon(63.1% 29.5%, 100% 17.1%, 76.6% 3%, 48.4% 0%, 44.6% 4.7%, 54.5% 25.3%, 59.8% 49%, 55.2% 57.8%, 44.4% 57.2%, 27.8% 47.9%, 35.1% 81.5%, 0% 97.7%, 39.2% 100%, 35.2% 81.4%, 97.2% 52.8%, 63.1% 29.5%)'
-              }}
-              className='aspect-801/1036 w-[50.0625rem] bg-linear-to-tr from-blue-300 to-indigo-300 opacity-30'
-            />
-          </div>
+        <div>
           <div className='overflow-hidden'>
             <div className='pb-32 pt-8'>
               <div className='max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center'>
@@ -109,7 +86,7 @@ export default function About() {
                 <Typography variant='paragraph-lg'>
                 I am currently CTO at <Preview url='https://mav9.com' title='Mav9' />, where I lead technology strategy across AI, data, knowledge graphs, and product engineering. Before Mav9, as a founding engineer at <Preview url='https://beamery.com' title='Beamery' />, I had the unique opportunity to shape the company's technological journey from its inception. Starting with a hands-on approach, I transitioned into leadership roles, serving as Head of Engineering and VP of AI and Data, building the AI and Data Science functions at the core of Beamery's R&D and innovation efforts.
                 </Typography>
-                <div className='mt-10 max-w-xl text-base leading-7 text-gray-700 dark:text-white'>
+                <div className='mt-10 max-w-xl'>
                   <Typography variant='paragraph-md'>
                   As a continuous learner, I love working in collaborative environments, tackling challenging problems with my team and providing strategic leadership to achieve product-market fit and growth. I have vast expertise at aligning technology with business objectives and effectively communicating transformative and innovative strategies to the market.
                   </Typography>
@@ -121,21 +98,21 @@ export default function About() {
               <div className='lg:flex lg:flex-auto lg:justify-center'>
                 <dl className='w-auto space-y-6 xl:w-72'>
                   <div className='flex flex-col-reverse gap-y-4'>
-                    <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
-                      <Preview url='https://mav9.com' title='Mav9' className='text-lg'/>
-                    </dt>
+                    <Typography as='dt' variant='paragraph-md'>
+                      <Preview url='https://mav9.com' title='Mav9' />
+                    </Typography>
                     <Typography as='dd' variant='heading-sm'>CTO</Typography>
                   </div>
                   <div className='flex flex-col-reverse gap-y-4'>
-                    <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
-                      <Preview url='https://beamery.com' title='Beamery' className='text-lg'/>
-                    </dt>
+                    <Typography as='dt' variant='paragraph-md'>
+                      <Preview url='https://beamery.com' title='Beamery' />
+                    </Typography>
                     <Typography as='dd' variant='heading-sm'>VP AI and Data</Typography>
                   </div>
                   <div className='flex flex-col-reverse gap-y-4'>
-                    <dt className='text-base leading-7 text-gray-600 dark:text-gray-300'>
-                      <Preview url='https://sap.com' title='SAP' className='text-lg' />
-                    </dt>
+                    <Typography as='dt' variant='paragraph-md'>
+                      <Preview url='https://sap.com' title='SAP' />
+                    </Typography>
                     <Typography as='dd' variant='heading-sm'>Research Scientist</Typography>
                   </div>
                 </dl>
@@ -166,8 +143,7 @@ export default function About() {
                 padding='none'
                 classNames={{
                   'body': 'space-y-2',
-                  'subtitle': 'text-base',
-                  'title': 'flex items-center gap-2 text-xl'
+                  'title': 'flex items-center gap-2'
                 }}
               />
             ))}

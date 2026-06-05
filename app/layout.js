@@ -65,7 +65,6 @@ export const font = Inter({ subsets: [ 'latin' ], weight: [ '400', '500', '600',
 
 const footerProps = {
   'brandDescription': 'Writing about AI, semantic systems, data products, and engineering practice.',
-  'brandTitle': siteMetadata.shortname,
   'copyrightName': siteMetadata.author,
   'sections': [
     {

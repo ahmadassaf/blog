@@ -77,15 +77,121 @@ const frontMatter = {
 const toc = [
   {
     'children': [
-      { 'children': [], 'depth': 2, 'id': 'tokens', 'url': '#tokens', 'value': 'Tokens' },
-      { 'children': [], 'depth': 2, 'id': 'components', 'url': '#components', 'value': 'Components' }
+      { 'children': [], 'depth': 2, 'id': 'design-tokens', 'url': '#design-tokens', 'value': 'Design tokens' },
+      { 'children': [], 'depth': 2, 'id': 'semantic-scales', 'url': '#semantic-scales', 'value': 'Semantic scales' }
     ],
     'depth': 1,
     'id': 'foundations',
     'url': '#foundations',
     'value': 'Foundations'
+  },
+  {
+    'children': [
+      { 'children': [], 'depth': 2, 'id': 'component-contracts', 'url': '#component-contracts', 'value': 'Component contracts' },
+      { 'children': [], 'depth': 2, 'id': 'composition-rules', 'url': '#composition-rules', 'value': 'Composition rules' }
+    ],
+    'depth': 1,
+    'id': 'components',
+    'url': '#components',
+    'value': 'Components'
+  },
+  {
+    'children': [
+      { 'children': [], 'depth': 2, 'id': 'keyboard-flow', 'url': '#keyboard-flow', 'value': 'Keyboard flow' },
+      { 'children': [], 'depth': 2, 'id': 'semantic-html', 'url': '#semantic-html', 'value': 'Semantic HTML' }
+    ],
+    'depth': 1,
+    'id': 'accessibility',
+    'url': '#accessibility',
+    'value': 'Accessibility'
+  },
+  {
+    'children': [
+      { 'children': [], 'depth': 2, 'id': 'mdx-registry', 'url': '#mdx-registry', 'value': 'MDX registry' },
+      { 'children': [], 'depth': 2, 'id': 'storybook-coverage', 'url': '#storybook-coverage', 'value': 'Storybook coverage' },
+      { 'children': [], 'depth': 2, 'id': 'release-checks', 'url': '#release-checks', 'value': 'Release checks' },
+      { 'children': [], 'depth': 2, 'id': 'documentation', 'url': '#documentation', 'value': 'Documentation' }
+    ],
+    'depth': 1,
+    'id': 'implementation',
+    'url': '#implementation',
+    'value': 'Implementation'
   }
 ];
+
+const articleSections = toc.flatMap((section) => [
+  section,
+  ...section.children
+]);
+
+const sectionBody = 'Use enough article copy to make the page scroll and let the table of contents track the active heading. The example mirrors a real post instead of a bare list of hidden headings.';
+
+const layoutPosts = [
+  { 'category': 'Engineering', 'title': 'Design systems keep editorial rhythm predictable' },
+  { 'category': 'Data', 'title': 'Knowledge graphs for product teams' },
+  { 'category': 'Management', 'title': 'Decision records make teams faster' }
+];
+
+const SearchExample = ({ Component }) => {
+  const [ searchValue, setSearchValue ] = useState('');
+  const filteredPosts = layoutPosts.filter((post) => post.title.toLowerCase().includes(searchValue.toLowerCase()) || post.category.toLowerCase().includes(searchValue.toLowerCase()));
+
+  return (
+    <ExampleFrame width='max-w-2xl'>
+      <div className='space-y-5'>
+        <Component setSearchValue={ setSearchValue } />
+        <div className='divide-y divide-gray-200 rounded-lg border border-gray-200 dark:divide-gray-800 dark:border-gray-800'>
+          {filteredPosts.map((post) => (
+            <article key={ post.title } className='p-4'>
+              <p className='text-xs font-semibold uppercase tracking-[0.12em] text-gray-500 dark:text-gray-400'>{post.category}</p>
+              <h3 className='mt-1 text-base font-semibold text-gray-950 dark:text-white'>{post.title}</h3>
+            </article>
+          ))}
+          {filteredPosts.length === 0 ? (
+            <p className='p-4 text-sm text-gray-500 dark:text-gray-400'>No posts matched.</p>
+          ) : null}
+        </div>
+      </div>
+    </ExampleFrame>
+  );
+};
+
+const LayoutContainerPreview = () => (
+  <ExampleFrame width='max-w-6xl'>
+    <div className='overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950'>
+      <div className='flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-gray-800'>
+        <div className='text-sm font-semibold text-gray-950 dark:text-white'>Assaf Website</div>
+        <div className='flex gap-4 text-sm text-gray-500 dark:text-gray-400'>
+          <span>Blog</span>
+          <span>Projects</span>
+          <span>About</span>
+        </div>
+      </div>
+      <div className='grid gap-6 p-5 lg:grid-cols-[1fr_18rem]'>
+        <main className='space-y-5'>
+          <section className='rounded-lg border border-gray-200 p-5 dark:border-gray-800'>
+            <p className='text-xs font-semibold uppercase tracking-[0.12em] text-blue-600 dark:text-blue-400'>Latest post</p>
+            <h2 className='mt-2 text-3xl font-bold text-gray-950 dark:text-white'>Design systems keep editorial rhythm predictable</h2>
+            <p className='mt-3 max-w-2xl text-sm leading-6 text-gray-600 dark:text-gray-300'>The root layout frames navigation, content, background treatment, and footer around the page content.</p>
+          </section>
+          <div className='grid gap-4 sm:grid-cols-2'>
+            <div className='rounded-lg bg-gray-50 p-4 text-sm dark:bg-gray-900'>Recent writing</div>
+            <div className='rounded-lg bg-gray-50 p-4 text-sm dark:bg-gray-900'>Project updates</div>
+          </div>
+        </main>
+        <aside className='rounded-lg border border-gray-200 p-4 dark:border-gray-800'>
+          <p className='text-sm font-semibold text-gray-950 dark:text-white'>Floating actions</p>
+          <div className='mt-4 space-y-2 text-sm text-gray-500 dark:text-gray-400'>
+            <p>Theme</p>
+            <p>Search</p>
+            <p>Command menu</p>
+          </div>
+        </aside>
+      </div>
+      <div className='border-t border-gray-200 px-5 py-4 text-sm text-gray-500 dark:border-gray-800 dark:text-gray-400'>Footer navigation and newsletter area</div>
+    </div>
+  </ExampleFrame>
+);
 
 const fileTreeData = [
   {
@@ -498,29 +604,62 @@ const renderPostExample = (name, componentModule) => {
     return <ExampleFrame><Component /></ExampleFrame>;
   case 'Post':
     return <ExampleFrame><ul><Component frontMatter={ frontMatter } /></ul></ExampleFrame>;
-  case 'PostComments':
-    return <ExampleFrame><Component /></ExampleFrame>;
   case 'PostHeader':
-    return <ExampleFrame><Component frontMatter={ frontMatter } siteMetadata={ siteMetadata } toc={ toc } /></ExampleFrame>;
+    return <ExampleFrame width='max-w-5xl'><Component frontMatter={ frontMatter } siteMetadata={ siteMetadata } toc={ toc } /></ExampleFrame>;
   case 'PostNavigation':
     return <ExampleFrame><Component prev={{ 'slug': 'previous-post', 'title': 'Previous post title' }} next={{ 'slug': 'next-post', 'title': 'Next post title' }} /></ExampleFrame>;
   case 'PostSeriesBox':
-    return <ExampleFrame><Component series={ series } slug='components' /></ExampleFrame>;
+    return <ExampleFrame width='max-w-3xl'><Component series={ series } slug='components' /></ExampleFrame>;
   case 'PostSharing':
     return <ExampleFrame><Component siteMetadata={ siteMetadata } slug='design-systems' title='Design systems keep editorial rhythm predictable' tags={ [ 'design systems', 'react' ] } externalLink='engineering/design-systems' /></ExampleFrame>;
   case 'TableOfContents':
-    return <ExampleFrame><Component toc={ toc } /></ExampleFrame>;
+    return (
+      <ExampleFrame width='max-w-6xl'>
+        <div className='grid grid-cols-1 gap-10 xl:grid-cols-12'>
+          <article className='xl:col-span-8'>
+            <div className='mb-10 rounded-lg border border-gray-200 bg-gray-50 p-5 dark:border-gray-800 dark:bg-gray-900'>
+              <p className='text-sm font-semibold uppercase tracking-[0.12em] text-blue-600 dark:text-blue-400'>Scrollable article fixture</p>
+              <h2 className='mt-2 text-2xl font-bold text-gray-950 dark:text-white'>A realistic table of contents example</h2>
+              <p className='mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300'>
+                Scroll this story to see the sticky TOC stay in view, collapse inactive branches, and expand the active section as headings pass through the viewport.
+              </p>
+            </div>
+
+            <div className='space-y-16 pb-[45rem] text-gray-700 dark:text-gray-300'>
+              {articleSections.map((section) => {
+                const Heading = section.depth === 1 ? 'h2' : 'h3';
+
+                return (
+                  <section key={ section.id } className={ section.depth === 1 ? 'scroll-mt-28' : 'scroll-mt-28 pl-8' }>
+                    <Heading id={ section.id } className={ section.depth === 1 ? 'text-2xl font-bold text-gray-950 dark:text-white' : 'text-xl font-semibold text-gray-800 dark:text-gray-100' }>
+                      {section.value}
+                    </Heading>
+                    <div className='mt-4 space-y-4 text-sm leading-7'>
+                      <p>{sectionBody}</p>
+                      <p>
+                        This block adds enough vertical rhythm for scroll tracking, hash navigation, and sticky sidebar behavior to be visible inside Storybook.
+                      </p>
+                      {section.depth === 1 && (
+                        <div className='rounded-lg border border-gray-200 bg-white p-4 text-sm shadow-xs dark:border-gray-800 dark:bg-gray-950'>
+                          Section overview content sits here so top-level entries have enough height before their nested headings appear.
+                        </div>
+                      )}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          </article>
+
+          <aside className='xl:col-span-4'>
+            <Component toc={ toc } className='top-6 max-h-[32rem]' />
+          </aside>
+        </div>
+      </ExampleFrame>
+    );
   default:
     return null;
   }
-};
-
-const renderFormsExample = (name, componentModule) => {
-  const Component = componentOf(componentModule);
-
-  if (name === 'NewsletterForm') return <ExampleFrame width='max-w-xl'><Component /></ExampleFrame>;
-
-  return null;
 };
 
 const renderLayoutExample = (name, componentModule) => {
@@ -529,34 +668,61 @@ const renderLayoutExample = (name, componentModule) => {
   switch (name) {
   case 'Aurora':
     return (
-      <Component className='min-h-[320px] overflow-hidden rounded-xl'>
-        <div className='relative z-10 max-w-xl p-8 text-center'>
-          <h2 className='text-3xl font-bold'>Editorial systems, documented</h2>
-          <p className='mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300'>A background treatment used behind full page content.</p>
-        </div>
-      </Component>
+      <ExampleFrame width='max-w-6xl'>
+        <Component className='min-h-[420px] overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800'>
+          <div className='relative z-10 w-full max-w-4xl px-8 py-16'>
+            <p className='text-sm font-semibold uppercase tracking-[0.12em] text-blue-600 dark:text-blue-400'>Editorial system</p>
+            <h2 className='mt-3 max-w-2xl text-5xl font-bold leading-tight text-gray-950 dark:text-white'>Writing, projects, and research in one quiet shell</h2>
+            <p className='mt-5 max-w-xl text-base leading-7 text-gray-600 dark:text-gray-300'>The background sits behind full-page content while the foreground keeps the article surface readable.</p>
+            <div className='mt-8 grid gap-3 sm:grid-cols-3'>
+              {layoutPosts.map((post) => (
+                <div key={ post.title } className='rounded-lg border border-white/70 bg-white/75 p-4 text-sm shadow-xs backdrop-blur dark:border-white/10 dark:bg-gray-950/70'>
+                  <p className='text-xs font-semibold uppercase tracking-[0.12em] text-gray-500 dark:text-gray-400'>{post.category}</p>
+                  <p className='mt-2 font-semibold text-gray-950 dark:text-white'>{post.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Component>
+      </ExampleFrame>
     );
   case 'Footer':
-    return <ExampleFrame width='max-w-5xl'><Component /></ExampleFrame>;
-  case 'LayoutContainer':
     return (
-      <ExampleFrame>
-        <div className='space-y-3'>
-          <div className='text-sm font-semibold'>LayoutContainer</div>
-          <p className='text-sm leading-6 text-gray-600 dark:text-gray-300'>Server layout wrapper that composes theme, aurora background, navigation, main content, and footer in the app shell.</p>
+      <ExampleFrame width='max-w-6xl'>
+        <div className='rounded-lg border border-gray-200 px-6 dark:border-gray-800'>
+          <Component />
         </div>
       </ExampleFrame>
     );
+  case 'LayoutContainer':
+    return <LayoutContainerPreview />;
   case 'LayoutWrapper':
-    return <ExampleFrame width='max-w-4xl'><Component><div className='rounded-lg bg-gray-50 p-6 text-sm dark:bg-gray-900'>Page content area</div></Component></ExampleFrame>;
-  case 'Search':
     return (
-      <ExampleFrame width='max-w-md'>
-        <Component setSearchValue={ noop } />
+      <ExampleFrame width='max-w-6xl'>
+        <div className='max-h-[42rem] overflow-auto rounded-lg border border-gray-200 dark:border-gray-800'>
+          <Component>
+            <div className='grid gap-5 md:grid-cols-[1.4fr_1fr]'>
+              <article className='rounded-lg border border-gray-200 p-5 dark:border-gray-800'>
+                <p className='text-xs font-semibold uppercase tracking-[0.12em] text-blue-600 dark:text-blue-400'>Featured</p>
+                <h2 className='mt-2 text-3xl font-bold text-gray-950 dark:text-white'>A complete page inside the wrapper</h2>
+                <p className='mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300'>The wrapper owns the outer navigation, main slot, and footer while page content controls its own grid.</p>
+              </article>
+              <aside className='rounded-lg bg-gray-50 p-5 text-sm dark:bg-gray-900'>Related links and metadata</aside>
+            </div>
+          </Component>
+        </div>
       </ExampleFrame>
     );
-  case 'SectionContainer':
-    return <ExampleFrame><Component><section className='rounded-lg bg-gray-50 p-5 text-sm dark:bg-gray-900'>Section content keeps its semantic structure.</section></Component></ExampleFrame>;
+  case 'NewsletterForm':
+    return (
+      <ExampleFrame width='max-w-xl'>
+        <div className='rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-950'>
+          <Component />
+        </div>
+      </ExampleFrame>
+    );
+  case 'Search':
+    return <SearchExample Component={ Component } />;
   default:
     return null;
   }
@@ -569,7 +735,6 @@ export const renderComponentExample = (title, componentModule) => {
     'Blocks': renderBlocksExample,
     'Command': renderCommandExample,
     'Content': renderContentExample,
-    'Forms': renderFormsExample,
     'Layout': renderLayoutExample,
     'MDX': renderMdxExample,
     'Navigation': renderNavigationExample,

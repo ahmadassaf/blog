@@ -58,8 +58,6 @@ const preview = {
           [ 'Overview', '*' ],
           'Layout',
           [ 'Overview', '*' ],
-          'Forms',
-          [ 'Overview', '*' ],
           'Utilities',
           [ 'Overview', '*' ]
         ]

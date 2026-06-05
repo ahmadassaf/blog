@@ -9,13 +9,12 @@
  * @version 1.0.0
  */
 
-import { PostComments,
-  PostNavigation,
-  SectionContainer } from '@gaudi/design-system';
+import { PostNavigation } from '@gaudi/design-system';
 
 import siteMetadata from '@/data/meta/metadata';
 
 import PostArticleFrame from './PostArticleFrame';
+import PostComments from './PostComments';
 
 /**
  * Project layout component for individual project pages
@@ -45,7 +44,7 @@ import PostArticleFrame from './PostArticleFrame';
  */
 export default function PostLayout({ content, next, prev, toc, children }) {
   return (
-    <SectionContainer>
+    <div>
       <article>
         <div>
           <PostArticleFrame content={ content } siteMetadata={ siteMetadata } toc={ toc } padding='lg'>
@@ -55,6 +54,6 @@ export default function PostLayout({ content, next, prev, toc, children }) {
           <PostComments/>
         </div>
       </article>
-    </SectionContainer>
+    </div>
   );
 }

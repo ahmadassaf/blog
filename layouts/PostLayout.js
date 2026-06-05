@@ -10,13 +10,12 @@
  */
 
 import { Disclaimer,
-  PostComments,
-  PostNavigation,
-  SectionContainer } from '@gaudi/design-system';
+  PostNavigation } from '@gaudi/design-system';
 
 import siteMetadata from '@/data/meta/metadata';
 
 import PostArticleFrame from './PostArticleFrame';
+import PostComments from './PostComments';
 
 /**
  * Post layout component for individual blog post pages
@@ -46,7 +45,7 @@ import PostArticleFrame from './PostArticleFrame';
  */
 export default function PostLayout({ content, next, prev, toc, children }) {
   return (
-    <SectionContainer>
+    <div>
       <article>
         <div>
           <PostArticleFrame content={ content } siteMetadata={ siteMetadata } toc={ toc }>
@@ -57,6 +56,6 @@ export default function PostLayout({ content, next, prev, toc, children }) {
           { content.comments && (<PostComments/>)}
         </div>
       </article>
-    </SectionContainer>
+    </div>
   );
 }

@@ -3,7 +3,7 @@ import { renderComponentExample } from '../../../../.storybook/stories/Component
 
 import * as componentModule from './index';
 
-const componentDocs = getComponentDocs('Forms/NewsletterForm');
+const componentDocs = getComponentDocs('Layout/NewsletterForm');
 
 export default {
   parameters: {
@@ -15,9 +15,9 @@ export default {
     }
   },
   tags: [ 'autodocs' ],
-  title: 'Forms/NewsletterForm'
+  title: 'Layout/NewsletterForm'
 };
 
 export const Example = {
-  'render': () => renderComponentExample('Forms/NewsletterForm', componentModule)
+  'render': () => renderComponentExample('Layout/NewsletterForm', componentModule)
 };

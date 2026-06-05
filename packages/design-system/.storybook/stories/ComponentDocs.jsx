@@ -16,13 +16,9 @@ const groupDocs = {
     'accessibility': 'Core components set the baseline accessibility contract: semantic elements, visible focus, readable contrast, keyboard support, and correct disabled states.',
     'description': 'is a reusable UI component exported by the design system package and the canonical core subpath.'
   },
-  'Forms': {
-    'accessibility': 'Form components must connect labels, descriptions, validation states, and submit feedback so keyboard and screen reader users get the same information.',
-    'description': 'handles Gaudi-styled form input, submission, and feedback states.'
-  },
   'Layout': {
-    'accessibility': 'Layout components should preserve document landmarks and reading order. They must not trap focus or create non-semantic wrappers around interactive content.',
-    'description': 'provides consistent spacing, width, and section composition.'
+    'accessibility': 'Layout components should preserve document landmarks, reading order, and form semantics. They must not trap focus or create non-semantic wrappers around interactive content.',
+    'description': 'provides consistent spacing, width, section composition, and layout-owned surfaces such as newsletter signup.'
   },
   'MDX': {
     'accessibility': 'MDX components must keep article semantics intact: real headings, tables, code blocks, captions, alt text, and keyboard-accessible expandable content.',
@@ -41,13 +37,12 @@ const groupDocs = {
 const usageExamples = {
   'Core/CmdLauncher': "import { CmdLauncher } from '@gaudi/design-system';\n\n<MenuSearch setOpen={setOpen} />\n<CmdLauncher\n  open={open}\n  setOpen={setOpen}\n  posts={posts}\n  projects={projects}\n  publications={publications}\n  tags={tags}\n  thoughts={thoughts}\n/>",
   'Blocks/Thoughts': "import { ThoughtsSection } from '@gaudi/design-system';\n\n<ThoughtsSection thoughts={thoughts} />",
-  'Forms/NewsletterForm': "import { NewsletterForm } from '@gaudi/design-system';\n\n<NewsletterForm />",
   'Layout/Aurora': "import { Aurora } from '@gaudi/design-system';\n\n<Aurora className='min-h-[320px]'>\n  <section>Editorial content</section>\n</Aurora>",
   'Layout/Footer': "import { Footer } from '@gaudi/design-system';\n\n<Footer />",
   'Layout/LayoutContainer': "import { LayoutContainer } from '@gaudi/design-system';\n\n<LayoutContainer>{children}</LayoutContainer>",
   'Layout/LayoutWrapper': "import { LayoutWrapper } from '@gaudi/design-system';\n\n<LayoutWrapper>\n  <main>{children}</main>\n</LayoutWrapper>",
+  'Layout/NewsletterForm': "import { NewsletterForm } from '@gaudi/design-system';\n\n<NewsletterForm />",
   'Layout/Search': "import { Search } from '@gaudi/design-system';\n\n<Search setSearchValue={setSearchValue} />",
-  'Layout/SectionContainer': "import { SectionContainer } from '@gaudi/design-system';\n\n<SectionContainer>\n  <section>Article section</section>\n</SectionContainer>",
   'MDX/Aside': '<Aside>\n  Additional context for the article that should sit outside the main argument.\n</Aside>',
   'MDX/Callout': "<Callout type='info'>\n  Useful article context that readers should notice before continuing.\n</Callout>",
   'MDX/Chart': "<BarChart\n  title='Article views'\n  ariaLabel='Article views by day'\n  data={[\n    { label: 'Mon', views: 124 },\n    { label: 'Tue', views: 168 },\n  ]}\n  yKey='views'\n/>\n\n<LineChart\n  title='Subscriber trend'\n  ariaLabel='Subscribers by day'\n  data={[\n    { label: 'Mon', subscribers: 8 },\n    { label: 'Tue', subscribers: 12 },\n  ]}\n  yKey='subscribers'\n/>",
@@ -85,7 +80,6 @@ const usageExamples = {
   'Core/Banner': "import { Banner } from '@gaudi/design-system';\n\n<Banner title='Now published' href='/blog'>\n  New essays and project notes are available.\n</Banner>",
   'Post/Post': "import { Post } from '@gaudi/design-system';\n\n<Post frontMatter={frontMatter} />",
   'Core/Breadcrumb': "import { BreadcrumbTrail } from '@gaudi/design-system';\n\n<BreadcrumbTrail\n  items={[\n    { href: '/', label: 'Home' },\n    { href: '/blog', label: 'Blog' },\n    { current: true, label: 'Design Systems' },\n  ]}\n/>",
-  'Post/PostComments': "import { PostComments } from '@gaudi/design-system';\n\n<PostComments />",
   'Core/Button': "import { Button } from '@gaudi/design-system';\n\n<Button variant='solid' tone='blue' size='md'>Read article</Button>",
   'Post/PostHeader': "import { PostHeader } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} toc={toc} />",
   'Core/Card': "import { Card } from '@gaudi/design-system';\n\n<Card title='Building with tokens' subtitle='Cards frame reusable content.' />",

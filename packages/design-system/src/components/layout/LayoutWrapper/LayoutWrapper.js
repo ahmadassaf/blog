@@ -10,7 +10,6 @@
  */
 
 import Footer from '@/components/content/Footer';
-import SectionContainer from '@/components/layout/SectionContainer';
 import Menu from '@/components/navigation/Menu';
 
 /**
@@ -43,13 +42,11 @@ import Menu from '@/components/navigation/Menu';
  */
 const LayoutWrapper = ({ children }) => (
   <div className='relative isolate overflow-x-hidden'>
-    <SectionContainer>
-      <div className='flex h-screen flex-col justify-between'>
-        <Menu />
-        <main className='mb-8'>{children}</main>
-        <Footer />
-      </div>
-    </SectionContainer>
+    <div className='flex h-screen flex-col justify-between'>
+      <Menu />
+      <main className='mb-8'>{children}</main>
+      <Footer />
+    </div>
   </div>
 
 );

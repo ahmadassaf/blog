@@ -10,7 +10,7 @@ bibliography: ['meta/bibliography/references.bib']
 
 <Callout type='info'>This work has been [published](https://ceur-ws.org/Vol-1362/PROFILES2015_paper3.pdf) in the 2nd International Workshop on Dataset PROFIling & fEderated Search for Linked Data (PROFILES)</Callout>
 
-# Introduction
+## Introduction
 
 Open data is the data that can be easily discovered, reused and redistributed by anyone. It can include anything from statistics, geographical data, meteorological data to digitized books from libraries. Open data should have both legal and technical dimensions. It should be placed in the public domain under liberal terms of use with minimal restrictions and should be available in electronic formats that are non-proprietary and machine readable. Open Data has major benefits for citizens, businesses, society and governments: it increases transparency and enables self-empowerment by improving the visibility of previously inaccessible information; it allows citizens to be better informed about policies, public spending and activities in the law making processes. Moreover, it is still considered as a gold mine for organizations which are trying to leverage external data sources in order to produce more informed business decisions [@Boyd:Article:11], despite the legal issues surrounding Linked Data licenses [@Prateek:Misc:13].
 
@@ -28,7 +28,7 @@ Data models vary across data portals. While exhaustively surveying the range of 
  - *License information*: businesses are always concerned with the legal implications of using external content. As a result, datasets should include both machine and human readable license information that indicates permissions, copyrights and attributions;
  - *Provenance information*: depending on the dataset license, the data might not be legally usable if there are no information describing its authoritative and versioning information. Current models under-specify these aspects limiting the usability of many datasets.
 
-# Data Portals and Dataset Models
+## Data Portals and Dataset Models
 
 There are many data portals that host a large number of private and public datasets. Each portal present the data based on a model used by the underlying software. In this section, we present the results of our landscape survey of the most common data portals and dataset models.
 
@@ -82,7 +82,7 @@ Schema.org covers many domains. We are specifically interested in the `Dataset` 
 
 [The POD metadata model](https://project-open-data.cio.gov/v1.1/schema/) is based on DCAT. Similarly to DCAT-AP, POD defines three types of metadata elements: Required, Required-if(conditionally required) and Expanded (optional). The metadata model is presented in the JSON format and encourages publishers to extend their metadata descriptions using elements from the "Expanded Fields" list, or from any well-known vocabulary.
 
-# Metadata Classification
+## Metadata Classification
 
 A dataset metadata model should contain sufficient information so that consumers can easily understand and process the data that is described. After analyzing the models described in the section [2], we find out that a dataset can contain four main sections:
 
@@ -103,7 +103,7 @@ Upon closed examination of the various data models, we group the metadata inform
 
 -   **Quality information**: Information that indicates the quality of the dataset on the metadata and instance levels. In addition to that, a dataset should include an openness score that measures its alignment with the Linked Data publishing standards [@Berners-Lee:W3C:06]. Quality information is only expressed in the POD metadata. However, `govdata.de` extends the there are various other vocabularies like daQ [@Debattista:WWW:14] that can be used to express datasets quality. The [RDF Review Vocabulary](http://vocab.org/review/) can also be used to express reviews and ratings about the dataset or its resources.
 
-# Towards A Harmonized Model
+## Towards A Harmonized Model
 
 Since establishing a common vocabulary or model is the key to communication, we identified the need for an harmonized dataset metadata model containing sufficient information so that consumers can easily understand and process datasets. To create the mappings between the different models, we performed various steps:
 

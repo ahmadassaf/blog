@@ -16,6 +16,8 @@ import siteMetadata from '@/data/meta/metadata';
 import PostArticleFrame from './PostArticleFrame';
 import PostComments from './PostComments';
 
+import 'katex/dist/katex.css';
+
 /**
  * Project layout component for individual project pages
  *
@@ -42,7 +44,7 @@ import PostComments from './PostComments';
  *   <MDXContent />
  * </ProjectLayout>
  */
-export default function PostLayout({ content, next, prev, toc, children }) {
+export default function ProjectLayout({ content, next, prev, toc, children }) {
   return (
     <div>
       <article>

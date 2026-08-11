@@ -56,4 +56,7 @@ async function postbuild() {
 }
 
 // Execute the post-build process
-postbuild();
+postbuild().catch((error) => {
+  console.error('❌ Post-build failed:', error);
+  process.exit(1);
+});

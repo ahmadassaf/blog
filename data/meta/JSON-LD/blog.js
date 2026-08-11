@@ -13,6 +13,7 @@ export function blog() {
       '@id': 'https://assaf.website',
       '@type': 'WebSite'
     },
+    'name': metadata.title,
     'thumbnailUrl': `${metadata.siteUrl}/static/images/logo.svg`,
     'url': 'https://assaf.website/blog'
   };

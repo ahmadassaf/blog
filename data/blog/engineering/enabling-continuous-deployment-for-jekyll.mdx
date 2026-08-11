@@ -16,7 +16,7 @@ Static sites are great and have various advantages. However, I am aware of how m
 
 Although I have moved huge hidden parts like compressing images and compressing files and HTML to grunt tasks, there are still steps needed to easily deploy changes locally to the live server.
 Another problem with this workflow is that the GitHub repo sometimes wouldn’t be up to date with the content I was serving, or vice versa, because I had to make shortcuts here and there (edit content directly on the live server, push a change locally but forget to deploy that live and so on). Basically, you want the code on GitHub to actually represent what you are serving.
-All of the above has led me to set up automatic deployments to my server. This means that my workflow now just consists of creating content and committing it — the rest is done automatically. Travis CI builds the site, compresses assets, runs a few tests, and deploys it all to DigitalOcean, where a web server (Apache, Nginx) serves it.
+All of the above has led me to set up automatic deployments to my server. This means that my workflow now just consists of creating content and committing it - the rest is done automatically. Travis CI builds the site, compresses assets, runs a few tests, and deploys it all to DigitalOcean, where a web server (Apache, Nginx) serves it.
 
 ## Failed experiments
 
@@ -108,7 +108,7 @@ I have tried to add a remote in my web server called `production` so that I can 
 
 As a result of my failed attempts, I had to try another approach and I decided to go and try [TravisCI](travis-ci.org).
 
-# Going the Travis way
+## Going the Travis way
 
 The first step to achieving this new workflow was to have rigorous rules set up on the server. No more deployments as root, from now on we’re doing things correctly.
 

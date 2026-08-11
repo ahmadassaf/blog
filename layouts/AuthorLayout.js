@@ -34,7 +34,7 @@ export default function AuthorLayout({ content, children }) {
       <div>
         <div className='space-y-2 pt-6 pb-8 md:space-y-5'>
           <Typography variant='author-name'>{name}</Typography>
-          <Typography variant='author-role'>{occupation}</Typography>
+          <Typography variant='author-role' as='h2'>{occupation}</Typography>
         </div>
         <ArticleContentLayout>
           {children}

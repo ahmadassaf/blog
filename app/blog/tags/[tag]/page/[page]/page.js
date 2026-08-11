@@ -11,10 +11,12 @@
 
 import { POSTS_PER_PAGE } from '@gaudi/design-system';
 import { allPosts } from 'contentlayer/generated';
+import { notFound } from 'next/navigation';
 
 import tags from '@/app/content/tags';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
+import { coreContent, paginate, published, sortPosts } from '@/lib/utils/contentlayer';
+import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs';
 
 /**
  * Generates metadata for the tag pagination page
@@ -34,12 +36,16 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  * // Returns: { title: 'Tag: Machine Learning | Page 2' }
  */
 export async function generateMetadata({ params }) {
-  const tag = decodeURI(params.tag);
-  const title = tag.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-  const pageNumber = parseInt(params.page);
+  const { 'page': pageParam, 'tag': tagParam } = await params;
+  const tag = safeDecodeURI(tagParam);
+
+  if (tag === null) return { 'title': 'Tag not found' };
+
+  const pageNumber = Number(pageParam);
 
   return {
-    'title': `Tag: ${title} | Page ${pageNumber}`
+    'alternates': { 'canonical': `/blog/tags/${tag}/page/${pageNumber}` },
+    'title': `Tag: ${titleFromSlug(tag)} | Page ${pageNumber}`
   };
 }
 
@@ -57,10 +63,11 @@ export async function generateMetadata({ params }) {
  * // [{ tag: 'javascript', page: '1' }, { tag: 'javascript', page: '2' }]
  */
 export const generateStaticParams = async() => {
+
+  // Normalize each post's tags once instead of once per tag in the loop below
+  const postTagSlugs = published(allPosts).map((post) => post.tags.map(slugify));
   const paths = tags.map((tag) => {
-    const tagPages = Math.ceil(allPosts.filter(
-      (post) => post.tags.map((_tag) => _tag.replace(' ', '-').toLowerCase().trim()).includes(tag.slug)
-    ).length / POSTS_PER_PAGE);
+    const tagPages = Math.ceil(postTagSlugs.filter((slugs) => slugs.includes(tag.slug)).length / POSTS_PER_PAGE);
     const tagPaths =  Array.from({ 'length': tagPages }, (_, index) => {
       return { 'page': (index + 1).toString(), 'tag': tag.slug };
     });
@@ -68,7 +75,7 @@ export const generateStaticParams = async() => {
     return tagPaths;
   });
 
-  return paths;
+  return paths.flat();
 };
 
 /**
@@ -89,25 +96,21 @@ export const generateStaticParams = async() => {
  * // Rendered at /blog/tags/javascript/page/2
  * // Shows page 2 of posts tagged with 'javascript'
  */
-export default function Page({ params }) {
-  const tag = decodeURI(params.tag);
-  const title = tag.replace('-', ' ');
-  const posts = coreContent(sortPosts(allPosts)).filter((post) => post.tags.map((_tag) => _tag.replace(' ', '-').toLowerCase()).includes(tag));
-  const pageNumber = parseInt(params.page);
-  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+export default async function Page({ params }) {
+  const { 'page': pageParam, 'tag': tagParam } = await params;
+  const tag = safeDecodeURI(tagParam);
 
-  let pagination;
+  if (tag === null) notFound();
 
-  const filteredPosts = posts.slice(POSTS_PER_PAGE * (pageNumber - 1), POSTS_PER_PAGE * pageNumber);
+  const title = tag.replaceAll('-', ' ');
+  const posts = coreContent(sortPosts(published(allPosts))).filter((post) => post.tags.map(slugify).includes(tag));
+  const page = paginate(posts, pageParam, POSTS_PER_PAGE);
 
-  if (pageNumber <= totalPages) pagination = {
-    'currentPage': pageNumber,
-    totalPages
-  };
+  if (!page) notFound();
 
   return (
     <>
-      <ListLayout posts={ filteredPosts } listTitle={ `${title} Posts` } currentPage={ pagination && pagination.currentPage } totalPages={ pagination && pagination.totalPages } paginationURL={ `blog/tags/${tag}/page` } baseURL={ `blog/tags/${tag}` }/>
+      <ListLayout posts={ page.pagePosts } listTitle={ `${title} Posts` } currentPage={ page.currentPage } totalPages={ page.totalPages } paginationURL={ `blog/tags/${tag}/page` } baseURL={ `blog/tags/${tag}` }/>
     </>
   );
 }

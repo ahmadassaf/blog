@@ -16,12 +16,12 @@ export function alumni() {
       '@context': 'https://schema.org',
       '@type': 'EducationalOrganization',
       'name': 'EURECOM',
-      'url': 'https://www.euercom.fr'
+      'url': 'https://www.eurecom.fr'
     },
     {
       '@context': 'https://schema.org',
       '@type': 'EducationalOrganization',
-      'name': 'Universty of St.Andrews',
+      'name': 'University of St Andrews',
       'url': 'https://www.st-andrews.ac.uk'
     }
   ];

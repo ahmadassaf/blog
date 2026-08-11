@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: blog
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          path: blog
+
+      # The blog consumes @gaudi/design-system via link:../design-system, so
+      # the design system must sit next to the blog checkout for the link to
+      # resolve — which also lets installs stay strictly lockfile-frozen.
+      - name: Checkout design system
+        uses: actions/checkout@v4
+        with:
+          repository: ahmadassaf/design-system
+          path: design-system
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: blog/package.json
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: |
+            blog/pnpm-lock.yaml
+            design-system/pnpm-lock.yaml
+
+      - name: Install design-system dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: design-system
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache Next.js build cache
+        uses: actions/cache@v4
+        with:
+          path: blog/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('blog/pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('blog/pnpm-lock.yaml') }}-
+
+      - name: Lint
+        run: pnpm lint:check
+
+      - name: Build (content pipeline + Next.js, GitHub API skipped)
+        run: pnpm build:no-github

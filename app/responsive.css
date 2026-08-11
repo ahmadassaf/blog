@@ -1,0 +1,16 @@
+/*
+ * Blog-level design-system overrides.
+ *
+ * Keep this file to token overrides only — never target the design system's
+ * compiled utility classes or DOM structure from here; change the component
+ * or token in ../design-system instead.
+ */
+
+/*
+ * Near-black dark surface for the blog brand (the design-system default is
+ * #1a1a1a). Overriding the token reaches everything styled through
+ * `bg-background`/surface tokens without any `!important` class targeting.
+ */
+.dark {
+  --ds-color-surface: #0a0a0a;
+}

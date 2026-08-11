@@ -13,89 +13,115 @@
 
 import { useState } from 'react';
 import { PaginationBar,
-  Post,
   POSTS_PER_PAGE,
-  Search } from '@gaudi/design-system';
+  Search,
+  Typography } from '@gaudi/design-system';
+
+import PostPreview from '@/layouts/PostPreview';
 
 /**
  * List layout component for displaying blog posts with search and pagination
  *
  * @description Renders a list of blog posts with optional search functionality and pagination controls.
- * The component handles client-side filtering of posts based on search terms and manages
- * the display state for both paginated and filtered views.
+ * When `paginationURL` and `baseURL` are provided, pagination renders real links so every page is
+ * crawlable (page 1 resolves to the base URL, subsequent pages to the pagination URL). When
+ * `currentPage`/`totalPages` are provided the posts are treated as a pre-sliced page; otherwise the
+ * component slices the first page itself. Without pagination URLs it falls back to client-side paging.
  *
  * @param {Object} props - Component props
  * @param {Array} props.posts - Array of post objects to display
  * @param {boolean} [props.filter=true] - Whether to show the search filter
- * @param {string} [props.baseURL] - Base URL for pagination links
- * @param {string} [props.paginationURL] - URL pattern for pagination
- * @param {number} [props.currentPage] - Current page number for pagination
- * @param {number} [props.totalPages] - Total number of pages for pagination
+ * @param {string} [props.listTitle] - Optional page heading rendered above the list
+ * @param {string} [props.titleAs='h1'] - Heading element for the list title (pass 'h2' when composed under a page h1)
+ * @param {string} [props.className] - Additional CSS classes applied to the list title
+ * @param {string} [props.baseURL] - Base URL for page 1 of the pagination links
+ * @param {string} [props.paginationURL] - URL prefix for pagination links (pages 2+)
+ * @param {number} [props.currentPage] - Current page number for pre-sliced posts
+ * @param {number} [props.totalPages] - Total number of pages for pre-sliced posts
  *
  * @returns {JSX.Element} The rendered list layout component
  *
  * @example
  * <ListLayout
- *   posts={allPosts}
- *   filter={true}
- *   baseURL="/blog"
- *   paginationURL="/blog/page"
+ *   posts={pagePosts}
+ *   listTitle="Machine Learning Posts"
+ *   baseURL="blog"
+ *   paginationURL="blog/page"
  *   currentPage={1}
  *   totalPages={5}
  * />
  */
-export default function ListLayout({ posts, filter = true }) {
+export default function ListLayout({ posts, filter = true, listTitle, titleAs = 'h1', className, baseURL, paginationURL, currentPage = 1, totalPages }) {
 
   const [ searchValue, setSearchValue ] = useState('');
-  const [ currentPage, setCurrentPage ] = useState(1);
-  const [ isLoading, setIsLoading ] = useState(false);
+  const [ clientPage, setClientPage ] = useState(1);
 
-  const filteredBlogPosts = posts.filter((frontMatter) => {
+  const hasPaginationLinks = Boolean(paginationURL && baseURL);
+  const isPreSliced = hasPaginationLinks && Boolean(totalPages);
+
+  const searchTerm = searchValue.toLowerCase();
+  const filteredBlogPosts = searchTerm ? posts.filter((frontMatter) => {
     const searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ');
 
-    return searchContent.toLowerCase().includes(searchValue.toLowerCase());
-  });
+    return searchContent.toLowerCase().includes(searchTerm);
+  }) : posts;
 
-  const totalPages = Math.ceil(filteredBlogPosts.length / POSTS_PER_PAGE);
-  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  const endIndex = startIndex + POSTS_PER_PAGE;
-  const displayPosts = searchValue ? filteredBlogPosts : filteredBlogPosts.slice(startIndex, endIndex);
+  const activePage = hasPaginationLinks ? currentPage : clientPage;
+  const pageCount = isPreSliced ? totalPages : Math.ceil(filteredBlogPosts.length / POSTS_PER_PAGE);
+  const startIndex = (activePage - 1) * POSTS_PER_PAGE;
+  const displayPosts = searchValue || isPreSliced ? filteredBlogPosts : filteredBlogPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
-  const handlePageChange = async(newPage) => {
-    if (newPage === currentPage || newPage < 1 || newPage > totalPages) return;
+  // Build crawlable pagination hrefs: page 1 maps to the base URL, later pages to the pagination URL
+  const getPageHref = (page) => (page === 1 ? `/${baseURL}` : `/${paginationURL}/${page}`);
 
-    setIsLoading(true);
+  // Client-side fallback paging for callers without static pagination routes
+  const handlePageChange = (newPage) => {
+    if (newPage === clientPage || newPage < 1 || newPage > pageCount) return;
 
-    // Simulate loading delay for smooth UX
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    setCurrentPage(newPage);
-    setIsLoading(false);
+    setClientPage(newPage);
   };
 
   // Reset pagination when search changes
   const handleSearchChange = (value) => {
     setSearchValue(value);
-    setCurrentPage(1);
+    setClientPage(1);
   };
 
   return (
-    <div className='border-0'>
+    <div>
       <div>
+        { listTitle && (
+          <div className='space-y-2 pt-6 pb-8 md:space-y-5'>
+            <Typography variant='title-md' as={ titleAs } className={ className }>
+              {listTitle}
+            </Typography>
+          </div>
+        ) }
+
         { filter && <Search setSearchValue={ handleSearchChange }></Search> }
 
         <ul className='pt-6'>
-          {!filteredBlogPosts.length && 'No posts found'}
+          {!filteredBlogPosts.length && (
+            <li className='py-16 text-center'>
+              <Typography variant='heading-sm' as='p' className='mb-2'>
+                No posts found
+              </Typography>
+              <Typography variant='paragraph-sm'>
+                {searchValue ? `Nothing matches “${searchValue}”. Try a shorter or different search.` : 'There is nothing published here yet — new writing will land soon.'}
+              </Typography>
+            </li>
+          )}
           {displayPosts.map((frontMatter) => (
-            <Post key={ frontMatter.slug } frontMatter={ frontMatter } />
+            <PostPreview key={ frontMatter.slug } frontMatter={ frontMatter } />
           ))}
         </ul>
 
-        {totalPages > 1 && !searchValue && (
+        {pageCount > 1 && !searchValue && (
           <PaginationBar
-            currentPage={ currentPage }
-            totalPages={ totalPages }
-            getHref={ () => '' }
-            onPageChange={ isLoading ? undefined : handlePageChange }
+            currentPage={ activePage }
+            totalPages={ pageCount }
+            getHref={ hasPaginationLinks ? getPageHref : undefined }
+            onPageChange={ hasPaginationLinks ? undefined : handlePageChange }
           />
         )}
       </div>

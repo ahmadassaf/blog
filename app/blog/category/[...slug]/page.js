@@ -116,7 +116,11 @@ export default async function Page({ params }) {
 
       <PostLayout content={ coreContent(post) } next={ posts[postIndex - 1] || null } prev={ posts[postIndex + 1] || null } toc={ post.toc }>
         {CustomArticle ? (
-          <CustomArticle post={ coreContent(post) } />
+          <CustomArticle post={ coreContent(post) }>
+            <MDXLayoutRenderer code={ post.body.code } />
+            <CitationPopover />
+            <Footnote />
+          </CustomArticle>
         ) : (
           <>
             <MDXLayoutRenderer code={ post.body.code } />

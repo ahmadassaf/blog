@@ -46,14 +46,25 @@ import 'katex/dist/katex.css';
  * </PostLayout>
  */
 export default function PostLayout({ content, next, prev, toc, children }) {
+  const isCustomArticle = content.engine === 'custom';
+
   return (
     <div>
       <article>
         <div>
-          <PostArticleFrame content={ content } siteMetadata={ siteMetadata } toc={ toc }>
-            {children}
-            <Disclaimer/>
-          </PostArticleFrame>
+          {isCustomArticle ? (
+            <>
+              {children}
+              <div className='mx-auto max-w-3xl px-4 pb-8 sm:px-6'>
+                <Disclaimer/>
+              </div>
+            </>
+          ) : (
+            <PostArticleFrame content={ content } siteMetadata={ siteMetadata } toc={ toc }>
+              {children}
+              <Disclaimer/>
+            </PostArticleFrame>
+          )}
           <PostNavigation next={ next } prev={ prev } type={ content.type }></PostNavigation>
           { content.comments && (<PostComments/>)}
         </div>

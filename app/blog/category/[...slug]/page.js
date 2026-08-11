@@ -16,6 +16,7 @@ import { notFound } from 'next/navigation';
 
 import { linkedDataGenerator, metadataGenertaor } from '@/data/meta/generator/post';
 import PostLayout from '@/layouts/PostLayout';
+import { resolveCustomArticle } from '@/lib/blog-engine';
 import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
 import { safeDecodeURI } from '@/lib/utils/slugs';
 
@@ -91,6 +92,8 @@ export default async function Page({ params }) {
 
   if (!post) notFound();
 
+  const CustomArticle = await resolveCustomArticle(post);
+
   if (post?.series) {
     const seriesPosts = sortedPosts
       .filter((_post) => _post.series?.title === post.series?.title)
@@ -112,9 +115,15 @@ export default async function Page({ params }) {
       <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(linkedDataGenerator(post)) }} key='post-jsonld'/>
 
       <PostLayout content={ coreContent(post) } next={ posts[postIndex - 1] || null } prev={ posts[postIndex + 1] || null } toc={ post.toc }>
-        <MDXLayoutRenderer code={ post.body.code } />
-        <CitationPopover />
-        <Footnote />
+        {CustomArticle ? (
+          <CustomArticle post={ coreContent(post) } />
+        ) : (
+          <>
+            <MDXLayoutRenderer code={ post.body.code } />
+            <CitationPopover />
+            <Footnote />
+          </>
+        )}
       </PostLayout>
     </>
   );

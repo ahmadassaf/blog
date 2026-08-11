@@ -15,15 +15,24 @@ import { spawn } from 'child_process';
 import { watch } from 'chokidar';
 import path from 'path';
 
-const CONTENT_DIRS = [ 'data/blog/**/*.mdx', 'data/authors/**/*.mdx', 'data/projects/**/*.mdx' ];
+const CONTENT_DIRS = [ 'data/authors/**/*.mdx', 'data/blog/**/*.mdx' ];
 
 let isRebuilding = false;
+let pendingRebuild = false;
 
 /**
  * Rebuild content using ContentLayer
+ *
+ * @description Runs the ContentLayer build followed by the post-build script. Changes
+ * arriving while a rebuild is in flight are coalesced into exactly one trailing rebuild
+ * that runs after the current one finishes.
  */
 async function rebuildContent() {
-  if (isRebuilding) return;
+  if (isRebuilding) {
+    pendingRebuild = true;
+
+    return;
+  }
 
   isRebuilding = true;
   console.log('📝 Content changed, rebuilding...');
@@ -78,6 +87,12 @@ async function rebuildContent() {
     console.error('❌ Content rebuild failed:', error.message);
   } finally {
     isRebuilding = false;
+
+    // Run exactly one trailing rebuild for changes that arrived mid-rebuild
+    if (pendingRebuild) {
+      pendingRebuild = false;
+      rebuildContent();
+    }
   }
 }
 

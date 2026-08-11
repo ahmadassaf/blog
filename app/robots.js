@@ -19,17 +19,14 @@
  */
 export default function robots() {
   return {
-    'host': `https://assaf.website`,
+    'host': 'https://assaf.website',
     'rules': [
       {
-        'allow': '/',
-        'userAgent': '*'
-      },
-      {
-        'allow': '/api/og/*',
+        'allow': [ '/', '/api/og', '/api/og/*' ],
+        'disallow': '/api/',
         'userAgent': '*'
       }
     ],
-    'sitemap': `https://assaf.website/sitemap.xml`
+    'sitemap': 'https://assaf.website/sitemap.xml'
   };
 }

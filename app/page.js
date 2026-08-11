@@ -9,13 +9,14 @@
  * @version 1.0.0
  */
 
-import { Button, CmdLauncherShortcut, Icon, Link, Post, TextHighlight, ThoughtsSection, Typography } from '@gaudi/design-system';
-import { allPosts, allThoughts } from 'contentlayer/generated';
+import { Button, CmdLauncherShortcut, Icon, Link, TextHighlight, Typography } from '@gaudi/design-system';
+import { allPosts } from 'contentlayer/generated';
 
 import siteMetadata from '@/data/meta/metadata';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
+import PostPreview from '@/layouts/PostPreview';
+import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
 
 /**
  * Home page component that renders the main landing page
@@ -31,44 +32,44 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  * <Home />
  */
 export default function Home() {
-  const displayPosts = coreContent(sortPosts(allPosts)).filter((post) => !post.featured);
-  const displayThoughts = coreContent(sortPosts(allThoughts)).slice(0, 4);
+  const posts = coreContent(sortPosts(published(allPosts)));
+  const displayPosts = posts.filter((post) => !post.featured);
 
   return (
     <>
-      <div className='divide-y divide-gray-200 dark:divide-gray-700'>
-        <div className='max-w-6xl space-y-3 pt-8 pb-6 md:space-y-4 mb-8'>
-          <Typography variant='title-xl' className='uppercase'>
+      <div>
+        <header className='mb-12 space-y-2 pb-8 pt-12 md:space-y-5'>
+          <Typography variant='display-xl' className='uppercase'>
             {siteMetadata.author}
           </Typography>
-          <Typography variant='heading-lg' as='h2'>
-            <TextHighlight className='text-black dark:text-white'>
-              CTO at Mav9, AI and Machine Learning Leader, Mentor and Advisor
+          <Typography variant='heading-lg' as='h2' className='font-extrabold tracking-tight'>
+            <TextHighlight className='box-decoration-clone text-black dark:text-white [-webkit-box-decoration-break:clone]'>
+              AI and Machine Learning Leader, Mentor and Advisor
             </TextHighlight>
           </Typography>
-          <Typography variant='subtitle-md' className='max-w-5xl max-sm:py-3'>{`${siteMetadata.description}`}</Typography>
-          <Typography variant='paragraph-md' className='max-w-6xl'>A driven AI and Machine Learning (ML) leader with a passion for building intelligent systems and turning complex technology into useful products through my current role as <strong>CTO <Link tone='blue' href='https://mav9.com'>@Mav9</Link></strong>, where I lead technology strategy across AI, data, knowledge graphs, and product engineering; previously, as one of the founding engineers at <Link tone='blue' href='https://beamery.com'>Beamery</Link>, I built and scaled engineering, AI, and data science teams and helped the company become one of the latest tech unicorns.</Typography>
-          <Typography variant='paragraph-md' className='max-w-6xl'>I am a Knowledge Graph and Semantic Web Enthusiast (<strong>PhD in Semantic Web and Information Retrieval</strong>) with <Link tone='blue' href='/blog/publications'>publications</Link> on Linked Data, Data Quality and Recommender Systems.</Typography>
+          <Typography variant='subtitle-md' as='p' className='max-sm:py-3'>{`${siteMetadata.description}`}</Typography>
+          <Typography variant='paragraph-md'>I am a driven AI and Machine Learning leader focused on turning complex technology into useful products. As <strong>CTO <Link tone='blue' href='https://mav9.com'>@Mav9</Link></strong>, I lead technology strategy across applied AI, data platforms, knowledge graphs, and product engineering, helping teams move from promising ideas to reliable systems that create measurable value.</Typography>
+          <Typography variant='paragraph-md'>My research background sits at the intersection of Knowledge Graphs, Semantic Web, Information Retrieval, and data quality. I hold a <strong>PhD in Semantic Web and Information Retrieval</strong>, and my <Link tone='blue' href='/blog/publications'>publications</Link> explore Linked Data, recommender systems, dataset quality, and ways to make knowledge easier for both humans and machines to use.</Typography>
+          <Typography variant='paragraph-md'>Before Mav9, I was one of the founding engineers at <Link tone='blue' href='https://beamery.com'>Beamery</Link>, where I helped build and scale engineering, AI, and data science teams as the company grew into one of the latest tech unicorns. I use this space to write about AI, data, productivity, engineering practice, and the lessons learned from building intelligent products with real users and real constraints.</Typography>
           <CmdLauncherShortcut />
-        </div>
-        <FeaturedPostsLayout />
-        <div className='pb-8'>
-          <ListLayout posts={ displayPosts.slice(0, 5) } linkAllPosts={ true } listTitle='Latest Posts' filter={ false }/>
-          <div className='flex flex-col md:flex-row md:items-center md:justify-between py-3 gap-4'>
-            <ul role='list' className='flex-1'>
-              {displayPosts[5] && (
-                <Post frontMatter={ displayPosts[5] } />
-              )}
-            </ul>
-            <div className='flex justify-end md:flex-shrink-0'>
-              <Button variant='outline' tone='blue' size='md' href='/blog' aria-label='View all blog posts'>
-                View All Posts
-                <Icon name='ArrowRight' decorative size='xs' />
-              </Button>
+        </header>
+        <section aria-label='Featured and latest posts'>
+          <FeaturedPostsLayout posts={ posts } />
+          <div className='pb-8'>
+            <ListLayout posts={ displayPosts.slice(0, 6) } listTitle='Latest Posts' titleAs='h2' filter={ false }/>
+            <div className='flex flex-col gap-4 py-3 md:flex-row md:items-center md:justify-between'>
+              <ul role='list' className='flex-1'>
+                {displayPosts[6] && <PostPreview frontMatter={ displayPosts[6] } />}
+              </ul>
+              <div className='flex justify-end md:flex-shrink-0'>
+                <Button variant='outline' tone='blue' size='md' href='/blog' aria-label='View all blog posts'>
+                  View All Posts
+                  <Icon name='ArrowRight' decorative size='xs' />
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-        <ThoughtsSection thoughts={ displayThoughts } />
+        </section>
       </div>
     </>
   );

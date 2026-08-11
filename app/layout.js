@@ -9,21 +9,25 @@
  * @version 1.0.0
  */
 
-import { CodeGroupTabs } from '@gaudi/design-system';
-import { LayoutContainer } from '@gaudi/design-system/layout';
-import { CitationTracker } from '@gaudi/design-system/mdx';
+import LayoutContainer from '@gaudi/design-system/components/layout/LayoutContainer';
+import CitationTracker from '@gaudi/design-system/components/mdx/CitationTracker';
+import CodeGroupTabs from '@gaudi/design-system/components/mdx/CodeGroupTabs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { allProjects } from 'contentlayer/generated';
+import { allPosts, allProjects } from 'contentlayer/generated';
 import { Inter } from 'next/font/google';
 
 import categories from '@/app/content/categories';
+import publications from '@/app/content/publications';
+import tags from '@/app/content/tags';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
+import { website } from '@/data/meta/JSON-LD/website';
 import siteMetadata from '@/data/meta/metadata';
-import { sortPosts } from '@/lib/utils/contentlayer';
+import NavigationMetadata from '@/data/meta/navigationMetadata';
+import { pick, published, sortPosts } from '@/lib/utils/contentlayer';
 
 import '@gaudi/design-system/global.css';
-import 'katex/dist/katex.css';
 import 'remark-github-blockquote-alert/alert.css';
+import './responsive.css';
 
 /**
  * Generates metadata for the application
@@ -35,7 +39,23 @@ import 'remark-github-blockquote-alert/alert.css';
  * @returns {Promise<Object>} The metadata object for the application
  */
 export async function generateMetadata() {
-  return metadataGenertaor();
+  const base = await metadataGenertaor();
+
+  return {
+    ...base,
+    'icons': {
+      'apple': '/static/favicons/apple-touch-icon.png',
+      'icon': [
+        { 'sizes': '32x32', 'type': 'image/png', 'url': '/static/favicons/favicon-32x32.png' },
+        { 'sizes': '16x16', 'type': 'image/png', 'url': '/static/favicons/favicon-16x16.png' }
+      ],
+      'other': [{ 'color': '#fff', 'rel': 'mask-icon', 'url': '/static/favicons/safari-pinned-tab.svg' }]
+    },
+    'manifest': '/static/favicons/site.webmanifest',
+    'other': {
+      'msapplication-TileColor': '#0a0a0a'
+    }
+  };
 }
 
 /**
@@ -49,7 +69,10 @@ export async function generateMetadata() {
 export function generateViewport() {
   return {
     'initialScale': 1,
-    'maximumScale': 1,
+    'themeColor': [
+      { 'color': '#fff', 'media': '(prefers-color-scheme: light)' },
+      { 'color': '#0a0a0a', 'media': '(prefers-color-scheme: dark)' }
+    ],
     'width': 'device-width'
   };
 }
@@ -87,7 +110,7 @@ const footerProps = {
     {
       'links': sortPosts(allProjects).slice(0, 4).map((project) => {
         return {
-          'href': project.path,
+          'href': `/blog/${project.externalLink}`,
           'label': project.title
         };
       }),
@@ -100,6 +123,27 @@ const footerProps = {
     { 'href': siteMetadata.twitter, 'kind': 'twitter' }
   ],
   'variant': 'editorial'
+};
+
+/*
+ * The design system no longer imports site data itself: navigation, command
+ * launcher content, metadata, and JSON-LD all flow in through LayoutContainer
+ * props (SiteConfigProvider distributes them to client components).
+ */
+/*
+ * Only the fields the navigation and command launcher actually render are
+ * serialized — the full contentlayer documents would ride the RSC payload of
+ * every page otherwise.
+ */
+const MENU_FIELDS = [ 'category', 'date', 'description', 'externalLink', 'slug', 'summary', 'title', 'type' ];
+const toMenuItems = (docs) => sortPosts(published(docs)).map((doc) => pick(doc, MENU_FIELDS));
+
+const menuProps = {
+  categories,
+  'posts': toMenuItems(allPosts),
+  'projects': toMenuItems(allProjects),
+  publications,
+  tags
 };
 
 /**
@@ -122,20 +166,17 @@ const footerProps = {
  */
 export default function RootLayout({ children }) {
   return (
-    <html className={ `${font.variable}` } suppressHydrationWarning>
-      <link rel='apple-touch-icon' sizes='76x76' href='/static/favicons/apple-touch-icon.png' />
-      <link rel='icon' type='image/png' sizes='32x32' href='/static/favicons/favicon-32x32.png'/>
-      <link rel='icon' type='image/png' sizes='16x16' href='/static/favicons/favicon-16x16.png'/>
-      <link rel='manifest' href='/static/favicons/site.webmanifest' />
-      <link rel='mask-icon' href='/static/favicons/safari-pinned-tab.svg' color='#fff' />
-      <meta name='msapplication-TileColor' content='#000000' />
-      <meta name='theme-color' media='(prefers-color-scheme: light)' content='#fff' />
-      <meta name='theme-color' media='(prefers-color-scheme: dark)' content='#000' />
-      <link rel='alternate' type='application/rss+xml' href='/feed.xml' />
+    <html lang='en' className={ `${font.variable}` } suppressHydrationWarning>
       <body>
         <CodeGroupTabs />
         <CitationTracker />
-        <LayoutContainer footerProps={ footerProps }>
+        <LayoutContainer
+          footerProps={ footerProps }
+          jsonLd={ website }
+          menuProps={ menuProps }
+          metadata={ siteMetadata }
+          navigation={ NavigationMetadata }
+        >
           {children}
         </LayoutContainer>
         <SpeedInsights />

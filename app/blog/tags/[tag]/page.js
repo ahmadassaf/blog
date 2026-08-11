@@ -10,10 +10,12 @@
  */
 
 import { allPosts } from 'contentlayer/generated';
+import { notFound } from 'next/navigation';
 
 import tags from '@/app/content/tags';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
+import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
+import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs';
 
 /**
  * Generates metadata for the tag filter page
@@ -32,11 +34,14 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  * // Returns: { title: 'Tag: Machine Learning' }
  */
 export async function generateMetadata({ params }) {
-  const tag = decodeURI(params.tag);
-  const title = tag.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const { 'tag': tagParam } = await params;
+  const tag = safeDecodeURI(tagParam);
+
+  if (tag === null) return { 'title': 'Tag not found' };
 
   return {
-    'title': `Tag: ${title}`
+    'alternates': { 'canonical': `/blog/tags/${tag}` },
+    'title': `Tag: ${titleFromSlug(tag)}`
   };
 }
 
@@ -79,12 +84,16 @@ export const generateStaticParams = async() => {
  * // Rendered at /blog/tags/javascript
  * // Shows all posts tagged with 'javascript'
  */
-export default function Page({ params }) {
-  const tag = decodeURI(params.tag);
-  const title = tag.split('-').join(' ');
-  const posts = coreContent(sortPosts(allPosts));
+export default async function Page({ params }) {
+  const { 'tag': tagParam } = await params;
+  const tag = safeDecodeURI(tagParam);
 
-  const filteredPosts = posts.filter((post) => post.tags.map((_tag) => _tag.replace(' ', '-').toLowerCase()).includes(params.tag));
+  if (tag === null) notFound();
+
+  const title = tag.split('-').join(' ');
+  const posts = coreContent(sortPosts(published(allPosts)));
+
+  const filteredPosts = posts.filter((post) => post.tags.map(slugify).includes(tag));
 
   return (
     <>

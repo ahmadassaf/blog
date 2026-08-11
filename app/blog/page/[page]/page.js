@@ -11,9 +11,34 @@
 
 import { POSTS_PER_PAGE } from '@gaudi/design-system';
 import { allPosts } from 'contentlayer/generated';
+import { notFound } from 'next/navigation';
 
+import { metadataGenertaor } from '@/data/meta/generator/blog';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
+import { coreContent, paginate, published, sortPosts } from '@/lib/utils/contentlayer';
+
+/**
+ * Generates metadata for the blog pagination page
+ *
+ * @description Creates page metadata with a page-numbered title and a
+ * canonical URL pointing at the paginated route.
+ *
+ * @param {Object} props - Component props
+ * @param {Object} props.params - Route parameters
+ * @param {string} props.params.page - Page number as string
+ *
+ * @returns {Promise<Object>} Metadata object with title and canonical URL
+ *
+ * @example
+ * // For page '2'
+ * // Returns metadata titled 'Blog – Page 2' with canonical '/blog/page/2'
+ */
+export async function generateMetadata({ params }) {
+  const { page } = await params;
+  const pageNumber = Number(page);
+
+  return metadataGenertaor({ 'path': `/blog/page/${pageNumber}`, 'title': `Blog – Page ${pageNumber}` });
+}
 
 /**
  * Generates static parameters for all blog pagination pages
@@ -28,7 +53,7 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  * // [{ page: '1' }, { page: '2' }, { page: '3' }]
  */
 export const generateStaticParams = async() => {
-  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  const totalPages = Math.ceil(published(allPosts).length / POSTS_PER_PAGE);
   const paths = Array.from({ 'length': totalPages }, (_, i) => {
     return { 'page': (i + 1).toString() };
   });
@@ -53,26 +78,18 @@ export const generateStaticParams = async() => {
  * // Rendered at /blog/page/2
  * // Shows posts 11-20 (assuming 10 posts per page)
  */
-export default function Page({ params }) {
-  const posts = coreContent(sortPosts(allPosts));
-  const pageNumber = parseInt(params.page);
+export default async function Page({ params }) {
+  const { page } = await params;
+  const posts = coreContent(sortPosts(published(allPosts)));
+  const paginatedPage = paginate(posts, page, POSTS_PER_PAGE);
 
-  // Calculate posts for current page
-  const pagePosts = posts.slice(
-    POSTS_PER_PAGE * (pageNumber - 1), POSTS_PER_PAGE * pageNumber
-  );
-
-  // Create pagination metadata
-  const pagination = {
-    'currentPage': pageNumber,
-    'totalPages': Math.ceil(posts.length / POSTS_PER_PAGE)
-  };
+  if (!paginatedPage) notFound();
 
   return (
     <ListLayout
-      posts={ pagePosts }
-      currentPage={ pagination.currentPage }
-      totalPages={ pagination.totalPages }
+      posts={ paginatedPage.pagePosts }
+      currentPage={ paginatedPage.currentPage }
+      totalPages={ paginatedPage.totalPages }
       paginationURL='blog/page'
       baseURL='blog'
     />

@@ -3,17 +3,14 @@
     "baseUrl": ".",
     "paths": {
       "contentlayer/generated": ["./.contentlayer/generated"],
-      "@/components/*": ["node_modules/@gaudi/design-system/src/components/*"],
-      "@/foundations/*": ["node_modules/@gaudi/design-system/src/foundations/*"],
-      "@/utilities/*": ["node_modules/@gaudi/design-system/src/utilities/*"],
-      "@/data/*": ["data/*"],
       "@/app/*": ["app/*"],
+      "@/data/*": ["data/*"],
       "@/layouts/*": ["layouts/*"],
       "@/lib/*": ["lib/*"],
-      "@gaudi/design-system": ["node_modules/@gaudi/design-system/src/index.js"],
-      "@gaudi/design-system/*": ["node_modules/@gaudi/design-system/src/*"],
       "@/public/*": ["public/*"],
-    }  
+      "@gaudi/design-system": ["node_modules/@gaudi/design-system/src/index.js"],
+      "@gaudi/design-system/*": ["node_modules/@gaudi/design-system/src/*"]
+    }
   },
   "include": [".contentlayer/generated"]
 }

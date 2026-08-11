@@ -17,6 +17,8 @@ import siteMetadata from '@/data/meta/metadata';
 import PostArticleFrame from './PostArticleFrame';
 import PostComments from './PostComments';
 
+import 'katex/dist/katex.css';
+
 /**
  * Post layout component for individual blog post pages
  *

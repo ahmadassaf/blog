@@ -15,7 +15,7 @@ Despite my ongoing goal to start writing consistently, my blog has mostly served
 
 One feature I love is the ability to preview links seamlessly. Much like Notion’s approach, I’ve implemented a system where links display both a favicon and a mini screenshot on hover. This provides readers with context before they even click, improving navigation and making the links more engaging. It’s a subtle feature but adds a polished touch, showing readers exactly where they're headed.
 
-# What do we want to achieve?
+## What do we want to achieve?
 
  - Expand inline links with the favicon and title (optional) of the linked page using a custom MDX component
  - Preview the link on hover; it will be any image that is found in the meta tags of the linked page or otherwise a screenshot of the page
@@ -24,7 +24,7 @@ One feature I love is the ability to preview links seamlessly. Much like Notion�
 <Aside>With [MDX](https://mdxjs.com/) (Markdown for JSX), we can seamlessly combine Markdown with React components to create dynamic, interactive content. In this blog post, I'll walk through creating a custom MDX component to automatically embed and preview inline links using [React](https://reactjs.org/), [Next.js](https://nextjs.org/), and [Remark](https://github.com/remarkjs/remark). The component is already implemented in this blog, so you can see it in action as you read through the post.</Aside>
 
 
-# Understanding MDX, Rehype, and Remark
+## Understanding MDX, Rehype, and Remark
 
 In the modern web development ecosystem, tools like MDX, [Rehype](https://github.com/rehypejs/rehype), and Remark have become essential for creating rich, dynamic content. Each of these tools serves a unique purpose and, when combined, they offer powerful capabilities for content management and rendering.
 
@@ -68,7 +68,7 @@ Plugin System: Apply transformations using a wide range of plugins.
 Output Control: Convert the transformed AST back into HTML strings.
 Integration: Works seamlessly with other Unified ecosystem tools.
 
-# Setting Up a Next.js Project with MDX Support
+## Setting Up a Next.js Project with MDX Support
 
 First, ensure you have Node.js installed, then create a new Next.js project:
 

@@ -22,32 +22,32 @@ In traditional data systems, information is often stored in siloed databases, ma
 - **Poor Relationship Representation**: Conventional databases often fall short in modeling complex interconnections between entities.
 - **Search Limitations**: Searching across structured and unstructured data seamlessly is challenging.
 
-<Callout type='info'> In his presentation [The Rationale for Semantic Technologies](https://www.slideshare.net/mkbergman/the-rationale-for-semantic-technologies#4), Mike Bergman defines the nature of the world as messy, complicated, interconnected, diverse and everychanging. As a result, our knowledge of this world is never complete, exists in structured, semi-structured and unstructured formats and can be found everywhere. This knowledge is contextual and MUST be coherent!  This is the world we live in and the world we are trying to model with Knowledge Graphs.</Callout>
+<Callout type='info'>In his presentation [The Rationale for Semantic Technologies](https://www.slideshare.net/mkbergman/the-rationale-for-semantic-technologies#4), Mike Bergman defines the world as messy, complicated, interconnected, diverse, and ever-changing. Our knowledge of this world is never complete. It exists in structured, semi-structured, and unstructured formats and can be found everywhere. This knowledge is contextual and must be coherent. This is the world we live in and the world we are trying to model with knowledge graphs.</Callout>
 
 A knowledge graph addresses these problems by integrating data from various sources into a unified graph structure. It represents [entities](https://en.wikipedia.org/wiki/Named_entity) as (nodes) that connect to each other through various relationships (edges) in a format that is both human-readable and machine-interpretable. This framework acts as a database, enabling complex queries by understanding the context and connections between various pieces of information. <Highlight>Knowledge graphs enhance AI applications by improving information retrieval and reasoning capabilities across multiple data sources powering tasks like semantic search, recommendation systems, and more.</Highlight>
 
-# What is a Knowledge Graph (KG)?
+## What is a Knowledge Graph (KG)?
 
 The term knowledge graph has been used frequently in research and business, usually in close association with Semantic Web technologies, linked data, large-scale data analytics and cloud computing. The term "knowledge graph" is often mistakenly thought to have originated in 2012, when Google adopted it to describe its structured entity-attribute information, prominently featured on its search results pages. While Google's use of the term has significantly boosted its visibility and marketing appeal, the concept dates back much further. The phrase "knowledge graph" itself can be traced to the 1970s, and the underlying ideas go back even earlier.
 
 <Aside>
-A knowledge graph, also known as a semantic network, represents a network of real-world entities—such as objects, events, situations or concepts—and illustrates the relationship between them. This information is usually stored in a graph database and visualized as a graph structure, prompting the term knowledge "graph."[^1]
+A knowledge graph, also known as a semantic network, represents a network of real-world entities-such as objects, events, situations or concepts-and illustrates the relationship between them. This information is usually stored in a graph database and visualized as a graph structure, prompting the term knowledge "graph."[^1]
 </Aside>
 
 [^1]: [What Is a Knowledge Graph?](https://www.ibm.com/topics/knowledge-graph)
 
-There has been lots of efforts to clearly define [what a Knowledge Graph is](https://ceur-ws.org/Vol-1695/paper4.pdf) but to put it simply; a knowledge graph is a network-based representation of knowledge that organizes data from multiple sources and captures information about entities of interest and the relationships between them. They are:
+There have been many efforts to clearly define [what a knowledge graph is](https://ceur-ws.org/Vol-1695/paper4.pdf). Put simply, a knowledge graph is a network-based representation of knowledge that organizes data from multiple sources and captures information about entities of interest and the relationships between them. Knowledge graphs are:
 
 - **Graphs**: unlike knowledge bases, the content of KGs is organised as a graph, where nodes (entities of interest and their types), relationships between and attributes of the nodes are equally important. This makes it easy to integrate new datasets and formats and supports exploration by navigating from one part of the graph to the other through links.
 - **Semantic**: the meaning of the data is encoded for programmatic use in an ontology, which describes the types of entities in the graph and their characteristics and can be represented as a schema sub-graph. This means that the graph is both a place to organise and store data, and to reason what it is about and derive new information.
 
-Knowledge Graphs consists of:
+Knowledge graphs consist of:
 
 - **Nodes**: Representing entities like people, places, things, or abstract concepts
 - **Edges**: Connections between nodes showing relationships
 - **Labels**: Attributes that define the relationships and reasoning rules
 
-At its core, a knowledge graph is data structure that connects data in a semantic way, allowing both humans and machines to understand the context and meaning of the information. Some live examples of Knowledge Graphs are the [Google Knowledge Graph](https://blog.google/products/search/introducing-knowledge-graph-things-not/) that powers search results with contextual insights and [LinkedIn's Economic Graph](https://economicgraph.linkedin.com/) that models professional connections and job market trends.
+At its core, a knowledge graph is a data structure that connects data semantically, allowing both humans and machines to understand the information's context and meaning. Examples include the [Google Knowledge Graph](https://blog.google/products/search/introducing-knowledge-graph-things-not/), which powers search results with contextual insights, and [LinkedIn's Economic Graph](https://economicgraph.linkedin.com/), which models professional connections and job-market trends.
 
 | Definition                                                                                                                                                                                                                                                                                                                                                                                                                                    | Source                           |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
@@ -59,7 +59,7 @@ At its core, a knowledge graph is data structure that connects data in a semanti
 
 <div className="caption">Table 1: Selected definitions of knowledge graph - Towards a Definition of Knowledge Graphs [@Ehrlinger:ICSS:16]</div>
 
-# Different Types of Information Management Systems
+## Different Types of Information Management Systems
 
 To appreciate the uniqueness of knowledge graphs, it’s helpful to understand how they compare to other [database management systems](https://en.wikipedia.org/wiki/Database#Database_management_system):
 
@@ -107,7 +107,7 @@ For example, if you are storing personal information such as names, dates of bir
 - Not all entities will have all the attributes in the table and
 - The attribute types are not strictly defined.
 
-# Graphs as data structures
+## Graphs as data structures
 
 A Graph is a non-linear data structure consisting of vertices and edges. The vertices are sometimes also referred to as nodes and the edges are lines or arcs that connect any two nodes in the graph. More formally, a knowledge graph as a directed labeled graph is a 4-tuple $G = (N, E, L, f)$, where $N$ is a set of nodes, $E \subseteq N \times N$ is a set of edges, $L$ is a set of labels, and $f: E \to L$ is an assignment function from edges to labels. An assignment of a label $B$ to an edge $E = (A, C)$ can be viewed as a triple $(A, B, C)$.
 
@@ -134,7 +134,7 @@ you can have a mix of types between those types e.g., **Directed Cyclic Graphs, 
 🌲 Trees are the restricted types of graphs, just with some more rules. Every tree will always be a graph but not all graphs will be trees. **Linked List**, **Trees**, and **Heaps** all are special cases of graphs.
 </Aside>
 
-# Graphs as data models
+## Graphs as data models
 
 ## Directed edge-labelled graphs
 
@@ -176,18 +176,18 @@ Generally, the property graph data model consists of three elements:
 
 Property values can have data types. Supported data types depend on the vendor. For example, Neo4j data types are similar, but not identical, to Java language data types.
 
-<Callout type='info'>A *property graph* is a tuple $G = (V, E, L, P, U, e, l, p)$, where: $V \subseteq \text{Con}$ is a set of node IDs, $E \subseteq \text{Con}$ is a set of edge IDs $L \subseteq \text{Con}$ is a set of labels, $P \subseteq \text{Con}$ is a set of properties, $U \subseteq \text{Con}$ is a set of values, $e : E \rightarrow V \times V$ maps an edge ID to a pair of node IDs, $l : V \cup E \rightarrow 2^L$ maps a node or edge ID to a set of labels, $p : V \cup E \rightarrow 2^{P \times U}$ maps a node or edge ID to a set of property–value pairs.</Callout>
+<Callout type='info'>A *property graph* is a tuple $G = (V, E, L, P, U, e, l, p)$, where: $V \subseteq \text{Con}$ is a set of node IDs, $E \subseteq \text{Con}$ is a set of edge IDs $L \subseteq \text{Con}$ is a set of labels, $P \subseteq \text{Con}$ is a set of properties, $U \subseteq \text{Con}$ is a set of values, $e : E \rightarrow V \times V$ maps an edge ID to a pair of node IDs, $l : V \cup E \rightarrow 2^L$ maps a node or edge ID to a set of labels, $p : V \cup E \rightarrow 2^{P \times U}$ maps a node or edge ID to a set of property-value pairs.</Callout>
 
 A key part of any data model is having a query language available for working with it. After all, users need to have a way to access and manipulate the data in the graph. No industry standard query language exists for property graphs. Instead, each database offers their own, unique query language that is incompatible with others:
 
-- [Neo4J](https://neo4j.com/) offers [Cypher](https://en.wikipedia.org/wiki/Cypher_(query_language)) also known as CQL—its own query language that, to some extent, took SQL as an inspiration.
-- [TigerGraph](https://www.tigergraph.com/) offers GSQL—its own query language that also took SQL as an inspiration.
+- [Neo4J](https://neo4j.com/) offers [Cypher](https://en.wikipedia.org/wiki/Cypher_(query_language)) also known as CQL-its own query language that, to some extent, took SQL as an inspiration.
+- [TigerGraph](https://www.tigergraph.com/) offers GSQL-its own query language that also took SQL as an inspiration.
 - MS SQL Graph has their own extension to SQL to support graph query.
 - Some vendors, in addition to their own query language, also implement some subset of Cypher. For example, SAP Hana offers its own extensions to SQL and its own GraphScript language plus they support a subset of Cypher.
 
 There is also [Apache TinkerPop](https://tinkerpop.apache.org/); which is an open source graph computing framework that is integrated with some property graph and [RDF](https://www.w3.org/RDF/) graph databases. It offers the Gremlin language which is more of an API language than a query language.
 
-A key requirement for working with any data model is the ability to reference nodes, properties and relationships (edges). In the case of property graphs, internally, nodes and edges have IDs. IDs are assigned by a database and are internal to a database. Referencing is done by using text strings—node labels, relationship types, and property names.
+A key requirement for working with any data model is the ability to reference nodes, properties and relationships (edges). In the case of property graphs, internally, nodes and edges have IDs. IDs are assigned by a database and are internal to a database. Referencing is done by using text strings-node labels, relationship types, and property names.
 
 ## RDF vs. Property Graph
 
@@ -216,13 +216,13 @@ A key requirement for working with any data model is the ability to reference no
 - Having data in standard format allows for the ease of integration with the wealth of Open Data available e.g.m DBpedia, Geonames, Open Corporates, etc.
 - No vendor lock in, its all open source and W3C Standards
 
-# So, in the end, what is a Knowledge Graph?
+## So, in the end, what is a Knowledge Graph?
 
 A Knowledge Graph is a connected data structure of data and associated metadata applied to model, integrate and access information assets. The knowledge graph represents real-world entities, facts, concepts, and events as well as the relationships between them. Knowledge graphs yield a more accurate and comprehensive representation of data.
 
 Knowledge Graphs (KGs) have emerged as a compelling abstraction for organising the world’s structured knowledge, and as a way to integrate information extracted from multiple data sources. Knowledge graphs have started to play a central role in representing the information extracted using natural language processing and computer vision. Domain knowledge expressed in KGs is being input into machine learning models to produce better predictions.
 
-The heart of the knowledge graph is a **knowledge model** – a collection of interlinked descriptions of concepts, entities, relationships and events where:
+The heart of the knowledge graph is a **knowledge model** - a collection of interlinked descriptions of concepts, entities, relationships and events where:
 
 - Descriptions have formal semantics that allow both people and computers to process them in an efficient and unambiguous manner;
 - Descriptions contribute to one another, forming a network, where each entity represents part of the description of the entities related to it;
@@ -253,10 +253,10 @@ Knowledge graphs combine characteristics of several data management paradigms:
 
 Knowledge graphs, represented in RDF, provide the best framework for data integration, unification, linking and reuse, because they combine:
 
-- **Expressivity**: The standards in the Semantic Web stack – [RDF](https://www.w3.org/RDF/), [RDFS](https://www.w3.org/TR/rdf-schema/) and [OWL](https://www.w3.org/TR/owl-features/) – allow for a fluent representation of various types of data and content: data schema, taxonomies and vocabularies, all sorts of metadata, reference and master data. The [RDF*](https://www.w3.org/groups/wg/rdf-star/) extension makes it easy to model provenance and other structured metadata.
+- **Expressivity**: The standards in the Semantic Web stack - [RDF](https://www.w3.org/RDF/), [RDFS](https://www.w3.org/TR/rdf-schema/) and [OWL](https://www.w3.org/TR/owl-features/) - allow for a fluent representation of various types of data and content: data schema, taxonomies and vocabularies, all sorts of metadata, reference and master data. The [RDF*](https://www.w3.org/groups/wg/rdf-star/) extension makes it easy to model provenance and other structured metadata.
 - **Performance**: All the specifications have been thought out, and proven in practice, to allow for efficient management of graphs of billions of facts and properties.
 - **Interoperability**: There is a range of specifications for data serialization, access ([SPARQL](https://www.w3.org/TR/sparql11-query/) Protocol for end-points), management ([SPARQL](https://www.w3.org/TR/sparql11-query/) Graph Store) and federation. The use of globally unique identifiers facilitates data integration and publishing.
-- **Standardization**: All the above is standardized through the W3C community process, to make sure that the requirements of different actors are satisfied – all the way from logicians to enterprise data management professionals and system operations teams.
+- **Standardization**: All the above is standardized through the W3C community process, to make sure that the requirements of different actors are satisfied - all the way from logicians to enterprise data management professionals and system operations teams.
 
 ## What is NOT a Knowledge Graph?
 
@@ -280,7 +280,7 @@ Today, the main challenge with a Machine Learning model is that without a proper
 
 One of the major problems in machine learning industry is explaining the predictions made by machine learning systems. One issue is the implicit representations causing the predictions from the machine learning models. Knowledge Graph can alleviate this problem by mapping the explanations to some proper nodes in the graph and summarizing the decision-taking process.
 
-# Appendix
+## Appendix
 
 ## Graph DBMS vendors
 
@@ -343,7 +343,7 @@ Graph traversal, graph analytics, graph algorithms, and ML are all included nati
 
 The MarkLogic Semantics capability is built into the core product and sold as a license option. It enables direct querying in [SPARQL](https://en.wikipedia.org/wiki/SPARQL) and reasoning support for [RDFS](https://www.w3.org/TR/rdf-schema/) and [OWL Horst](https://en.wikipedia.org/wiki/Web_Ontology_Language) ontologies. Custom rules can be defined using MarkLogic’s own language, which is based on the [SPARQL](https://www.w3.org/TR/sparql11-query/) Construct operator.
 
-MarkLogic can be deployed on-premises, in the cloud, or in hybrid deployments, and has APIs for SPARQL, JavaScript, XQuery, Search, SQL, REST, Java, Node.js, and Optic queries. It offers a free developer version and pricing by cores and/or consumption. It provides tools focused on data curation and access — queries can be against both data and metadata within the same query, making it well-suited to building data hubs. It also supports [ONNX](https://onnx.ai/) and [PyTorch](https://pytorch.org/) for ML.
+MarkLogic can be deployed on-premises, in the cloud, or in hybrid deployments, and has APIs for SPARQL, JavaScript, XQuery, Search, SQL, REST, Java, Node.js, and Optic queries. It offers a free developer version and pricing by cores and/or consumption. It provides tools focused on data curation and access - queries can be against both data and metadata within the same query, making it well-suited to building data hubs. It also supports [ONNX](https://onnx.ai/) and [PyTorch](https://pytorch.org/) for ML.
 
 ### Microsoft
 [Microsoft](https://www.microsoft.com/), based in Redmond, Washington, provides graph capabilities in three offerings: [Azure SQL](https://azure.microsoft.com/en-us/services/sql-database/), SQL Server, and [Azure Cosmos DB](https://azure.microsoft.com/en-us/products/cosmos-db/). Azure Cosmos DB is a nonrelational multimodel DBMS deployed as a managed service in the cloud. It provides a property graph model and supports [Gremlin](https://tinkerpop.apache.org/gremlin.html) as a query language.

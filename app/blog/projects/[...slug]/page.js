@@ -9,12 +9,15 @@
  * @version 1.0.0
  */
 
-import { CitationPopover, FootnotePopover, MDXComponents, MDXLayoutRenderer } from '@gaudi/design-system/mdx';
+import { CitationPopover, Footnote } from '@gaudi/design-system/mdx';
+import { MDXLayoutRenderer } from '@gaudi/design-system/mdx/runtime';
 import { allProjects } from 'contentlayer/generated';
+import { notFound } from 'next/navigation';
 
 import { linkedDataGenerator, metadataGenertaor } from '@/data/meta/generator/post';
 import ProjectLayout from '@/layouts/ProjectLayout';
-import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
+import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
+import { safeDecodeURI } from '@/lib/utils/slugs';
 
 /**
  * Generates metadata for the project detail page
@@ -35,7 +38,7 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
 
-  return metadataGenertaor(resolvedParams, allProjects);
+  return metadataGenertaor({ 'slug': [ 'projects', ...resolvedParams.slug ] }, published(allProjects));
 }
 
 /**
@@ -51,8 +54,8 @@ export async function generateMetadata({ params }) {
  * // [{ slug: ['project-type', 'project-name'] }, { slug: ['another-project'] }]
  */
 export const generateStaticParams = async() => {
-  const paths = allProjects.map((post) => {
-    return { 'slug': post.slug.split('/') };
+  const paths = published(allProjects).map((post) => {
+    return { 'slug': post.externalLink.replace('projects/', '').split('/') };
   });
 
   return paths;
@@ -77,13 +80,19 @@ export const generateStaticParams = async() => {
  */
 export default async function Page({ params }) {
   const resolvedParams = await params;
-  const slug = decodeURI(resolvedParams.slug.join('/'));
-  const posts = coreContent(sortPosts(allProjects));
+  const slug = safeDecodeURI(resolvedParams.slug.join('/'));
+
+  if (slug === null) notFound();
+
+  const sortedProjects = sortPosts(published(allProjects));
+  const posts = coreContent(sortedProjects);
   const postIndex = posts.findIndex((_post) => _post.externalLink === `projects/${slug}`);
-  const post = allProjects[postIndex];
+  const post = sortedProjects[postIndex];
+
+  if (!post) notFound();
 
   if (post?.series) {
-    const seriesPosts = allProjects
+    const seriesPosts = sortedProjects
       .filter((_post) => _post.series?.title === post.series?.title)
       .sort((a, b) => Number(a.series.order) - Number(b.series.order))
       .map((_post) => {
@@ -98,15 +107,15 @@ export default async function Page({ params }) {
     post.seriesPosts = seriesPosts;
   }
 
-  return post ? (
+  return (
     <>
       <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(linkedDataGenerator(post)) }} key='post-jsonld'/>
 
       <ProjectLayout content={ coreContent(post) } next={ posts[postIndex - 1] || null } prev={ posts[postIndex + 1] || null } toc={ post.toc }>
-        <MDXLayoutRenderer code={ post.body.code } components={ MDXComponents } />
+        <MDXLayoutRenderer code={ post.body.code } />
         <CitationPopover />
-        <FootnotePopover />
+        <Footnote />
       </ProjectLayout>
     </>
-  ) : <></>;
+  );
 }

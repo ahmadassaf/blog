@@ -3,7 +3,7 @@ import { organisation } from './organisation';
 
 export function author() {
   return {
-    '@context': 'http://schema.org',
+    '@context': 'https://schema.org',
     '@type': 'Person',
     'address': {
       '@type': 'PostalAddress',
@@ -27,6 +27,6 @@ export function author() {
       'https://www.instagram.com/ahmadaassaf/',
       'https://news.ycombinator.com/user?id=ahmadassaf'
     ],
-    'url': 'http://www.assaf.website'
+    'url': 'https://assaf.website'
   };
 }

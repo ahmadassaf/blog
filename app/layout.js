@@ -118,7 +118,9 @@ const footerProps = {
     }
   ],
   'socialLinks': [
+    { 'href': `mailto:${siteMetadata.email}`, 'kind': 'mail' },
     { 'href': siteMetadata.github, 'kind': 'github' },
+    { 'href': siteMetadata.youtube, 'kind': 'youtube' },
     { 'href': siteMetadata.linkedin, 'kind': 'linkedin' },
     { 'href': siteMetadata.twitter, 'kind': 'twitter' }
   ],

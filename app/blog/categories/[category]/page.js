@@ -90,15 +90,22 @@ export default async function Page({ params }) {
 
   if (category === null) notFound();
 
-  const title = category.replaceAll('-', ' ');
+  const categoryDetails = categories.find((entry) => entry.slug === category);
+
+  if (!categoryDetails) notFound();
+
   const sortedPosts = coreContent(sortPosts(published(allPosts)));
   const filteredPosts = sortedPosts.filter((post) => slugify(post.category) === category);
 
   return (
-    <>
-      <div>
-        <ListLayout className='capitalize' posts={ filteredPosts } listTitle={ `${title} Posts` } paginationURL={ `blog/categories/${category}/page` } baseURL={ `blog/categories/${category}` }/>
-      </div>
-    </>
+    <ListLayout
+      posts={ filteredPosts }
+      pageTitle={ titleFromSlug(categoryDetails.title) }
+      pageDescription={ categoryDetails.description }
+      listTitle='Articles'
+      titleAs='h2'
+      paginationURL={ `blog/categories/${category}/page` }
+      baseURL={ `blog/categories/${category}` }
+    />
   );
 }

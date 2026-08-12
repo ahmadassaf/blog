@@ -2,7 +2,7 @@
  * Publications Page
  *
  * @description Server page for the publications list. Exports page metadata and
- * passes the publications data as plain props to the PublicationsList client component.
+ * passes publication data to the chronological index component.
  *
  * @author Ahmad Assaf
  * @version 1.0.0

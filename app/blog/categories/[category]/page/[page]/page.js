@@ -102,15 +102,28 @@ export default async function Page({ params }) {
 
   if (category === null) notFound();
 
-  const title = category.replaceAll('-', ' ');
+  const categoryDetails = categories.find((entry) => entry.slug === category);
+
+  if (!categoryDetails) notFound();
+
   const posts = coreContent(sortPosts(published(allPosts))).filter((post) => slugify(post.category) === category);
   const page = paginate(posts, pageParam, POSTS_PER_PAGE);
 
   if (!page) notFound();
 
   return (
-    <>
-      <ListLayout posts={ page.pagePosts } searchPosts={ posts } totalCount={ posts.length } listTitle={ `${title} Posts` } currentPage={ page.currentPage } totalPages={ page.totalPages } paginationURL={ `blog/categories/${category}/page` } baseURL={ `blog/categories/${category}` }/>
-    </>
+    <ListLayout
+      posts={ page.pagePosts }
+      searchPosts={ posts }
+      totalCount={ posts.length }
+      pageTitle={ titleFromSlug(categoryDetails.title) }
+      pageDescription={ categoryDetails.description }
+      listTitle='Articles'
+      titleAs='h2'
+      currentPage={ page.currentPage }
+      totalPages={ page.totalPages }
+      paginationURL={ `blog/categories/${category}/page` }
+      baseURL={ `blog/categories/${category}` }
+    />
   );
 }

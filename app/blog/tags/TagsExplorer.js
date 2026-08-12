@@ -1,41 +1,39 @@
 /**
  * Tags Explorer Component
  *
- * @description Interactive client component for the tags page. Renders blue-accented
- * stats cards, a searchable topic list, and an accessible slide-over drawer with the
- * articles for a selected topic. Receives plain, pre-filtered data from the server page.
+ * @description Searchable editorial index of blog tags with an accessible
+ * slide-over showing the articles associated with a selected tag.
  *
  * @author Ahmad Assaf
- * @version 9.0.0
+ * @version 10.0.0
  */
 
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Button, Card, FieldInput, Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { Button, Icon, Link, Search, Typography } from '@gaudi/design-system';
 
-import { PostSummary, StatCard } from '@/app/blog/ExplorerCards';
+import { PostSummary } from '@/app/blog/ExplorerCards';
 
 /**
- * Interactive tags explorer with searchable topics and an accessible drawer
+ * Searchable tags index with an accessible article drawer.
  *
  * @param {Object} props - Component props
- * @param {Array<Object>} props.posts - Stripped post objects (no drafts) with pre-normalized tagSlugs
+ * @param {Array<Object>} props.posts - Stripped post objects with pre-normalized tag slugs
  * @param {Array<Object>} props.tags - Tag descriptors with id, display, slug, and count
- * @returns {JSX.Element} Tags explorer with stats, topic buttons, and drawer
- *
- * @example
- * <TagsExplorer tags={tags} posts={posts} />
+ * @returns {JSX.Element} Tags index and article drawer
  */
 export default function TagsExplorer({ posts, tags }) {
   const [ selectedTag, setSelectedTag ] = useState(null);
   const [ searchQuery, setSearchQuery ] = useState('');
+  const generatedId = useId();
+  const resultsId = `tag-results-${generatedId}`;
+  const statusId = `tag-results-status-${generatedId}`;
 
   const drawerRef = useRef(null);
   const closeButtonRef = useRef(null);
   const previouslyFocusedElementRef = useRef(null);
 
-  // Index posts by tag slug once so opening a topic is a lookup, not a rescan
   const postsByTagSlug = useMemo(() => {
     const index = new Map();
 
@@ -50,35 +48,38 @@ export default function TagsExplorer({ posts, tags }) {
     return index;
   }, [ posts ]);
 
-  const sortedTags = useMemo(() => [ ...tags ].sort((a, b) => b.count - a.count), [ tags ]);
+  const sortedTags = useMemo(() => (
+    [ ...tags ].sort((a, b) => a.display.localeCompare(b.display, 'en', { 'sensitivity': 'base' }))
+  ), [ tags ]);
 
-  const filteredAndSortedTags = useMemo(() => {
-    const query = searchQuery.toLowerCase();
+  const filteredTags = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
 
-    return sortedTags.filter((tag) => tag.display.toLowerCase().includes(query) || tag.id.toLowerCase().includes(query));
+    if (!query) return sortedTags;
+
+    return sortedTags.filter((tag) => (
+      tag.display.toLowerCase().includes(query) || tag.id.toLowerCase().includes(query)
+    ));
   }, [ searchQuery, sortedTags ]);
 
-  // Calculate stats
-  const totalArticles = useMemo(() => tags.reduce((sum, tag) => sum + tag.count, 0), [ tags ]);
-  const mostPopularTag = filteredAndSortedTags[0];
-
-  // The drawer state is fully derived from the selected tag
   const sidebarOpen = selectedTag !== null;
   const tagPosts = selectedTag ? postsByTagSlug.get(selectedTag.slug) || [] : [];
+  const resultLabel = filteredTags.length === 1 ? 'tag' : 'tags';
+  const statusText = searchQuery.trim() ? `${filteredTags.length} ${resultLabel} matching “${searchQuery.trim()}”` : `${filteredTags.length} ${resultLabel}`;
 
   const closeSidebar = () => setSelectedTag(null);
 
-  // Handle escape key, focus trap, and focus restore while the drawer is open
   useEffect(() => {
     if (!sidebarOpen) return undefined;
 
     previouslyFocusedElementRef.current = document.activeElement;
+    const previousBodyOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = 'hidden';
     closeButtonRef.current?.focus();
 
     const handleEscape = (event) => {
-      if (event.key === 'Escape')
-        closeSidebar();
-
+      if (event.key === 'Escape') closeSidebar();
     };
 
     const handleTab = (event) => {
@@ -109,6 +110,7 @@ export default function TagsExplorer({ posts, tags }) {
     document.addEventListener('keydown', handleTab);
 
     return () => {
+      document.body.style.overflow = previousBodyOverflow;
       document.removeEventListener('keydown', handleEscape);
       document.removeEventListener('keydown', handleTab);
       previouslyFocusedElementRef.current?.focus?.();
@@ -117,136 +119,145 @@ export default function TagsExplorer({ posts, tags }) {
 
   return (
     <>
-      <div className='mx-auto max-w-6xl'>
-        <div className='mb-8'>
-          <Typography variant='title-md' className='mb-6'>
-            Topics
+      <div>
+        <header className='border-b border-gray-200 py-10 dark:border-gray-800 md:py-12'>
+          <Typography variant='title-md'>Tags</Typography>
+          <Typography variant='index-feature-summary' className='mt-3 max-w-2xl'>
+            A searchable index of the technologies, research areas, and working practices covered across the archive.
           </Typography>
-
-          <Grid columns='3' gap='md' className='mb-6'>
-            <StatCard icon='FolderOpen' value={ tags.length } label='Topics' />
-            <StatCard icon='FileText' value={ totalArticles } label='Articles' />
-            <StatCard icon='Flame' value={ mostPopularTag?.count || 0 } label='Most popular' />
-          </Grid>
-
-          <div className='relative mb-8'>
-            <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
-              <Icon name='Search' size='sm' decorative />
-            </div>
-            <FieldInput
-              type='text'
-              placeholder='Search topics...'
-              value={ searchQuery }
-              onChange={ (event) => setSearchQuery(event.target.value) }
-              className='pl-10'
-            />
+          <div className='mt-4 flex flex-wrap gap-x-5 gap-y-2'>
+            <Typography variant='metadata'>{tags.length} tags</Typography>
+            <Typography variant='metadata'>{posts.length} articles</Typography>
           </div>
+        </header>
+
+        <div className='max-w-xl py-6'>
+          <Search
+            clearLabel='Clear tag search'
+            label='Search tags'
+            resultsId={ resultsId }
+            setSearchValue={ setSearchQuery }
+            value={ searchQuery }
+          />
+          <Typography
+            id={ statusId }
+            variant='paragraph-sm'
+            role='status'
+            aria-live='polite'
+            aria-atomic='true'
+            className='mt-2'
+          >
+            {statusText}
+          </Typography>
         </div>
 
-        <div className='flex flex-wrap gap-3'>
-          {filteredAndSortedTags.map((tag) => (
-            <Button
-              key={ tag.id }
-              onClick={ () => setSelectedTag(tag) }
-              variant='outline'
-              tone='gray'
-              size='sm'
-              className='max-w-full justify-start whitespace-normal text-left'
-            >
-              {tag.display}
-              <Pill tone='gray' variant='soft' size='xs'>{tag.count}</Pill>
-            </Button>
-          ))}
-        </div>
-
-        {filteredAndSortedTags.length === 0 && (
-          <div className='py-8 text-center'>
-            <Typography variant='paragraph-sm'>
-              {searchQuery ? 'No topics found matching your search' : 'No topics yet'}
-            </Typography>
+        {filteredTags.length > 0 ? (
+          <div id={ resultsId } aria-describedby={ statusId } role='list' className='grid border-t border-gray-200 dark:border-gray-800 md:grid-cols-2'>
+            {filteredTags.map((tag) => (
+              <div key={ tag.id } role='listitem' className='border-b border-gray-200 dark:border-gray-800 md:odd:border-r'>
+                <Button
+                  onClick={ () => setSelectedTag(tag) }
+                  aria-controls='tags-drawer'
+                  aria-expanded={ selectedTag?.id === tag.id }
+                  aria-haspopup='dialog'
+                  variant='ghost'
+                  tone='gray'
+                  size='sm'
+                  className='min-h-14 w-full justify-between rounded-none px-4 py-3 text-left font-medium'
+                >
+                  <span className='min-w-0 break-words'>{tag.display}</span>
+                  <span className='ml-4 inline-flex shrink-0 items-center gap-2 text-gray-500 dark:text-gray-400'>
+                    <span className='text-xs tabular-nums'>{tag.count}</span>
+                    <Icon name='ArrowRight' size='xs' decorative />
+                  </span>
+                </Button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div id={ resultsId } aria-describedby={ statusId } className='border-y border-gray-200 py-12 text-center dark:border-gray-800'>
+            <Typography variant='heading-sm' as='p' className='mb-2'>No matching tags</Typography>
+            <Typography variant='paragraph-sm'>Try a shorter term or clear the search to see the complete index.</Typography>
           </div>
         )}
       </div>
 
       {sidebarOpen && (
         <div
+          id='tags-drawer'
           ref={ drawerRef }
           role='dialog'
           aria-modal='true'
           aria-labelledby='tags-drawer-title'
+          aria-describedby='tags-drawer-description'
           className='fixed inset-0 z-50 overflow-hidden'
         >
           <div
             aria-hidden='true'
-            className='absolute inset-0 bg-black/20'
+            className='absolute inset-0 bg-gray-950/35'
             onClick={ closeSidebar }
           />
 
-          <Card variant='outline' radius='none' padding='none' className='absolute right-0 top-0 h-full w-full max-w-lg shadow-lg'>
-            <div className='flex h-full flex-col'>
-              <Card variant='flat' radius='none' className='border-x-0 border-t-0 p-6'>
-                <div className='flex items-start justify-between gap-4'>
-                  <div className='min-w-0'>
-                    <div className='flex min-w-0 items-center gap-2'>
-                      <Icon name='Tags' size='md' decorative />
-                      <Typography variant='heading-sm' as='h2' id='tags-drawer-title' className='break-words'>
-                        {selectedTag?.display}
-                      </Typography>
-                    </div>
-                    <Typography variant='paragraph-sm' className='mt-1'>
-                      {selectedTag?.count} {selectedTag?.count === 1 ? 'article' : 'articles'}
-                    </Typography>
-                  </div>
-                  <Button
-                    ref={ closeButtonRef }
-                    onClick={ closeSidebar }
-                    variant='ghost'
-                    tone='gray'
-                    size='xs'
-                    aria-label='Close topics panel'
-                    className='shrink-0'
-                  >
-                    <Icon name='X' size='md' decorative />
-                  </Button>
-                </div>
-              </Card>
+          <aside className='absolute right-0 top-0 flex h-full w-full max-w-lg flex-col border-l border-gray-200 bg-white shadow-xl dark:border-gray-800 dark:bg-gray-950'>
+            <header className='flex items-start justify-between gap-4 border-b border-gray-200 p-5 dark:border-gray-800 sm:p-6'>
+              <div className='min-w-0'>
+                <Typography variant='heading-md' as='h2' id='tags-drawer-title' className='break-words'>
+                  {selectedTag?.display}
+                </Typography>
+                <Typography id='tags-drawer-description' variant='post-meta' className='mt-1'>
+                  {selectedTag?.count} {selectedTag?.count === 1 ? 'article' : 'articles'}
+                </Typography>
+              </div>
+              <Button
+                ref={ closeButtonRef }
+                onClick={ closeSidebar }
+                variant='ghost'
+                tone='gray'
+                size='xs'
+                aria-label='Close tag panel'
+                className='shrink-0'
+              >
+                <Icon name='X' size='md' decorative />
+              </Button>
+            </header>
 
-              <div className='flex-1 overflow-y-auto'>
-                {tagPosts.length === 0 && (
-                  <div className='py-12 text-center'>
-                    <Typography variant='paragraph-sm'>No articles found</Typography>
-                  </div>
-                )}
-                {tagPosts.length > 0 && (
-                  <div>
-                    {tagPosts.map((post) => (
+            <div className='flex-1 overflow-y-auto'>
+              {tagPosts.length > 0 ? (
+                <ul className='divide-y divide-gray-200 dark:divide-gray-800'>
+                  {tagPosts.map((post) => (
+                    <li key={ post.slug }>
                       <Link
-                        key={ post.slug }
                         href={ `/blog/${post.slug}` }
                         onClick={ closeSidebar }
                         variant='bare'
-                        className='block p-6'
+                        className='group block p-5 transition-colors hover:bg-gray-50 dark:hover:bg-gray-900 sm:p-6'
                       >
                         <PostSummary post={ post } />
                       </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <Card variant='flat' radius='none' className='border-x-0 border-b-0 p-6'>
-                <Button
-                  href={ `/blog/tags/${selectedTag?.slug}` }
-                  onClick={ closeSidebar }
-                  variant='outline'
-                  tone='gray'
-                  className='w-full'
-                >
-                    View All Articles →
-                </Button>
-              </Card>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className='py-12 text-center'>
+                  <Typography variant='paragraph-sm'>No articles found.</Typography>
+                </div>
+              )}
             </div>
-          </Card>
+
+            <footer className='border-t border-gray-200 p-5 dark:border-gray-800 sm:p-6'>
+              <Button
+                href={ `/blog/tags/${selectedTag?.slug}` }
+                onClick={ closeSidebar }
+                variant='outline'
+                tone='gray'
+                size='sm'
+                className='w-full'
+              >
+                View all articles
+                <Icon name='ArrowRight' size='xs' decorative />
+              </Button>
+            </footer>
+          </aside>
         </div>
       )}
     </>

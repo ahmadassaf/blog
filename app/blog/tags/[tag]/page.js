@@ -90,14 +90,23 @@ export default async function Page({ params }) {
 
   if (tag === null) notFound();
 
-  const title = tag.split('-').join(' ');
+  const tagDetails = tags.find((entry) => entry.slug === tag);
+
+  if (!tagDetails) notFound();
+
   const posts = coreContent(sortPosts(published(allPosts)));
 
   const filteredPosts = posts.filter((post) => post.tags.map(slugify).includes(tag));
 
   return (
-    <>
-      <ListLayout posts={ filteredPosts } listTitle={ `${title} Posts` } paginationURL={ `blog/tags/${tag}/page` } baseURL={ `blog/tags/${tag}` }/>
-    </>
+    <ListLayout
+      posts={ filteredPosts }
+      pageTitle={ tagDetails.display || titleFromSlug(tag) }
+      pageDescription={ `Writing filed under ${tagDetails.display || titleFromSlug(tag)}. Browse or search every published article in this topic.` }
+      listTitle='Articles'
+      titleAs='h2'
+      paginationURL={ `blog/tags/${tag}/page` }
+      baseURL={ `blog/tags/${tag}` }
+    />
   );
 }

@@ -41,6 +41,7 @@ export default function FeaturedLayout({ posts }) {
 
   // Extract the first featured post for hero display, falling back to the newest post
   const featuredPost = featuredPosts[0] || posts[0];
+  const featuredLabel = featuredPosts[0] ? 'Featured' : 'Latest';
 
   // Get additional featured posts for grid display (posts 2-3)
   const displayPosts = featuredPosts.slice(1, 3);
@@ -48,12 +49,11 @@ export default function FeaturedLayout({ posts }) {
   if (!featuredPost) return null;
 
   return (
-    <div>
-
-      <div className={ `pb-12` }>
-        <article className='mx-auto w-full group'>
-          <div className='mb-4 flex flex-wrap items-center gap-x-3 gap-y-2'>
-            <Pill tone='blue' variant='solid' radius='full' size='sm'>Featured</Pill>
+    <div className='pb-8 lg:pb-10'>
+      <section aria-label='Featured writing'>
+        <article className='w-full group'>
+          <div className='mb-3 flex flex-wrap items-center gap-x-3 gap-y-2'>
+            <Pill tone='blue' variant='solid' radius='full' size='sm'>{featuredLabel}</Pill>
             <Typography
               as='time'
               variant='post-meta'
@@ -63,7 +63,7 @@ export default function FeaturedLayout({ posts }) {
             </Typography>
             {featuredPost.category && (
               <>
-                <Typography as='span' variant='post-meta'>•</Typography>
+                <Typography as='span' variant='post-meta'>·</Typography>
                 <Pill tone='blue' variant='subtle' size='sm' className='capitalize'>
                   {featuredPost.category}
                 </Pill>
@@ -71,7 +71,7 @@ export default function FeaturedLayout({ posts }) {
             )}
           </div>
 
-          <Typography variant='heading-xl' as='h2' className='mb-4 break-words'>
+          <Typography variant='index-hero-title' as='h2' className='mb-3'>
             <Link
               href={ `/blog/${featuredPost.slug}` }
               variant='bare'
@@ -82,7 +82,7 @@ export default function FeaturedLayout({ posts }) {
             </Link>
           </Typography>
 
-          <Typography variant='paragraph-lg' className='mb-6 text-pretty'>
+          <Typography variant='index-hero-summary' className='mb-5 text-pretty'>
             {featuredPost.summary}
           </Typography>
 
@@ -98,7 +98,7 @@ export default function FeaturedLayout({ posts }) {
 
             {featuredPost.tags && featuredPost.tags.length > 0 && (
               <div className='min-w-0 flex flex-wrap gap-2'>
-                {featuredPost.tags.slice(0, 4).map((tag) => (
+                {featuredPost.tags.slice(0, 2).map((tag) => (
                   <Pill key={ tag } href={ `/blog/tags/${slugify(tag)}` } tone='gray' variant='soft' size='sm' className='capitalize'>
                     {tag}
                   </Pill>
@@ -109,7 +109,7 @@ export default function FeaturedLayout({ posts }) {
         </article>
 
         {displayPosts.length > 0 && (
-          <Grid columns='2' gap='lg' className='w-full pt-12'>
+          <Grid columns='2' gap='md' className='w-full pt-8'>
             {displayPosts.map((post) => (
               <article key={ post.slug } className='group'>
                 <div className='mb-3 flex flex-wrap items-center gap-x-3 gap-y-2'>
@@ -122,7 +122,7 @@ export default function FeaturedLayout({ posts }) {
                   </Typography>
                   {post.category && (
                     <>
-                      <Typography as='span' variant='post-meta'>•</Typography>
+                      <Typography as='span' variant='post-meta'>·</Typography>
                       <Pill tone='blue' variant='subtle' size='sm' className='capitalize'>
                         {post.category}
                       </Pill>
@@ -130,19 +130,19 @@ export default function FeaturedLayout({ posts }) {
                   )}
                 </div>
 
-                <Typography variant='heading-md' as='h2' className='mb-3 break-words text-pretty'>
+                <Typography variant='index-feature-title' as='h2' className='mb-2'>
                   <Link href={ `/blog/${post.slug}` } tone='neutral' variant='bare' className='break-words no-underline transition-colors duration-200 hover:text-blue-600 hover:no-underline dark:hover:text-blue-400'>
                     {post.title}
                   </Link>
                 </Typography>
 
-                <Typography variant='paragraph-md' className='mb-4 text-pretty'>
+                <Typography variant='index-feature-summary' className='mb-3 text-pretty'>
                   {post.summary}
                 </Typography>
 
                 {post.tags && post.tags.length > 0 && (
                   <div className='flex flex-wrap gap-2'>
-                    {post.tags.slice(0, 3).map((tag) => (
+                    {post.tags.slice(0, 2).map((tag) => (
                       <Pill key={ tag } href={ `/blog/tags/${slugify(tag)}` } tone='gray' variant='soft' size='sm' className='capitalize'>
                         {tag}
                       </Pill>
@@ -153,7 +153,7 @@ export default function FeaturedLayout({ posts }) {
             ))}
           </Grid>
         )}
-      </div>
+      </section>
     </div>
   );
 }

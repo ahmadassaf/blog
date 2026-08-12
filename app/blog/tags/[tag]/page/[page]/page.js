@@ -110,7 +110,7 @@ export default async function Page({ params }) {
 
   return (
     <>
-      <ListLayout posts={ page.pagePosts } listTitle={ `${title} Posts` } currentPage={ page.currentPage } totalPages={ page.totalPages } paginationURL={ `blog/tags/${tag}/page` } baseURL={ `blog/tags/${tag}` }/>
+      <ListLayout posts={ page.pagePosts } searchPosts={ posts } totalCount={ posts.length } listTitle={ `${title} Posts` } currentPage={ page.currentPage } totalPages={ page.totalPages } paginationURL={ `blog/tags/${tag}/page` } baseURL={ `blog/tags/${tag}` }/>
     </>
   );
 }

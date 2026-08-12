@@ -31,10 +31,15 @@ export default function Blog() {
   const posts = coreContent(sortPosts(published(allPosts)));
 
   return (
-    <div>
-      <h1 className='sr-only'>Blog</h1>
-      <FeaturedPostsLayout posts={ posts } />
-      <ListLayout posts={ posts } paginationURL='blog/page' baseURL='blog' />
-    </div>
+    <ListLayout
+      posts={ posts }
+      pageTitle='Blog'
+      pageDescription='Writing about AI, semantic systems, data products, and engineering practice.'
+      listTitle='Latest writing'
+      titleAs='h2'
+      beforeList={ <FeaturedPostsLayout posts={ posts } /> }
+      paginationURL='blog/page'
+      baseURL='blog'
+    />
   );
 }

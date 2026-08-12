@@ -2,13 +2,14 @@
  * Explorer Card Components
  *
  * @description Presentational pieces shared by the categories and tags
- * explorers: a compact post summary and short-date formatter.
+ * explorers: the stat tile, the post summary row, and the short date
+ * formatter they both render.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
  */
 
-import { Icon, Typography } from '@gaudi/design-system';
+import { Card, Icon, Typography } from '@gaudi/design-system';
 
 const SHORT_DATE_FORMAT = new Intl.DateTimeFormat('en-US', {
   'day': 'numeric',
@@ -23,6 +24,27 @@ const SHORT_DATE_FORMAT = new Intl.DateTimeFormat('en-US', {
  * @returns {string} Short formatted date string
  */
 export const formatShortDate = (date) => SHORT_DATE_FORMAT.format(new Date(date));
+
+/**
+ * Stat tile showing an icon, a value, and a label
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.icon - Icon name from the design-system registry
+ * @param {string} props.label - Stat label
+ * @param {number} props.value - Stat value
+ * @returns {JSX.Element} Outlined stat card
+ */
+export const StatCard = ({ icon, label, value }) => (
+  <Card variant='outline'>
+    <div className='flex items-center gap-3'>
+      <Icon name={ icon } size='md' decorative color='primary' />
+      <div>
+        <Typography variant='heading-sm'>{value}</Typography>
+        <Typography variant='metadata'>{label}</Typography>
+      </div>
+    </div>
+  </Card>
+);
 
 /**
  * Post summary row with title, excerpt, date, and a "Read" affordance

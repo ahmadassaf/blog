@@ -23,10 +23,7 @@ import { slugify } from '@/lib/utils/slugs';
  * the newest post when no post is flagged as featured, and renders nothing when no posts exist.
  *
  * @param {Object} props - Component props
- * @param {string} [props.labelledBy] - ID of a visible heading that labels the featured section
  * @param {Array<Object>} props.posts - Sorted, published core-content posts (page computes these once and shares them with its list layout)
- * @param {boolean} [props.showSecondary=true] - Whether to render the two secondary featured posts
- * @param {string} [props.titleAs='h2'] - Heading element used for featured post titles
  * @returns {JSX.Element|null} Featured posts layout with hero and grid sections
  *
  * @example
@@ -39,7 +36,7 @@ import { slugify } from '@/lib/utils/slugs';
  * // - Additional featured posts: 2-column grid (1-column on mobile)
  * // - Responsive design with proper spacing and hover effects
  */
-export default function FeaturedLayout({ labelledBy, posts, showSecondary = true, titleAs = 'h2' }) {
+export default function FeaturedLayout({ posts }) {
   const featuredPosts = posts.filter((post) => post.featured);
 
   // Extract the first featured post for hero display, falling back to the newest post
@@ -47,13 +44,13 @@ export default function FeaturedLayout({ labelledBy, posts, showSecondary = true
   const featuredLabel = featuredPosts[0] ? 'Featured' : 'Latest';
 
   // Get additional featured posts for grid display (posts 2-3)
-  const displayPosts = showSecondary ? featuredPosts.slice(1, 3) : [];
+  const displayPosts = featuredPosts.slice(1, 3);
 
   if (!featuredPost) return null;
 
   return (
-    <div className={ showSecondary ? 'pb-8 lg:pb-10' : '' }>
-      <section aria-label={ labelledBy ? undefined : 'Featured writing' } aria-labelledby={ labelledBy }>
+    <div className='pb-8 lg:pb-10'>
+      <section aria-label='Featured writing'>
         <article className='w-full group'>
           <div className='mb-3 flex flex-wrap items-center gap-x-3 gap-y-2'>
             <Pill tone='blue' variant='solid' radius='full' size='sm'>{featuredLabel}</Pill>
@@ -74,7 +71,7 @@ export default function FeaturedLayout({ labelledBy, posts, showSecondary = true
             )}
           </div>
 
-          <Typography variant='index-hero-title' as={ titleAs } className='mb-3'>
+          <Typography variant='index-hero-title' as='h2' className='mb-3'>
             <Link
               href={ `/blog/${featuredPost.slug}` }
               variant='bare'
@@ -133,7 +130,7 @@ export default function FeaturedLayout({ labelledBy, posts, showSecondary = true
                   )}
                 </div>
 
-                <Typography variant='index-feature-title' as={ titleAs } className='mb-2'>
+                <Typography variant='index-feature-title' as='h2' className='mb-2'>
                   <Link href={ `/blog/${post.slug}` } tone='neutral' variant='bare' className='break-words no-underline transition-colors duration-200 hover:text-blue-600 hover:no-underline dark:hover:text-blue-400'>
                     {post.title}
                   </Link>

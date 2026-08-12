@@ -91,7 +91,6 @@ export default async function Page({ params }) {
       searchPosts={ posts }
       totalCount={ posts.length }
       pageTitle='Blog'
-      pageDescription='Writing about AI, semantic systems, data products, and engineering practice.'
       listTitle='Latest writing'
       titleAs='h2'
       currentPage={ paginatedPage.currentPage }

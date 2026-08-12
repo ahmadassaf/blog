@@ -1,9 +1,9 @@
 /**
  * Tags Page
  *
- * @description Server page for the tags index. Filters out draft posts, strips
+ * @description Server page for the tags explorer. Filters out draft posts, strips
  * post objects down to the fields the client needs, and passes plain props to the
- * interactive TagsExplorer component so no draft content ships to the browser.
+ * interactive TagsExplorer client component so no draft content ships to the browser.
  *
  * @author Ahmad Assaf
  * @version 9.0.0
@@ -25,7 +25,7 @@ export const metadata = metadataGenertaor({ 'path': '/blog/tags', 'title': 'Tags
  * @description Prepares the published (non-draft) posts as plain objects and renders
  * the interactive tags explorer.
  *
- * @returns {JSX.Element} Tags page with searchable index
+ * @returns {JSX.Element} Tags page with interactive topics explorer
  *
  * @example
  * // Rendered at /blog/tags route
@@ -46,17 +46,6 @@ export default function Tags() {
       'title': post.title
     };
   });
-  const publishedTagCounts = posts.reduce((counts, post) => {
-    post.tagSlugs.forEach((tagSlug) => counts.set(tagSlug, (counts.get(tagSlug) || 0) + 1));
 
-    return counts;
-  }, new Map());
-  const publishedTags = tags.map((tag) => {
-    return {
-      ...tag,
-      'count': publishedTagCounts.get(tag.slug) || 0
-    };
-  }).filter((tag) => tag.count > 0);
-
-  return <TagsExplorer tags={ publishedTags } posts={ posts } />;
+  return <TagsExplorer tags={ tags } posts={ posts } />;
 }

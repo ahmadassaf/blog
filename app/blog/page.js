@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-import { Icon, Link, Typography } from '@gaudi/design-system';
 import { allPosts } from 'contentlayer/generated';
 
 import { metadataGenertaor } from '@/data/meta/generator/blog';
@@ -38,24 +37,7 @@ export default function Blog() {
       pageDescription='Writing about AI, semantic systems, data products, and engineering practice.'
       listTitle='Latest writing'
       titleAs='h2'
-      beforeList={ (
-        <>
-          <nav aria-label='Browse writing' className='mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-gray-200 py-3 dark:border-gray-800'>
-            <Typography as='span' variant='metadata'>Browse</Typography>
-            <Link href='/blog/categories' tone='neutral' className='inline-flex items-center gap-1.5'>
-              Categories
-              <Icon name='ArrowRight' decorative size='xs' />
-            </Link>
-            <Link href='/blog/tags' tone='neutral' className='inline-flex items-center gap-1.5'>
-              Tags
-              <Icon name='ArrowRight' decorative size='xs' />
-            </Link>
-            <Link href='/blog/projects' tone='neutral'>Projects</Link>
-            <Link href='/blog/publications' tone='neutral'>Publications</Link>
-          </nav>
-          <FeaturedPostsLayout posts={ posts } />
-        </>
-      ) }
+      beforeList={ <FeaturedPostsLayout posts={ posts } /> }
       paginationURL='blog/page'
       baseURL='blog'
     />

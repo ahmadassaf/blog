@@ -71,7 +71,7 @@ export default function FeaturedLayout({ posts }) {
             )}
           </div>
 
-          <Typography variant='index-hero-title' as='h2' className='mb-3'>
+          <Typography variant='index-hero-title' as='h2' className='mb-3 max-w-none'>
             <Link
               href={ `/blog/${featuredPost.slug}` }
               variant='bare'
@@ -82,7 +82,7 @@ export default function FeaturedLayout({ posts }) {
             </Link>
           </Typography>
 
-          <Typography variant='index-hero-summary' className='mb-5 text-pretty'>
+          <Typography variant='index-hero-summary' className='mb-5 max-w-none text-pretty'>
             {featuredPost.summary}
           </Typography>
 

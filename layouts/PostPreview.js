@@ -9,6 +9,6 @@ import { Post } from '@gaudi/design-system';
 
 import siteMetadata from '@/data/meta/metadata';
 
-const PostPreview = ({ frontMatter }) => <Post frontMatter={ frontMatter } locale={ siteMetadata.locale || 'en-US' } />;
+const PostPreview = ({ frontMatter, titleAs }) => <Post frontMatter={ frontMatter } locale={ siteMetadata.locale || 'en-US' } titleAs={ titleAs } />;
 
 export default PostPreview;

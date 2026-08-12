@@ -88,6 +88,11 @@ export default async function Page({ params }) {
   return (
     <ListLayout
       posts={ paginatedPage.pagePosts }
+      searchPosts={ posts }
+      totalCount={ posts.length }
+      pageTitle='Blog'
+      listTitle='Latest writing'
+      titleAs='h2'
       currentPage={ paginatedPage.currentPage }
       totalPages={ paginatedPage.totalPages }
       paginationURL='blog/page'

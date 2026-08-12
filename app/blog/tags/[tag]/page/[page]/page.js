@@ -102,15 +102,28 @@ export default async function Page({ params }) {
 
   if (tag === null) notFound();
 
-  const title = tag.replaceAll('-', ' ');
+  const tagDetails = tags.find((entry) => entry.slug === tag);
+
+  if (!tagDetails) notFound();
+
   const posts = coreContent(sortPosts(published(allPosts))).filter((post) => post.tags.map(slugify).includes(tag));
   const page = paginate(posts, pageParam, POSTS_PER_PAGE);
 
   if (!page) notFound();
 
   return (
-    <>
-      <ListLayout posts={ page.pagePosts } searchPosts={ posts } totalCount={ posts.length } listTitle={ `${title} Posts` } currentPage={ page.currentPage } totalPages={ page.totalPages } paginationURL={ `blog/tags/${tag}/page` } baseURL={ `blog/tags/${tag}` }/>
-    </>
+    <ListLayout
+      posts={ page.pagePosts }
+      searchPosts={ posts }
+      totalCount={ posts.length }
+      pageTitle={ tagDetails.display || titleFromSlug(tag) }
+      pageDescription={ `Writing filed under ${tagDetails.display || titleFromSlug(tag)}. Browse or search every published article in this topic.` }
+      listTitle='Articles'
+      titleAs='h2'
+      currentPage={ page.currentPage }
+      totalPages={ page.totalPages }
+      paginationURL={ `blog/tags/${tag}/page` }
+      baseURL={ `blog/tags/${tag}` }
+    />
   );
 }

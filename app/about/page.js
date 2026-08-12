@@ -1,141 +1,155 @@
 /**
  * About Page Component
  *
- * @description Editorial profile page with a concise professional overview,
- * selected career history, and the ways Ahmad works with teams and leaders.
+ * @description Main about page showcasing professional background, experience,
+ * and services offered. Features responsive design with hero section, career history,
+ * and service offerings.
  *
  * @author Ahmad Assaf
- * @version 2.0.0
+ * @version 1.0.0
  */
 
-import { Link, Typography } from '@gaudi/design-system';
-
-import { metadataGenertaor } from '@/data/meta/generator/blog';
-
-export const metadata = metadataGenertaor({ 'path': '/about', 'title': 'About' });
-
-const roles = [
-  {
-    'company': 'Mav9',
-    'href': 'https://mav9.com',
-    'role': 'CTO'
-  },
-  {
-    'company': 'Beamery',
-    'href': 'https://beamery.com',
-    'role': 'VP, AI and Data'
-  },
-  {
-    'company': 'SAP',
-    'href': 'https://sap.com',
-    'role': 'Research Scientist'
-  }
-];
-
-const services = [
-  {
-    'description': 'Strategic guidance for complex technology and business decisions.',
-    'name': 'Advisory services'
-  },
-  {
-    'description': 'Practical support for emerging leaders, senior practitioners, and teams.',
-    'name': 'Mentorship'
-  },
-  {
-    'description': 'Operating models and technical foundations that help organizations grow with less friction.',
-    'name': 'Scaling and growth'
-  },
-  {
-    'description': 'Clear direction, healthy engineering practice, and teams focused on meaningful outcomes.',
-    'name': 'Technical leadership'
-  },
-  {
-    'description': 'Technology choices and roadmaps aligned with product and business objectives.',
-    'name': 'Technical strategy'
-  },
-  {
-    'description': 'Independent assessment of AI products, technical systems, risks, and opportunities.',
-    'name': 'AI and technology due diligence'
-  }
-];
+import { Card, Grid, Icon, Typography } from '@gaudi/design-system';
+import { Preview } from '@gaudi/design-system/mdx';
 
 /**
- * About page component displaying professional background and services.
+ * About page component displaying professional background and services
  *
- * @returns {JSX.Element} Complete about page
+ * @returns {JSX.Element} Complete about page with hero section, history, and services
+ *
+ * @example
+ * // Rendered at /about route
+ * <About />
  */
 export default function About() {
-  return (
-    <main>
-      <header className='border-b border-gray-200 py-10 dark:border-gray-800 md:py-14'>
-        <Typography variant='title-md'>About</Typography>
-        <Typography variant='author-role' className='mt-3 max-w-3xl'>
-          AI and data leader, advisor, and mentor focused on building technology that works in the real world.
-        </Typography>
-        <Typography variant='index-feature-summary' className='mt-5 max-w-3xl text-pretty'>
-          I am CTO at <Link href='https://mav9.com' tone='blue'>Mav9</Link>, with more than a decade of experience scaling SaaS and technology businesses across engineering, data, and AI. My work spans engineering leadership, innovation strategy, product development, and the systems that connect them.
-        </Typography>
-      </header>
 
-      <section aria-labelledby='background-title' className='grid gap-10 border-b border-gray-200 py-10 dark:border-gray-800 md:py-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(16rem,0.65fr)]'>
-        <div className='max-w-3xl'>
-          <Typography id='background-title' variant='index-feature-title' as='h2'>
-            Background
-          </Typography>
-          <Typography variant='paragraph-md' className='mt-4 max-w-[68ch] text-base leading-7'>
-            At Mav9, I lead technology strategy across AI, data, knowledge graphs, and product engineering. Before that, I joined <Link href='https://beamery.com' tone='blue'>Beamery</Link> as a founding engineer and later led engineering, AI, and data teams as the company scaled.
-          </Typography>
-          <Typography variant='paragraph-md' className='mt-4 max-w-[68ch] text-base leading-7'>
-            My research sits at the intersection of the Semantic Web, Information Retrieval, knowledge graphs, and data quality. I hold a PhD in Semantic Web and Information Retrieval, and continue to bring that research discipline to product and organizational problems.
-          </Typography>
-          <Typography variant='paragraph-md' className='mt-4 max-w-[68ch] text-base leading-7'>
-            I enjoy collaborative environments, difficult problems, and helping people connect technical choices to product value. Coaching and continuous learning are central to how I lead.
-          </Typography>
-        </div>
+  const values = [
+    {
+      'description': 'Providing strategic guidance to help you navigate complex business challenges and make informed decisions.',
+      'icon': <Icon name='ChessKnight' decorative />,
+      'name': 'Advisory Services'
+    },
+    {
+      'description': 'Offering personalized mentorship to emerging leaders and teams, fostering growth and development',
+      'icon': <Icon name='HandshakeLine' decorative />,
+      'name': 'Mentorship'
+    },
+    {
+      'description': 'Asisting in scaling operations and accelerating growth through proven strategies and industry insights',
+      'icon': <Icon name='ChartArea' decorative />,
+      'name': 'Scaling and Growth'
+    },
+    {
+      'description': 'Leading technical teams with a focus on innovation, efficiency, and achieving business goals',
+      'icon': <Icon name='Cubes' decorative />,
+      'name': 'Technical Leadership'
+    },
+    {
+      'description': 'Developing and implementing robust technical strategies that align with your business objectives and drive competitive advantage',
+      'icon': <Icon name='Codepen' decorative />,
+      'name': 'Technical Strategy'
+    },
+    {
+      'description': 'Conducting thorough assessments of AI and technology systems to ensure they meet industry standards and support business growth, while identifying potential risks and opportunities',
+      'icon': <Icon name='Robot' decorative />,
+      'name': 'AI and Tech Due Diligence'
+    }
+  ];
+
+  return (
+    <div>
+
+      <main className='isolate'>
 
         <div>
-          <Typography variant='metadata' className='mb-3'>Selected experience</Typography>
-          <dl className='divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-800 dark:border-gray-800'>
-            {roles.map((role) => (
-              <div key={ role.company } className='flex items-baseline justify-between gap-5 py-4'>
-                <Typography as='dt' variant='paragraph-sm' className='font-semibold text-gray-900 dark:text-gray-100'>
-                  {role.role}
-                </Typography>
-                <Typography as='dd' variant='paragraph-sm' className='text-right'>
-                  <Link href={ role.href } tone='gray'>{role.company}</Link>
-                </Typography>
+          <div className='overflow-hidden'>
+            <div className='pb-32 pt-8'>
+              <div className='max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center'>
+                <div className='w-full max-w-xl lg:shrink-0 xl:max-w-2xl'>
+                  <Typography variant='title-xl'>
+                    Artificial Intelligence Leader, Advisor and Mentor
+                  </Typography>
+                  <Typography variant='paragraph-lg' className='relative mt-6 sm:max-w-md lg:max-w-none'>
+                   Ahmad is CTO at Mav9 and a seasoned AI and data leader with more than a decade of experience scaling SaaS and technology businesses across engineering, data, and AI. He has a proven track record in engineering leadership, encompassing engineering operations, innovation strategy, and product development.
+                  </Typography>
+                </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='mt-12 sm:mt-0 xl:-mt-8'>
+          <div className='max-w-2xl lg:mx-0 lg:max-w-none'>
+            <Typography variant='heading-xl' as='h2'>A Brief History</Typography>
+            <div className='mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row'>
+              <div className='lg:w-full lg:max-w-2xl lg:flex-auto'>
+                <Typography variant='paragraph-lg'>
+                I am currently CTO at <Preview url='https://mav9.com' title='Mav9' />, where I lead technology strategy across AI, data, knowledge graphs, and product engineering. Before Mav9, as a founding engineer at <Preview url='https://beamery.com' title='Beamery' />, I had the unique opportunity to shape the company's technological journey from its inception. Starting with a hands-on approach, I transitioned into leadership roles, serving as Head of Engineering and VP of AI and Data, building the AI and Data Science functions at the core of Beamery's R&D and innovation efforts.
+                </Typography>
+                <div className='mt-10 max-w-xl'>
+                  <Typography variant='paragraph-md'>
+                  As a continuous learner, I love working in collaborative environments, tackling challenging problems with my team and providing strategic leadership to achieve product-market fit and growth. I have vast expertise at aligning technology with business objectives and effectively communicating transformative and innovative strategies to the market.
+                  </Typography>
+                  <Typography variant='paragraph-md' className='mt-10'>
+                  In addition to my technical and leadership roles, I am deeply committed to fostering a culture of growth and continuous learning. As a coach and mentor, I provide guidance on AI, growth strategies, and productivity, helping both individuals and teams to unlock their full potential.
+                  </Typography>
+                </div>
+              </div>
+              <div className='lg:flex lg:flex-auto lg:justify-center'>
+                <dl className='w-auto space-y-6 xl:w-72'>
+                  <div className='flex flex-col-reverse gap-y-4'>
+                    <Typography as='dt' variant='paragraph-md'>
+                      <Preview url='https://mav9.com' title='Mav9' />
+                    </Typography>
+                    <Typography as='dd' variant='heading-sm'>CTO</Typography>
+                  </div>
+                  <div className='flex flex-col-reverse gap-y-4'>
+                    <Typography as='dt' variant='paragraph-md'>
+                      <Preview url='https://beamery.com' title='Beamery' />
+                    </Typography>
+                    <Typography as='dd' variant='heading-sm'>VP AI and Data</Typography>
+                  </div>
+                  <div className='flex flex-col-reverse gap-y-4'>
+                    <Typography as='dt' variant='paragraph-md'>
+                      <Preview url='https://sap.com' title='SAP' />
+                    </Typography>
+                    <Typography as='dd' variant='heading-sm'>Research Scientist</Typography>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='mt-32 sm:mt-40 py-2'>
+          <div className='max-w-2xl lg:mx-0'>
+            <Typography variant='heading-xl' as='h2'>How Can I Help?</Typography>
+            <Typography variant='paragraph-lg' className='mt-6'>
+            As an experienced leader in the technology and SaaS industry, I am committed to helping businesses achieve their full potential. My approach is grounded in core values of collaboration, innovation, and integrity, which guide all aspects of my work. Whether you're an individual, a startup looking to scale or an established company seeking to refine your strategy, I can provide the expertise and guidance you need to succeed.
+            </Typography>
+          </div>
+          <Grid columns='3' gap='lg' className='my-16 max-w-2xl lg:mx-0 lg:max-w-none'>
+            {values.map((value) => (
+              <Card
+                key={ value.name }
+                title={ (
+                  <>
+                    {value.icon}
+                    {value.name}
+                  </>
+                ) }
+                subtitle={ value.description }
+                variant='flat'
+                padding='none'
+                classNames={{
+                  'body': 'space-y-2',
+                  'title': 'flex items-center gap-2'
+                }}
+              />
             ))}
-          </dl>
-          <Link href='/blog/publications' tone='blue' className='mt-4 inline-block'>
-            View publications
-          </Link>
+          </Grid>
         </div>
-      </section>
-
-      <section aria-labelledby='services-title' className='py-10 md:py-12'>
-        <div className='max-w-3xl'>
-          <Typography id='services-title' variant='index-feature-title' as='h2'>
-            How I can help
-          </Typography>
-          <Typography variant='index-feature-summary' className='mt-3'>
-            I work with individuals, startups, and established teams on the decisions and operating practices that turn ambitious technology into durable progress.
-          </Typography>
-        </div>
-
-        <ul className='mt-7 grid border-t border-gray-200 dark:border-gray-800 md:grid-cols-2'>
-          {services.map((service) => (
-            <li key={ service.name } className='border-b border-gray-200 py-5 dark:border-gray-800 md:odd:pr-8 md:even:border-l md:even:pl-8'>
-              <Typography variant='heading-sm' as='h3' className='text-lg'>
-                {service.name}
-              </Typography>
-              <Typography variant='paragraph-sm' className='mt-2 max-w-xl'>
-                {service.description}
-              </Typography>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }

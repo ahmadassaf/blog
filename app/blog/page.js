@@ -33,13 +33,16 @@ export default function Blog() {
   return (
     <ListLayout
       posts={ posts }
+      filter={ false }
+      paginate={ false }
       pageTitle='Blog'
+      pageTitleVariant='heading-xl'
       pageDescription='Writing about AI, semantic systems, data products, and engineering practice.'
-      listTitle='Latest writing'
+      listTitle='All Posts'
+      listTitleVariant='heading-lg'
+      scrollableList
       titleAs='h2'
-      beforeList={ <FeaturedPostsLayout posts={ posts } /> }
-      paginationURL='blog/page'
-      baseURL='blog'
+      beforeList={ <div className='pt-4 sm:pt-6'><FeaturedPostsLayout posts={ posts } /></div> }
     />
   );
 }

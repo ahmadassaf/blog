@@ -12,7 +12,6 @@
 import { Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
 import formatDate from '@/lib/utils/formatDate';
-import { slugify } from '@/lib/utils/slugs';
 
 /**
  * Renders a featured posts layout with hero post and grid
@@ -86,26 +85,14 @@ export default function FeaturedLayout({ posts }) {
             {featuredPost.summary}
           </Typography>
 
-          <div className='flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4'>
-            <Link
-              href={ `/blog/${featuredPost.slug}` }
-              tone='blue'
-              className='inline-flex max-w-full items-center gap-2'
-            >
-              Read Full Article
-              <Icon name='ArrowRight' decorative size='xs' />
-            </Link>
-
-            {featuredPost.tags && featuredPost.tags.length > 0 && (
-              <div className='min-w-0 flex flex-wrap gap-2'>
-                {featuredPost.tags.slice(0, 2).map((tag) => (
-                  <Pill key={ tag } href={ `/blog/tags/${slugify(tag)}` } tone='gray' variant='soft' size='sm' className='capitalize'>
-                    {tag}
-                  </Pill>
-                ))}
-              </div>
-            )}
-          </div>
+          <Link
+            href={ `/blog/${featuredPost.slug}` }
+            tone='blue'
+            className='inline-flex max-w-full items-center gap-2'
+          >
+            Read Full Article
+            <Icon name='ArrowRight' decorative size='xs' />
+          </Link>
         </article>
 
         {displayPosts.length > 0 && (
@@ -139,16 +126,6 @@ export default function FeaturedLayout({ posts }) {
                 <Typography variant='index-feature-summary' className='mb-3 text-pretty'>
                   {post.summary}
                 </Typography>
-
-                {post.tags && post.tags.length > 0 && (
-                  <div className='flex flex-wrap gap-2'>
-                    {post.tags.slice(0, 2).map((tag) => (
-                      <Pill key={ tag } href={ `/blog/tags/${slugify(tag)}` } tone='gray' variant='soft' size='sm' className='capitalize'>
-                        {tag}
-                      </Pill>
-                    ))}
-                  </div>
-                )}
               </article>
             ))}
           </Grid>

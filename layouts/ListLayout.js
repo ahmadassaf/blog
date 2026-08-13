@@ -32,9 +32,13 @@ import PostPreview from '@/layouts/PostPreview';
  * @param {React.ReactNode} [props.beforeList] - Curated content shown between retrieval and the chronological list
  * @param {boolean} [props.filter=true] - Whether to show the search filter
  * @param {string} [props.listTitle] - Optional page heading rendered above the list
+ * @param {string} [props.listTitleVariant='index-feature-title'] - Typography variant used for the list heading
  * @param {string} [props.pageDescription] - Optional introductory copy paired with pageTitle
  * @param {string} [props.pageTitle] - Optional page-level heading rendered before retrieval
+ * @param {string} [props.pageTitleVariant] - Optional Typography variant override for the page title
+ * @param {boolean} [props.paginate=true] - Whether to paginate the post collection
  * @param {Array} props.posts - Array of post objects to display
+ * @param {boolean} [props.scrollableList=false] - Whether the post list should scroll inside a bounded viewport
  * @param {Array} [props.searchPosts] - Full post collection used when a paginated route is searched
  * @param {string} [props.titleAs='h1'] - Heading element for the list title (pass 'h2' when composed under a page h1)
  * @param {string} [props.className] - Additional CSS classes applied to the list title
@@ -56,7 +60,7 @@ import PostPreview from '@/layouts/PostPreview';
  *   totalPages={5}
  * />
  */
-export default function ListLayout({ beforeList, posts, filter = true, listTitle, pageDescription, pageTitle, searchPosts, titleAs = 'h1', className, baseURL, paginationURL, currentPage = 1, totalCount, totalPages }) {
+export default function ListLayout({ beforeList, posts, filter = true, listTitle, listTitleVariant = 'index-feature-title', pageDescription, pageTitle, pageTitleVariant, paginate = true, scrollableList = false, searchPosts, titleAs = 'h1', className, baseURL, paginationURL, currentPage = 1, totalCount, totalPages }) {
 
   const [ searchValue, setSearchValue ] = useState('');
   const [ clientPage, setClientPage ] = useState(1);
@@ -84,19 +88,19 @@ export default function ListLayout({ beforeList, posts, filter = true, listTitle
   }) : searchablePosts;
 
   let activePage = clientPage;
-  let pageCount = Math.ceil(filteredBlogPosts.length / POSTS_PER_PAGE);
+  let pageCount = paginate ? Math.ceil(filteredBlogPosts.length / POSTS_PER_PAGE) : 1;
 
   if (!searchTerm && hasPaginationLinks) activePage = currentPage;
   if (!searchTerm && isPreSliced) pageCount = totalPages;
 
   const startIndex = (activePage - 1) * POSTS_PER_PAGE;
-  const displayPosts = !searchTerm && isPreSliced ? filteredBlogPosts : filteredBlogPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  const displayPosts = !paginate || (!searchTerm && isPreSliced) ? filteredBlogPosts : filteredBlogPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
   const articleCount = searchTerm ? filteredBlogPosts.length : totalCount ?? searchPosts?.length ?? posts.length;
   const articleLabel = articleCount === 1 ? 'article' : 'articles';
   const statusText = searchTerm ? `${articleCount} ${articleLabel} matching “${searchValue.trim()}”` : `Search ${articleCount} ${articleLabel}`;
   const topTitle = pageTitle || listTitle;
   const topTitleAs = pageTitle ? 'h1' : titleAs;
-  const topTitleVariant = topTitleAs === 'h1' ? 'title-md' : 'index-feature-title';
+  const topTitleVariant = pageTitleVariant || (topTitleAs === 'h1' ? 'title-md' : 'index-feature-title');
   const showListTitle = Boolean(pageTitle && listTitle);
   const postTitleAs = topTitleAs === 'h1' && !showListTitle ? 'h2' : 'h3';
   let resultsLabelledBy;
@@ -157,8 +161,8 @@ export default function ListLayout({ beforeList, posts, filter = true, listTitle
       {!searchTerm && beforeList ? <div>{beforeList}</div> : null}
 
       {showListTitle ? (
-        <div className='pb-2'>
-          <Typography id={ listTitleId } variant='index-feature-title' as={ titleAs } className={ className }>
+        <div className='pb-3'>
+          <Typography id={ listTitleId } variant={ listTitleVariant } as={ titleAs } className={ className }>
             {searchTerm ? 'Search results' : listTitle}
           </Typography>
         </div>
@@ -168,7 +172,13 @@ export default function ListLayout({ beforeList, posts, filter = true, listTitle
         aria-label={ topTitle ? undefined : 'Articles' }
         aria-labelledby={ resultsLabelledBy }
       >
-        <ul id={ resultsId } aria-describedby={ filter ? statusId : undefined } className='pt-2'>
+        <ul
+          id={ resultsId }
+          aria-describedby={ filter ? statusId : undefined }
+          aria-label={ scrollableList ? `${listTitle} archive` : undefined }
+          tabIndex={ scrollableList ? 0 : undefined }
+          className={ scrollableList ? 'max-h-[38rem] overflow-y-auto overscroll-contain pr-3 pt-2 [scrollbar-gutter:stable] sm:max-h-[42rem] sm:pr-5' : 'pt-2' }
+        >
           {!filteredBlogPosts.length && (
             <li className='py-12 text-center'>
               <Typography variant='heading-sm' as='p' className='mb-2'>

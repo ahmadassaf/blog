@@ -117,55 +117,57 @@ export default function TagsExplorer({ posts, tags }) {
 
   return (
     <>
-      <div className='mx-auto max-w-6xl'>
-        <div className='mb-8'>
-          <Typography variant='title-md' className='mb-6'>
-            Topics
+      <div className='mx-auto max-w-6xl divide-y divide-gray-200 dark:divide-gray-700'>
+        <header className='space-y-2 pt-2 pb-6'>
+          <Typography variant='title-md'>
+            Tags
           </Typography>
+        </header>
 
-          <Grid columns='3' gap='md' className='mb-6'>
-            <StatCard icon='FolderOpen' value={ tags.length } label='Topics' />
+        <div className='pt-5'>
+          <Grid columns='3' gap='sm' className='mb-5'>
+            <StatCard icon='FolderOpen' value={ tags.length } label='Tags' />
             <StatCard icon='FileText' value={ totalArticles } label='Articles' />
             <StatCard icon='Flame' value={ mostPopularTag?.count || 0 } label='Most popular' />
           </Grid>
 
-          <div className='relative mb-8'>
+          <div className='relative mb-5 max-w-sm'>
             <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
               <Icon name='Search' size='sm' decorative />
             </div>
             <FieldInput
               type='text'
-              placeholder='Search topics...'
+              placeholder='Search tags...'
               value={ searchQuery }
               onChange={ (event) => setSearchQuery(event.target.value) }
-              className='pl-10'
+              className='w-full pl-10'
             />
           </div>
-        </div>
 
-        <div className='flex flex-wrap gap-3'>
-          {filteredAndSortedTags.map((tag) => (
-            <Button
-              key={ tag.id }
-              onClick={ () => setSelectedTag(tag) }
-              variant='outline'
-              tone='gray'
-              size='sm'
-              className='max-w-full justify-start whitespace-normal text-left'
-            >
-              {tag.display}
-              <Pill tone='gray' variant='soft' size='xs'>{tag.count}</Pill>
-            </Button>
-          ))}
-        </div>
-
-        {filteredAndSortedTags.length === 0 && (
-          <div className='py-8 text-center'>
-            <Typography variant='paragraph-sm'>
-              {searchQuery ? 'No topics found matching your search' : 'No topics yet'}
-            </Typography>
+          <div className='flex flex-wrap gap-2'>
+            {filteredAndSortedTags.map((tag) => (
+              <Button
+                key={ tag.id }
+                onClick={ () => setSelectedTag(tag) }
+                variant='outline'
+                tone='gray'
+                size='xs'
+                className='min-h-9 max-w-full justify-start whitespace-normal text-left'
+              >
+                {tag.display}
+                <Pill tone='gray' variant='soft' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>{tag.count}</Pill>
+              </Button>
+            ))}
           </div>
-        )}
+
+          {filteredAndSortedTags.length === 0 && (
+            <div className='py-8 text-center'>
+              <Typography variant='paragraph-sm'>
+                {searchQuery ? 'No tags found matching your search' : 'No tags yet'}
+              </Typography>
+            </div>
+          )}
+        </div>
       </div>
 
       {sidebarOpen && (
@@ -203,7 +205,7 @@ export default function TagsExplorer({ posts, tags }) {
                     variant='ghost'
                     tone='gray'
                     size='xs'
-                    aria-label='Close topics panel'
+                    aria-label='Close tags panel'
                     className='shrink-0'
                   >
                     <Icon name='X' size='md' decorative />

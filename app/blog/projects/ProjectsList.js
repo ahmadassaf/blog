@@ -25,26 +25,24 @@ export default function ProjectsList({ projects }) {
 
   return (
     <>
-      <div className='divide-y divide-gray-200 dark:divide-gray-700'>
-        <div className='space-y-2 pt-6 pb-8 md:space-y-5'>
-          <Typography variant='title-xl'>
+      <div className='mx-auto max-w-6xl divide-y divide-gray-200 dark:divide-gray-700'>
+        <header className='space-y-2 pt-2 pb-6'>
+          <Typography variant='title-md'>
             Projects
           </Typography>
-        </div>
-        <div>
-          <Grid columns='3' gap='md' className='py-10'>
-            {projects.map((project) => (
-              <Link
-                href={ `/blog/${project.externalLink}` }
-                key={ project?.externalLink }
-                variant='bare'
-                className='block h-full'
-              >
-                <ProjectCard project={ project } />
-              </Link>
-            ))}
-          </Grid>
-        </div>
+        </header>
+        <Grid columns='3' gap='sm' className='py-5'>
+          {projects.map((project) => (
+            <Link
+              href={ `/blog/${project.externalLink}` }
+              key={ project?.externalLink }
+              variant='bare'
+              className='block h-full'
+            >
+              <ProjectCard project={ project } />
+            </Link>
+          ))}
+        </Grid>
       </div>
     </>
   );
@@ -58,17 +56,17 @@ export default function ProjectsList({ projects }) {
  * @returns {JSX.Element} Clean project card with typography-focused design
  */
 const ProjectCard = ({ project }) => (
-  <Card interactive className='h-full' variant='outline'>
+  <Card interactive className='h-full' padding='sm' variant='outline'>
     <article className='flex h-full flex-col'>
-      <Typography variant='heading-sm' as='h3' className='mb-2'>
+      <Typography variant='heading-sm' as='h3' className='mb-1.5 text-sm leading-5 md:text-base md:leading-5'>
         {project.title}
       </Typography>
 
-      <Typography variant='paragraph-sm' className='mb-3 flex-grow'>
+      <Typography variant='paragraph-sm' className='mb-2 flex-grow text-xs leading-4'>
         {project.subtitle}
       </Typography>
 
-      <Typography as='div' variant='metadata' className='flex items-center gap-3'>
+      <Typography as='div' variant='metadata' className='flex flex-wrap items-center gap-2 text-[11px] leading-4 normal-case'>
         <div className='flex items-center gap-1'>
           <Icon name='Star' size='xs' decorative />
           <span>{project.meta.stargazers_count}</span>
@@ -78,7 +76,7 @@ const ProjectCard = ({ project }) => (
           <span>{project.meta.forks_count}</span>
         </div>
         {project.meta.language && (
-          <Pill tone='gray' variant='soft' size='xs'>
+          <Pill tone='gray' variant='soft' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>
             {project.meta.language}
           </Pill>
         )}

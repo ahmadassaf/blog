@@ -1,10 +1,51 @@
+@reference '@gaudi/design-system/global.css';
+
 /*
  * Blog-level design-system overrides.
  *
- * Keep this file to token overrides only — never target the design system's
- * compiled utility classes or DOM structure from here; change the component
- * or token in ../design-system instead.
+ * Keep design-system-wide behavior in ../design-system. Blog-specific base
+ * behavior and token overrides live here so other consumers remain unchanged.
  */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  button,
+  [role='button'],
+  a {
+    cursor: pointer;
+  }
+
+  /* The blog intentionally suppresses focus and interaction rings. */
+  :where(*):where(:focus, :focus-visible, :focus-within, :active) {
+    --tw-inset-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  :where(
+    [aria-current='page'],
+    [aria-pressed='true'],
+    [aria-selected='true'],
+    [data-active='true'],
+    [data-selected='true'],
+    [data-state='active'],
+    [data-state='on']
+  ):not(:focus-visible) {
+    --tw-inset-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    outline: none !important;
+  }
+}
 
 /*
  * Near-black dark surface for the blog brand (the design-system default is
@@ -13,4 +54,36 @@
  */
 .dark {
   --ds-color-surface: #0a0a0a;
+}
+
+/* A quiet editorial grid, scoped to the About page and faded behind the copy. */
+.about-grid {
+  isolation: isolate;
+  position: relative;
+}
+
+.about-grid::before {
+  background-image:
+    linear-gradient(to right, rgb(15 23 42 / 2.5%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 2.5%) 1px, transparent 1px);
+  background-position: center top;
+  background-size: 12rem 12rem;
+  content: '';
+  inset-block: -2rem 0;
+  left: 50%;
+  mask-image:
+    linear-gradient(to right, transparent, black 12%, black 88%, transparent),
+    linear-gradient(to bottom, transparent, black 10rem, black 76%, transparent);
+  mask-composite: intersect;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 100vw;
+  z-index: -1;
+}
+
+.dark .about-grid::before {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 2%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 2%) 1px, transparent 1px);
 }

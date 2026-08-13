@@ -35,12 +35,12 @@ export const formatShortDate = (date) => SHORT_DATE_FORMAT.format(new Date(date)
  * @returns {JSX.Element} Outlined stat card
  */
 export const StatCard = ({ icon, label, value }) => (
-  <Card variant='outline'>
-    <div className='flex items-center gap-3'>
-      <Icon name={ icon } size='md' decorative color='primary' />
+  <Card variant='outline' padding='sm'>
+    <div className='flex items-center gap-2.5'>
+      <Icon name={ icon } size='sm' decorative color='primary' />
       <div>
-        <Typography variant='heading-sm'>{value}</Typography>
-        <Typography variant='metadata'>{label}</Typography>
+        <Typography variant='heading-sm' className='text-base leading-5'>{value}</Typography>
+        <Typography variant='metadata' className='text-[10px] leading-4'>{label}</Typography>
       </div>
     </div>
   </Card>
@@ -56,17 +56,17 @@ export const StatCard = ({ icon, label, value }) => (
  */
 export const PostSummary = ({ post, summaryClamp = 'line-clamp-2' }) => (
   <article>
-    <Typography variant='heading-sm' as='h3' className='mb-2 line-clamp-2'>
+    <Typography variant='heading-sm' as='h3' className='mb-1.5 line-clamp-2 text-sm leading-5 md:text-base md:leading-5'>
       {post.title}
     </Typography>
-    <Typography variant='paragraph-sm' className={ `mb-3 ${summaryClamp}` }>
+    <Typography variant='paragraph-sm' className={ `mb-2 text-xs leading-4 ${summaryClamp}` }>
       {post.summary || post.description}
     </Typography>
     <div className='flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between'>
-      <Typography as='time' variant='metadata'>
+      <Typography as='time' variant='metadata' className='text-[11px] leading-4 normal-case'>
         {formatShortDate(post.date)}
       </Typography>
-      <Typography as='span' variant='metadata' className='inline-flex items-center gap-1'>
+      <Typography as='span' variant='metadata' className='inline-flex items-center gap-1 text-[11px] leading-4 normal-case'>
         Read
         <Icon name='ChevronRight' size='xs' decorative />
       </Typography>

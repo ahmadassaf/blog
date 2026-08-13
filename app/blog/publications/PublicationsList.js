@@ -38,22 +38,19 @@ export default function PublicationsList({ publications }) {
 
   return (
     <>
-      <div className='divide-y divide-gray-200 dark:divide-gray-700'>
-        <div className='space-y-2 pt-6 pb-8 md:space-y-5'>
-          <Typography variant='title-xl'>
+      <div className='mx-auto max-w-6xl divide-y divide-gray-200 dark:divide-gray-700'>
+        <header className='pt-2 pb-6'>
+          <Typography variant='title-md'>
             Publications
           </Typography>
-          <Typography variant='subtitle-md' as='h2'>
-            A list of papers I contributed to/authored. The papers span the fields of Semantic Web, Information Retrieval, and Natural Language Processing
-          </Typography>
-        </div>
+        </header>
         <AccordionGroup
-          className='mt-6'
+          className='mt-5'
           defaultValue={ years[0] }
           items={ years.map((publicationsGroup) => {
             return {
               'content': (
-                <Grid columns='3' gap='md'>
+                <Grid columns='3' gap='sm' className='pb-3'>
                   {publicationsGroups[publicationsGroup].map((publication) => (
                     <Link href={ publication.href } key={ publication.href } variant='bare' className='block h-full'>
                       <PublicationCard publication={ publication } />
@@ -66,6 +63,7 @@ export default function PublicationsList({ publications }) {
             };
           }) }
           type='single'
+          variant='flush'
         />
       </div>
     </>
@@ -73,37 +71,37 @@ export default function PublicationsList({ publications }) {
 }
 
 /**
- * Clean publication card component following blog design patterns
+ * Compact publication card following the established Publications layout
  *
  * @param {Object} props - Component props
  * @param {Object} props.publication - Publication data object
- * @returns {JSX.Element} Clean publication card with typography-focused design
+ * @returns {JSX.Element} Compact publication card
  */
 const PublicationCard = ({ publication }) => (
-  <Card interactive className='h-full' variant='outline'>
+  <Card interactive className='h-full' padding='sm' variant='outline'>
     <article className='flex h-full flex-col'>
-      <div className='flex items-center gap-2 mb-3'>
+      <div className='mb-2 flex flex-wrap items-center gap-2'>
         {publication.venueType && (
-          <Pill tone='yellow' variant='soft' size='xs'>
+          <Pill tone='yellow' variant='soft' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>
             {publication.venueType}
           </Pill>
         )}
         {publication.award && (
-          <Pill tone='green' variant='soft' size='xs'>
+          <Pill tone='green' variant='soft' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>
             {publication.award}
           </Pill>
         )}
       </div>
 
-      <Typography variant='heading-sm' as='h3' className='mb-2'>
+      <Typography variant='heading-sm' as='h3' className='mb-1.5 text-sm leading-5 md:text-base md:leading-5'>
         {publication.title}
       </Typography>
 
-      <Typography variant='paragraph-sm' className='mb-3 flex-grow'>
+      <Typography variant='paragraph-sm' className='mb-2 flex-grow text-xs leading-4'>
         {publication.venue}
       </Typography>
 
-      <Typography variant='paragraph-sm'>
+      <Typography variant='post-meta' className='text-[11px] leading-4 normal-case'>
         {publication.authors}
       </Typography>
     </article>

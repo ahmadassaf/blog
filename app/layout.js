@@ -137,7 +137,7 @@ const footerProps = {
  * serialized — the full contentlayer documents would ride the RSC payload of
  * every page otherwise.
  */
-const MENU_FIELDS = [ 'category', 'date', 'description', 'externalLink', 'slug', 'summary', 'title', 'type' ];
+const MENU_FIELDS = [ 'category', 'date', 'description', 'externalLink', 'slug', 'subtitle', 'summary', 'title', 'type' ];
 const toMenuItems = (docs) => sortPosts(published(docs)).map((doc) => pick(doc, MENU_FIELDS));
 
 const menuProps = {

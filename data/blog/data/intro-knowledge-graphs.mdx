@@ -2,7 +2,7 @@
 type: 'Post'
 title: 'An Introduction to Knowledge Graphs'
 subtitle: 'A comprehensive guide to Knowledge Graphs and their applications'
-tags: ['Semantic Web', 'Knowledge Graphs', 'Linked Data']
+tags: ['Knowledge Graphs', 'Knowledge Representation', 'Semantic Web', 'Databases', 'Linked Data']
 summary: 'Knowledge Graphs are a powerful tool for organizing and representing information in a structured way. In this post, we explore the concept of Knowledge Graphs, their applications, and how they are transforming the way we interact with data.'
 featured: true
 date: '2021-02-22'
@@ -26,7 +26,7 @@ In traditional data systems, information is often stored in siloed databases, ma
 
 A knowledge graph addresses these problems by integrating data from various sources into a unified graph structure. It represents [entities](https://en.wikipedia.org/wiki/Named_entity) as (nodes) that connect to each other through various relationships (edges) in a format that is both human-readable and machine-interpretable. This framework acts as a database, enabling complex queries by understanding the context and connections between various pieces of information. <Highlight>Knowledge graphs enhance AI applications by improving information retrieval and reasoning capabilities across multiple data sources powering tasks like semantic search, recommendation systems, and more.</Highlight>
 
-## What is a Knowledge Graph (KG)?
+# What is a Knowledge Graph (KG)?
 
 The term knowledge graph has been used frequently in research and business, usually in close association with Semantic Web technologies, linked data, large-scale data analytics and cloud computing. The term "knowledge graph" is often mistakenly thought to have originated in 2012, when Google adopted it to describe its structured entity-attribute information, prominently featured on its search results pages. While Google's use of the term has significantly boosted its visibility and marketing appeal, the concept dates back much further. The phrase "knowledge graph" itself can be traced to the 1970s, and the underlying ideas go back even earlier.
 
@@ -59,7 +59,7 @@ At its core, a knowledge graph is a data structure that connects data semantical
 
 <div className="caption">Table 1: Selected definitions of knowledge graph - Towards a Definition of Knowledge Graphs [@Ehrlinger:ICSS:16]</div>
 
-## Different Types of Information Management Systems
+# Different Types of Information Management Systems
 
 To appreciate the uniqueness of knowledge graphs, it’s helpful to understand how they compare to other [database management systems](https://en.wikipedia.org/wiki/Database#Database_management_system):
 
@@ -107,7 +107,7 @@ For example, if you are storing personal information such as names, dates of bir
 - Not all entities will have all the attributes in the table and
 - The attribute types are not strictly defined.
 
-## Graphs as data structures
+# Graphs as data structures
 
 A Graph is a non-linear data structure consisting of vertices and edges. The vertices are sometimes also referred to as nodes and the edges are lines or arcs that connect any two nodes in the graph. More formally, a knowledge graph as a directed labeled graph is a 4-tuple $G = (N, E, L, f)$, where $N$ is a set of nodes, $E \subseteq N \times N$ is a set of edges, $L$ is a set of labels, and $f: E \to L$ is an assignment function from edges to labels. An assignment of a label $B$ to an edge $E = (A, C)$ can be viewed as a triple $(A, B, C)$.
 
@@ -134,7 +134,7 @@ you can have a mix of types between those types e.g., **Directed Cyclic Graphs, 
 🌲 Trees are the restricted types of graphs, just with some more rules. Every tree will always be a graph but not all graphs will be trees. **Linked List**, **Trees**, and **Heaps** all are special cases of graphs.
 </Aside>
 
-## Graphs as data models
+# Graphs as data models
 
 ## Directed edge-labelled graphs
 
@@ -216,7 +216,7 @@ A key requirement for working with any data model is the ability to reference no
 - Having data in standard format allows for the ease of integration with the wealth of Open Data available e.g.m DBpedia, Geonames, Open Corporates, etc.
 - No vendor lock in, its all open source and W3C Standards
 
-## So, in the end, what is a Knowledge Graph?
+# So, in the end, what is a Knowledge Graph?
 
 A Knowledge Graph is a connected data structure of data and associated metadata applied to model, integrate and access information assets. The knowledge graph represents real-world entities, facts, concepts, and events as well as the relationships between them. Knowledge graphs yield a more accurate and comprehensive representation of data.
 
@@ -280,7 +280,7 @@ Today, the main challenge with a Machine Learning model is that without a proper
 
 One of the major problems in machine learning industry is explaining the predictions made by machine learning systems. One issue is the implicit representations causing the predictions from the machine learning models. Knowledge Graph can alleviate this problem by mapping the explanations to some proper nodes in the graph and summarizing the decision-taking process.
 
-## Appendix
+# Appendix
 
 ## Graph DBMS vendors
 

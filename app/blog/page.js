@@ -33,7 +33,6 @@ export default function Blog() {
   return (
     <ListLayout
       posts={ posts }
-      filter={ false }
       paginate={ false }
       pageTitle='Blog'
       pageTitleVariant='heading-xl'

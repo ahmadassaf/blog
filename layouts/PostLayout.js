@@ -52,7 +52,7 @@ export default function PostLayout({ content, next, prev, toc, children }) {
         <div>
           <PostArticleFrame content={ content } siteMetadata={ siteMetadata } toc={ toc }>
             {children}
-            <Disclaimer/>
+            <Disclaimer className='mt-8'/>
           </PostArticleFrame>
           <PostNavigation next={ next } prev={ prev } type={ content.type }></PostNavigation>
           { content.comments && (<PostComments/>)}

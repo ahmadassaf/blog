@@ -1,8 +1,8 @@
 /**
  * List Layout Component
  *
- * @description A flexible layout component for displaying lists of blog posts with search and pagination functionality.
- * Supports filtering posts by search terms, pagination controls, and responsive design. Used across
+ * @description A flexible layout component for displaying lists of blog posts with pagination functionality.
+ * Supports pagination controls and responsive design. Used across
  * various blog listing pages including main blog page, category pages, and tag pages.
  *
  * @author Ahmad Assaf
@@ -14,15 +14,14 @@
 import { useId, useState } from 'react';
 import { PaginationBar,
   POSTS_PER_PAGE,
-  Search,
   Typography } from '@gaudi/design-system';
 
 import PostPreview from '@/layouts/PostPreview';
 
 /**
- * List layout component for displaying blog posts with search and pagination
+ * List layout component for displaying blog posts with pagination
  *
- * @description Renders a list of blog posts with optional search functionality and pagination controls.
+ * @description Renders a list of blog posts with pagination controls.
  * When `paginationURL` and `baseURL` are provided, pagination renders real links so every page is
  * crawlable (page 1 resolves to the base URL, subsequent pages to the pagination URL). When
  * `currentPage`/`totalPages` are provided the posts are treated as a pre-sliced page; otherwise the
@@ -30,7 +29,6 @@ import PostPreview from '@/layouts/PostPreview';
  *
  * @param {Object} props - Component props
  * @param {React.ReactNode} [props.beforeList] - Curated content shown between retrieval and the chronological list
- * @param {boolean} [props.filter=true] - Whether to show the search filter
  * @param {string} [props.listTitle] - Optional page heading rendered above the list
  * @param {string} [props.listTitleVariant='index-feature-title'] - Typography variant used for the list heading
  * @param {string} [props.pageDescription] - Optional introductory copy paired with pageTitle
@@ -39,14 +37,12 @@ import PostPreview from '@/layouts/PostPreview';
  * @param {boolean} [props.paginate=true] - Whether to paginate the post collection
  * @param {Array} props.posts - Array of post objects to display
  * @param {boolean} [props.scrollableList=false] - Whether the post list should scroll inside a bounded viewport
- * @param {Array} [props.searchPosts] - Full post collection used when a paginated route is searched
  * @param {string} [props.titleAs='h1'] - Heading element for the list title (pass 'h2' when composed under a page h1)
  * @param {string} [props.className] - Additional CSS classes applied to the list title
  * @param {string} [props.baseURL] - Base URL for page 1 of the pagination links
  * @param {string} [props.paginationURL] - URL prefix for pagination links (pages 2+)
  * @param {number} [props.currentPage] - Current page number for pre-sliced posts
  * @param {number} [props.totalPages] - Total number of pages for pre-sliced posts
- * @param {number} [props.totalCount] - Total post count for a pre-sliced route
  *
  * @returns {JSX.Element} The rendered list layout component
  *
@@ -60,44 +56,24 @@ import PostPreview from '@/layouts/PostPreview';
  *   totalPages={5}
  * />
  */
-export default function ListLayout({ beforeList, posts, filter = true, listTitle, listTitleVariant = 'index-feature-title', pageDescription, pageTitle, pageTitleVariant, paginate = true, scrollableList = false, searchPosts, titleAs = 'h1', className, baseURL, paginationURL, currentPage = 1, totalCount, totalPages }) {
+export default function ListLayout({ beforeList, posts, listTitle, listTitleVariant = 'index-feature-title', pageDescription, pageTitle, pageTitleVariant, paginate = true, scrollableList = false, titleAs = 'h1', className, baseURL, paginationURL, currentPage = 1, totalPages }) {
 
-  const [ searchValue, setSearchValue ] = useState('');
   const [ clientPage, setClientPage ] = useState(1);
   const generatedId = useId();
   const listTitleId = `article-list-title-${generatedId}`;
-  const resultsId = `article-results-${generatedId}`;
-  const statusId = `article-results-status-${generatedId}`;
   const topTitleId = `article-page-title-${generatedId}`;
 
   const hasPaginationLinks = Boolean(paginationURL && baseURL);
   const isPreSliced = hasPaginationLinks && Boolean(totalPages);
 
-  const searchTerm = searchValue.trim().toLowerCase();
-  const searchablePosts = searchTerm && searchPosts ? searchPosts : posts;
-  const filteredBlogPosts = searchTerm ? searchablePosts.filter((frontMatter) => {
-    const searchContent = [
-      frontMatter.title,
-      frontMatter.summary,
-      frontMatter.subtitle,
-      frontMatter.category,
-      ...(frontMatter.tags || [])
-    ].filter(Boolean).join(' ');
-
-    return searchContent.toLowerCase().includes(searchTerm);
-  }) : searchablePosts;
-
   let activePage = clientPage;
-  let pageCount = paginate ? Math.ceil(filteredBlogPosts.length / POSTS_PER_PAGE) : 1;
+  let pageCount = paginate ? Math.ceil(posts.length / POSTS_PER_PAGE) : 1;
 
-  if (!searchTerm && hasPaginationLinks) activePage = currentPage;
-  if (!searchTerm && isPreSliced) pageCount = totalPages;
+  if (hasPaginationLinks) activePage = currentPage;
+  if (isPreSliced) pageCount = totalPages;
 
   const startIndex = (activePage - 1) * POSTS_PER_PAGE;
-  const displayPosts = !paginate || (!searchTerm && isPreSliced) ? filteredBlogPosts : filteredBlogPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
-  const articleCount = searchTerm ? filteredBlogPosts.length : totalCount ?? searchPosts?.length ?? posts.length;
-  const articleLabel = articleCount === 1 ? 'article' : 'articles';
-  const statusText = searchTerm ? `${articleCount} ${articleLabel} matching “${searchValue.trim()}”` : `Search ${articleCount} ${articleLabel}`;
+  const displayPosts = !paginate || isPreSliced ? posts : posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
   const topTitle = pageTitle || listTitle;
   const topTitleAs = pageTitle ? 'h1' : titleAs;
   const topTitleVariant = pageTitleVariant || (topTitleAs === 'h1' ? 'title-md' : 'index-feature-title');
@@ -117,12 +93,6 @@ export default function ListLayout({ beforeList, posts, filter = true, listTitle
     setClientPage(newPage);
   };
 
-  // Reset pagination when search changes
-  const handleSearchChange = (value) => {
-    setSearchValue(value);
-    setClientPage(1);
-  };
-
   return (
     <div>
       {topTitle ? (
@@ -138,32 +108,12 @@ export default function ListLayout({ beforeList, posts, filter = true, listTitle
         </header>
       ) : null}
 
-      {filter ? (
-        <div className='mb-8 max-w-xl'>
-          <Search
-            resultsId={ resultsId }
-            setSearchValue={ handleSearchChange }
-            value={ searchValue }
-          />
-          <Typography
-            id={ statusId }
-            variant='paragraph-sm'
-            role='status'
-            aria-live='polite'
-            aria-atomic='true'
-            className='mt-2'
-          >
-            {statusText}
-          </Typography>
-        </div>
-      ) : null}
-
-      {!searchTerm && beforeList ? <div>{beforeList}</div> : null}
+      {beforeList ? <div>{beforeList}</div> : null}
 
       {showListTitle ? (
         <div className='pb-3'>
           <Typography id={ listTitleId } variant={ listTitleVariant } as={ titleAs } className={ className }>
-            {searchTerm ? 'Search results' : listTitle}
+            {listTitle}
           </Typography>
         </div>
       ) : null}
@@ -173,19 +123,17 @@ export default function ListLayout({ beforeList, posts, filter = true, listTitle
         aria-labelledby={ resultsLabelledBy }
       >
         <ul
-          id={ resultsId }
-          aria-describedby={ filter ? statusId : undefined }
           aria-label={ scrollableList ? `${listTitle} archive` : undefined }
           tabIndex={ scrollableList ? 0 : undefined }
           className={ scrollableList ? 'max-h-[38rem] overflow-y-auto overscroll-contain pr-3 pt-2 [scrollbar-gutter:stable] sm:max-h-[42rem] sm:pr-5' : 'pt-2' }
         >
-          {!filteredBlogPosts.length && (
+          {!posts.length && (
             <li className='py-12 text-center'>
               <Typography variant='heading-sm' as='p' className='mb-2'>
                 No posts found
               </Typography>
               <Typography variant='paragraph-sm'>
-                {searchValue ? `Nothing matches “${searchValue}”. Try a shorter or different search.` : 'There is nothing published here yet — new writing will land soon.'}
+                There is nothing published here yet — new writing will land soon.
               </Typography>
             </li>
           )}
@@ -198,8 +146,8 @@ export default function ListLayout({ beforeList, posts, filter = true, listTitle
           <PaginationBar
             currentPage={ activePage }
             totalPages={ pageCount }
-            getHref={ hasPaginationLinks && !searchTerm ? getPageHref : undefined }
-            onPageChange={ hasPaginationLinks && !searchTerm ? undefined : handlePageChange }
+            getHref={ hasPaginationLinks ? getPageHref : undefined }
+            onPageChange={ hasPaginationLinks ? undefined : handlePageChange }
           />
         )}
       </section>

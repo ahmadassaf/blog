@@ -53,7 +53,7 @@ export async function generateMetadata() {
     },
     'manifest': '/static/favicons/site.webmanifest',
     'other': {
-      'msapplication-TileColor': '#0a0a0a'
+      'msapplication-TileColor': '#222425'
     }
   };
 }
@@ -71,7 +71,7 @@ export function generateViewport() {
     'initialScale': 1,
     'themeColor': [
       { 'color': '#fff', 'media': '(prefers-color-scheme: light)' },
-      { 'color': '#0a0a0a', 'media': '(prefers-color-scheme: dark)' }
+      { 'color': '#222425', 'media': '(prefers-color-scheme: dark)' }
     ],
     'width': 'device-width'
   };

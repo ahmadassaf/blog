@@ -48,12 +48,11 @@
 }
 
 /*
- * Near-black dark surface for the blog brand (the design-system default is
- * #1a1a1a). Overriding the token reaches everything styled through
- * `bg-background`/surface tokens without any `!important` class targeting.
+ * A softened charcoal canvas keeps dark mode comfortable without losing the
+ * depth between the page and the design system's muted surfaces.
  */
 .dark {
-  --ds-color-surface: #0a0a0a;
+  --ds-color-surface: #222425;
 }
 
 /* A quiet editorial grid, scoped to the About page and faded behind the copy. */

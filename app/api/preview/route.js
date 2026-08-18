@@ -9,9 +9,11 @@
  * @version 1.2.0
  */
 
+import { allPosts, allProjects } from 'contentlayer/generated';
 import { NextResponse } from 'next/server';
 import { lookup } from 'node:dns/promises';
 import { BlockList, isIP } from 'node:net';
+import { TextDecoder } from 'node:util';
 import { parse } from 'node-html-parser';
 
 /*
@@ -104,6 +106,44 @@ function createErrorData(url, {
     status,
     'title': getHostname(url),
     url
+  };
+}
+
+/**
+ * Resolve a local blog URL to the compact metadata used by the internal
+ * Preview hover card. Keeping this lookup in the app avoids shipping every
+ * compiled post body to the browser.
+ */
+function getInternalPreviewData(url) {
+  const pathname = url.split(/[?#]/)[0];
+
+  if (!pathname.startsWith('/blog/')) return null;
+
+  let slug;
+
+  if (pathname.startsWith('/blog/category/'))
+    slug = pathname.slice('/blog/'.length);
+  else if (pathname.startsWith('/blog/projects/'))
+    slug = `category/projects/${pathname.slice('/blog/projects/'.length)}`;
+  else
+    slug = `category/${pathname.slice('/blog/'.length)}`;
+
+  const post = [ ...allPosts, ...allProjects ].find((entry) => entry.slug === slug && entry.draft !== true);
+
+  if (!post) return null;
+
+  return {
+    'category': post.category,
+    'description': post.summary,
+    'favicon': '/static/favicons/favicon-32x32.png',
+    'publishedTime': post.date,
+    'readingTime': post.readingTime?.text,
+    'siteName': 'Internal',
+    'summary': post.summary,
+    'tags': post.tags,
+    'title': post.title,
+    'type': 'internal',
+    'url': pathname
   };
 }
 
@@ -261,21 +301,30 @@ async function safeFetch(initialUrl, abortSignal) {
 }
 
 /**
- * Reads a response body as text while enforcing a hard size cap
+ * Reads enough HTML to parse document metadata while enforcing a hard size cap
+ *
+ * Metadata lives in the document head, so stop downloading once its closing
+ * tag arrives. This keeps large pages from failing preview generation merely
+ * because their body pushes the full response over the safety limit.
  *
  * @throws {Error} If the body exceeds MAX_RESPONSE_BYTES
  */
-async function readBodyWithCap(response) {
+async function readHtmlHeadWithCap(response) {
   if (!response.body) return '';
 
   const reader = response.body.getReader();
-  const chunks = [];
+  const decoder = new TextDecoder();
   let received = 0;
+  let html = '';
 
   for (;;) {
     const { done, value } = await reader.read();
 
-    if (done) break;
+    if (done) {
+      html += decoder.decode();
+
+      break;
+    }
 
     received += value.byteLength;
 
@@ -284,10 +333,18 @@ async function readBodyWithCap(response) {
       throw new Error(`Response body exceeded ${MAX_RESPONSE_BYTES} bytes`);
     }
 
-    chunks.push(value);
+    html += decoder.decode(value, { 'stream': true });
+
+    const closingHead = /<\/head\s*>/i.exec(html);
+
+    if (closingHead) {
+      await reader.cancel();
+
+      return html.slice(0, closingHead.index + closingHead[0].length);
+    }
   }
 
-  return Buffer.concat(chunks).toString('utf8');
+  return html;
 }
 
 /**
@@ -464,6 +521,16 @@ export async function GET(request) {
     { 'error': 'URL parameter is required', 'status': 400 }, { 'status': 400 }
   );
 
+  if (url.startsWith('/')) {
+    const internalPreview = getInternalPreviewData(url);
+
+    if (internalPreview) return NextResponse.json(internalPreview, { 'status': 200 });
+
+    return NextResponse.json(
+      { 'error': 'Internal post not found', 'status': 404 }, { 'status': 404 }
+    );
+  }
+
   const cacheKey = `url:${url}`;
 
   try {
@@ -546,7 +613,7 @@ export async function GET(request) {
       return NextResponse.json(errorData, { 'status': 200 });
     }
 
-    const html = await readBodyWithCap(response);
+    const html = await readHtmlHeadWithCap(response);
     const doc = parse(html);
 
     const data = extractMetadata(doc, url, response.status);
@@ -578,7 +645,7 @@ export async function GET(request) {
       console.error('Preview API error:', error);
       errorData = createErrorData(url, {
         'errorMessage': 'Failed to fetch preview',
-        'status': 404
+        'status': 502
       });
     }
 

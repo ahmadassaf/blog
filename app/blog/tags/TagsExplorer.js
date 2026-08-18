@@ -51,16 +51,17 @@ export default function TagsExplorer({ posts, tags }) {
   }, [ posts ]);
 
   const sortedTags = useMemo(() => [ ...tags ].sort((a, b) => b.count - a.count), [ tags ]);
+  const filteredTags = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
 
-  const filteredAndSortedTags = useMemo(() => {
-    const query = searchQuery.toLowerCase();
+    if (!query) return sortedTags;
 
     return sortedTags.filter((tag) => tag.display.toLowerCase().includes(query) || tag.id.toLowerCase().includes(query));
   }, [ searchQuery, sortedTags ]);
 
   // Calculate stats
   const totalArticles = useMemo(() => tags.reduce((sum, tag) => sum + tag.count, 0), [ tags ]);
-  const mostPopularTag = filteredAndSortedTags[0];
+  const mostPopularTag = sortedTags[0];
 
   // The drawer state is fully derived from the selected tag
   const sidebarOpen = selectedTag !== null;
@@ -131,39 +132,40 @@ export default function TagsExplorer({ posts, tags }) {
             <StatCard icon='Flame' value={ mostPopularTag?.count || 0 } label='Most popular' />
           </Grid>
 
-          <div className='relative mb-5 max-w-sm'>
-            <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
+          <div className='relative mb-6 w-full'>
+            <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400'>
               <Icon name='Search' size='sm' decorative />
             </div>
             <FieldInput
-              type='text'
-              placeholder='Search tags...'
+              type='search'
+              aria-label='Search tags'
+              placeholder='Search tags…'
               value={ searchQuery }
               onChange={ (event) => setSearchQuery(event.target.value) }
-              className='w-full pl-10'
+              className='w-full border-gray-200 pl-11 shadow-none dark:border-gray-800'
             />
           </div>
 
           <div className='flex flex-wrap gap-2'>
-            {filteredAndSortedTags.map((tag) => (
+            {filteredTags.map((tag) => (
               <Button
                 key={ tag.id }
                 onClick={ () => setSelectedTag(tag) }
-                variant='outline'
+                variant='soft'
                 tone='gray'
                 size='xs'
-                className='min-h-9 max-w-full justify-start whitespace-normal text-left'
+                className='min-h-9 max-w-full justify-start whitespace-normal px-3 text-left text-sm font-medium'
               >
                 {tag.display}
-                <Pill tone='gray' variant='soft' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>{tag.count}</Pill>
+                <Pill tone='blue' variant='soft' radius='full' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>{tag.count}</Pill>
               </Button>
             ))}
           </div>
 
-          {filteredAndSortedTags.length === 0 && (
+          {filteredTags.length === 0 && (
             <div className='py-8 text-center'>
               <Typography variant='paragraph-sm'>
-                {searchQuery ? 'No tags found matching your search' : 'No tags yet'}
+                {searchQuery ? 'No tags match your search' : 'No tags yet'}
               </Typography>
             </div>
           )}

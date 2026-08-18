@@ -2,7 +2,7 @@
 type: 'Post'
 title: 'An Objective Assessment Framework and Tool for Linked Data Quality'
 subtitle: 'Enriching Dataset Profiles with Quality Indicators'
-tags: ['Semantic Web', 'Data Quality', 'Linked Data']
+tags: ['Linked Data', 'Data Quality', 'Semantic Web', 'Metadata']
 summary: 'The standardization of Semantic Web technologies and specifications has resulted in a staggering volume of data being published. In this post, I propose an objective assessment framework for Linked Data quality after having surveyed the landscape of Linked Data quality tools to discover that they only cover a subset of the proposed quality indicators'
 featured: true
 date: '2016-02-22'
@@ -13,7 +13,7 @@ tableOfContents: true
 
 <Callout type='info'>This work has been [published](https://www.igi-global.com/article/towards-an-objective-assessment-framework-for-linked-data-quality/160174) in the International Journal on Semantic Web and Information Systems (IJSWIS)</Callout>
 
-## Introduction
+# Introduction
 
 In the last few years the Semantic Web gained a momentum supported by the introduction of many related initiatives like the [Linked Open Data Cloud (LOD Cloud)](http://lod-cloud.net). From 12 datasets cataloged in 2007, the Linked Open Data cloud has grown to nearly 1000 datasets containing more than 82 billion triples. Data is being published by both public and private sectors and covers a diverse set of domains from life sciences to military. This success lies in the cooperation between data publishers and consumers where users are empowered to find, share and combine information in their applications easily.
 
@@ -29,7 +29,7 @@ The framework we propose is based on a refinement of the data quality principles
 
 Furthermore, we surveyed the landscape of Linked Data quality tools to discover that they only cover a subset of the proposed objective quality indicators. As a result, we extend Roomba which is a framework to assess and build dataset profiles with an extensible quality measurement tool and evaluate it by measuring the quality of the LOD cloud group. The results demonstrate that the general quality of LOD cloud needs more attention as most of the datasets suffer from various quality issues.
 
-## Related Work
+# Related Work
 
 In [@Zaveri:SemWebJorunal:12], the authors present a comprehensive systematic review of data quality assessment methodologies applied to LOD. They have extracted 26 quality dimensions and a total of 110 objective and subjective quality indicators. However, some of those objective indicators are dependent on the use case thus there is no clear separation on what can be automatically measured. For example, data completeness is generally a subjective dimension. However, the authors specified that the detection of the degree on which all the real-world objects are represented, detection of number of missing values for specific property and detection of the degree to which instances in the dataset are interlinked are considered as objective indicators given the presence of a gold standard or the original data source to compare with. Moreover, lots of the defined performance dimensions like low latency, high throughput or scalability of a data source were defined as objective but are still dependent on multiple subjective factors like network congestion. In addition, there were some missing objective indicators vital to the quality of LOD e.g., indication of the openness of the dataset.
 
@@ -43,7 +43,7 @@ The emerging critical need for large, distributed, heterogeneous, and complex st
 
 In [@Anisa:LDQ:14], the authors propose a methodology for assessing Linked Data quality. It consists of three main steps: (1) requirement analysis, (2) quality assessment and (3) quality improvement. Considering the multidimensionality of data quality, the methodology requires users to provide the details of a use case or a scenario that describes the intended usage of the data. Moreover, quality issues identification is done with the help of a checklist. The user must have prior knowledge about the details of the data in order to fill this list. Tools implementing the proposed methodology should be able to generate comprehensive quality measures. However, they will require heavy manual intervention and deep knowledge on the data examined. These issues highly affect detecting quality issue on large scale.
 
-## Objective Linked Data Quality Classification
+# Objective Linked Data Quality Classification
 
 The basic idea behind Linked Data is that its usefulness increases when it is more interlinked with other datasets. Tim Berners-Lee defined four main principles for publishing data that can ensure a certain level of uniformity reflecting directly data's usability [@Berners-Lee:W3C:06]:
 
@@ -113,7 +113,7 @@ Coherence is the ability to interpret data as expected by the publisher or vocab
 
 Security is a quality attribute that is measured on the dataset level. It is identified if the publishers use login credentials, SSL or SSH to provide access to their dataset, or if they only grant access to specific users [@Zaveri:SemWebJorunal:12].
 
-## Linked Data Quality Tools
+# Linked Data Quality Tools
 
 In this section, we present the results of our survey on the Linked Data quality tools. There exists a number of data quality frameworks and tools that are either standalone or implemented as modules in data integration tools. These approaches can be classified into automatic, semi-automatic, manual or crowdsourced approaches.
 
@@ -191,7 +191,7 @@ Sindice [@Tummarello:ISWC:07] uses a set of techniques to rank Web data. They u
 
 The availability of Linked Data is highly dependent on the performance qualities of its queryable end-points. The standard query language for Semantic Web resources is SPARQL. As a result, we focus on tools measuring the quality of SPARQL endpoints. In [@BuilAranda:ISWC:13] the authors present [their findings to measure the discoverability of SPARQL endpoints](https://mondeca.com/) by analyzing how they are located and the metadata used to describe them. In addition to that, they also analyze endpoints interoperability by identifying features of SPARQL 1.0 and SPARQL 1.1 that are supported. The authors tackled the endpoints efficiency by testing the time taken to answer generic, content-agnostic SPARQL queries over HTTP.
 
-## An Extensible Objective Quality Assessment Framework
+# An Extensible Objective Quality Assessment Framework
 
 Looking at the list of objective quality indicators, we found out that a large amount of those indicators can be examined automatically from attached datasets metadata found in data portals. As a result, we have chosen to extend [Roomba](https://github.com/ahmadassaf/roomba), a scalable automatic approach for extracting, validating, correcting and generating descriptive linked dataset profiles [@Assaf:ESWC:PROFILES:15]. Roomba is built as a Command Line Interface (CLI) application using Node.js. Instructions on installing and running the framework are available on its public Github repository.
 
@@ -263,7 +263,7 @@ After running Roomba and examining the results on the selected datasets and grou
 
 We analyzed the completeness of our framework by manually constructing a [synthetic set of profiles](https://github.com/ahmadassaf/opendata-checker/tree/master/test). These profiles cover the indicators in table . After running our framework at each of these profiles, we measured the completeness and correctness of the results. We found out that our framework covers indeed all the quality problems discussed. The result is expected as we have specifically tailored Roomba to completely cover all the previously mentioned indicators.
 
-## Experiments and Analysis
+# Experiments and Analysis
 
 In this section, we provide the experiments done using the proposed framework. Listing shows an excerpt of the generated quality report. All the experiments are reproducible by Roomba and their results are available on its Github repository. We have run the framework on the LOD cloud containing 259 datasets at the time of writing this post. We ran the instance and resource extractor in order to cache the metadata files for these datasets locally and ran the quality assessment process which took around two hours on a 2.6 Ghz Intel Core i7 processor with 16GB of DDR3 memory machine. In this experiment, we assumed that all the quality indicator weights are equal and set to 1.
 

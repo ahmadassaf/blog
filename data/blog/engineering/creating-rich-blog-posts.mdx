@@ -52,7 +52,7 @@ Syntax trees are representations of source code or even natural language. These 
 
 [Remark](https://github.com/remarkjs/remark) is a [Unified.js](https://github.com/unifiedjs/unified) processor specifically designed for working with Markdown. It transforms Markdown text into a Markdown Abstract Syntax Tree (MDAST), which provides a structured format for analyzing and manipulating the content.
 
-<Image src="/static/images/posts/remark.svg" darkSrc="/static/images/posts/remark-dark.svg" alt="remark" width={800} height={800} />
+<UnifiedProcessorExplorer view="remark" />
 
 For example, consider a blog post written in Markdown:
 
@@ -130,7 +130,7 @@ While [Remark](https://github.com/remarkjs/remark) excels at handling Markdown, 
 
 <Callout type="info">Any package that starts with `rehype-*` is operating on the HTML syntax tree (HAST)</Callout> 
 
-<Image src="/static/images/posts/rehype.svg" darkSrc="/static/images/posts/rehype-dark.svg" alt="rehype" width={800} height={800} />
+<UnifiedProcessorExplorer view="rehype" />
 
 ::: code-group labels=[Markdown, MDAST/JSON, HAST/JSON]
 
@@ -261,7 +261,7 @@ The real power of these tools emerges when they are used together. Here’s a ty
 4. **Integrate JSX with MDX:** Embed React components to introduce dynamic and interactive elements.
 5. **Render in Your Application:** Use a framework like Next.js to render your [MDX](https://mdxjs.com) content as part of a blog or documentation site.
 
-<Image src="/static/images/posts/unifiedjs.svg" darkSrc="/static/images/posts/unifiedjs-dark.svg" alt="unifiedjs" width={800} height={800} caption="Courtesy of Timothy Lin: Streamlining Citations in Markdown - Cite Faster and Smarter" />
+<UnifiedProcessorExplorer />
 
 ## Conclusion
 

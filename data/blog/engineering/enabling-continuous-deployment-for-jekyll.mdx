@@ -22,7 +22,7 @@ All of the above has led me to set up automatic deployments to my server. This m
 
 I have my Jekyll instance running on a Digital Ocean Droplet, to configure one, you can easily follow [their great tutorial](https://www.digitalocean.com/community/tutorials/how-to-get-started-with-jekyll-on-an-ubuntu-vps).
 
-Jekyll website has nice [articles on continuous integration](http://jekyllrb.com/docs/continuous-integration/) and [Deployment](https://jekyllrb.com/docs/deployment-methods/). In a nutshell, serving Jekyll can be done in two ways:
+Jekyll website has nice [articles on continuous integration](https://jekyllrb.com/docs/deployment/automated/) and [Deployment](https://jekyllrb.com/docs/deployment-methods/). In a nutshell, serving Jekyll can be done in two ways:
 
 - It is a static website, so just have a web server like Apache running and point that to the `_site`
 - Run the `jekyll serve` process on your server and proxy your web server e.g., Apache to point to your `http://0.0.0.0:4000`
@@ -112,7 +112,27 @@ As a result of my failed attempts, I had to try another approach and I decided t
 
 The first step to achieving this new workflow was to have rigorous rules set up on the server. No more deployments as root, from now on we’re doing things correctly.
 
-<Image className='mx-auto' width={600} height={600} src="/static/images/posts/jekyll-ci.svg" darkSrc="/static/images/posts/jekyll-ci-dark.svg" alt="jekyll-ci" />
+<PipelineDiagram
+  title='Continuous deployment with Travis CI'
+  description='A push to GitHub triggers a build, validation, and deployment pipeline. Failed stages stop early; a successful deployment publishes the site and returns its link to GitHub.'
+  source={{ label: 'Local changes', action: 'Push changes' }}
+  platform={{
+    label: 'GitHub',
+    detail: 'Push to a branch or open a pull request',
+    success: 'Build passes',
+    feedback: 'Link to deployed site'
+  }}
+  pipeline={{
+    label: 'Travis CI',
+    trigger: 'Trigger Travis',
+    stages: [
+      { label: 'Build', failure: 'Broken build' },
+      { label: 'Validate', failure: 'Broken build' },
+      { label: 'Deploy', action: 'Upload', output: 'Server' }
+    ]
+  }}
+  destination={{ label: 'Server' }}
+/>
 
 ## Setting up the server
 

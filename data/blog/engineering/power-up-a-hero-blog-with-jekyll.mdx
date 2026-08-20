@@ -110,12 +110,12 @@ What is notable about a **page** is the ability to define a `permalink` in the f
 
 ## Collaborating on Posts
 
-Since one of the reasons I moved to Jekyll and markdown-based blog is to enable people to contribute to my posts. To do so, I host the posts into a [separate Github repository](https://github.com/ahmadassaf/blog) and include that as a separate git submodule by configuring the `.gitmodules` as follows:
+Since one of the reasons I moved to Jekyll and markdown-based blog is to enable people to contribute to my posts. To do so, I host the posts into a [separate Github repository](https://github.com/ahmadassaf/blog-posts) and include that as a separate git submodule by configuring the `.gitmodules` as follows:
 
 ```
 [submodule "_posts"]
     path = _posts
-    url = https://github.com/ahmadassaf/blog.git
+    url = https://github.com/ahmadassaf/blog-posts.git
 ```
 
 ## Featured Posts
@@ -310,7 +310,7 @@ When using Kramdown `{: .notice}` can be added after a sentence to assign the `.
 I use rouge syntax highlighter that comes with Jekyll. Rouge can be installed if not already via `gem install rouge` then enabled in `configs.yml` with `highlighter: rouge`. I am using a custom theme that is defined in `/assets/_sass/_syntax.scss`. For various themes and presets you can check:
 
 - [Obsidian theme for rouge syntax highlighter](http://vgaidarji.github.io/blog/2016/02/27/obsidian-theme-for-rouge-syntax-highlighter/)
-- [Darkly Pygments CSS Theme](http://sourcey.com/darkly-pygments-css-theme/)
+- [Pygments styles gallery](https://pygments.org/styles/)
 - [jekyll-pygments-themes](https://github.com/jwarby/jekyll-pygments-themes)
 
 For any of the later, you can simply copy and replace the code in `/assets/_sass/_syntax.scss` and you should be good to go.

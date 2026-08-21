@@ -27,15 +27,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: blog
-
-      # The blog consumes @gaudi/design-system via link:../design-system, so
-      # the design system must sit next to the blog checkout for the link to
-      # resolve — which also lets installs stay strictly lockfile-frozen.
-      - name: Checkout design system
-        uses: actions/checkout@v4
-        with:
-          repository: ahmadassaf/design-system
-          path: design-system
+          submodules: recursive
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -47,13 +39,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          cache-dependency-path: |
-            blog/pnpm-lock.yaml
-            design-system/pnpm-lock.yaml
-
-      - name: Install design-system dependencies
-        run: pnpm install --frozen-lockfile
-        working-directory: design-system
+          cache-dependency-path: blog/pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

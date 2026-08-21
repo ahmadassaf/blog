@@ -15,8 +15,10 @@ import { notFound } from 'next/navigation';
 
 import categories from '@/app/content/categories';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, paginate, published, sortPosts } from '@/lib/utils/contentlayer';
+import { coreContent, paginate, paginationPageNumbers, published, sortPosts } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
+
+export const dynamicParams = false;
 
 /**
  * Generates metadata for the category pagination page
@@ -60,16 +62,16 @@ export async function generateMetadata({ params }) {
  *
  * @example
  * // Returns array like:
- * // [{ category: 'technology', page: '1' }, { category: 'technology', page: '2' }]
+ * // [{ category: 'technology', page: '2' }, { category: 'technology', page: '3' }]
  */
 export const generateStaticParams = async() => {
   const posts = published(allPosts);
   const paths = categories.map((category) => {
-    const categoryPages = Math.ceil(posts.filter(
+    const categoryPosts = posts.filter(
       (post) => slugify(post.category) === category.slug
-    ).length / POSTS_PER_PAGE);
-    const categoryPaths =  Array.from({ 'length': categoryPages }, (_, index) => {
-      return { 'category': category.slug, 'page': (index + 1).toString() };
+    );
+    const categoryPaths = paginationPageNumbers(categoryPosts.length, POSTS_PER_PAGE).map((page) => {
+      return { 'category': category.slug, 'page': page.toString() };
     });
 
     return categoryPaths;

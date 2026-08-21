@@ -60,7 +60,7 @@ export default function TagsExplorer({ posts, tags }) {
   }, [ searchQuery, sortedTags ]);
 
   // Calculate stats
-  const totalArticles = useMemo(() => tags.reduce((sum, tag) => sum + tag.count, 0), [ tags ]);
+  const totalArticles = posts.length;
   const mostPopularTag = sortedTags[0];
 
   // The drawer state is fully derived from the selected tag

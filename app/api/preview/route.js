@@ -11,10 +11,10 @@
 
 import { allPosts, allProjects } from 'contentlayer/generated';
 import { NextResponse } from 'next/server';
-import { lookup } from 'node:dns/promises';
-import { BlockList, isIP } from 'node:net';
 import { TextDecoder } from 'node:util';
 import { parse } from 'node-html-parser';
+
+import { safeFetch } from '@/lib/preview/safeFetch.mjs';
 
 /*
  * Optional: Uncomment if you have Vercel KV set up
@@ -175,131 +175,6 @@ const extractYouTubeVideoId = (url) => {
   return match ? match.groups.videoId : '';
 };
 
-/*
- * Deny-list of non-public address space (SSRF protection). BlockList also
- * matches IPv4 rules against IPv4-mapped IPv6 addresses (::ffff:a.b.c.d),
- * so the mapped forms need no separate handling.
- */
-const PRIVATE_ADDRESSES = new BlockList();
-
-// Unspecified, private, CGNAT, loopback, link-local, multicast + reserved
-PRIVATE_ADDRESSES.addSubnet('0.0.0.0', 8, 'ipv4');
-PRIVATE_ADDRESSES.addSubnet('10.0.0.0', 8, 'ipv4');
-PRIVATE_ADDRESSES.addSubnet('100.64.0.0', 10, 'ipv4');
-PRIVATE_ADDRESSES.addSubnet('127.0.0.0', 8, 'ipv4');
-PRIVATE_ADDRESSES.addSubnet('169.254.0.0', 16, 'ipv4');
-PRIVATE_ADDRESSES.addSubnet('172.16.0.0', 12, 'ipv4');
-PRIVATE_ADDRESSES.addSubnet('192.168.0.0', 16, 'ipv4');
-PRIVATE_ADDRESSES.addSubnet('224.0.0.0', 3, 'ipv4');
-
-// Unspecified + loopback, NAT64, unique-local, link-local, multicast
-PRIVATE_ADDRESSES.addSubnet('::', 127, 'ipv6');
-PRIVATE_ADDRESSES.addSubnet('64:ff9b::', 96, 'ipv6');
-PRIVATE_ADDRESSES.addSubnet('fc00::', 7, 'ipv6');
-PRIVATE_ADDRESSES.addSubnet('fe80::', 10, 'ipv6');
-PRIVATE_ADDRESSES.addSubnet('ff00::', 8, 'ipv6');
-
-/**
- * Checks whether an IP address (IPv4 or IPv6) is publicly routable
- *
- * @description Unparseable addresses are treated as non-public. IPv6 zone IDs
- * (fe80::1%eth0) are stripped before validation since `isIP` rejects them.
- */
-function isPublicAddress(ip) {
-  const zoneIndex = ip.indexOf('%');
-  const address = zoneIndex === -1 ? ip : ip.slice(0, zoneIndex);
-  const family = isIP(address);
-
-  if (family === 0) return false;
-
-  return !PRIVATE_ADDRESSES.check(address, family === 6 ? 'ipv6' : 'ipv4');
-}
-
-/**
- * Creates an error flagged as a blocked-URL validation failure
- */
-function blockedUrlError(message) {
-  const error = new Error(message);
-
-  error.code = 'ERR_URL_BLOCKED';
-
-  return error;
-}
-
-/**
- * Validates that a URL is safe to fetch server-side (SSRF protection)
- *
- * @description Enforces HTTP(S), rejects well-known local hostnames, then
- * resolves the hostname via DNS and rejects the URL if any resolved address
- * is not publicly routable (loopback, private, link-local, unique-local,
- * unspecified, or IPv4-mapped equivalents).
- *
- * @throws {Error} Error with code ERR_URL_BLOCKED when the URL is not allowed
- */
-async function assertPublicUrl(urlObj) {
-  if (![ 'http:', 'https:' ].includes(urlObj.protocol)) throw blockedUrlError('Only HTTP(S) URLs are allowed');
-
-  const hostname = urlObj.hostname.toLowerCase().replace(/^\[|\]$/g, '');
-
-  // Fast path: reject well-known local hostnames without a DNS round-trip
-  if (hostname === 'localhost' || hostname.endsWith('.localhost') || hostname.endsWith('.local') || hostname.endsWith('.internal')) throw blockedUrlError('Local URLs are not allowed');
-
-  // IP literals can be validated directly
-  if (/^[\d.]+$/.test(hostname) || hostname.includes(':')) {
-    if (!isPublicAddress(hostname)) throw blockedUrlError('Local URLs are not allowed');
-
-    return;
-  }
-
-  let addresses;
-
-  try {
-    addresses = await lookup(hostname, { 'all': true });
-  } catch {
-    throw blockedUrlError('Could not resolve hostname');
-  }
-
-  if (addresses.length === 0 || addresses.some(({ address }) => !isPublicAddress(address))) throw blockedUrlError('Local URLs are not allowed');
-}
-
-// Browser-like headers for the outbound metadata request
-const FETCH_HEADERS = {
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'User-Agent': 'Mozilla/5.0 (compatible; PreviewBot/1.0)'
-};
-
-const REDIRECT_STATUSES = [ 301, 302, 303, 307, 308 ];
-
-/**
- * Fetches a URL with SSRF protection, following at most MAX_REDIRECTS
- * redirects manually and re-validating every hop before requesting it
- */
-async function safeFetch(initialUrl, abortSignal) {
-  let currentUrl = initialUrl;
-
-  for (let hop = 0; hop <= MAX_REDIRECTS; hop += 1) {
-    await assertPublicUrl(new URL(currentUrl));
-
-    const response = await fetch(currentUrl, {
-      'headers': FETCH_HEADERS,
-      'redirect': 'manual',
-      'signal': abortSignal
-    });
-
-    if (!REDIRECT_STATUSES.includes(response.status)) return response;
-
-    const location = response.headers.get('location');
-
-    if (!location) return response;
-
-    if (response.body) await response.body.cancel();
-
-    currentUrl = new URL(location, currentUrl).href;
-  }
-
-  throw blockedUrlError('Too many redirects');
-}
-
 /**
  * Reads enough HTML to parse document metadata while enforcing a hard size cap
  *
@@ -459,46 +334,6 @@ function extractMetadata(doc, url, status) {
 }
 
 /**
- * Fetch Wikipedia article data using Wikipedia API
- */
-async function fetchWikipediaData(url) {
-  try {
-    const urlObj = new URL(url);
-    const articleMatch = urlObj.pathname.match(/\/wiki\/(?<article>.+)$/);
-
-    if (!articleMatch) return null;
-
-    const articleName = articleMatch.groups.article;
-
-    // Extract language code (en, fr, etc.)
-    const lang = urlObj.hostname.split('.')[0];
-
-    // Use Wikipedia API to get article extract and info
-    const apiUrl = `https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(articleName)}`;
-
-    const response = await fetch(apiUrl);
-
-    if (!response.ok) return null;
-
-    const wikiData = await response.json();
-
-    return {
-      'articleName': wikiData.title,
-      'description': wikiData.description,
-      'excerpt': wikiData.extract,
-      'favicon': 'https://www.wikipedia.org/static/favicon/wikipedia.ico',
-      'image': wikiData.thumbnail ? wikiData.thumbnail.source : null,
-      'title': wikiData.title,
-      'type': 'wikipedia'
-    };
-  } catch (error) {
-    console.error('Wikipedia API error:', error);
-
-    return null;
-  }
-}
-
-/**
  * GET handler for preview API endpoint
  */
 export async function GET(request) {
@@ -531,20 +366,21 @@ export async function GET(request) {
     );
   }
 
-  const cacheKey = `url:${url}`;
+  let cacheKey = `url:${url}`;
 
   try {
+    let normalizedUrl;
 
     // Validate URL format
-    let urlObj;
-
     try {
-      urlObj = new URL(url);
+      normalizedUrl = new URL(url).href;
     } catch {
       return NextResponse.json(
         { 'error': 'Invalid URL format', 'status': 400 }, { 'status': 400 }
       );
     }
+
+    cacheKey = `url:${normalizedUrl}`;
 
     /*
      * Serve cache hits before the SSRF validation: cached entries were
@@ -555,21 +391,6 @@ export async function GET(request) {
 
     if (cachedPreview) return NextResponse.json(cachedPreview, { 'status': 200 });
 
-    // Enforce protocol and public-address restrictions (SSRF protection)
-    await assertPublicUrl(urlObj);
-
-    // Special handling for Wikipedia
-    if (matchesHost(urlObj.hostname.toLowerCase(), 'wikipedia.org')) {
-      const wikiData = await fetchWikipediaData(url);
-
-      if (wikiData) {
-        wikiData.status = 200;
-        await cache.set(cacheKey, wikiData);
-
-        return NextResponse.json(wikiData, { 'status': 200 });
-      }
-    }
-
     // Fetch the URL with timeout, validating every redirect hop
 
     const controller = new AbortController();
@@ -579,7 +400,7 @@ export async function GET(request) {
     let response;
 
     try {
-      response = await safeFetch(url, controller.signal);
+      response = await safeFetch(normalizedUrl, controller.signal, { 'maxRedirects': MAX_REDIRECTS });
     } finally {
       clearTimeout(timeoutId);
     }

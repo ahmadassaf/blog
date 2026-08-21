@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "contentlayer/generated": ["./.contentlayer/generated"],
-      "@/app/*": ["app/*"],
-      "@/data/*": ["data/*"],
-      "@/layouts/*": ["layouts/*"],
-      "@/lib/*": ["lib/*"],
-      "@/public/*": ["public/*"],
-      "@gaudi/design-system": ["node_modules/@gaudi/design-system/src/index.js"],
-      "@gaudi/design-system/*": ["node_modules/@gaudi/design-system/src/*"]
+      "@/app/*": ["./app/*"],
+      "@/data/*": ["./data/*"],
+      "@/layouts/*": ["./layouts/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/public/*": ["./public/*"],
+      "@gaudi/design-system": ["./node_modules/@gaudi/design-system/src/index.js"],
+      "@gaudi/design-system/*": ["./node_modules/@gaudi/design-system/src/*"]
     }
   },
   "include": [".contentlayer/generated"]

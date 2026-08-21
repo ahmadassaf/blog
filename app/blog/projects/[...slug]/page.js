@@ -10,14 +10,14 @@
  */
 
 import { CitationPopover, Footnote } from '@gaudi/design-system/mdx';
-import { MDXLayoutRenderer } from '@gaudi/design-system/mdx/runtime';
 import { allProjects } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
+import MDXLayoutRenderer from '@/data/blog/visualisations/MDXLayoutRenderer';
 import { linkedDataGenerator, metadataGenertaor } from '@/data/meta/generator/post';
 import ProjectLayout from '@/layouts/ProjectLayout';
 import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
-import { safeDecodeURI } from '@/lib/utils/slugs';
+import { safeDecodeURI } from '@/lib/utils/slugs.mjs';
 
 /**
  * Generates metadata for the project detail page

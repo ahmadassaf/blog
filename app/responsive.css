@@ -22,29 +22,6 @@
     cursor: pointer;
   }
 
-  /* The blog intentionally suppresses focus and interaction rings. */
-  :where(*):where(:focus, :focus-visible, :focus-within, :active) {
-    --tw-inset-ring-shadow: 0 0 #0000 !important;
-    --tw-ring-offset-shadow: 0 0 #0000 !important;
-    --tw-ring-shadow: 0 0 #0000 !important;
-    box-shadow: none !important;
-    outline: none !important;
-  }
-
-  :where(
-    [aria-current='page'],
-    [aria-pressed='true'],
-    [aria-selected='true'],
-    [data-active='true'],
-    [data-selected='true'],
-    [data-state='active'],
-    [data-state='on']
-  ):not(:focus-visible) {
-    --tw-inset-ring-shadow: 0 0 #0000 !important;
-    --tw-ring-offset-shadow: 0 0 #0000 !important;
-    --tw-ring-shadow: 0 0 #0000 !important;
-    outline: none !important;
-  }
 }
 
 /*

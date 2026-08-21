@@ -15,7 +15,7 @@ import CategoriesExplorer from '@/app/blog/categories/CategoriesExplorer';
 import categories from '@/app/content/categories';
 import { metadataGenertaor } from '@/data/meta/generator/blog';
 import { pick, published, sortPosts } from '@/lib/utils/contentlayer';
-import { slugify } from '@/lib/utils/slugs';
+import { slugify } from '@/lib/utils/slugs.mjs';
 
 export const metadata = metadataGenertaor({ 'path': '/blog/categories', 'title': 'Categories' });
 

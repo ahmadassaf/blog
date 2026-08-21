@@ -65,8 +65,10 @@ export const Author = defineDocumentType(() => {
 });
 
 export default makeSource({
+  'contentDirExclude': [ 'blog/README.md', 'blog/visualisations' ],
   'contentDirInclude': [ 'authors', 'blog' ],
   'contentDirPath': 'data',
+  'disableImportAliasWarning': true,
   'documentTypes': [ Author, Project, Post ],
   'mdx': {
     'cwd': process.cwd(),

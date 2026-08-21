@@ -13,7 +13,6 @@ import remarkMath from 'remark-math';
 import computedFields  from './lib/contentLayer/computedFields';
 import contentFields from './lib/contentLayer/contentFields';
 import projectFields  from './lib/contentLayer/projectFields';
-import structuredData from './lib/contentLayer/structuredData';
 import { remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx, remarkLinks } from './lib/mdx/index.js';
 import remarkFootnoteData from './lib/mdx/remark-footnote-data.js';
 import rehypeFootnotePopoverV2 from './lib/rehype-footnote-popover-v2.js';
@@ -26,11 +25,7 @@ export const Project = defineDocumentType(() => {
   return {
     'computedFields': {
       ...computedFields,
-      ...projectFields,
-      'structuredData': {
-        'resolve': structuredData.post,
-        'type': 'json'
-      }
+      ...projectFields
     },
     'contentType': 'mdx',
     'fields': contentFields.project,
@@ -42,11 +37,7 @@ export const Project = defineDocumentType(() => {
 export const Post = defineDocumentType(() => {
   return {
     'computedFields': {
-      ...computedFields,
-      'structuredData': {
-        'resolve': structuredData.post,
-        'type': 'json'
-      }
+      ...computedFields
     },
     'contentType': 'mdx',
     'fields': contentFields.post,

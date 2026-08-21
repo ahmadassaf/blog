@@ -15,8 +15,10 @@ import { notFound } from 'next/navigation';
 
 import tags from '@/app/content/tags';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, paginate, published, sortPosts } from '@/lib/utils/contentlayer';
+import { coreContent, paginate, paginationPageNumbers, published, sortPosts } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
+
+export const dynamicParams = false;
 
 /**
  * Generates metadata for the tag pagination page
@@ -60,16 +62,16 @@ export async function generateMetadata({ params }) {
  *
  * @example
  * // Returns array like:
- * // [{ tag: 'javascript', page: '1' }, { tag: 'javascript', page: '2' }]
+ * // [{ tag: 'javascript', page: '2' }, { tag: 'javascript', page: '3' }]
  */
 export const generateStaticParams = async() => {
 
   // Normalize each post's tags once instead of once per tag in the loop below
   const postTagSlugs = published(allPosts).map((post) => post.tags.map(slugify));
   const paths = tags.map((tag) => {
-    const tagPages = Math.ceil(postTagSlugs.filter((slugs) => slugs.includes(tag.slug)).length / POSTS_PER_PAGE);
-    const tagPaths =  Array.from({ 'length': tagPages }, (_, index) => {
-      return { 'page': (index + 1).toString(), 'tag': tag.slug };
+    const tagPostCount = postTagSlugs.filter((slugs) => slugs.includes(tag.slug)).length;
+    const tagPaths = paginationPageNumbers(tagPostCount, POSTS_PER_PAGE).map((page) => {
+      return { 'page': page.toString(), 'tag': tag.slug };
     });
 
     return tagPaths;

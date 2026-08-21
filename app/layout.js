@@ -9,9 +9,9 @@
  * @version 1.0.0
  */
 
-import LayoutContainer from '@gaudi/design-system/components/layout/LayoutContainer';
-import CitationTracker from '@gaudi/design-system/components/mdx/CitationTracker';
-import CodeGroupTabs from '@gaudi/design-system/components/mdx/CodeGroupTabs';
+import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';
+import CitationTracker from '@gaudi/design-system/mdx/CitationTracker';
+import CodeGroupTabs from '@gaudi/design-system/mdx/CodeGroupTabs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { allPosts, allProjects } from 'contentlayer/generated';
 import { Inter } from 'next/font/google';
@@ -51,7 +51,6 @@ export async function generateMetadata() {
       ],
       'other': [{ 'color': '#fff', 'rel': 'mask-icon', 'url': '/static/favicons/safari-pinned-tab.svg' }]
     },
-    'manifest': '/static/favicons/site.webmanifest',
     'other': {
       'msapplication-TileColor': '#222425'
     }

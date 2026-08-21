@@ -28,8 +28,18 @@ export default function manifest() {
     'icons': [
       {
         'sizes': 'any',
-        'src': '/favicon.ico',
+        'src': '/static/favicons/favicon.ico',
         'type': 'image/x-icon'
+      },
+      {
+        'sizes': '192x192',
+        'src': '/static/favicons/android-chrome-192x192.png',
+        'type': 'image/png'
+      },
+      {
+        'sizes': '512x512',
+        'src': '/static/favicons/android-chrome-512x512.png',
+        'type': 'image/png'
       }
     ],
     'name': siteMetadata.title,

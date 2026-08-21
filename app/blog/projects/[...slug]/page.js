@@ -9,14 +9,16 @@
  * @version 1.0.0
  */
 
-import { CitationPopover, Footnote } from '@gaudi/design-system/mdx';
+import CitationPopover from '@gaudi/design-system/mdx/CitationPopover';
+import Footnote from '@gaudi/design-system/mdx/Footnote';
 import { allProjects } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
 import MDXLayoutRenderer from '@/data/blog/visualisations/MDXLayoutRenderer';
 import { linkedDataGenerator, metadataGenertaor } from '@/data/meta/generator/post';
 import ProjectLayout from '@/layouts/ProjectLayout';
-import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
+import { resolveContentDocument } from '@/lib/contentLayer/resolveContentDocument';
+import { published } from '@/lib/utils/contentlayer';
 import { safeDecodeURI } from '@/lib/utils/slugs.mjs';
 
 /**
@@ -84,34 +86,20 @@ export default async function Page({ params }) {
 
   if (slug === null) notFound();
 
-  const sortedProjects = sortPosts(published(allProjects));
-  const posts = coreContent(sortedProjects);
-  const postIndex = posts.findIndex((_post) => _post.externalLink === `projects/${slug}`);
-  const post = sortedProjects[postIndex];
+  const resolved = resolveContentDocument(
+    allProjects, (project) => project.externalLink === `projects/${slug}`, (project) => project.externalLink
+  );
 
-  if (!post) notFound();
+  if (!resolved) notFound();
 
-  if (post?.series) {
-    const seriesPosts = sortedProjects
-      .filter((_post) => _post.series?.title === post.series?.title)
-      .sort((a, b) => Number(a.series.order) - Number(b.series.order))
-      .map((_post) => {
-        return {
-          'isCurrent': _post.slug === post.slug,
-          'series': post.series.title,
-          'slug': _post.slug,
-          'title': _post.title
-        };
-      });
-
-    post.seriesPosts = seriesPosts;
-  }
+  const { content, next, prev } = resolved;
+  const post = resolved.document;
 
   return (
     <>
       <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(linkedDataGenerator(post)) }} key='post-jsonld'/>
 
-      <ProjectLayout content={ coreContent(post) } next={ posts[postIndex - 1] || null } prev={ posts[postIndex + 1] || null } toc={ post.toc }>
+      <ProjectLayout content={ content } next={ next } prev={ prev } toc={ post.toc }>
         <MDXLayoutRenderer code={ post.body.code } />
         <CitationPopover />
         <Footnote />

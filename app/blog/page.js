@@ -11,20 +11,12 @@
 
 import { allPosts } from 'contentlayer/generated';
 
+import { metadataGenertaor } from '@/data/meta/generator/blog';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import ListLayout from '@/layouts/ListLayout';
-import { sortPosts } from '@/lib/utils/contentlayer';
+import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
 
-/**
- * Generates metadata for the blog page
- *
- * @returns {Promise<Object>} Metadata object with page title
- */
-export async function generateMetadata() {
-  return {
-    'title': 'Blog'
-  };
-}
+export const metadata = metadataGenertaor({ 'path': '/blog', 'title': 'Blog' });
 
 /**
  * Main blog page component with featured posts and full listing
@@ -36,10 +28,20 @@ export async function generateMetadata() {
  * <Blog />
  */
 export default function Blog() {
+  const posts = coreContent(sortPosts(published(allPosts)));
+
   return (
-    <div>
-      <FeaturedPostsLayout hideTitle={ true } />
-      <ListLayout posts={ sortPosts(allPosts, 'date') } />
-    </div>
+    <ListLayout
+      posts={ posts }
+      paginate={ false }
+      pageTitle='Blog'
+      pageTitleVariant='heading-xl'
+      pageDescription='Writing about AI, semantic systems, data products, and engineering practice.'
+      listTitle='All Posts'
+      listTitleVariant='heading-lg'
+      scrollableList
+      titleAs='h2'
+      beforeList={ <div className='pt-4 sm:pt-6'><FeaturedPostsLayout posts={ posts } /></div> }
+    />
   );
 }

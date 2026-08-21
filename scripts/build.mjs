@@ -9,10 +9,11 @@
  * @version 1.0.0
  */
 
-import { allPosts } from '../.contentlayer/generated/index.mjs';
+import { allPosts, allProjects } from '../.contentlayer/generated/index.mjs';
 import getAllCategories from '../lib/contentLayer/generateCategories.mjs';
 import getAllPublications from '../lib/contentLayer/generatePublications.mjs';
 import getAllTags from '../lib/contentLayer/generateTags.mjs';
+import validateTags from '../lib/contentLayer/validateTags.mjs';
 
 import rss from './rss.mjs';
 
@@ -42,6 +43,9 @@ import rss from './rss.mjs';
  */
 async function postbuild() {
 
+  // Fail the content build when tag coverage or normalization drifts
+  validateTags([ ...allPosts, ...allProjects ]);
+
   // Generate tag taxonomy from all blog posts
   getAllTags(allPosts);
 
@@ -56,4 +60,7 @@ async function postbuild() {
 }
 
 // Execute the post-build process
-postbuild();
+postbuild().catch((error) => {
+  console.error('❌ Post-build failed:', error);
+  process.exit(1);
+});

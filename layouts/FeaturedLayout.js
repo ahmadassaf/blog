@@ -3,15 +3,14 @@
  *
  * @description Layout component for displaying featured blog posts in a prominent grid format.
  * Shows the first featured post as a large hero section, followed by additional featured posts
- * in a responsive grid layout. Supports optional title hiding and custom styling.
+ * in a responsive grid layout.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
  */
 
-import { allPosts } from 'contentlayer/generated';
+import { Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
-import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
 import formatDate from '@/lib/utils/formatDate';
 
 /**
@@ -19,21 +18,16 @@ import formatDate from '@/lib/utils/formatDate';
  *
  * @description Displays featured blog posts in a hierarchical layout with the first featured post
  * as a prominent hero section and additional featured posts in a responsive 2-column grid.
- * Automatically filters posts by 'featured' flag and handles responsive design.
+ * Automatically filters posts by 'featured' flag and handles responsive design. Falls back to
+ * the newest post when no post is flagged as featured, and renders nothing when no posts exist.
  *
  * @param {Object} props - Component props
- * @param {string} [props.className] - Additional CSS classes for the title
- * @param {boolean} [props.hideTitle] - Whether to hide the "Featured Posts" title
- *
- * @returns {JSX.Element} Featured posts layout with hero and grid sections
+ * @param {Array<Object>} props.posts - Sorted, published core-content posts (page computes these once and shares them with its list layout)
+ * @returns {JSX.Element|null} Featured posts layout with hero and grid sections
  *
  * @example
- * // Basic usage with title
- * <FeaturedLayout />
- *
- * @example
- * // Hidden title with custom styling
- * <FeaturedLayout hideTitle={true} className="custom-title-style" />
+ * // Basic usage
+ * <FeaturedLayout posts={coreContent(sortPosts(published(allPosts)))} />
  *
  * @example
  * // Layout structure:
@@ -41,125 +35,102 @@ import formatDate from '@/lib/utils/formatDate';
  * // - Additional featured posts: 2-column grid (1-column on mobile)
  * // - Responsive design with proper spacing and hover effects
  */
-export default function ListLayout({ className, hideTitle }) {
+export default function FeaturedLayout({ posts }) {
+  const featuredPosts = posts.filter((post) => post.featured);
 
-  const posts = coreContent(sortPosts(allPosts));
-
-  // Extract the first featured post for hero display
-  const featuredPost = posts.filter((post) => post.featured).slice(0, 1)[0];
+  // Extract the first featured post for hero display, falling back to the newest post
+  const featuredPost = featuredPosts[0] || posts[0];
+  const featuredLabel = featuredPosts[0] ? 'Featured' : 'Latest';
 
   // Get additional featured posts for grid display (posts 2-3)
-  const displayPosts = posts.filter((post) => post.featured).slice(1, 3);
+  const displayPosts = featuredPosts.slice(1, 3);
+
+  if (!featuredPost) return null;
 
   return (
-    <div>
-
-      <div className={ `pb-16` }>
-        {/* Clean Typography-focused Hero */}
-        <article className='mx-auto w-full group'>
-          <div className='mb-6 flex items-center gap-3'>
-            <span className='inline-flex items-center rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white'>
-              Featured
-            </span>
-            <time
-              dateTime={ formatDate(featuredPost.date) }
-              className='text-sm font-medium text-gray-600 dark:text-gray-400'
+    <div className='pb-8 lg:pb-10'>
+      <section aria-label='Featured writing'>
+        <article className='w-full group'>
+          <div className='mb-3 flex flex-wrap items-center gap-x-3 gap-y-2'>
+            <Pill tone='blue' variant='solid' radius='full' size='sm'>{featuredLabel}</Pill>
+            <Typography
+              as='time'
+              variant='post-meta'
+              dateTime={ featuredPost.date }
             >
               {formatDate(featuredPost.date)}
-            </time>
+            </Typography>
             {featuredPost.category && (
               <>
-                <span className='text-gray-300 dark:text-gray-600'>•</span>
-                <span className='text-sm font-medium text-blue-600 dark:text-blue-400 capitalize'>
+                <Typography as='span' variant='post-meta'>·</Typography>
+                <Pill tone='blue' variant='subtle' size='sm' className='capitalize'>
                   {featuredPost.category}
-                </span>
+                </Pill>
               </>
             )}
           </div>
 
-          <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-[1.1] tracking-tight mb-6'>
-            <a
+          <Typography variant='index-hero-title' as='h2' className='mb-3 max-w-none'>
+            <Link
               href={ `/blog/${featuredPost.slug}` }
-              className='hover:text-blue-600 dark:hover:text-blue-400  duration-300 decoration-2 hover:underline underline-offset-4'
+              variant='bare'
+              tone='neutral'
+              className='break-words no-underline transition-colors duration-200 hover:text-blue-600 hover:no-underline dark:hover:text-blue-400'
             >
               {featuredPost.title}
-            </a>
-          </h1>
+            </Link>
+          </Typography>
 
-          <p className='text-xl md:text-2xl leading-relaxed text-gray-700 dark:text-gray-300 max-w-4xl mb-8 font-light'>
+          <Typography variant='index-hero-summary' className='mb-5 max-w-none text-pretty'>
             {featuredPost.summary}
-          </p>
+          </Typography>
 
-          <div className='flex flex-col sm:flex-row items-start sm:items-center gap-4'>
-            <a
-              href={ `/blog/${featuredPost.slug}` }
-              className='inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:gap-3 transition-all duration-200 group/link'
-            >
-              Read Full Article
-              <svg className='w-4 h-4 transition-transform group-hover/link:translate-x-1' viewBox='0 0 20 20' fill='currentColor'>
-                <path fillRule='evenodd' d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z' clipRule='evenodd' />
-              </svg>
-            </a>
-
-            {featuredPost.tags && featuredPost.tags.length > 0 && (
-              <div className='flex flex-wrap gap-2'>
-                {featuredPost.tags.slice(0, 4).map((tag) => (
-                  <a key={ tag } href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer capitalize'>
-                    {tag}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
+          <Link
+            href={ `/blog/${featuredPost.slug}` }
+            tone='blue'
+            className='inline-flex max-w-full items-center gap-2'
+          >
+            Read Full Article
+            <Icon name='ArrowRight' decorative size='xs' />
+          </Link>
         </article>
-        {/* Clean typography-focused additional posts */}
+
         {displayPosts.length > 0 && (
-          <div className='mx-auto w-full pt-16'>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
-              {displayPosts.map((post) => (
-                <article key={ post.slug } className='group'>
-                  <div className='flex items-center gap-3 mb-3'>
-                    <time
-                      dateTime={ post.datetime }
-                      className='text-sm font-medium text-gray-500 dark:text-gray-400'
-                    >
-                      {formatDate(post.date)}
-                    </time>
-                    {post.category && (
-                      <>
-                        <span className='text-gray-300 dark:text-gray-600'>•</span>
-                        <span className='text-sm font-medium text-blue-600 dark:text-blue-400 capitalize'>
-                          {post.category}
-                        </span>
-                      </>
-                    )}
-                  </div>
-
-                  <h2 className='text-2xl font-bold text-gray-900 dark:text-white leading-tight mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400  duration-200'>
-                    <a href={ `/blog/${post.slug}` } className='decoration-2 hover:underline underline-offset-2'>
-                      {post.title}
-                    </a>
-                  </h2>
-
-                  <p className='text-gray-600 dark:text-gray-300 leading-relaxed mb-4'>
-                    {post.summary}
-                  </p>
-
-                  {post.tags && post.tags.length > 0 && (
-                    <div className='flex flex-wrap gap-2'>
-                      {post.tags.slice(0, 3).map((tag) => (
-                        <a key={ tag } href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` } className='inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer capitalize'>
-                          {tag}
-                        </a>
-                      ))}
-                    </div>
+          <Grid columns='2' gap='md' className='w-full pt-8'>
+            {displayPosts.map((post) => (
+              <article key={ post.slug } className='group'>
+                <div className='mb-3 flex flex-wrap items-center gap-x-3 gap-y-2'>
+                  <Typography
+                    as='time'
+                    variant='post-meta'
+                    dateTime={ post.date }
+                  >
+                    {formatDate(post.date)}
+                  </Typography>
+                  {post.category && (
+                    <>
+                      <Typography as='span' variant='post-meta'>·</Typography>
+                      <Pill tone='blue' variant='subtle' size='sm' className='capitalize'>
+                        {post.category}
+                      </Pill>
+                    </>
                   )}
-                </article>
-              ))}
-            </div>
-          </div>
+                </div>
+
+                <Typography variant='index-feature-title' as='h2' className='mb-2'>
+                  <Link href={ `/blog/${post.slug}` } tone='neutral' variant='bare' className='break-words no-underline transition-colors duration-200 hover:text-blue-600 hover:no-underline dark:hover:text-blue-400'>
+                    {post.title}
+                  </Link>
+                </Typography>
+
+                <Typography variant='index-feature-summary' className='mb-3 text-pretty'>
+                  {post.summary}
+                </Typography>
+              </article>
+            ))}
+          </Grid>
         )}
-      </div>
+      </section>
     </div>
   );
 }

@@ -141,8 +141,35 @@ npx degit https://github.com/timlrx/tailwind-nextjs-starter-blog.git
 ## Installation
 
 ```bash
-npm install
+git clone --recurse-submodules https://github.com/ahmadassaf/blog.git
+cd blog
+pnpm install
 ```
+
+## Content repository
+
+The application is a generic blog engine. Posts, projects, and bespoke interactive
+MDX components are supplied by a separate content repository mounted as the
+`data/blog` Git submodule. The current content bundle is
+[`ahmadassaf/blog-posts`](https://github.com/ahmadassaf/blog-posts).
+
+Initialize the content pinned by the engine:
+
+```bash
+pnpm content:checkout
+```
+
+Update the submodule to the latest commit on its configured remote branch:
+
+```bash
+pnpm content:update
+```
+
+Content bundles may export a client renderer from
+`visualisations/MDXLayoutRenderer.js`. That renderer merges content-owned custom
+components with the reusable primitives from `@gaudi/design-system`, allowing MDX
+to embed self-contained interactive HTML without adding article-specific code to
+the engine or design system.
 
 ## Development
 
@@ -174,17 +201,17 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 `data/logo.svg` - replace with your own logo.
 
-`data/blog` - replace with your own blog posts.
+`data/blog` - external content submodule containing posts, projects, and optional custom MDX components.
 
 `public/static` - store assets such as images and favicons.
 
-`tailwind.config.js` and `css/tailwind.css` - contain the tailwind stylesheet which can be modified to change the overall look and feel of the site.
+`@gaudi/design-system` - external package containing reusable components, tokens, Tailwind preset, Storybook stories, and global design-system CSS exports.
 
-`css/prism.css` - controls the styles associated with the code blocks. Feel free to customize it and use your preferred prismjs theme e.g. [prism themes](https://github.com/PrismJS/prism-themes).
+`tailwind.config.js` - consumes the design-system Tailwind preset and scans the app and design-system package for classes.
 
-`components/social-icons` - to add other icons, simply copy an svg file from [Simple Icons](https://simpleicons.org/) and map them in `index.js`. Other icons use [heroicons](https://heroicons.com/).
+`@gaudi/design-system/global.css` - design-system global entrypoint imported by the app. It owns Tailwind and base browser compatibility only; component and MDX rendering styles live beside their owning design-system components.
 
-`components/MDXComponents.js` - pass your own JSX code or React component by specifying it over here. You can then call them directly in the `.mdx` or `.md` file. By default, a custom link and image component is passed.
+`@gaudi/design-system/mdx` - exposes the reusable JSX primitives available inside `.mdx` content. The content submodule may extend this map with its own trusted components.
 
 `layouts` - main templates used in pages.
 

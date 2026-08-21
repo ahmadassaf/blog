@@ -64,25 +64,12 @@ export const Author = defineDocumentType(() => {
   };
 });
 
-export const Thought = defineDocumentType(() => {
-  return {
-    'computedFields': {
-      ...computedFields,
-      'structuredData': {
-        'resolve': structuredData.post,
-        'type': 'json'
-      }
-    },
-    'contentType': 'mdx',
-    'fields': contentFields.thought,
-    'filePathPattern': 'thoughts/**/*.mdx',
-    'name': 'Thought'
-  };
-});
-
 export default makeSource({
+  'contentDirExclude': [ 'blog/README.md', 'blog/visualisations' ],
+  'contentDirInclude': [ 'authors', 'blog' ],
   'contentDirPath': 'data',
-  'documentTypes': [ Author, Project, Post, Thought ],
+  'disableImportAliasWarning': true,
+  'documentTypes': [ Author, Project, Post ],
   'mdx': {
     'cwd': process.cwd(),
     'rehypePlugins': [

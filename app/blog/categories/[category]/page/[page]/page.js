@@ -9,12 +9,14 @@
  * @version 1.0.0
  */
 
+import { POSTS_PER_PAGE } from '@gaudi/design-system';
 import { allPosts } from 'contentlayer/generated';
+import { notFound } from 'next/navigation';
 
 import categories from '@/app/content/categories';
-import { POSTS_PER_PAGE } from '@/components/elements/Pagination';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
+import { coreContent, paginate, published, sortPosts } from '@/lib/utils/contentlayer';
+import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 /**
  * Generates metadata for the category pagination page
@@ -35,12 +37,15 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  */
 export async function generateMetadata({ params }) {
   const { 'category': categoryParam, 'page': pageParam } = await params;
-  const category = decodeURI(categoryParam);
-  const title = category.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-  const pageNumber = parseInt(pageParam);
+  const category = safeDecodeURI(categoryParam);
+
+  if (category === null) return { 'title': 'Category not found' };
+
+  const pageNumber = Number(pageParam);
 
   return {
-    'title': `Category: ${title} | Page ${pageNumber}`
+    'alternates': { 'canonical': `/blog/categories/${category}/page/${pageNumber}` },
+    'title': `Category: ${titleFromSlug(category)} | Page ${pageNumber}`
   };
 }
 
@@ -58,9 +63,10 @@ export async function generateMetadata({ params }) {
  * // [{ category: 'technology', page: '1' }, { category: 'technology', page: '2' }]
  */
 export const generateStaticParams = async() => {
+  const posts = published(allPosts);
   const paths = categories.map((category) => {
-    const categoryPages = Math.ceil(allPosts.filter(
-      (post) => post.category.replace(' ', '-').toLowerCase().trim() === category.slug
+    const categoryPages = Math.ceil(posts.filter(
+      (post) => slugify(post.category) === category.slug
     ).length / POSTS_PER_PAGE);
     const categoryPaths =  Array.from({ 'length': categoryPages }, (_, index) => {
       return { 'category': category.slug, 'page': (index + 1).toString() };
@@ -69,7 +75,7 @@ export const generateStaticParams = async() => {
     return categoryPaths;
   });
 
-  return paths;
+  return paths.flat();
 };
 
 /**
@@ -92,24 +98,19 @@ export const generateStaticParams = async() => {
  */
 export default async function Page({ params }) {
   const { 'category': categoryParam, 'page': pageParam } = await params;
-  const category = decodeURI(categoryParam);
-  const title = category.replace('-', ' ');
-  const posts = coreContent(sortPosts(allPosts)).filter((post) => post.category.replace(' ', '-').toLowerCase() === category);
-  const pageNumber = parseInt(pageParam);
-  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+  const category = safeDecodeURI(categoryParam);
 
-  let pagination;
+  if (category === null) notFound();
 
-  const filteredPosts = posts.slice(POSTS_PER_PAGE * (pageNumber - 1), POSTS_PER_PAGE * pageNumber);
+  const title = category.replaceAll('-', ' ');
+  const posts = coreContent(sortPosts(published(allPosts))).filter((post) => slugify(post.category) === category);
+  const page = paginate(posts, pageParam, POSTS_PER_PAGE);
 
-  if (pageNumber <= totalPages) pagination = {
-    'currentPage': pageNumber,
-    totalPages
-  };
+  if (!page) notFound();
 
   return (
     <>
-      <ListLayout posts={ filteredPosts } listTitle={ `${title} Posts` } currentPage={ pagination && pagination.currentPage } totalPages={ pagination && pagination.totalPages } paginationURL={ `blog/categories/${category}/page` } baseURL={ `blog/categories/${category}` }/>
+      <ListLayout posts={ page.pagePosts } listTitle={ `${title} Posts` } currentPage={ page.currentPage } totalPages={ page.totalPages } paginationURL={ `blog/categories/${category}/page` } baseURL={ `blog/categories/${category}` }/>
     </>
   );
 }

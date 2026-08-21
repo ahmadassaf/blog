@@ -1,9 +1,18 @@
+const path = require('node:path');
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   'enabled': process.env.ANALYZE === 'true'
 });
 const { withContentlayer } = require('next-contentlayer2');
 
-// You might need to insert additional domains in script-src if you are using external services
+const rootDir = process.cwd();
+
+/*
+ * You might need to insert additional domains in script-src if you are using external services.
+ * 'unsafe-eval' is required: post pages compile MDX client-side via new Function
+ * (contentlayer2 / @gaudi mdx runtime); 'unsafe-inline' is required by Next's
+ * inline bootstrap scripts (no nonce support without static rendering).
+ */
 const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app va.vercel-scripts.com;
@@ -65,10 +74,10 @@ module.exports = () => {
 
   return plugins.reduce((acc, next) => next(acc), {
     'eslint': {
-      'dirs': [ 'app', 'components', 'layouts', 'scripts' ]
+      'dirs': [ 'app', 'layouts', 'lib', 'scripts' ]
     },
     'experimental': {
-      'optimizePackageImports': [ '@radix-ui/themes', 'framer-motion', '@tabler/icons-react', '@heroicons/react', 'react-icons' ]
+      'optimizePackageImports': [ 'framer-motion', '@tabler/icons-react', '@heroicons/react', 'react-icons' ]
     },
     async headers() {
       return [
@@ -86,16 +95,20 @@ module.exports = () => {
         {
           'hostname': '**',
           'protocol': 'https'
-        },
-        {
-          'hostname': '**',
-          'protocol': 'http'
         }
       ]
     },
     'pageExtensions': [ 'ts', 'tsx', 'js', 'jsx', 'md', 'mdx' ],
     'reactStrictMode': true,
+    'transpilePackages': [ '@gaudi/design-system' ],
     'turbopack': {
+
+      /*
+       * Root is the parent workspace so Turbopack can resolve the design
+       * system when it is linked from ../design-system during local
+       * development. Harmless otherwise (production builds use webpack).
+       */
+      'root': path.join(rootDir, '..'),
       'rules': {
         '*.svg': {
           'as': '*.js',
@@ -103,31 +116,29 @@ module.exports = () => {
         }
       }
     },
-    'webpack': (config, { dev, isServer }) => {
+    'webpack': (config) => {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@/app': path.join(rootDir, 'app'),
+        '@/data': path.join(rootDir, 'data'),
+        '@/layouts': path.join(rootDir, 'layouts'),
+        '@/lib': path.join(rootDir, 'lib'),
+        '@/public': path.join(rootDir, 'public')
+      };
+      config.resolve.alias['contentlayer/generated'] = path.join(rootDir, '.contentlayer/generated');
+
       config.module.rules.push({
         'test': /\.svg$/,
         'use': [ '@svgr/webpack' ]
       });
 
-      if (!dev && !isServer) {
-        config.optimization.splitChunks.chunks = 'all';
-        config.optimization.splitChunks.cacheGroups = {
-          ...config.optimization.splitChunks.cacheGroups,
-          'common': {
-            'chunks': 'all',
-            'minChunks': 2,
-            'name': 'common',
-            'priority': 5,
-            'reuseExistingChunk': true
-          },
-          'vendor': {
-            'chunks': 'all',
-            'name': 'vendors',
-            'priority': 10,
-            'test': /[\\/]node_modules[\\/]/
-          }
-        };
-      }
+      /*
+       * No custom splitChunks: forcing single named `vendors`/`common` chunks
+       * folded every vendor module — including dynamically-imported mermaid,
+       * d3, and recharts — into the initial bundle on every route (1.6 MB
+       * shared First Load JS). Next's default splitting keeps async imports
+       * async and splits per route.
+       */
 
       return config;
     }

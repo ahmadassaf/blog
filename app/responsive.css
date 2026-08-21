@@ -1,0 +1,65 @@
+@reference '@gaudi/design-system/global.css';
+
+/*
+ * Blog-level design-system overrides.
+ *
+ * Keep design-system-wide behavior in ../design-system. Blog-specific base
+ * behavior and token overrides live here so other consumers remain unchanged.
+ */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  button,
+  [role='button'],
+  a {
+    cursor: pointer;
+  }
+
+}
+
+/*
+ * A softened charcoal canvas keeps dark mode comfortable without losing the
+ * depth between the page and the design system's muted surfaces.
+ */
+.dark {
+  --ds-color-surface: #222425;
+}
+
+/* A quiet editorial grid, scoped to the About page and faded behind the copy. */
+.about-grid {
+  isolation: isolate;
+  position: relative;
+}
+
+.about-grid::before {
+  background-image:
+    linear-gradient(to right, rgb(15 23 42 / 2.5%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 2.5%) 1px, transparent 1px);
+  background-position: center top;
+  background-size: 12rem 12rem;
+  content: '';
+  inset-block: -2rem 0;
+  left: 50%;
+  mask-image:
+    linear-gradient(to right, transparent, black 12%, black 88%, transparent),
+    linear-gradient(to bottom, transparent, black 10rem, black 76%, transparent);
+  mask-composite: intersect;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 100vw;
+  z-index: -1;
+}
+
+.dark .about-grid::before {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 2%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 2%) 1px, transparent 1px);
+}

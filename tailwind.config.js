@@ -9,17 +9,18 @@
  * @version 2.0.0
  */
 
-const addVariablesColors = require('./css/tailwind/addVariablesColors.js');
-const tailwindGrid = require('./css/tailwind/tailwindGrid.js');
+const designSystemPreset = require('@gaudi/design-system/tailwind-preset');
+const addVariablesColors = require('@gaudi/design-system/tailwind/addVariablesColors');
+const tailwindGrid = require('@gaudi/design-system/tailwind/tailwindGrid');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   'content': [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx}',
     './data/**/*.{js,ts,jsx,tsx,mdx}',
     './layouts/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}'
+    './lib/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@gaudi/design-system/src/**/*.{js,jsx,mdx}'
   ],
   'darkMode': 'class',
   'plugins': [
@@ -28,17 +29,18 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography')
   ],
+  'presets': [ designSystemPreset ],
 
   // Minimal safelist - v4 has better dynamic class detection
   'safelist': [
 
-    // Dynamic color variations that might not be detected statically
+    // DS palette only: gray, neutral, blue, green, yellow, red, and indigo.
     {
-      'pattern': /^bg-(gray|blue|green|red|yellow|purple|pink|indigo|orange|teal|cyan|emerald|lime|amber|rose|fuchsia|violet)-([0-9]{2,3})$/,
+      'pattern': /^bg-(?:gray|neutral|blue|green|yellow|red|indigo)-(?:50|100|200|300|500|600|700|900)$/,
       'variants': [ 'hover', 'focus', 'dark', 'dark:hover' ]
     },
     {
-      'pattern': /^text-(gray|blue|green|red|yellow|purple|pink|indigo|orange|teal|cyan|emerald|lime|amber|rose|fuchsia|violet)-([0-9]{2,3})$/,
+      'pattern': /^text-(?:gray|neutral|blue|green|yellow|red|indigo)-(?:50|100|200|300|500|600|700|900)$/,
       'variants': [ 'hover', 'focus', 'dark', 'dark:hover' ]
     }
   ],
@@ -48,26 +50,6 @@ module.exports = {
         'aurora': 'aurora 60s linear infinite',
         'fade-in-up': 'fadeInUp 0.6s ease-out',
         'shimmer': 'shimmer 2.5s ease-in-out infinite'
-      },
-      'colors': {
-        'dark': '#171717',
-        'gray': {
-          '100': '#f4f4f5',
-          '200': '#e4e4e7',
-          '300': '#d4d4d8',
-          '400': '#a1a1aa',
-          '50': '#fafafa',
-          '500': '#71717a',
-          '600': '#52525b',
-          '700': '#404040',
-          '800': '#262626',
-          '900': '#171717',
-          '950': '#0a0a0a'
-        }
-      },
-      'fontFamily': {
-        'mono': [ 'JetBrains Mono', 'Menlo', 'Monaco', 'monospace' ],
-        'sans': [ 'Inter Variable', 'system-ui', 'sans-serif' ]
       },
       'keyframes': {
         'aurora': {
@@ -95,15 +77,6 @@ module.exports = {
       },
       'lineHeight': {
         'relaxed': '1.7'
-      },
-      'typography': {
-        'DEFAULT': {
-          'css': {
-            'fontSize': '1rem',
-            'lineHeight': '1.7',
-            'maxWidth': 'none'
-          }
-        }
       }
     }
   }

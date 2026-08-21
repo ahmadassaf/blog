@@ -8,7 +8,9 @@
  * @version 1.0.0
  */
 
-import { Button, Typography } from '@/components/ui';
+import { Button, Typography } from '@gaudi/design-system';
+
+export const metadata = { 'title': 'Page not found' };
 
 /**
  * 404 error page component
@@ -23,21 +25,26 @@ export default function FourZeroFour() {
   return (
     <>
       <div className='flex flex-col items-start justify-start md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6'>
-        <div className='space-x-2 pt-6 pb-8 md:space-y-5'>
+        <div className='space-y-2 pt-6 pb-8 md:space-y-5'>
           <Typography variant='error-title'>
             404
           </Typography>
         </div>
         <div className='max-w-md'>
           <Typography variant='heading-lg' className='mb-4'>
-            Sorry we couldn't find this page.
+            Sorry, we couldn't find this page.
           </Typography>
           <Typography variant='paragraph-md' className='mb-8'>
-            But dont worry, you can find plenty of other things on the homepage
+            It may have moved, or the link is out of date. The homepage and the blog archive are good places to start.
           </Typography>
-          <Button variant='primary-md' href='/'>
-            Back to homepage
-          </Button>
+          <div className='flex flex-wrap gap-3'>
+            <Button variant='solid' tone='blue' size='md' href='/'>
+              Back to homepage
+            </Button>
+            <Button variant='outline' tone='gray' size='md' href='/blog'>
+              Browse the blog
+            </Button>
+          </div>
         </div>
       </div>
     </>

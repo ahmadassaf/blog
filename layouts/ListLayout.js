@@ -1,8 +1,8 @@
 /**
  * List Layout Component
  *
- * @description A flexible layout component for displaying lists of blog posts with search and pagination functionality.
- * Supports filtering posts by search terms, pagination controls, and responsive design. Used across
+ * @description A flexible layout component for displaying lists of blog posts with pagination functionality.
+ * Supports pagination controls and responsive design. Used across
  * various blog listing pages including main blog page, category pages, and tag pages.
  *
  * @author Ahmad Assaf
@@ -11,232 +11,146 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
+import { PaginationBar,
+  POSTS_PER_PAGE,
+  Typography } from '@gaudi/design-system';
 
-import Search from '@/components/elements/Search';
-import Post from '@/components/post/Post';
-
-const POSTS_PER_PAGE = 7;
+import PostPreview from '@/layouts/PostPreview';
 
 /**
- * List layout component for displaying blog posts with search and pagination
+ * List layout component for displaying blog posts with pagination
  *
- * @description Renders a list of blog posts with optional search functionality and pagination controls.
- * The component handles client-side filtering of posts based on search terms and manages
- * the display state for both paginated and filtered views.
+ * @description Renders a list of blog posts with pagination controls.
+ * When `paginationURL` and `baseURL` are provided, pagination renders real links so every page is
+ * crawlable (page 1 resolves to the base URL, subsequent pages to the pagination URL). When
+ * `currentPage`/`totalPages` are provided the posts are treated as a pre-sliced page; otherwise the
+ * component slices the first page itself. Without pagination URLs it falls back to client-side paging.
  *
  * @param {Object} props - Component props
+ * @param {React.ReactNode} [props.beforeList] - Curated content shown between retrieval and the chronological list
+ * @param {string} [props.listTitle] - Optional page heading rendered above the list
+ * @param {string} [props.listTitleVariant='index-feature-title'] - Typography variant used for the list heading
+ * @param {string} [props.pageDescription] - Optional introductory copy paired with pageTitle
+ * @param {string} [props.pageTitle] - Optional page-level heading rendered before retrieval
+ * @param {string} [props.pageTitleVariant] - Optional Typography variant override for the page title
+ * @param {boolean} [props.paginate=true] - Whether to paginate the post collection
  * @param {Array} props.posts - Array of post objects to display
- * @param {boolean} [props.filter=true] - Whether to show the search filter
- * @param {string} [props.baseURL] - Base URL for pagination links
- * @param {string} [props.paginationURL] - URL pattern for pagination
- * @param {number} [props.currentPage] - Current page number for pagination
- * @param {number} [props.totalPages] - Total number of pages for pagination
+ * @param {boolean} [props.scrollableList=false] - Whether the post list should scroll inside a bounded viewport
+ * @param {string} [props.titleAs='h1'] - Heading element for the list title (pass 'h2' when composed under a page h1)
+ * @param {string} [props.className] - Additional CSS classes applied to the list title
+ * @param {string} [props.baseURL] - Base URL for page 1 of the pagination links
+ * @param {string} [props.paginationURL] - URL prefix for pagination links (pages 2+)
+ * @param {number} [props.currentPage] - Current page number for pre-sliced posts
+ * @param {number} [props.totalPages] - Total number of pages for pre-sliced posts
  *
  * @returns {JSX.Element} The rendered list layout component
  *
  * @example
  * <ListLayout
- *   posts={allPosts}
- *   filter={true}
- *   baseURL="/blog"
- *   paginationURL="/blog/page"
+ *   posts={pagePosts}
+ *   listTitle="Machine Learning Posts"
+ *   baseURL="blog"
+ *   paginationURL="blog/page"
  *   currentPage={1}
  *   totalPages={5}
  * />
  */
-export default function ListLayout({ posts, filter = true }) {
+export default function ListLayout({ beforeList, posts, listTitle, listTitleVariant = 'index-feature-title', pageDescription, pageTitle, pageTitleVariant, paginate = true, scrollableList = false, titleAs = 'h1', className, baseURL, paginationURL, currentPage = 1, totalPages }) {
 
-  const [ searchValue, setSearchValue ] = useState('');
-  const [ currentPage, setCurrentPage ] = useState(1);
-  const [ isLoading, setIsLoading ] = useState(false);
+  const [ clientPage, setClientPage ] = useState(1);
+  const generatedId = useId();
+  const listTitleId = `article-list-title-${generatedId}`;
+  const topTitleId = `article-page-title-${generatedId}`;
 
-  const filteredBlogPosts = posts.filter((frontMatter) => {
-    const searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ');
+  const hasPaginationLinks = Boolean(paginationURL && baseURL);
+  const isPreSliced = hasPaginationLinks && Boolean(totalPages);
 
-    return searchContent.toLowerCase().includes(searchValue.toLowerCase());
-  });
+  let activePage = clientPage;
+  let pageCount = paginate ? Math.ceil(posts.length / POSTS_PER_PAGE) : 1;
 
-  const totalPages = Math.ceil(filteredBlogPosts.length / POSTS_PER_PAGE);
-  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  const endIndex = startIndex + POSTS_PER_PAGE;
-  const displayPosts = searchValue ? filteredBlogPosts : filteredBlogPosts.slice(startIndex, endIndex);
+  if (hasPaginationLinks) activePage = currentPage;
+  if (isPreSliced) pageCount = totalPages;
 
-  const handlePageChange = async(newPage) => {
-    if (newPage === currentPage || newPage < 1 || newPage > totalPages) return;
+  const startIndex = (activePage - 1) * POSTS_PER_PAGE;
+  const displayPosts = !paginate || isPreSliced ? posts : posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  const topTitle = pageTitle || listTitle;
+  const topTitleAs = pageTitle ? 'h1' : titleAs;
+  const topTitleVariant = pageTitleVariant || (topTitleAs === 'h1' ? 'title-md' : 'index-feature-title');
+  const showListTitle = Boolean(pageTitle && listTitle);
+  const postTitleAs = topTitleAs === 'h1' && !showListTitle ? 'h2' : 'h3';
+  let resultsLabelledBy;
 
-    setIsLoading(true);
+  if (topTitle) resultsLabelledBy = showListTitle ? listTitleId : topTitleId;
 
-    // Simulate loading delay for smooth UX
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    setCurrentPage(newPage);
-    setIsLoading(false);
+  // Build crawlable pagination hrefs: page 1 maps to the base URL, later pages to the pagination URL
+  const getPageHref = (page) => (page === 1 ? `/${baseURL}` : `/${paginationURL}/${page}`);
+
+  // Client-side fallback paging for callers without static pagination routes
+  const handlePageChange = (newPage) => {
+    if (newPage === clientPage || newPage < 1 || newPage > pageCount) return;
+
+    setClientPage(newPage);
   };
-
-  // Reset pagination when search changes
-  const handleSearchChange = (value) => {
-    setSearchValue(value);
-    setCurrentPage(1);
-  };
-
-  const prevPage = currentPage > 1;
-  const nextPage = currentPage < totalPages;
 
   return (
-    <div className='border-0'>
-      <div>
-        { filter && <Search setSearchValue={ handleSearchChange }></Search> }
+    <div>
+      {topTitle ? (
+        <header className='pb-5'>
+          <Typography id={ topTitleId } variant={ topTitleVariant } as={ topTitleAs } className={ `${topTitleAs === 'h1' ? 'leading-9 sm:leading-10' : ''} ${className || ''}` }>
+            {topTitle}
+          </Typography>
+          {pageDescription ? (
+            <Typography variant='paragraph-md' className='mt-2 max-w-2xl text-base leading-7'>
+              {pageDescription}
+            </Typography>
+          ) : null}
+        </header>
+      ) : null}
 
-        <ul className='pt-6'>
-          {!filteredBlogPosts.length && 'No posts found'}
+      {beforeList ? <div>{beforeList}</div> : null}
+
+      {showListTitle ? (
+        <div className='pb-3'>
+          <Typography id={ listTitleId } variant={ listTitleVariant } as={ titleAs } className={ className }>
+            {listTitle}
+          </Typography>
+        </div>
+      ) : null}
+
+      <section
+        aria-label={ topTitle ? undefined : 'Articles' }
+        aria-labelledby={ resultsLabelledBy }
+      >
+        <ul
+          aria-label={ scrollableList ? `${listTitle} archive` : undefined }
+          tabIndex={ scrollableList ? 0 : undefined }
+          className={ scrollableList ? 'max-h-[38rem] overflow-y-auto overscroll-contain pr-3 pt-2 [scrollbar-gutter:stable] sm:max-h-[42rem] sm:pr-5' : 'pt-2' }
+        >
+          {!posts.length && (
+            <li className='py-12 text-center'>
+              <Typography variant='heading-sm' as='p' className='mb-2'>
+                No posts found
+              </Typography>
+              <Typography variant='paragraph-sm'>
+                There is nothing published here yet — new writing will land soon.
+              </Typography>
+            </li>
+          )}
           {displayPosts.map((frontMatter) => (
-            <Post key={ frontMatter.slug } frontMatter={ frontMatter } />
+            <PostPreview key={ frontMatter.slug } frontMatter={ frontMatter } titleAs={ postTitleAs } />
           ))}
         </ul>
 
-        {totalPages > 1 && !searchValue && (
-          <nav className='flex items-center justify-between pt-8'>
-            {/* Previous Button */}
-            <div className='flex w-0 flex-1'>
-              {prevPage ? (
-                <button
-                  onClick={ () => handlePageChange(currentPage - 1) }
-                  disabled={ isLoading }
-                  className='group inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-[#303030] rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed'
-                >
-                  {isLoading ? (
-                    <svg className='animate-spin mr-2 h-4 w-4' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
-                      <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4'></circle>
-                      <path className='opacity-75' fill='currentColor' d='m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'></path>
-                    </svg>
-                  ) : (
-                    <svg className='mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform duration-200' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M15 19l-7-7 7-7' />
-                    </svg>
-                  )}
-                  Previous
-                </button>
-              ) : (
-                <button
-                  disabled
-                  className='inline-flex items-center px-4 py-2 text-sm font-medium text-gray-400 dark:text-gray-600 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-[#303030] rounded-lg cursor-not-allowed'
-                >
-                  <svg className='mr-2 h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M15 19l-7-7 7-7' />
-                  </svg>
-                  Previous
-                </button>
-              )}
-            </div>
-
-            {/* Page Indicator */}
-            <div className='flex items-center mx-8 relative group cursor-pointer'>
-              {/* Default counter */}
-              <span className='px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 group-hover:opacity-0 group-hover:scale-95 transition-all duration-300 ease-out'>
-                <span className='text-blue-600 dark:text-blue-400 font-semibold'>{currentPage}</span>
-                <span className='mx-2 text-gray-400'>of</span>
-                <span className='text-gray-600 dark:text-gray-300'>{totalPages}</span>
-              </span>
-
-              {/* Expanded page numbers */}
-              <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out flex items-center bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-lg px-4 py-2 text-sm font-medium whitespace-nowrap z-20'>
-                {/* First page */}
-                <button
-                  onClick={ () => handlePageChange(1) }
-                  disabled={ isLoading || currentPage === 1 }
-                  className={ `px-3 py-1.5 mx-1 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer hover:scale-105 ${
-                    currentPage === 1 ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-                  } disabled:opacity-50` }
-                >
-                  1
-                </button>
-
-                {/* Page numbers or ellipsis */}
-                {totalPages <= 5 ? (
-
-                  // Show all pages if 5 or fewer
-                  Array.from({ 'length': totalPages - 2 }, (_, i) => i + 2).map((page) => (
-                    <button
-                      key={ page }
-                      onClick={ () => handlePageChange(page) }
-                      disabled={ isLoading || currentPage === page }
-                      className={ `px-3 py-1.5 mx-1 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer hover:scale-105 ${
-                        currentPage === page ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-                      } disabled:opacity-50` }
-                    >
-                      {page}
-                    </button>
-                  ))
-                ) : (
-
-                  // Show 1, 2, 3, 4, ..., last for more than 5 pages
-                  <>
-                    {[ 2, 3, 4 ].map((page) => (
-                      <button
-                        key={ page }
-                        onClick={ () => handlePageChange(page) }
-                        disabled={ isLoading || currentPage === page }
-                        className={ `px-3 py-1.5 mx-1 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer hover:scale-105 ${
-                          currentPage === page ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-                        } disabled:opacity-50` }
-                      >
-                        {page}
-                      </button>
-                    ))}
-                    <span className='px-2 py-1.5 mx-1 text-gray-400 dark:text-gray-500 font-bold'>⋯</span>
-                  </>
-                )}
-
-                {/* Last page (only if more than 1 page) */}
-                {totalPages > 1 && (
-                  <button
-                    onClick={ () => handlePageChange(totalPages) }
-                    disabled={ isLoading || currentPage === totalPages }
-                    className={ `px-3 py-1.5 mx-1 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer hover:scale-105 ${
-                      currentPage === totalPages ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-                    } disabled:opacity-50` }
-                  >
-                    {totalPages}
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {/* Next Button */}
-            <div className='flex w-0 flex-1 justify-end'>
-              {nextPage ? (
-                <button
-                  onClick={ () => handlePageChange(currentPage + 1) }
-                  disabled={ isLoading }
-                  className='group inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-[#303030] rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed'
-                >
-                  Next
-                  {isLoading ? (
-                    <svg className='animate-spin ml-2 h-4 w-4' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
-                      <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4'></circle>
-                      <path className='opacity-75' fill='currentColor' d='m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'></path>
-                    </svg>
-                  ) : (
-                    <svg className='ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
-                    </svg>
-                  )}
-                </button>
-              ) : (
-                <button
-                  disabled
-                  className='inline-flex items-center px-4 py-2 text-sm font-medium text-gray-400 dark:text-gray-600 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-[#303030] rounded-lg cursor-not-allowed'
-                >
-                  Next
-                  <svg className='ml-2 h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
-                  </svg>
-                </button>
-              )}
-            </div>
-          </nav>
+        {pageCount > 1 && (
+          <PaginationBar
+            currentPage={ activePage }
+            totalPages={ pageCount }
+            getHref={ hasPaginationLinks ? getPageHref : undefined }
+            onPageChange={ hasPaginationLinks ? undefined : handlePageChange }
+          />
         )}
-      </div>
+      </section>
     </div>
   );
 }

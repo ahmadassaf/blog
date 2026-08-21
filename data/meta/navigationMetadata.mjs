@@ -2,8 +2,9 @@ const NavigationMetadata = {
   'categoriesMetadata': {
     'data': 'Everything AI, ML and Data',
     'engineering': 'Development, programming and code',
-    'leadership': 'Engineering management and leadership',
-    'productivity': 'Productivity, tools and tips'
+    'management': 'Engineering management and leadership',
+    'productivity': 'Productivity, tools and tips',
+    'thoughts': 'Short-form notes and reflections'
   },
   'links': [
     {
@@ -21,11 +22,6 @@ const NavigationMetadata = {
       'href': '/blog/projects',
       'showInPath': '*',
       'title': 'Projects'
-    },
-    {
-      'href': '/thoughts',
-      'showInPath': '*',
-      'title': 'Thoughts'
     },
     {
       'hideInPath': '/about',

@@ -2,16 +2,20 @@
  * Sitemap Generator
  *
  * @description Generates XML sitemap data for search engines by combining
- * static navigation routes with dynamic blog post routes from Contentlayer.
+ * static navigation routes with dynamic blog post, project,  tag,
+ * and category routes from Contentlayer and generated content indexes.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
  */
 
-import { allPosts } from 'contentlayer/generated';
+import { allPosts, allProjects } from 'contentlayer/generated';
 
+import categories from '@/app/content/categories';
+import tags from '@/app/content/tags';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
 import siteMetadata from '@/data/meta/siteMetadata';
+import { published } from '@/lib/utils/contentlayer';
 
 /**
  * Generates sitemap data for Next.js XML sitemap
@@ -24,20 +28,42 @@ import siteMetadata from '@/data/meta/siteMetadata';
  */
 export default function sitemap() {
   const { siteUrl } = siteMetadata;
+  const today = new Date().toISOString().split('T')[0];
 
-  const blogRoutes = allPosts.map((post) => {
+  const blogRoutes = published(allPosts).map((post) => {
     return {
-      'lastModified': post.date,
+      'lastModified': post.updated || post.date,
       'url': `${siteUrl}/blog/${post.slug}`
+    };
+  });
+
+  const projectRoutes = published(allProjects).map((project) => {
+    return {
+      'lastModified': project.updated || project.date,
+      'url': `${siteUrl}/blog/${project.externalLink}`
+    };
+  });
+
+  const tagRoutes = tags.map((tag) => {
+    return {
+      'lastModified': today,
+      'url': `${siteUrl}${tag.href}`
+    };
+  });
+
+  const categoryRoutes = categories.map((category) => {
+    return {
+      'lastModified': today,
+      'url': `${siteUrl}${category.href}`
     };
   });
 
   const routes = NavigationMetadata.links.map((route) => {
     return {
-      'lastModified': new Date().toISOString().split('T')[0],
+      'lastModified': today,
       'url': `${siteUrl}${route.href}`
     };
   });
 
-  return [ ...routes, ...blogRoutes ];
+  return [ ...routes, ...blogRoutes, ...projectRoutes, ...categoryRoutes, ...tagRoutes ];
 }

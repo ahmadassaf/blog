@@ -10,10 +10,12 @@
  */
 
 import { allPosts } from 'contentlayer/generated';
+import { notFound } from 'next/navigation';
 
 import categories from '@/app/content/categories';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
+import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
+import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 /**
  * Generates metadata for the category filter page
@@ -33,11 +35,13 @@ import { coreContent, sortPosts } from '@/lib/utils/contentlayer';
  */
 export async function generateMetadata({ params }) {
   const { 'category': categoryParam } = await params;
-  const category = decodeURI(categoryParam);
-  const title = category.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const category = safeDecodeURI(categoryParam);
+
+  if (category === null) return { 'title': 'Category not found' };
 
   return {
-    'title': `Category: ${title}`
+    'alternates': { 'canonical': `/blog/categories/${category}` },
+    'title': `Category: ${titleFromSlug(category)}`
   };
 }
 
@@ -82,10 +86,13 @@ export const generateStaticParams = async() => {
  */
 export default async function Page({ params }) {
   const { 'category': categoryParam } = await params;
-  const category = decodeURI(categoryParam);
-  const title = category.replace('-', ' ');
-  const sortedPosts = coreContent(sortPosts(allPosts));
-  const filteredPosts = sortedPosts.filter((post) => post.category.replace(' ', '-').toLowerCase() === categoryParam);
+  const category = safeDecodeURI(categoryParam);
+
+  if (category === null) notFound();
+
+  const title = category.replaceAll('-', ' ');
+  const sortedPosts = coreContent(sortPosts(published(allPosts)));
+  const filteredPosts = sortedPosts.filter((post) => slugify(post.category) === category);
 
   return (
     <>

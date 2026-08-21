@@ -1,0 +1,4 @@
+[submodule "data/blog"]
+	path = data/blog
+	url = https://github.com/ahmadassaf/blog-posts.git
+	branch = master

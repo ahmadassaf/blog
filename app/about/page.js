@@ -10,7 +10,7 @@
  */
 
 import { Grid, Icon, Typography } from '@gaudi/design-system';
-import { Preview } from '@gaudi/design-system/mdx';
+import Preview from '@gaudi/design-system/mdx/Preview';
 
 /**
  * About page component displaying professional background and services

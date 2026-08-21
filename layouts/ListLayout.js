@@ -9,9 +9,6 @@
  * @version 1.0.0
  */
 
-'use client';
-
-import { useId, useState } from 'react';
 import { PaginationBar,
   POSTS_PER_PAGE,
   Typography } from '@gaudi/design-system';
@@ -25,7 +22,7 @@ import PostPreview from '@/layouts/PostPreview';
  * When `paginationURL` and `baseURL` are provided, pagination renders real links so every page is
  * crawlable (page 1 resolves to the base URL, subsequent pages to the pagination URL). When
  * `currentPage`/`totalPages` are provided the posts are treated as a pre-sliced page; otherwise the
- * component slices the first page itself. Without pagination URLs it falls back to client-side paging.
+ * component slices the first page itself.
  *
  * @param {Object} props - Component props
  * @param {React.ReactNode} [props.beforeList] - Curated content shown between retrieval and the chronological list
@@ -58,22 +55,13 @@ import PostPreview from '@/layouts/PostPreview';
  */
 export default function ListLayout({ beforeList, posts, listTitle, listTitleVariant = 'index-feature-title', pageDescription, pageTitle, pageTitleVariant, paginate = true, scrollableList = false, titleAs = 'h1', className, baseURL, paginationURL, currentPage = 1, totalPages }) {
 
-  const [ clientPage, setClientPage ] = useState(1);
-  const generatedId = useId();
-  const listTitleId = `article-list-title-${generatedId}`;
-  const topTitleId = `article-page-title-${generatedId}`;
+  const listTitleId = 'article-list-title';
+  const topTitleId = 'article-page-title';
 
-  const hasPaginationLinks = Boolean(paginationURL && baseURL);
-  const isPreSliced = hasPaginationLinks && Boolean(totalPages);
-
-  let activePage = clientPage;
-  let pageCount = paginate ? Math.ceil(posts.length / POSTS_PER_PAGE) : 1;
-
-  if (hasPaginationLinks) activePage = currentPage;
-  if (isPreSliced) pageCount = totalPages;
-
-  const startIndex = (activePage - 1) * POSTS_PER_PAGE;
-  const displayPosts = !paginate || isPreSliced ? posts : posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  const isPreSliced = totalPages !== undefined;
+  const activePage = currentPage;
+  const pageCount = paginate ? totalPages ?? Math.ceil(posts.length / POSTS_PER_PAGE) : 1;
+  const displayPosts = !paginate || isPreSliced ? posts : posts.slice(0, POSTS_PER_PAGE);
   const topTitle = pageTitle || listTitle;
   const topTitleAs = pageTitle ? 'h1' : titleAs;
   const topTitleVariant = pageTitleVariant || (topTitleAs === 'h1' ? 'title-md' : 'index-feature-title');
@@ -85,13 +73,6 @@ export default function ListLayout({ beforeList, posts, listTitle, listTitleVari
 
   // Build crawlable pagination hrefs: page 1 maps to the base URL, later pages to the pagination URL
   const getPageHref = (page) => (page === 1 ? `/${baseURL}` : `/${paginationURL}/${page}`);
-
-  // Client-side fallback paging for callers without static pagination routes
-  const handlePageChange = (newPage) => {
-    if (newPage === clientPage || newPage < 1 || newPage > pageCount) return;
-
-    setClientPage(newPage);
-  };
 
   return (
     <div>
@@ -146,8 +127,7 @@ export default function ListLayout({ beforeList, posts, listTitle, listTitleVari
           <PaginationBar
             currentPage={ activePage }
             totalPages={ pageCount }
-            getHref={ hasPaginationLinks ? getPageHref : undefined }
-            onPageChange={ hasPaginationLinks ? undefined : handlePageChange }
+            getHref={ getPageHref }
           />
         )}
       </section>

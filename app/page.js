@@ -10,7 +10,7 @@
  */
 
 import { CmdLauncherShortcut, Link, TextHighlight, Typography } from '@gaudi/design-system';
-import { Preview } from '@gaudi/design-system/mdx';
+import Preview from '@gaudi/design-system/mdx/Preview';
 import { allPosts } from 'contentlayer/generated';
 
 import siteMetadata from '@/data/meta/metadata';

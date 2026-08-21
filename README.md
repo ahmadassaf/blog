@@ -1,4 +1,4 @@
-![Ahmad Assaf's Personal Space](./public/static/images/og-card.jpg)
+[![Ahmad Assaf's Personal Space homepage](./public/static/images/homepage.png)](https://assaf.website)
 
 # Ahmad Assaf's Personal Space
 

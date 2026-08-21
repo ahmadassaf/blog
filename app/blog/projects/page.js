@@ -30,9 +30,9 @@ export default function Projects() {
     return {
       'externalLink': project.externalLink,
       'meta': {
-        'forks_count': project.meta?.forks_count ?? 0,
+        'forks_count': project.meta?.forks_count ?? null,
         'language': project.meta?.language ?? null,
-        'stargazers_count': project.meta?.stargazers_count ?? 0
+        'stargazers_count': project.meta?.stargazers_count ?? null
       },
       'subtitle': project.subtitle,
       'title': project.title

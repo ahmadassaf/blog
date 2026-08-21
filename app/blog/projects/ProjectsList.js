@@ -55,32 +55,44 @@ export default function ProjectsList({ projects }) {
  * @param {Object} props.project - Project data object
  * @returns {JSX.Element} Clean project card with typography-focused design
  */
-const ProjectCard = ({ project }) => (
-  <Card interactive className='h-full' padding='sm' variant='outline'>
-    <article className='flex h-full flex-col'>
-      <Typography variant='heading-sm' as='h3' className='mb-1.5 text-sm leading-5 md:text-base md:leading-5'>
-        {project.title}
-      </Typography>
+const ProjectCard = ({ project }) => {
+  const hasStars = Number.isFinite(project.meta.stargazers_count);
+  const hasForks = Number.isFinite(project.meta.forks_count);
+  const hasMetadata = hasStars || hasForks || project.meta.language;
 
-      <Typography variant='paragraph-sm' className='mb-2 flex-grow text-xs leading-4'>
-        {project.subtitle}
-      </Typography>
+  return (
+    <Card interactive className='h-full' padding='sm' variant='outline'>
+      <article className='flex h-full flex-col'>
+        <Typography variant='heading-sm' as='h3' className='mb-1.5 text-sm leading-5 md:text-base md:leading-5'>
+          {project.title}
+        </Typography>
 
-      <Typography as='div' variant='metadata' className='flex flex-wrap items-center gap-2 text-[11px] leading-4 normal-case'>
-        <div className='flex items-center gap-1'>
-          <Icon name='Star' size='xs' decorative />
-          <span>{project.meta.stargazers_count}</span>
-        </div>
-        <div className='flex items-center gap-1'>
-          <Icon name='Fork' size='xs' decorative />
-          <span>{project.meta.forks_count}</span>
-        </div>
-        {project.meta.language && (
-          <Pill tone='gray' variant='soft' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>
-            {project.meta.language}
-          </Pill>
+        <Typography variant='paragraph-sm' className='mb-2 flex-grow text-xs leading-4'>
+          {project.subtitle}
+        </Typography>
+
+        {hasMetadata && (
+          <Typography as='div' variant='metadata' className='flex flex-wrap items-center gap-2 text-[11px] leading-4 normal-case'>
+            {hasStars && (
+              <div className='flex items-center gap-1'>
+                <Icon name='Star' size='xs' decorative />
+                <span>{project.meta.stargazers_count}</span>
+              </div>
+            )}
+            {hasForks && (
+              <div className='flex items-center gap-1'>
+                <Icon name='Fork' size='xs' decorative />
+                <span>{project.meta.forks_count}</span>
+              </div>
+            )}
+            {project.meta.language && (
+              <Pill tone='gray' variant='soft' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>
+                {project.meta.language}
+              </Pill>
+            )}
+          </Typography>
         )}
-      </Typography>
-    </article>
-  </Card>
-);
+      </article>
+    </Card>
+  );
+};

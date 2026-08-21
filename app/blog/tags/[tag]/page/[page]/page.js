@@ -16,7 +16,7 @@ import { notFound } from 'next/navigation';
 import tags from '@/app/content/tags';
 import ListLayout from '@/layouts/ListLayout';
 import { coreContent, paginate, published, sortPosts } from '@/lib/utils/contentlayer';
-import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs';
+import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 /**
  * Generates metadata for the tag pagination page

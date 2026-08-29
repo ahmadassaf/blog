@@ -10,8 +10,8 @@ const Giscus = dynamic(() => import('@giscus/react'), {
 });
 
 export default function PostComments() {
-  const { 'theme': nextTheme, resolvedTheme } = useTheme();
-  const commentsTheme = nextTheme === 'dark' || resolvedTheme === 'dark' ? 'dark' : 'light';
+  const { resolvedTheme } = useTheme();
+  const commentsTheme = resolvedTheme === 'dark' ? 'dark' : 'light';
 
   return (
     <Giscus

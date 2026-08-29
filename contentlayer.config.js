@@ -13,7 +13,7 @@ import remarkMath from 'remark-math';
 import computedFields  from './lib/contentLayer/computedFields';
 import contentFields from './lib/contentLayer/contentFields';
 import projectFields  from './lib/contentLayer/projectFields';
-import { remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx, remarkLinks } from './lib/mdx/index.js';
+import { remarkCodeTitles, remarkImgToJsx, remarkLinks } from './lib/mdx/index.js';
 import remarkFootnoteData from './lib/mdx/remark-footnote-data.js';
 import rehypeFootnotePopoverV2 from './lib/rehype-footnote-popover-v2.js';
 import rehypeInternalLinks from './lib/rehype-internal-links.js';
@@ -75,7 +75,6 @@ export default makeSource({
 
     ],
     'remarkPlugins': [
-      remarkExtractFrontmatter,
       remarkGfm,
       remarkFootnoteData,
       emoji,

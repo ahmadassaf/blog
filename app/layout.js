@@ -31,32 +31,24 @@ import 'remark-github-blockquote-alert/alert.css';
 import './responsive.css';
 
 /**
- * Generates metadata for the application
- *
- * @description Generates the default metadata for the application including title, description,
- * Open Graph data, and other SEO-related metadata. This metadata is used as the fallback
- * for pages that don't specify their own metadata.
- *
- * @returns {Promise<Object>} The metadata object for the application
+ * Default metadata for the application including title, description, Open Graph
+ * data, and other SEO-related metadata. Used as the fallback for pages that
+ * don't specify their own metadata.
  */
-export async function generateMetadata() {
-  const base = await metadataGenertaor();
-
-  return {
-    ...base,
-    'icons': {
-      'apple': '/static/favicons/apple-touch-icon.png',
-      'icon': [
-        { 'sizes': '32x32', 'type': 'image/png', 'url': '/static/favicons/favicon-32x32.png' },
-        { 'sizes': '16x16', 'type': 'image/png', 'url': '/static/favicons/favicon-16x16.png' }
-      ],
-      'other': [{ 'color': '#fff', 'rel': 'mask-icon', 'url': '/static/favicons/safari-pinned-tab.svg' }]
-    },
-    'other': {
-      'msapplication-TileColor': '#222425'
-    }
-  };
-}
+export const metadata = {
+  ...metadataGenertaor(),
+  'icons': {
+    'apple': '/static/favicons/apple-touch-icon.png',
+    'icon': [
+      { 'sizes': '32x32', 'type': 'image/png', 'url': '/static/favicons/favicon-32x32.png' },
+      { 'sizes': '16x16', 'type': 'image/png', 'url': '/static/favicons/favicon-16x16.png' }
+    ],
+    'other': [{ 'color': '#fff', 'rel': 'mask-icon', 'url': '/static/favicons/safari-pinned-tab.svg' }]
+  },
+  'other': {
+    'msapplication-TileColor': '#222425'
+  }
+};
 
 /**
  * Generates viewport configuration for the application
@@ -84,7 +76,7 @@ export function generateViewport() {
  * The font is set up as a CSS variable for use throughout the application.
  */
 // eslint-disable-next-line quote-props, sort-keys, sort-keys-fix/sort-keys-fix
-export const font = Inter({ subsets: [ 'latin' ], weight: [ '400', '500', '600', '700', '800' ], variable: '--font-space-inter' });
+const font = Inter({ subsets: [ 'latin' ], weight: [ '400', '500', '600', '700', '800' ], variable: '--font-space-inter' });
 
 const footerProps = {
   'brandDescription': 'Writing about AI, semantic systems, data products, and engineering practice.',

@@ -16,12 +16,7 @@ import { parse } from 'node-html-parser';
 
 import { safeFetch } from '@/lib/preview/safeFetch.mjs';
 
-/*
- * Optional: Uncomment if you have Vercel KV set up
- * import { kv } from '@vercel/kv';
- */
-
-// Simple in-memory cache for development
+// Simple in-memory cache; entries survive for the lifetime of the server process
 const memoryCache = new Map();
 
 // 1 hour for successful lookups
@@ -42,19 +37,7 @@ const MAX_RESPONSE_BYTES = 1048576;
  * Simple cache implementation
  */
 const cache = {
-  async get(key) {
-
-    /*
-     * Try Vercel KV if available (uncomment if you have it set up)
-     * try {
-     *   const cached = await kv.get(key);
-     *   if (cached) return cached;
-     * } catch (e) {
-     *   console.log('KV not available, using memory cache');
-     * }
-     */
-
-    // Fallback to memory cache
+  get(key) {
     const cached = memoryCache.get(key);
 
     if (cached && Date.now() < cached.expiresAt) return cached.data;
@@ -62,18 +45,7 @@ const cache = {
     return null;
   },
 
-  async set(key, value, ttl = CACHE_TTL) {
-
-    /*
-     * Try Vercel KV if available (uncomment if you have it set up)
-     * try {
-     *   await kv.set(key, value, { ex: 3600 }); // 1 hour expiry
-     * } catch (e) {
-     *   console.log('KV not available, using memory cache');
-     * }
-     */
-
-    // Fallback to memory cache
+  set(key, value, ttl = CACHE_TTL) {
     memoryCache.set(key, {
       'data': value,
       'expiresAt': Date.now() + ttl
@@ -387,7 +359,7 @@ export async function GET(request) {
      * validated when stored, and answering from cache needs no outbound
      * request — this keeps hits from paying a blocking DNS lookup.
      */
-    const cachedPreview = await cache.get(cacheKey);
+    const cachedPreview = cache.get(cacheKey);
 
     if (cachedPreview) return NextResponse.json(cachedPreview, { 'status': 200 });
 
@@ -413,7 +385,7 @@ export async function GET(request) {
       });
 
       // Cache the error result briefly to prevent repeated failed requests
-      await cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
+      cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
 
       return NextResponse.json(errorData, { 'status': 200 });
     }
@@ -429,7 +401,7 @@ export async function GET(request) {
         'status': 415
       });
 
-      await cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
+      cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
 
       return NextResponse.json(errorData, { 'status': 200 });
     }
@@ -440,7 +412,7 @@ export async function GET(request) {
     const data = extractMetadata(doc, url, response.status);
 
     // Cache the result
-    await cache.set(cacheKey, data);
+    cache.set(cacheKey, data);
 
     return NextResponse.json(data, { 'status': 200 });
 
@@ -473,7 +445,7 @@ export async function GET(request) {
     // Cache error responses briefly to prevent repeated failed requests
     if (!isAbortError(error))
       try {
-        await cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
+        cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
       } catch (cacheError) {
         console.error('Failed to cache error response:', cacheError);
       }

@@ -13,11 +13,11 @@ import { allPosts } from 'contentlayer/generated';
 
 import TagsExplorer from '@/app/blog/tags/TagsExplorer';
 import tags from '@/app/content/tags';
-import { metadataGenertaor } from '@/data/meta/generator/blog';
+import { metadataGenerator } from '@/data/meta/generator/blog';
 import { published, sortPosts } from '@/lib/utils/contentlayer';
 import { slugify } from '@/lib/utils/slugs.mjs';
 
-export const metadata = metadataGenertaor({ 'path': '/blog/tags', 'title': 'Tags' });
+export const metadata = metadataGenerator({ 'path': '/blog/tags', 'title': 'Tags' });
 
 /**
  * Tags page component

@@ -19,7 +19,7 @@ import { Inter } from 'next/font/google';
 import categories from '@/app/content/categories';
 import publications from '@/app/content/publications';
 import tags from '@/app/content/tags';
-import { metadataGenertaor } from '@/data/meta/generator/blog';
+import { metadataGenerator } from '@/data/meta/generator/blog';
 import { website } from '@/data/meta/JSON-LD/website';
 import siteMetadata from '@/data/meta/metadata';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
@@ -36,7 +36,7 @@ import './responsive.css';
  * don't specify their own metadata.
  */
 export const metadata = {
-  ...metadataGenertaor(),
+  ...metadataGenerator(),
   'icons': {
     'apple': '/static/favicons/apple-touch-icon.png',
     'icon': [

@@ -15,7 +15,7 @@ import { allPosts } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
 import MDXLayoutRenderer from '@/data/blog/visualisations/MDXLayoutRenderer';
-import { linkedDataGenerator, metadataGenertaor } from '@/data/meta/generator/post';
+import { linkedDataGenerator, postMetadataGenerator } from '@/data/meta/generator/post';
 import PostLayout from '@/layouts/PostLayout';
 import { resolveContentDocument } from '@/lib/contentLayer/resolveContentDocument';
 import { published } from '@/lib/utils/contentlayer';
@@ -40,7 +40,7 @@ import { safeDecodeURI } from '@/lib/utils/slugs.mjs';
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
 
-  return metadataGenertaor(resolvedParams, published(allPosts));
+  return postMetadataGenerator(resolvedParams, published(allPosts));
 }
 
 /**

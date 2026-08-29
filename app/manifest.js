@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import siteMetadata from '@/data/meta/siteMetadata';
+import siteMetadata from '@/data/meta/metadata';
 
 /**
  * Generates PWA manifest configuration

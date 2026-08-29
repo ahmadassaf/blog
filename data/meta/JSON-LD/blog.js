@@ -1,21 +1,13 @@
 import metadata from '../metadata';
 
-import { author } from './author';
+import { website } from './website';
 
-export function blog() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Blog',
-    'about': metadata.description,
-    'author': author(),
-    'keywords': metadata.keywords,
-    'mainEntityOfPage': {
-      '@id': 'https://assaf.website',
-      '@type': 'WebSite'
-    },
-    'name': metadata.title,
-    'thumbnailUrl': `${metadata.siteUrl}/static/images/logo.svg`,
-    'url': 'https://assaf.website/blog'
-  };
-}
-
+export const blog = {
+  ...website,
+  '@type': 'Blog',
+  'mainEntityOfPage': {
+    '@id': metadata.siteUrl,
+    '@type': 'WebSite'
+  },
+  'url': `${metadata.siteUrl}/blog`
+};

@@ -12,9 +12,9 @@
 import { allProjects } from 'contentlayer/generated';
 
 import ProjectsList from '@/app/blog/projects/ProjectsList';
-import { metadataGenertaor } from '@/data/meta/generator/blog';
+import { metadataGenerator } from '@/data/meta/generator/blog';
 
-export const metadata = metadataGenertaor({ 'path': '/blog/projects', 'title': 'Projects' });
+export const metadata = metadataGenerator({ 'path': '/blog/projects', 'title': 'Projects' });
 
 /**
  * Projects page component

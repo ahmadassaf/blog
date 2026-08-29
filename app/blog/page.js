@@ -11,12 +11,12 @@
 
 import { allPosts } from 'contentlayer/generated';
 
-import { metadataGenertaor } from '@/data/meta/generator/blog';
+import { metadataGenerator } from '@/data/meta/generator/blog';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import ListLayout from '@/layouts/ListLayout';
 import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
 
-export const metadata = metadataGenertaor({ 'path': '/blog', 'title': 'Blog' });
+export const metadata = metadataGenerator({ 'path': '/blog', 'title': 'Blog' });
 
 /**
  * Main blog page component with featured posts and full listing

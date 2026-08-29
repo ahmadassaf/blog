@@ -10,9 +10,9 @@
 
 import PublicationsList from '@/app/blog/publications/PublicationsList';
 import publications from '@/app/content/publications.json';
-import { metadataGenertaor } from '@/data/meta/generator/blog';
+import { metadataGenerator } from '@/data/meta/generator/blog';
 
-export const metadata = metadataGenertaor({ 'path': '/blog/publications', 'title': 'Publications' });
+export const metadata = metadataGenerator({ 'path': '/blog/publications', 'title': 'Publications' });
 
 /**
  * Publications page component

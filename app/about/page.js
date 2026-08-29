@@ -12,9 +12,9 @@
 import { Grid, Icon, Typography } from '@gaudi/design-system';
 import Preview from '@gaudi/design-system/mdx/Preview';
 
-import { metadataGenertaor } from '@/data/meta/generator/blog';
+import { metadataGenerator } from '@/data/meta/generator/blog';
 
-export const metadata = metadataGenertaor({ 'path': '/about', 'title': 'About' });
+export const metadata = metadataGenerator({ 'path': '/about', 'title': 'About' });
 
 /**
  * About page component displaying professional background and services

@@ -13,8 +13,8 @@ import { allPosts, allProjects } from 'contentlayer/generated';
 
 import categories from '@/app/content/categories';
 import tags from '@/app/content/tags';
+import siteMetadata from '@/data/meta/metadata';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
-import siteMetadata from '@/data/meta/siteMetadata';
 import { published } from '@/lib/utils/contentlayer';
 
 /**

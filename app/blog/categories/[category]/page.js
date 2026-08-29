@@ -17,6 +17,9 @@ import ListLayout from '@/layouts/ListLayout';
 import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
+// Every valid category comes from generateStaticParams; unknown slugs must 404 instead of rendering empty lists
+export const dynamicParams = false;
+
 /**
  * Generates metadata for the category filter page
  *
@@ -90,14 +93,14 @@ export default async function Page({ params }) {
 
   if (category === null) notFound();
 
-  const title = category.replaceAll('-', ' ');
+  const title = titleFromSlug(category);
   const sortedPosts = coreContent(sortPosts(published(allPosts)));
   const filteredPosts = sortedPosts.filter((post) => slugify(post.category) === category);
 
   return (
     <>
       <div>
-        <ListLayout className='capitalize' posts={ filteredPosts } listTitle={ `${title} Posts` } paginationURL={ `blog/categories/${category}/page` } baseURL={ `blog/categories/${category}` }/>
+        <ListLayout posts={ filteredPosts } listTitle={ `${title} Posts` } paginationURL={ `blog/categories/${category}/page` } baseURL={ `blog/categories/${category}` }/>
       </div>
     </>
   );

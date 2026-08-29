@@ -104,7 +104,7 @@ export default async function Page({ params }) {
 
   if (tag === null) notFound();
 
-  const title = tag.replaceAll('-', ' ');
+  const title = titleFromSlug(tag);
   const posts = coreContent(sortPosts(published(allPosts))).filter((post) => post.tags.map(slugify).includes(tag));
   const page = paginate(posts, pageParam, POSTS_PER_PAGE);
 

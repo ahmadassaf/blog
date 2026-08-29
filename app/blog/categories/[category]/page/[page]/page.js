@@ -104,7 +104,7 @@ export default async function Page({ params }) {
 
   if (category === null) notFound();
 
-  const title = category.replaceAll('-', ' ');
+  const title = titleFromSlug(category);
   const posts = coreContent(sortPosts(published(allPosts))).filter((post) => slugify(post.category) === category);
   const page = paginate(posts, pageParam, POSTS_PER_PAGE);
 

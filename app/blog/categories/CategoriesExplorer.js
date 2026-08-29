@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { Button, Card, Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
 import { formatShortDate, PostSummary, StatCard } from '@/app/blog/ExplorerCards';
+import { titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 /**
  * Interactive categories explorer with view mode toggle
@@ -82,8 +83,8 @@ export default function CategoriesExplorer({ categoriesWithPosts }) {
                 {index > 0 && viewMode === 'list' ? <div className='mb-10' /> : null}
                 <div className='mb-1.5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between'>
                   <div className='flex flex-wrap items-center gap-2 sm:gap-3'>
-                    <Typography variant='heading-sm' as='h2' className='text-base leading-5 capitalize md:text-lg md:leading-6'>
-                      {category.title.replace('-', ' ')}
+                    <Typography variant='heading-sm' as='h2' className='text-base leading-5 md:text-lg md:leading-6'>
+                      {titleFromSlug(category.title)}
                     </Typography>
                     <Pill tone='blue' variant='soft' radius='full' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>
                       {category.count} {category.count === 1 ? 'article' : 'articles'}

@@ -24,6 +24,7 @@ import { website } from '@/data/meta/JSON-LD/website';
 import siteMetadata from '@/data/meta/metadata';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
 import { pick, published, sortPosts } from '@/lib/utils/contentlayer';
+import { titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 import '@gaudi/design-system/global.css';
 import 'remark-github-blockquote-alert/alert.css';
@@ -101,7 +102,7 @@ const footerProps = {
       'links': categories.slice(0, 4).reverse().map((category) => {
         return {
           'href': category.href,
-          'label': category.title.replace('-', ' ')
+          'label': titleFromSlug(category.title)
         };
       }),
       'title': 'Blog'

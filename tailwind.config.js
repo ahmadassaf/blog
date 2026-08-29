@@ -26,8 +26,7 @@ module.exports = {
   'plugins': [
     addVariablesColors,
     tailwindGrid,
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography')
+    require('@tailwindcss/forms')
   ],
   'presets': [ designSystemPreset ],
 

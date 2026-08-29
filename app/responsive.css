@@ -7,23 +7,6 @@
  * behavior and token overrides live here so other consumers remain unchanged.
  */
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-sans antialiased;
-  }
-
-  button,
-  [role='button'],
-  a {
-    cursor: pointer;
-  }
-
-}
-
 /*
  * A softened charcoal canvas keeps dark mode comfortable without losing the
  * depth between the page and the design system's muted surfaces.

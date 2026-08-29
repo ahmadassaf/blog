@@ -48,10 +48,10 @@ export default function FeaturedLayout({ posts }) {
   if (!featuredPost) return null;
 
   return (
-    <div className='pb-8 lg:pb-10'>
+    <div className='pb-6'>
       <section aria-label='Featured writing'>
         <article className='w-full group'>
-          <div className='mb-3 flex flex-wrap items-center gap-x-3 gap-y-2'>
+          <div className='mb-2 flex flex-wrap items-center gap-x-3 gap-y-2'>
             <Pill tone='blue' variant='solid' radius='full' size='sm'>{featuredLabel}</Pill>
             <Typography
               as='time'
@@ -70,7 +70,7 @@ export default function FeaturedLayout({ posts }) {
             )}
           </div>
 
-          <Typography variant='index-hero-title' as='h2' className='mb-3 max-w-none'>
+          <Typography variant='index-hero-title' as='h2' className='mb-3 max-w-none tracking-[-0.02em] sm:text-5xl sm:leading-[1.08]'>
             <Link
               href={ `/blog/${featuredPost.slug}` }
               variant='bare'
@@ -81,7 +81,7 @@ export default function FeaturedLayout({ posts }) {
             </Link>
           </Typography>
 
-          <Typography variant='index-hero-summary' className='mb-5 max-w-none text-pretty'>
+          <Typography variant='index-hero-summary' className='mb-4 line-clamp-3 text-pretty'>
             {featuredPost.summary}
           </Typography>
 
@@ -96,10 +96,10 @@ export default function FeaturedLayout({ posts }) {
         </article>
 
         {displayPosts.length > 0 && (
-          <Grid columns='2' gap='md' className='w-full pt-8'>
+          <Grid columns='2' gap='md' className='mt-6 w-full border-t border-border-muted pt-6 dark:border-border-dark'>
             {displayPosts.map((post) => (
               <article key={ post.slug } className='group'>
-                <div className='mb-3 flex flex-wrap items-center gap-x-3 gap-y-2'>
+                <div className='mb-2 flex flex-wrap items-center gap-x-3 gap-y-2'>
                   <Typography
                     as='time'
                     variant='post-meta'
@@ -123,7 +123,7 @@ export default function FeaturedLayout({ posts }) {
                   </Link>
                 </Typography>
 
-                <Typography variant='index-feature-summary' className='mb-3 text-pretty'>
+                <Typography variant='index-feature-summary' className='line-clamp-3 text-pretty'>
                   {post.summary}
                 </Typography>
               </article>

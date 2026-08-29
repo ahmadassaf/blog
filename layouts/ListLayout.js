@@ -33,7 +33,8 @@ import PostPreview from '@/layouts/PostPreview';
  * @param {string} [props.pageTitleVariant] - Optional Typography variant override for the page title
  * @param {boolean} [props.paginate=true] - Whether to paginate the post collection
  * @param {Array} props.posts - Array of post objects to display
- * @param {boolean} [props.scrollableList=false] - Whether the post list should scroll inside a bounded viewport
+ * @param {boolean} [props.archive=false] - Whether the post list renders as an archive: a sticky title bar
+ *   that pins to the viewport while the posts (grouped by year) scroll past with the page
  * @param {string} [props.titleAs='h1'] - Heading element for the list title (pass 'h2' when composed under a page h1)
  * @param {string} [props.className] - Additional CSS classes applied to the list title
  * @param {string} [props.baseURL] - Base URL for page 1 of the pagination links
@@ -53,7 +54,7 @@ import PostPreview from '@/layouts/PostPreview';
  *   totalPages={5}
  * />
  */
-export default function ListLayout({ beforeList, posts, listTitle, listTitleVariant = 'index-feature-title', pageDescription, pageTitle, pageTitleVariant, paginate = true, scrollableList = false, titleAs = 'h1', className, baseURL, paginationURL, currentPage = 1, totalPages }) {
+export default function ListLayout({ beforeList, posts, listTitle, listTitleVariant = 'index-feature-title', pageDescription, pageTitle, pageTitleVariant, paginate = true, archive = false, titleAs = 'h1', className, baseURL, paginationURL, currentPage = 1, totalPages }) {
 
   const listTitleId = 'article-list-title';
   const topTitleId = 'article-page-title';
@@ -71,18 +72,55 @@ export default function ListLayout({ beforeList, posts, listTitle, listTitleVari
 
   if (topTitle) resultsLabelledBy = showListTitle ? listTitleId : topTitleId;
 
+  // The fixed line height only suits the compact default h1; display variants carry their own leading
+  const topTitleLeading = topTitleAs === 'h1' && topTitleVariant === 'title-md' ? 'leading-9 sm:leading-10' : '';
+
+  /*
+   * Year markers give the archive a typographic rhythm and make long lists scannable at a glance.
+   * The shared sort key is `updated || date`, but the archive labels rows by publication date, so
+   * it re-sorts on `date` locally to keep every post under the year marker its metadata shows.
+   */
+  const archiveRows = [];
+
+  if (archive) {
+    const archivePosts = [ ...displayPosts ].sort((a, b) => (a.date > b.date ? -1 : 1));
+    let lastYear = null;
+
+    for (const frontMatter of archivePosts) {
+      const year = new Date(frontMatter.date).getFullYear();
+
+      if (year !== lastYear) {
+        archiveRows.push({ 'type': 'year', year });
+        lastYear = year;
+      }
+
+      archiveRows.push({ frontMatter, 'type': 'post' });
+    }
+  }
+
   // Build crawlable pagination hrefs: page 1 maps to the base URL, later pages to the pagination URL
   const getPageHref = (page) => (page === 1 ? `/${baseURL}` : `/${paginationURL}/${page}`);
+
+  const emptyState = !posts.length && (
+    <li className='py-12 text-center'>
+      <Typography variant='heading-sm' as='p' className='mb-2'>
+        No posts found
+      </Typography>
+      <Typography variant='paragraph-sm'>
+        There is nothing published here yet. New writing will land soon.
+      </Typography>
+    </li>
+  );
 
   return (
     <div>
       {topTitle ? (
-        <header className='pb-5'>
-          <Typography id={ topTitleId } variant={ topTitleVariant } as={ topTitleAs } className={ `${topTitleAs === 'h1' ? 'leading-9 sm:leading-10' : ''} ${className || ''}` }>
+        <header className='pb-4'>
+          <Typography id={ topTitleId } variant={ topTitleVariant } as={ topTitleAs } className={ `${topTitleLeading} ${className || ''}` }>
             {topTitle}
           </Typography>
           {pageDescription ? (
-            <Typography variant='paragraph-md' className='mt-2 max-w-2xl text-base leading-7'>
+            <Typography variant='paragraph-md' className='mt-2 max-w-2xl text-lg leading-8 text-pretty'>
               {pageDescription}
             </Typography>
           ) : null}
@@ -91,46 +129,76 @@ export default function ListLayout({ beforeList, posts, listTitle, listTitleVari
 
       {beforeList ? <div>{beforeList}</div> : null}
 
-      {showListTitle ? (
-        <div className='pb-3'>
-          <Typography id={ listTitleId } variant={ listTitleVariant } as={ titleAs } className={ className }>
-            {listTitle}
-          </Typography>
-        </div>
-      ) : null}
-
-      <section
-        aria-label={ topTitle ? undefined : 'Articles' }
-        aria-labelledby={ resultsLabelledBy }
-      >
-        <ul
-          aria-label={ scrollableList ? `${listTitle} archive` : undefined }
-          tabIndex={ scrollableList ? 0 : undefined }
-          className={ scrollableList ? 'max-h-[38rem] overflow-y-auto overscroll-contain pr-3 pt-2 [scrollbar-gutter:stable] sm:max-h-[42rem] sm:pr-5' : 'pt-2' }
+      {archive ? (
+        <section
+          aria-label={ topTitle ? undefined : 'Articles' }
+          aria-labelledby={ resultsLabelledBy }
         >
-          {!posts.length && (
-            <li className='py-12 text-center'>
-              <Typography variant='heading-sm' as='p' className='mb-2'>
-                No posts found
-              </Typography>
-              <Typography variant='paragraph-sm'>
-                There is nothing published here yet — new writing will land soon.
-              </Typography>
-            </li>
-          )}
-          {displayPosts.map((frontMatter) => (
-            <PostPreview key={ frontMatter.slug } frontMatter={ frontMatter } titleAs={ postTitleAs } />
-          ))}
-        </ul>
+          {showListTitle ? (
+            <div className='sticky top-0 z-10 bg-background'>
+              <div className='flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-border-muted pb-4 pt-2 dark:border-border-dark'>
+                <Typography id={ listTitleId } variant={ listTitleVariant } as={ titleAs } className={ className }>
+                  {listTitle}
+                </Typography>
+                <Typography as='span' variant='post-meta' className='shrink-0 font-medium'>
+                  {`${posts.length} ${posts.length === 1 ? 'post' : 'posts'}`}
+                </Typography>
+              </div>
+            </div>
+          ) : null}
 
-        {pageCount > 1 && (
-          <PaginationBar
-            currentPage={ activePage }
-            totalPages={ pageCount }
-            getHref={ getPageHref }
-          />
-        )}
-      </section>
+          <ul aria-label={ listTitle ? `${listTitle} archive` : undefined } className='pt-2'>
+            {emptyState}
+            {archiveRows.map((row) => (row.type === 'year' ? (
+              <li key={ `year-${row.year}` } role='presentation' className='pb-2 pt-8 first:pt-2'>
+                <span className='block text-3xl font-extrabold leading-none tracking-tighter tabular-nums text-gray-300 dark:text-gray-600'>
+                  {row.year}
+                </span>
+              </li>
+            ) : (
+              <PostPreview key={ row.frontMatter.slug } frontMatter={ row.frontMatter } titleAs={ postTitleAs } />
+            )))}
+          </ul>
+
+          {pageCount > 1 && (
+            <PaginationBar
+              currentPage={ activePage }
+              totalPages={ pageCount }
+              getHref={ getPageHref }
+            />
+          )}
+        </section>
+      ) : (
+        <>
+          {showListTitle ? (
+            <div className='pb-3'>
+              <Typography id={ listTitleId } variant={ listTitleVariant } as={ titleAs } className={ className }>
+                {listTitle}
+              </Typography>
+            </div>
+          ) : null}
+
+          <section
+            aria-label={ topTitle ? undefined : 'Articles' }
+            aria-labelledby={ resultsLabelledBy }
+          >
+            <ul className='pt-2'>
+              {emptyState}
+              {displayPosts.map((frontMatter) => (
+                <PostPreview key={ frontMatter.slug } frontMatter={ frontMatter } titleAs={ postTitleAs } />
+              ))}
+            </ul>
+
+            {pageCount > 1 && (
+              <PaginationBar
+                currentPage={ activePage }
+                totalPages={ pageCount }
+                getHref={ getPageHref }
+              />
+            )}
+          </section>
+        </>
+      )}
     </div>
   );
 }

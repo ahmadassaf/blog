@@ -35,13 +35,14 @@ export default function Blog() {
       posts={ posts }
       paginate={ false }
       pageTitle='Blog'
-      pageTitleVariant='heading-xl'
+      pageTitleVariant='display-lg'
       pageDescription='Writing about AI, semantic systems, data products, and engineering practice.'
       listTitle='All Posts'
       listTitleVariant='heading-lg'
-      scrollableList
+      archive
       titleAs='h2'
-      beforeList={ <div className='pt-4 sm:pt-6'><FeaturedPostsLayout posts={ posts } /></div> }
+      className='tracking-tight'
+      beforeList={ <div className='pt-2 sm:pt-3'><FeaturedPostsLayout posts={ posts } /></div> }
     />
   );
 }

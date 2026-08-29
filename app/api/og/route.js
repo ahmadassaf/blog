@@ -15,7 +15,6 @@ import { allPosts } from 'contentlayer/generated';
 import { NextResponse } from 'next/server';
 
 import siteMetadata from '@/data/meta/metadata';
-import { coreContent } from '@/lib/utils/contentlayer';
 
 // Module-scope cache so fonts are downloaded at most once per instance
 let cachedFontsPromise = null;
@@ -104,9 +103,7 @@ export async function GET(request) {
   try {
 
     const slug = slugParam.replace('category/', '');
-    const posts = coreContent(allPosts);
-    const postIndex = posts.findIndex((_post) => _post.slug.replace('category/', '') === slug);
-    let post = allPosts[postIndex];
+    let post = allPosts.find((_post) => _post.slug.replace('category/', '') === slug);
 
     // Never leak unpublished titles through OG images
     if (post?.draft) return NextResponse.json(
@@ -134,7 +131,7 @@ export async function GET(request) {
         <div tw='flex flex-col h-[600px] w-[1200px] border-b-[20px] border-blue-600 px-24'>
           {post.category && (
             <h1 tw='text-2xl leading-[60px] uppercase text-blue-700'>
-              {coreContent(post).category}
+              {post.category}
             </h1>
           )}
           <div tw='flex flex-col'>
@@ -165,14 +162,14 @@ export async function GET(request) {
                 </g>
               </svg>
               <h1 tw='text-5xl w-[60%] leading-[60px]'>
-                {coreContent(post).title}
+                {post.title}
               </h1>
             </div>
             <h1 tw='text-3xl tracking-normal text-gray-600 capitalize w-[90%] leading-[40px] font-normal'>
-              {coreContent(post).subtitle}
+              {post.subtitle}
             </h1>
             <h1 tw='text-sm tracking-widest text-gray-500 uppercase font-extralight'>
-              https://assaf.website
+              {siteMetadata.siteUrl}
             </h1>
           </div>
         </div>

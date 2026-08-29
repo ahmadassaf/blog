@@ -15,7 +15,7 @@ import { allPosts } from 'contentlayer/generated';
 
 import siteMetadata from '@/data/meta/metadata';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
-import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
+import { getPublishedPosts } from '@/lib/utils/contentlayer';
 
 /**
  * Home page component that renders the main landing page
@@ -31,7 +31,7 @@ import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
  * <Home />
  */
 export default function Home() {
-  const posts = coreContent(sortPosts(published(allPosts)));
+  const posts = getPublishedPosts(allPosts);
 
   return (
     <>

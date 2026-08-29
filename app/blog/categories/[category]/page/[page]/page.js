@@ -15,7 +15,7 @@ import { notFound } from 'next/navigation';
 
 import categories from '@/app/content/categories';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, paginate, paginationPageNumbers, published, sortPosts } from '@/lib/utils/contentlayer';
+import { getPublishedPosts, paginate, paginationPageNumbers, published } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 export const dynamicParams = false;
@@ -105,7 +105,7 @@ export default async function Page({ params }) {
   if (category === null) notFound();
 
   const title = titleFromSlug(category);
-  const posts = coreContent(sortPosts(published(allPosts))).filter((post) => slugify(post.category) === category);
+  const posts = getPublishedPosts(allPosts).filter((post) => slugify(post.category) === category);
   const page = paginate(posts, pageParam, POSTS_PER_PAGE);
 
   if (!page) notFound();

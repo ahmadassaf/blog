@@ -16,7 +16,7 @@ import { notFound } from 'next/navigation';
 
 import MDXLayoutRenderer from '@/data/blog/visualisations/MDXLayoutRenderer';
 import { linkedDataGenerator, postMetadataGenerator } from '@/data/meta/generator/post';
-import ProjectLayout from '@/layouts/ProjectLayout';
+import PostLayout from '@/layouts/PostLayout';
 import { resolveContentDocument } from '@/lib/contentLayer/resolveContentDocument';
 import { published } from '@/lib/utils/contentlayer';
 import { safeDecodeURI } from '@/lib/utils/slugs.mjs';
@@ -99,11 +99,11 @@ export default async function Page({ params }) {
     <>
       <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': JSON.stringify(linkedDataGenerator(post)) }} key='post-jsonld'/>
 
-      <ProjectLayout content={ content } next={ next } prev={ prev } toc={ post.toc }>
+      <PostLayout content={ content } next={ next } prev={ prev } toc={ post.toc }>
         <MDXLayoutRenderer code={ post.body.code } />
         <CitationPopover />
         <Footnote />
-      </ProjectLayout>
+      </PostLayout>
     </>
   );
 }

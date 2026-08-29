@@ -32,8 +32,8 @@ const ContentsToggle = ({ isOpen, onToggle }) => (
 export default function PostArticleFrame({
   children,
   content,
+  locale,
   padding,
-  siteMetadata,
   toc
 }) {
   const hasToc = hasTableOfContents(toc);
@@ -43,8 +43,7 @@ export default function PostArticleFrame({
     <>
       <PostHeader
         frontMatter={ content }
-        siteMetadata={ siteMetadata }
-        toc={ toc }
+        siteMetadata={{ locale }}
         tocControl={ hasToc ? <ContentsToggle isOpen={ isTocOpen } onToggle={ () => setIsTocOpen((current) => !current) } /> : null }
       />
 

@@ -13,6 +13,33 @@ import { Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
 import formatDate from '@/lib/utils/formatDate';
 
+const HOVER_LINK_CLASSES = 'break-words no-underline transition-colors duration-200 hover:text-blue-600 hover:no-underline dark:hover:text-blue-400';
+
+/**
+ * Meta row shared by the hero and grid cards: optional leading pill, date, category
+ *
+ * @param {Object} props - Component props
+ * @param {Object} props.post - Core-content post document
+ * @param {React.ReactNode} [props.leading] - Optional element rendered before the date (e.g. the Featured pill)
+ * @returns {JSX.Element} The post meta row
+ */
+const PostMetaRow = ({ post, leading }) => (
+  <div className='mb-2 flex flex-wrap items-center gap-x-3 gap-y-2'>
+    {leading}
+    <Typography as='time' variant='post-meta' dateTime={ post.date }>
+      {formatDate(post.date)}
+    </Typography>
+    {post.category && (
+      <>
+        <Typography as='span' variant='post-meta'>·</Typography>
+        <Pill tone='blue' variant='subtle' size='sm' className='capitalize'>
+          {post.category}
+        </Pill>
+      </>
+    )}
+  </div>
+);
+
 /**
  * Renders a featured posts layout with hero post and grid
  *
@@ -27,7 +54,7 @@ import formatDate from '@/lib/utils/formatDate';
  *
  * @example
  * // Basic usage
- * <FeaturedLayout posts={coreContent(sortPosts(published(allPosts)))} />
+ * <FeaturedLayout posts={getPublishedPosts(allPosts)} />
  *
  * @example
  * // Layout structure:
@@ -51,31 +78,14 @@ export default function FeaturedLayout({ posts }) {
     <div className='pb-6'>
       <section aria-label='Featured writing'>
         <article className='w-full group'>
-          <div className='mb-2 flex flex-wrap items-center gap-x-3 gap-y-2'>
-            <Pill tone='blue' variant='solid' radius='full' size='sm'>{featuredLabel}</Pill>
-            <Typography
-              as='time'
-              variant='post-meta'
-              dateTime={ featuredPost.date }
-            >
-              {formatDate(featuredPost.date)}
-            </Typography>
-            {featuredPost.category && (
-              <>
-                <Typography as='span' variant='post-meta'>·</Typography>
-                <Pill tone='blue' variant='subtle' size='sm' className='capitalize'>
-                  {featuredPost.category}
-                </Pill>
-              </>
-            )}
-          </div>
+          <PostMetaRow post={ featuredPost } leading={ <Pill tone='blue' variant='solid' radius='full' size='sm'>{featuredLabel}</Pill> } />
 
           <Typography variant='index-hero-title' as='h2' className='mb-3 max-w-none tracking-[-0.02em] sm:text-5xl sm:leading-[1.08]'>
             <Link
               href={ `/blog/${featuredPost.slug}` }
               variant='bare'
               tone='neutral'
-              className='break-words no-underline transition-colors duration-200 hover:text-blue-600 hover:no-underline dark:hover:text-blue-400'
+              className={ HOVER_LINK_CLASSES }
             >
               {featuredPost.title}
             </Link>
@@ -99,26 +109,10 @@ export default function FeaturedLayout({ posts }) {
           <Grid columns='2' gap='md' className='mt-6 w-full border-t border-border-muted pt-6 dark:border-border-dark'>
             {displayPosts.map((post) => (
               <article key={ post.slug } className='group'>
-                <div className='mb-2 flex flex-wrap items-center gap-x-3 gap-y-2'>
-                  <Typography
-                    as='time'
-                    variant='post-meta'
-                    dateTime={ post.date }
-                  >
-                    {formatDate(post.date)}
-                  </Typography>
-                  {post.category && (
-                    <>
-                      <Typography as='span' variant='post-meta'>·</Typography>
-                      <Pill tone='blue' variant='subtle' size='sm' className='capitalize'>
-                        {post.category}
-                      </Pill>
-                    </>
-                  )}
-                </div>
+                <PostMetaRow post={ post } />
 
                 <Typography variant='index-feature-title' as='h2' className='mb-2'>
-                  <Link href={ `/blog/${post.slug}` } tone='neutral' variant='bare' className='break-words no-underline transition-colors duration-200 hover:text-blue-600 hover:no-underline dark:hover:text-blue-400'>
+                  <Link href={ `/blog/${post.slug}` } tone='neutral' variant='bare' className={ HOVER_LINK_CLASSES }>
                     {post.title}
                   </Link>
                 </Typography>

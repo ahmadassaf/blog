@@ -14,7 +14,7 @@ import { notFound } from 'next/navigation';
 
 import categories from '@/app/content/categories';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
+import { getPublishedPosts } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 // Every valid category comes from generateStaticParams; unknown slugs must 404 instead of rendering empty lists
@@ -94,7 +94,7 @@ export default async function Page({ params }) {
   if (category === null) notFound();
 
   const title = titleFromSlug(category);
-  const sortedPosts = coreContent(sortPosts(published(allPosts)));
+  const sortedPosts = getPublishedPosts(allPosts);
   const filteredPosts = sortedPosts.filter((post) => slugify(post.category) === category);
 
   return (

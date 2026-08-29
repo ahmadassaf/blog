@@ -36,11 +36,11 @@ const _generateRssItem = (post) => `
     ${post.summary ? `<description>${_escapeXml(post.summary)}</description>` : ''}
     <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     <author>${_escapeXml(siteMetadata.email)} (${_escapeXml(siteMetadata.author)})</author>
-    <category>${_escapeXml(post.category.replace('-', ' '))}</category>
+    <category>${_escapeXml(post.category.replaceAll('-', ' '))}</category>
   </item>
 `;
 
-const _generateRss = (posts, page = 'feed.xml') => `
+const _generateRss = (posts) => `
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
       <title>${_escapeXml(siteMetadata.title)}</title>
@@ -50,7 +50,7 @@ const _generateRss = (posts, page = 'feed.xml') => `
       <managingEditor>${_escapeXml(siteMetadata.email)} (${_escapeXml(siteMetadata.author)})</managingEditor>
       <webMaster>${_escapeXml(siteMetadata.email)} (${_escapeXml(siteMetadata.author)})</webMaster>
       <lastBuildDate>${new Date(posts[0]?.date ?? Date.now()).toUTCString()}</lastBuildDate>
-      <atom:link href="${siteMetadata.siteUrl}/${page}" rel="self" type="application/rss+xml"/>
+      <atom:link href="${siteMetadata.siteUrl}/feed.xml" rel="self" type="application/rss+xml"/>
       ${posts.map((post) => _generateRssItem(post)).join('')}
     </channel>
   </rss>

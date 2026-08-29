@@ -14,7 +14,7 @@ import { allPosts } from 'contentlayer/generated';
 import { metadataGenerator } from '@/data/meta/generator/blog';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import ListLayout from '@/layouts/ListLayout';
-import { coreContent, published, sortPosts } from '@/lib/utils/contentlayer';
+import { getPublishedPosts } from '@/lib/utils/contentlayer';
 
 export const metadata = metadataGenerator({ 'path': '/blog', 'title': 'Blog' });
 
@@ -28,7 +28,7 @@ export const metadata = metadataGenerator({ 'path': '/blog', 'title': 'Blog' });
  * <Blog />
  */
 export default function Blog() {
-  const posts = coreContent(sortPosts(published(allPosts)));
+  const posts = getPublishedPosts(allPosts);
 
   return (
     <ListLayout

@@ -100,7 +100,7 @@ const footerProps = {
       'title': 'Blog'
     },
     {
-      'links': sortPosts(allProjects).slice(0, 4).map((project) => {
+      'links': sortPosts(published(allProjects)).slice(0, 4).map((project) => {
         return {
           'href': `/blog/${project.externalLink}`,
           'label': project.title

@@ -13,6 +13,7 @@ import { allProjects } from 'contentlayer/generated';
 
 import ProjectsList from '@/app/blog/projects/ProjectsList';
 import { metadataGenerator } from '@/data/meta/generator/blog';
+import { published } from '@/lib/utils/contentlayer';
 
 export const metadata = metadataGenerator({ 'path': '/blog/projects', 'title': 'Projects' });
 
@@ -26,7 +27,7 @@ export const metadata = metadataGenerator({ 'path': '/blog/projects', 'title': '
  * <Projects />
  */
 export default function Projects() {
-  const projects = allProjects.map((project) => {
+  const projects = published(allProjects).map((project) => {
     return {
       'externalLink': project.externalLink,
       'meta': {

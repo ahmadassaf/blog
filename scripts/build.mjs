@@ -9,10 +9,11 @@
  * @version 1.0.0
  */
 
+import { mkdirSync } from 'fs';
+
 import { allPosts, allProjects } from '../.contentlayer/generated/index.mjs';
-import getAllCategories from '../lib/contentLayer/generateCategories.mjs';
 import getAllPublications from '../lib/contentLayer/generatePublications.mjs';
-import getAllTags from '../lib/contentLayer/generateTags.mjs';
+import { getAllCategories, getAllTags } from '../lib/contentLayer/generateTaxonomies.mjs';
 import validateTags from '../lib/contentLayer/validateTags.mjs';
 import { published } from '../lib/utils/contentlayer.js';
 
@@ -43,6 +44,11 @@ import rss from './rss.mjs';
  * // - ./public/feed.xml - RSS feed for blog posts
  */
 async function postbuild() {
+
+  // The generators below write into app/content and public; make sure they exist on fresh clones
+  mkdirSync('./app/content', { 'recursive': true });
+  mkdirSync('./public', { 'recursive': true });
+
   const posts = published(allPosts);
 
   // Fail the content build when tag coverage or normalization drifts

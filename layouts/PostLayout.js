@@ -1,12 +1,13 @@
 /**
  * Post Layout Component
  *
- * @description The main layout component for individual blog post pages. Provides a structured layout
- * with post header, content area, table of contents, navigation, disclaimer, and comments section.
- * Supports responsive design with different layouts for mobile and desktop views.
+ * @description The layout for individual post and project pages. Provides a structured
+ * layout with post header, content area, table of contents, navigation, disclaimer, and
+ * comments section. Projects get wider content padding, skip the disclaimer, and always
+ * show comments; posts gate comments on their frontmatter flag.
  *
  * @author Ahmad Assaf
- * @version 1.0.0
+ * @version 2.0.0
  */
 
 import { Disclaimer,
@@ -20,11 +21,7 @@ import PostComments from './PostComments';
 import 'katex/dist/katex.css';
 
 /**
- * Post layout component for individual blog post pages
- *
- * @description Renders the complete layout for a blog post including header, content, table of contents,
- * navigation, and comments. The layout adapts based on whether a table of contents is present,
- * using a grid system for optimal content organization.
+ * Post layout component for individual post and project pages
  *
  * @param {Object} props - Component props
  * @param {Object} props.content - The post content and metadata
@@ -36,28 +33,21 @@ import 'katex/dist/katex.css';
  * @returns {JSX.Element} The rendered post layout component
  *
  * @example
- * <PostLayout
- *   content={postData}
- *   next={nextPost}
- *   prev={previousPost}
- *   toc={tableOfContents}
- * >
+ * <PostLayout content={postData} next={nextPost} prev={previousPost} toc={tableOfContents}>
  *   <MDXContent />
  * </PostLayout>
  */
 export default function PostLayout({ content, next, prev, toc, children }) {
+  const isProject = content.type === 'Project';
+
   return (
-    <div>
-      <article>
-        <div>
-          <PostArticleFrame content={ content } siteMetadata={ siteMetadata } toc={ toc }>
-            {children}
-            <Disclaimer className='mt-8'/>
-          </PostArticleFrame>
-          <PostNavigation next={ next } prev={ prev } type={ content.type }></PostNavigation>
-          { content.comments && (<PostComments/>)}
-        </div>
-      </article>
-    </div>
+    <article>
+      <PostArticleFrame content={ content } locale={ siteMetadata.locale } toc={ toc } padding={ isProject ? 'lg' : undefined }>
+        {children}
+        {!isProject && <Disclaimer className='mt-8'/>}
+      </PostArticleFrame>
+      <PostNavigation next={ next } prev={ prev } type={ content.type }></PostNavigation>
+      {(isProject || content.comments) && <PostComments/>}
+    </article>
   );
 }

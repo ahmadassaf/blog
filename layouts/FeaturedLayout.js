@@ -91,7 +91,7 @@ export default function FeaturedLayout({ posts }) {
             </Link>
           </Typography>
 
-          <Typography variant='index-hero-summary' className='mb-4 line-clamp-3 text-pretty'>
+          <Typography variant='index-hero-summary' className='mb-4 text-pretty'>
             {featuredPost.summary}
           </Typography>
 
@@ -117,7 +117,7 @@ export default function FeaturedLayout({ posts }) {
                   </Link>
                 </Typography>
 
-                <Typography variant='index-feature-summary' className='line-clamp-3 text-pretty'>
+                <Typography variant='index-feature-summary' className='text-pretty'>
                   {post.summary}
                 </Typography>
               </article>

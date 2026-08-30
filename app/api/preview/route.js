@@ -16,6 +16,17 @@ import { parse } from 'node-html-parser';
 
 import { safeFetch } from '@/lib/preview/safeFetch.mjs';
 
+/*
+ * Every response carries explicit cache headers: successful previews may be
+ * cached briefly by the browser, but error payloads must never be — a
+ * transient failure (or a repo that was private yesterday) would otherwise
+ * stick in the browser's heuristic cache long after the target recovered.
+ */
+const jsonResponse = (body, status = 200) => NextResponse.json(body, {
+  'headers': { 'Cache-Control': body?.error ? 'no-store' : 'public, max-age=300, stale-while-revalidate=3600' },
+  status
+});
+
 // Simple in-memory cache; entries survive for the lifetime of the server process
 const memoryCache = new Map();
 
@@ -318,24 +329,18 @@ export async function GET(request) {
    */
   const secFetchSite = request.headers.get('sec-fetch-site');
 
-  if (secFetchSite && ![ 'same-origin', 'same-site', 'none' ].includes(secFetchSite)) return NextResponse.json(
-    { 'error': 'Forbidden', 'status': 403 }, { 'status': 403 }
-  );
+  if (secFetchSite && ![ 'same-origin', 'same-site', 'none' ].includes(secFetchSite)) return jsonResponse({ 'error': 'Forbidden', 'status': 403 }, 403);
 
   const url = request.nextUrl.searchParams.get('url');
 
-  if (!url) return NextResponse.json(
-    { 'error': 'URL parameter is required', 'status': 400 }, { 'status': 400 }
-  );
+  if (!url) return jsonResponse({ 'error': 'URL parameter is required', 'status': 400 }, 400);
 
   if (url.startsWith('/')) {
     const internalPreview = getInternalPreviewData(url);
 
-    if (internalPreview) return NextResponse.json(internalPreview, { 'status': 200 });
+    if (internalPreview) return jsonResponse(internalPreview);
 
-    return NextResponse.json(
-      { 'error': 'Internal post not found', 'status': 404 }, { 'status': 404 }
-    );
+    return jsonResponse({ 'error': 'Internal post not found', 'status': 404 }, 404);
   }
 
   let cacheKey = `url:${url}`;
@@ -347,9 +352,7 @@ export async function GET(request) {
     try {
       normalizedUrl = new URL(url).href;
     } catch {
-      return NextResponse.json(
-        { 'error': 'Invalid URL format', 'status': 400 }, { 'status': 400 }
-      );
+      return jsonResponse({ 'error': 'Invalid URL format', 'status': 400 }, 400);
     }
 
     cacheKey = `url:${normalizedUrl}`;
@@ -361,7 +364,7 @@ export async function GET(request) {
      */
     const cachedPreview = cache.get(cacheKey);
 
-    if (cachedPreview) return NextResponse.json(cachedPreview, { 'status': 200 });
+    if (cachedPreview) return jsonResponse(cachedPreview);
 
     // Fetch the URL with timeout, validating every redirect hop
 
@@ -387,7 +390,7 @@ export async function GET(request) {
       // Cache the error result briefly to prevent repeated failed requests
       cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
 
-      return NextResponse.json(errorData, { 'status': 200 });
+      return jsonResponse(errorData);
     }
 
     // Only parse HTML documents
@@ -403,7 +406,7 @@ export async function GET(request) {
 
       cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
 
-      return NextResponse.json(errorData, { 'status': 200 });
+      return jsonResponse(errorData);
     }
 
     const html = await readHtmlHeadWithCap(response);
@@ -414,14 +417,12 @@ export async function GET(request) {
     // Cache the result
     cache.set(cacheKey, data);
 
-    return NextResponse.json(data, { 'status': 200 });
+    return jsonResponse(data);
 
   } catch (error) {
 
     // Blocked URLs are a client error, not an upstream failure
-    if (error.code === 'ERR_URL_BLOCKED') return NextResponse.json(
-      { 'error': error.message, 'status': 400 }, { 'status': 400 }
-    );
+    if (error.code === 'ERR_URL_BLOCKED') return jsonResponse({ 'error': error.message, 'status': 400 }, 400);
 
     let errorData;
 
@@ -451,6 +452,6 @@ export async function GET(request) {
       }
 
     // Always return 200 with error data for consistent client-side handling
-    return NextResponse.json(errorData, { 'status': 200 });
+    return jsonResponse(errorData);
   }
 }

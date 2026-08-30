@@ -91,7 +91,7 @@ export default function FeaturedLayout({ posts }) {
             </Link>
           </Typography>
 
-          <Typography variant='index-hero-summary' className='mb-4 text-pretty'>
+          <Typography variant='index-hero-summary' className='mb-4 max-w-4xl text-pretty'>
             {featuredPost.summary}
           </Typography>
 

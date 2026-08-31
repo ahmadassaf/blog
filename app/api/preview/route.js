@@ -140,6 +140,47 @@ function isAbortError(error) {
 const matchesHost = (hostname, domain) => hostname === domain || hostname.endsWith(`.${domain}`);
 
 /**
+ * Synthesizes a preview for a GitHub repository URL without fetching it
+ *
+ * GitHub rate-limits datacenter traffic aggressively, so live fetches from a
+ * deployed server intermittently fail and healthy repository links render as
+ * broken previews. A repo URL already carries everything the card needs, so
+ * answer from the URL alone and never pay the outbound request.
+ */
+function createGithubPreview(url) {
+  let urlObj;
+
+  try {
+    urlObj = new URL(url);
+  } catch {
+    return null;
+  }
+
+  if (urlObj.hostname.toLowerCase() !== 'github.com') return null;
+
+  const pathParts = urlObj.pathname.split('/').filter(Boolean);
+
+  if (pathParts.length < 2) return null;
+
+  const [ owner, repo ] = pathParts;
+  let title = `${owner}/${repo}`;
+
+  // Deep links to a file or directory keep the path visible in the title
+  if (pathParts.length > 4 && [ 'blob', 'tree' ].includes(pathParts[2])) title = `${title}: ${pathParts.slice(4).join('/')}`;
+
+  return {
+    'description': `${owner}/${repo} on GitHub`,
+    'favicon': 'https://github.com/favicon.ico',
+    'image': `https://opengraph.githubassets.com/1/${owner}/${repo}`,
+    'siteName': 'GitHub',
+    'status': 200,
+    title,
+    'type': 'repository',
+    'url': url
+  };
+}
+
+/**
  * Checks if a URL is a YouTube video URL
  */
 const isYouTubeURL = (url) => {
@@ -365,6 +406,15 @@ export async function GET(request) {
     const cachedPreview = cache.get(cacheKey);
 
     if (cachedPreview) return jsonResponse(cachedPreview);
+
+    // GitHub repository previews are synthesized without an outbound request
+    const githubPreview = createGithubPreview(normalizedUrl);
+
+    if (githubPreview) {
+      cache.set(cacheKey, githubPreview);
+
+      return jsonResponse(githubPreview);
+    }
 
     // Fetch the URL with timeout, validating every redirect hop
 

@@ -3,7 +3,7 @@
  *
  * @description The blog index layout: a display-scale page header, optional curated
  * content (featured posts), and the full archive under a sticky title bar that pins
- * to the viewport while the post list scrolls past with the page.
+ * to the viewport while the year-grouped post list scrolls past with the page.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
@@ -32,8 +32,25 @@ export default function ArchiveLayout({ beforeList, description, listTitle, post
 
   const listTitleId = 'article-list-title';
 
-  // The archive lists by publication date, so it re-sorts on `date` locally
+  /*
+   * Year markers give the archive a typographic rhythm and make long lists scannable at a glance.
+   * The shared sort key is `updated || date`, but the archive labels rows by publication date, so
+   * it re-sorts on `date` locally to keep every post under the year marker its metadata shows.
+   */
+  const archiveRows = [];
   const archivePosts = [ ...posts ].sort((a, b) => (a.date > b.date ? -1 : 1));
+  let lastYear = null;
+
+  for (const frontMatter of archivePosts) {
+    const year = new Date(frontMatter.date).getFullYear();
+
+    if (year !== lastYear) {
+      archiveRows.push({ 'type': 'year', year });
+      lastYear = year;
+    }
+
+    archiveRows.push({ frontMatter, 'type': 'post' });
+  }
 
   return (
     <div>
@@ -73,9 +90,15 @@ export default function ArchiveLayout({ beforeList, description, listTitle, post
               </Typography>
             </li>
           )}
-          {archivePosts.map((frontMatter) => (
-            <PostPreview key={ frontMatter.slug } frontMatter={ frontMatter } titleAs='h3' />
-          ))}
+          {archiveRows.map((row) => (row.type === 'year' ? (
+            <li key={ `year-${row.year}` } role='presentation' className='pb-2 pt-8 first:pt-2'>
+              <span className='block text-3xl font-extrabold leading-none tracking-tighter tabular-nums text-gray-300 dark:text-gray-600'>
+                {row.year}
+              </span>
+            </li>
+          ) : (
+            <PostPreview key={ row.frontMatter.slug } frontMatter={ row.frontMatter } titleAs='h3' />
+          )))}
         </ul>
       </section>
     </div>

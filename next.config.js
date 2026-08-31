@@ -87,6 +87,7 @@ module.exports = () => {
         }
       ];
     },
+
     'images': {
       'dangerouslyAllowSVG': true,
       'formats': [ 'image/webp', 'image/avif' ],
@@ -98,8 +99,26 @@ module.exports = () => {
         }
       ]
     },
+
     'pageExtensions': [ 'ts', 'tsx', 'js', 'jsx', 'md', 'mdx' ],
+
     'reactStrictMode': true,
+
+    // Permanent redirects for slugs that carried typos before being renamed
+    async redirects() {
+      return [
+        {
+          'destination': '/blog/category/engineering/gaudi-bar-widget',
+          'permanent': true,
+          'source': '/blog/category/engineering/guadi-bar-widget'
+        },
+        {
+          'destination': '/blog/category/data/introduction-multi-dimensional-dbs',
+          'permanent': true,
+          'source': '/blog/category/data/introduction-multi-dimenstional-dbs'
+        }
+      ];
+    },
     'transpilePackages': [ '@gaudi/design-system' ],
     'turbopack': {
 

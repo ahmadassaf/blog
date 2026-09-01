@@ -4,7 +4,7 @@
   "repository": "https://github.com/ahmadassaf/blog",
   "private": true,
   "scripts": {
-    "content:checkout": "git submodule update --init --recursive data/blog",
+    "content:checkout": "node ./scripts/checkout-content.mjs",
     "content:update": "git submodule update --remote --recursive data/blog",
     "content": "pnpm content:checkout && NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 contentlayer2 build -c contentlayer.config.js && node ./scripts/build.mjs",
     "start": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 cross-env INIT_CWD=\"$PWD\" contentlayer2 build -c contentlayer.config.js && node ./scripts/build.mjs && cross-env INIT_CWD=\"$PWD\" next dev --turbopack",

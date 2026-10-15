@@ -2,7 +2,6 @@
 
 import { useMemo, useRef, useState } from 'react';
 import { ArticleContentLayout, Icon, PostHeader, TableOfContents, Toggle } from '@gaudi/design-system';
-import { ReadingIndicator } from '@gaudi/design-system/core/ReadingIndicator';
 import { SmoothScroll } from '@gaudi/design-system/core/ScrollArea';
 import Tooltip from '@gaudi/design-system/core/Tooltip';
 import PageChrome from '@gaudi/design-system/layout/PageChrome';
@@ -14,9 +13,8 @@ const hasTableOfContents = (toc) => toc.length > 3;
 
 /**
  * The reading frame for posts and projects, composed from Gaudi's article parts: the post header,
- * a contents rail whose table of contents follows the article, reading progress across the article
- * only, and eased wheel scrolling. A sidebar icon in the header shows and hides the contents; hiding
- * them lets the article take the full width. PageChrome turns off the site's blurred page edge so
+ * a contents rail whose table of contents follows the article, and eased wheel scrolling. A sidebar
+ * icon in the header shows and hides the contents; hiding them lets the article take the full width. PageChrome turns off the site's blurred page edge so
  * articles read sharp to the bottom.
  */
 export default function PostArticleFrame({ children, content, locale, padding, toc }) {
@@ -44,7 +42,6 @@ export default function PostArticleFrame({ children, content, locale, padding, t
   return (
     <div ref={ articleRef }>
       <PageChrome scrollEdges={ false } />
-      <ReadingIndicator contentRef={ articleRef } label='Reading progress' />
       <PostHeader
         frontMatter={ frontMatter }
         siteMetadata={{ locale }}

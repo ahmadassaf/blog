@@ -14,7 +14,7 @@ import CitationTracker from '@gaudi/design-system/mdx/CitationTracker';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { allPosts, allProjects } from 'contentlayer/generated';
-import { Inter } from 'next/font/google';
+import { Plus_Jakarta_Sans as PlusJakartaSans } from 'next/font/google';
 
 import categories from '@/app/content/categories';
 import publications from '@/app/content/publications';
@@ -70,14 +70,12 @@ export function generateViewport() {
   };
 }
 
-/**
- * Inter font configuration for the application
- *
- * @description Configures the Inter font family with multiple weights and Latin subset.
- * The font is set up as a CSS variable for use throughout the application.
+/*
+ * Plus Jakarta Sans for all text, exposed as a variable that app/responsive.css maps onto Gaudi's font
+ * tokens. next/font only accepts unquoted option keys.
  */
-// eslint-disable-next-line quote-props, sort-keys, sort-keys-fix/sort-keys-fix
-const font = Inter({ subsets: [ 'latin' ], weight: [ '400', '500', '600', '700', '800' ], variable: '--font-space-inter' });
+// eslint-disable-next-line quote-props
+const font = PlusJakartaSans({ display: 'swap', subsets: [ 'latin' ], variable: '--font-body' });
 
 const footerProps = {
   'brandDescription': 'Writing about AI, semantic systems, data products, and engineering practice.',
@@ -180,7 +178,7 @@ const preview = {
  */
 export default function RootLayout({ children }) {
   return (
-    <html lang='en' className={ `${font.variable}` } suppressHydrationWarning>
+    <html lang='en' className={ font.variable } suppressHydrationWarning>
       <body>
         <CitationTracker />
         <LayoutContainer

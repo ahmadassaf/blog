@@ -7,6 +7,12 @@
  * behavior and token overrides live here so other consumers remain unchanged.
  */
 
+/* Plus Jakarta Sans throughout: Gaudi's sans token and its Tailwind utility both read --font-space-inter. */
+:root {
+  --font-space-inter: var(--font-body);
+  --ds-font-sans: var(--font-body), system-ui, sans-serif;
+}
+
 /*
  * A softened charcoal canvas keeps dark mode comfortable without losing the
  * depth between the page and the design system's muted surfaces.

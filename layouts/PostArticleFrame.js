@@ -22,11 +22,15 @@ export default function PostArticleFrame({ children, content, locale, padding, t
   const hasToc = hasTableOfContents(toc);
   const [ contentsOpen, setContentsOpen ] = useState(content.tableOfContents === true);
 
-  // The header leaves out the reading time and links the category to its listing.
+  // The header leaves out the reading time and links the category and tags to their listings.
   const frontMatter = useMemo(() => {
     const category = content.category ? { 'href': `/blog/categories/${slugify(content.category)}`, 'label': titleFromSlug(content.category) } : undefined;
 
-    return { ...content, category, 'readingTime': undefined };
+    const tags = content.tags?.map((tag) => {
+      return { 'href': `/blog/tags/${slugify(tag)}`, 'id': tag, 'label': tag };
+    });
+
+    return { ...content, category, 'readingTime': undefined, tags };
   }, [ content ]);
 
   // A sidebar icon in the header opens and closes the contents; Gaudi's Toggle shows it pressed while open.

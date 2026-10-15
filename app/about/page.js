@@ -13,6 +13,7 @@ import { Icon, Typography } from '@gaudi/design-system';
 import Preview from '@gaudi/design-system/mdx/Preview';
 
 import { metadataGenerator } from '@/data/meta/generator/blog';
+import PageBackdrop from '@/layouts/PageBackdrop';
 
 export const metadata = metadataGenerator({ 'path': '/about', 'title': 'About' });
 
@@ -62,16 +63,18 @@ export default function About() {
 
   return (
     <article className='about-grid mx-auto max-w-6xl pb-6'>
-      <header className='pb-14 pt-5 sm:pb-20 sm:pt-8'>
-        <div className='max-w-2xl'>
-          <Typography variant='title-xl' className='text-4xl leading-[1.05] sm:text-5xl md:text-6xl md:leading-[1.02] lg:text-6xl'>
+      <PageBackdrop className='about-backdrop' intensity={ 0.6 }>
+        <header className='pb-24 pt-5 sm:pb-32 sm:pt-8'>
+          <div className='max-w-2xl'>
+            <Typography variant='title-xl' className='text-4xl leading-[1.05] sm:text-5xl md:text-6xl md:leading-[1.02] lg:text-6xl'>
             Artificial Intelligence Leader, Advisor and Mentor
-          </Typography>
-          <Typography variant='paragraph-md' className='mt-5 max-w-[68ch] text-base leading-7 md:text-lg md:leading-8'>
+            </Typography>
+            <Typography variant='paragraph-md' className='mt-5 max-w-[68ch] text-base leading-7 md:text-lg md:leading-8'>
           Ahmad is CTO at Mav9 and a seasoned AI and data leader with more than a decade of experience scaling SaaS and technology businesses across engineering, data, and AI. He has a proven track record in engineering leadership, encompassing engineering operations, innovation strategy, and product development.
-          </Typography>
-        </div>
-      </header>
+            </Typography>
+          </div>
+        </header>
+      </PageBackdrop>
 
       <section className='pt-12 sm:pt-14'>
         <Typography variant='heading-xl' as='h2' className='text-3xl leading-tight sm:text-4xl'>A Brief History</Typography>

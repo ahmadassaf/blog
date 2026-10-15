@@ -130,7 +130,11 @@ const footerProps = {
  * every page otherwise.
  */
 const MENU_FIELDS = [ 'category', 'date', 'slug', 'subtitle', 'summary', 'title', 'type' ];
-const toMenuItems = (docs) => sortPosts(published(docs)).map((doc) => pick(doc, MENU_FIELDS));
+
+// Gaudi links each item to the href the host gives it: posts live at /blog/<slug>, projects at /blog/<externalLink>.
+const toMenuItems = (docs, hrefOf = (doc) => `/blog/${doc.slug}`) => sortPosts(published(docs)).map((doc) => {
+  return { ...pick(doc, MENU_FIELDS), 'href': hrefOf(doc) };
+});
 
 const menuProps = {
 
@@ -139,7 +143,7 @@ const menuProps = {
   categories,
   'logo': <SiteLogo />,
   'posts': toMenuItems(allPosts),
-  'projects': toMenuItems(allProjects),
+  'projects': toMenuItems(allProjects, (project) => `/blog/${project.externalLink}`),
   publications,
   tags
 };

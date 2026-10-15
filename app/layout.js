@@ -24,6 +24,7 @@ import { metadataGenerator } from '@/data/meta/generator/blog';
 import { website } from '@/data/meta/JSON-LD/website';
 import siteMetadata from '@/data/meta/metadata';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
+import SiteBackdrop from '@/layouts/SiteBackdrop';
 import SiteLogo from '@/layouts/SiteLogo';
 import { pick, published, sortPosts } from '@/lib/utils/contentlayer';
 import { titleFromSlug } from '@/lib/utils/slugs.mjs';
@@ -184,6 +185,7 @@ export default function RootLayout({ children }) {
         <CitationTracker />
         <LayoutContainer
           analytics={ <Analytics /> }
+          background={ <SiteBackdrop /> }
           footerProps={ footerProps }
           jsonLd={ website }
           menuProps={ menuProps }

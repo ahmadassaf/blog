@@ -25,8 +25,7 @@ module.exports = {
   'darkMode': 'class',
   'plugins': [
     addVariablesColors,
-    tailwindGrid,
-    require('@tailwindcss/forms')
+    tailwindGrid
   ],
   'presets': [ designSystemPreset ],
 

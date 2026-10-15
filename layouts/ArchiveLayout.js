@@ -9,7 +9,8 @@
  * @version 1.0.0
  */
 
-import { Typography } from '@gaudi/design-system';
+import { EmptyState, Typography } from '@gaudi/design-system';
+import PageHeader from '@gaudi/design-system/layout/PageHeader';
 
 import PostPreview from '@/layouts/PostPreview';
 
@@ -54,45 +55,26 @@ export default function ArchiveLayout({ beforeList, description, listTitle, post
 
   return (
     <div>
-      <header className='pb-4'>
-        <Typography variant='display-lg' as='h1' className='tracking-tight'>
-          {title}
-        </Typography>
-        {description ? (
-          <Typography variant='paragraph-md' className='mt-2 max-w-2xl text-lg leading-8 text-pretty'>
-            {description}
-          </Typography>
-        ) : null}
-      </header>
+      <PageHeader title={ title } titleVariant='display-lg' description={ description } classNames={{ 'description': 'text-lg leading-8' }} />
 
       {beforeList ? <div>{beforeList}</div> : null}
 
       <section aria-labelledby={ listTitleId }>
-        <div className='sticky top-0 z-10 bg-background'>
-          <div className='flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-border-muted pb-4 pt-2 dark:border-border-dark'>
-            <Typography id={ listTitleId } variant='heading-lg' as='h2' className='tracking-tight'>
-              {listTitle}
-            </Typography>
-            <Typography as='span' variant='post-meta' className='shrink-0 font-medium'>
-              {`${posts.length} ${posts.length === 1 ? 'post' : 'posts'}`}
-            </Typography>
-          </div>
-        </div>
+        <PageHeader
+          sticky
+          titleAs='h2'
+          titleVariant='heading-lg'
+          titleId={ listTitleId }
+          title={ listTitle }
+          classNames={{ 'root': 'items-baseline border-border-muted' }}
+          actions={ <Typography as='span' variant='post-meta' className='font-medium'>{`${posts.length} ${posts.length === 1 ? 'post' : 'posts'}`}</Typography> }
+        />
 
+        {!posts.length && <EmptyState title='No posts found' description='There is nothing published here yet. New writing will land soon.' />}
         <ul aria-label={ `${listTitle} archive` } className='pt-2'>
-          {!posts.length && (
-            <li className='py-12 text-center'>
-              <Typography variant='heading-sm' as='p' className='mb-2'>
-                No posts found
-              </Typography>
-              <Typography variant='paragraph-sm'>
-                There is nothing published here yet. New writing will land soon.
-              </Typography>
-            </li>
-          )}
           {archiveRows.map((row) => (row.type === 'year' ? (
             <li key={ `year-${row.year}` } role='presentation' className='pb-2 pt-8 first:pt-2'>
-              <span className='block text-3xl font-extrabold leading-none tracking-tighter tabular-nums text-gray-300 dark:text-gray-600'>
+              <span className='block text-3xl font-extrabold leading-none tracking-tighter tabular-nums text-text-subtle/60'>
                 {row.year}
               </span>
             </li>

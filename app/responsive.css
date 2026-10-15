@@ -13,22 +13,6 @@
   --ds-font-sans: var(--font-body), system-ui, sans-serif;
 }
 
-/*
- * Site background (layouts/SiteBackdrop.js): an aurora band across the top of every page. Its canvas
- * is opaque, so it is faint behind the text column on the left, fades out at the right edge, and fades
- * in at the top and out at the bottom to melt into the page.
- */
-.site-backdrop {
-  background: transparent !important;
-}
-
-.site-backdrop canvas {
-  mask-composite: intersect;
-  mask-image:
-    linear-gradient(to right, rgb(0 0 0 / 18%), rgb(0 0 0 / 28%) 45%, black 75%, black 90%, transparent),
-    linear-gradient(to bottom, transparent, black 14%, black 70%, transparent);
-}
-
 /* The blog's aurora palette: soft blues and indigo in light mode. */
 :root {
   --blog-aurora-1: rgb(191 219 254);
@@ -43,40 +27,15 @@
   --blog-aurora-3: color-mix(in srgb, rgb(30 58 138) 22%, var(--ds-color-surface));
 }
 
-/*
- * About background (layouts/PageBackdrop.js): a full-width PixelBlast layer behind the About header,
- * faint behind the intro on the left and full strength on the right. The page clips the full-width
- * layer so it never adds a horizontal scrollbar.
- */
+/* The About page's full-width PixelBlast layer (layouts/PageBackdrop.js) never adds a horizontal scrollbar. */
 html:has(.page-backdrop-layer) {
   overflow-x: clip;
-}
-
-.page-backdrop {
-  background: transparent !important;
-}
-
-.page-backdrop canvas {
-  mask-composite: intersect;
-  mask-image:
-    linear-gradient(to right, rgb(0 0 0 / 18%), rgb(0 0 0 / 28%) 45%, black 80%),
-    linear-gradient(to bottom, transparent, black 14%, black 70%, transparent);
 }
 
 /* A soft halo in the page colour keeps page titles and the About intro crisp against the backgrounds. */
 #main-content h1,
 .about-backdrop header p {
   text-shadow: 0 0 0.5rem var(--ds-color-surface), 0 0 1.5rem var(--ds-color-surface);
-}
-
-/* The About page has its own PixelBlast header, so the aurora band steps aside there. */
-body:has(.about-backdrop) [data-slot='layout-background'] {
-  display: none;
-}
-
-/* Articles read sharp to the bottom: the site's blurred page edge is for the other pages. */
-body:has([data-article-frame]) [data-slot='scroll-edge'][data-page] {
-  display: none;
 }
 
 /*
@@ -94,9 +53,11 @@ body:has([data-article-frame]) [data-slot='scroll-edge'][data-page] {
 }
 
 .about-grid::before {
+  --about-grid-line: color-mix(in srgb, var(--ds-color-text) 2.5%, transparent);
+
   background-image:
-    linear-gradient(to right, rgb(15 23 42 / 2.5%) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(15 23 42 / 2.5%) 1px, transparent 1px);
+    linear-gradient(to right, var(--about-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--about-grid-line) 1px, transparent 1px);
   background-position: center top;
   background-size: 12rem 12rem;
   content: '';
@@ -111,10 +72,4 @@ body:has([data-article-frame]) [data-slot='scroll-edge'][data-page] {
   transform: translateX(-50%);
   width: 100vw;
   z-index: -1;
-}
-
-.dark .about-grid::before {
-  background-image:
-    linear-gradient(to right, rgb(255 255 255 / 2%) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 2%) 1px, transparent 1px);
 }

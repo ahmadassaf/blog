@@ -12,11 +12,11 @@
 import { Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
 import formatDate from '@/lib/utils/formatDate';
-
-const HOVER_LINK_CLASSES = 'break-words no-underline transition-colors duration-200 hover:text-blue-600 hover:no-underline dark:hover:text-blue-400';
+import { slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 /**
- * Meta row shared by the hero and grid cards: optional leading pill, date, category
+ * Meta row shared by the hero and grid cards: optional leading pill, date, and the category as a
+ * linked pill styled like Gaudi's Post rows
  *
  * @param {Object} props - Component props
  * @param {Object} props.post - Core-content post document
@@ -32,8 +32,8 @@ const PostMetaRow = ({ post, leading }) => (
     {post.category && (
       <>
         <Typography as='span' variant='post-meta'>·</Typography>
-        <Pill tone='blue' variant='subtle' size='sm' className='capitalize'>
-          {post.category}
+        <Pill href={ `/blog/categories/${slugify(post.category)}` } tone='blue' variant='subtle' size='xs' radius='md'>
+          {titleFromSlug(post.category)}
         </Pill>
       </>
     )}
@@ -81,12 +81,7 @@ export default function FeaturedLayout({ posts }) {
           <PostMetaRow post={ featuredPost } leading={ <Pill tone='blue' variant='solid' radius='full' size='sm'>{featuredLabel}</Pill> } />
 
           <Typography variant='index-hero-title' as='h2' className='mb-3 max-w-none tracking-[-0.02em] sm:text-4xl sm:leading-[1.12]'>
-            <Link
-              href={ `/blog/${featuredPost.slug}` }
-              variant='bare'
-              tone='neutral'
-              className={ HOVER_LINK_CLASSES }
-            >
+            <Link href={ `/blog/${featuredPost.slug}` } tone='neutral' className='font-bold'>
               {featuredPost.title}
             </Link>
           </Typography>
@@ -106,13 +101,13 @@ export default function FeaturedLayout({ posts }) {
         </article>
 
         {displayPosts.length > 0 && (
-          <div className='mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 w-full border-t border-border-muted pt-6 dark:border-border-dark'>
+          <div className='mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 w-full border-t border-border-muted pt-6'>
             {displayPosts.map((post) => (
               <article key={ post.slug } className='group'>
                 <PostMetaRow post={ post } />
 
                 <Typography variant='index-feature-title' as='h2' className='mb-2'>
-                  <Link href={ `/blog/${post.slug}` } tone='neutral' variant='bare' className={ HOVER_LINK_CLASSES }>
+                  <Link href={ `/blog/${post.slug}` } tone='neutral' className='font-bold'>
                     {post.title}
                   </Link>
                 </Typography>

@@ -10,7 +10,8 @@
  * @version 1.0.0
  */
 
-import { AccordionGroup, Card, Link, Pill, Typography } from '@gaudi/design-system';
+import { AccordionGroup, Item, ItemContent, ItemDescription, ItemFooter, ItemHeader, ItemTitle, Link, Pill } from '@gaudi/design-system';
+import PageHeader from '@gaudi/design-system/layout/PageHeader';
 
 /**
  * Publications list with year-based grouping and interactive disclosure panels
@@ -38,12 +39,8 @@ export default function PublicationsList({ publications }) {
 
   return (
     <>
-      <div className='mx-auto max-w-6xl divide-y divide-gray-200 dark:divide-gray-700'>
-        <header className='pt-2 pb-6'>
-          <Typography variant='title-md'>
-            Publications
-          </Typography>
-        </header>
+      <div className='mx-auto max-w-6xl'>
+        <PageHeader title='Publications' divider className='pt-2 pb-6' />
         <AccordionGroup
           className='mt-5'
           defaultValue={ years[0] }
@@ -51,11 +48,7 @@ export default function PublicationsList({ publications }) {
             return {
               'content': (
                 <div className='mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 pb-3'>
-                  {publicationsGroups[publicationsGroup].map((publication) => (
-                    <Link href={ publication.href } key={ publication.href } variant='bare' className='block h-full'>
-                      <PublicationCard publication={ publication } />
-                    </Link>
-                  ))}
+                  {publicationsGroups[publicationsGroup].map((publication) => <PublicationCard key={ publication.href } publication={ publication } />)}
                 </div>
               ),
               'title': publicationsGroup,
@@ -71,39 +64,26 @@ export default function PublicationsList({ publications }) {
 }
 
 /**
- * Compact publication card following the established Publications layout
+ * A publication as a linked, outlined Gaudi Item: venue type and award, title, venue and authors
  *
  * @param {Object} props - Component props
  * @param {Object} props.publication - Publication data object
- * @returns {JSX.Element} Compact publication card
+ * @returns {JSX.Element} Linked publication card
  */
 const PublicationCard = ({ publication }) => (
-  <Card interactive className='h-full' padding='sm' variant='outline'>
-    <article className='flex h-full flex-col'>
-      <div className='mb-2 flex flex-wrap items-center gap-2'>
-        {publication.venueType && (
-          <Pill tone='yellow' variant='soft' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>
-            {publication.venueType}
-          </Pill>
-        )}
-        {publication.award && (
-          <Pill tone='green' variant='soft' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>
-            {publication.award}
-          </Pill>
-        )}
-      </div>
-
-      <Typography variant='heading-sm' as='h3' className='mb-1.5 text-sm leading-5 md:text-base md:leading-5'>
-        {publication.title}
-      </Typography>
-
-      <Typography variant='paragraph-sm' className='mb-2 flex-grow text-xs leading-4'>
-        {publication.venue}
-      </Typography>
-
-      <Typography variant='post-meta' className='text-[11px] leading-4 normal-case'>
-        {publication.authors}
-      </Typography>
-    </article>
-  </Card>
+  <Item asChild variant='outline' className='h-full flex-col flex-nowrap items-stretch'>
+    <Link href={ publication.href } variant='bare'>
+      {publication.venueType || publication.award ? (
+        <ItemHeader className='basis-auto justify-start'>
+          {publication.venueType && <Pill tone='yellow' variant='soft' size='xs'>{publication.venueType}</Pill>}
+          {publication.award && <Pill tone='green' variant='soft' size='xs'>{publication.award}</Pill>}
+        </ItemHeader>
+      ) : null}
+      <ItemContent>
+        <ItemTitle>{publication.title}</ItemTitle>
+        <ItemDescription>{publication.venue}</ItemDescription>
+      </ItemContent>
+      <ItemFooter className='mt-auto basis-auto pt-2 text-xs text-text-muted'>{publication.authors}</ItemFooter>
+    </Link>
+  </Item>
 );

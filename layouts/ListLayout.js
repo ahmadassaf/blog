@@ -8,9 +8,10 @@
  * @version 2.0.0
  */
 
-import { PaginationBar,
-  POSTS_PER_PAGE,
-  Typography } from '@gaudi/design-system';
+import { EmptyState,
+  PaginationBar,
+  POSTS_PER_PAGE } from '@gaudi/design-system';
+import PageHeader from '@gaudi/design-system/layout/PageHeader';
 
 import PostPreview from '@/layouts/PostPreview';
 
@@ -19,7 +20,8 @@ import PostPreview from '@/layouts/PostPreview';
  *
  * @description Renders a list of blog posts with pagination controls.
  * When `paginationURL` and `baseURL` are provided, pagination renders real links so every page is
- * crawlable (page 1 resolves to the base URL, subsequent pages to the pagination URL). When
+ * crawlable (page 1 resolves to the base URL, subsequent pages to the pagination URL); they go to
+ * PaginationBar as strings because this server component cannot hand it a function. When
  * `currentPage`/`totalPages` are provided the posts are treated as a pre-sliced page; otherwise the
  * component slices the first page itself.
  *
@@ -51,29 +53,13 @@ export default function ListLayout({ posts, listTitle, baseURL, paginationURL, c
   const pageCount = totalPages ?? Math.ceil(posts.length / POSTS_PER_PAGE);
   const displayPosts = isPreSliced ? posts : posts.slice(0, POSTS_PER_PAGE);
 
-  // Build crawlable pagination hrefs: page 1 maps to the base URL, later pages to the pagination URL
-  const getPageHref = (page) => (page === 1 ? `/${baseURL}` : `/${paginationURL}/${page}`);
-
   return (
     <div>
-      <header className='pb-4'>
-        <Typography id={ listTitleId } variant='title-md' as='h1' className='leading-9 sm:leading-10'>
-          {listTitle}
-        </Typography>
-      </header>
+      <PageHeader titleId={ listTitleId } title={ listTitle } />
 
       <section aria-labelledby={ listTitleId }>
+        {!posts.length && <EmptyState title='No posts found' description='There is nothing published here yet. New writing will land soon.' />}
         <ul className='pt-2'>
-          {!posts.length && (
-            <li className='py-12 text-center'>
-              <Typography variant='heading-sm' as='p' className='mb-2'>
-                No posts found
-              </Typography>
-              <Typography variant='paragraph-sm'>
-                There is nothing published here yet. New writing will land soon.
-              </Typography>
-            </li>
-          )}
           {displayPosts.map((frontMatter) => (
             <PostPreview key={ frontMatter.slug } frontMatter={ frontMatter } titleAs='h2' />
           ))}
@@ -83,7 +69,8 @@ export default function ListLayout({ posts, listTitle, baseURL, paginationURL, c
           <PaginationBar
             currentPage={ currentPage }
             totalPages={ pageCount }
-            getHref={ getPageHref }
+            firstPageHref={ `/${baseURL}` }
+            hrefTemplate={ `/${paginationURL}/{page}` }
           />
         )}
       </section>

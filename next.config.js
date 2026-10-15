@@ -77,7 +77,7 @@ module.exports = () => {
       'dirs': [ 'app', 'layouts', 'lib', 'scripts' ]
     },
     'experimental': {
-      'optimizePackageImports': [ 'framer-motion', '@heroicons/react', 'react-icons' ]
+      'optimizePackageImports': [ 'framer-motion' ]
     },
     async headers() {
       return [

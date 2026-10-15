@@ -1,4 +1,4 @@
-import { remarkCode } from '@gaudi/design-system/mdx/remark';
+import { remarkAlerts, remarkCode } from '@gaudi/design-system/mdx/remark';
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
 import path from 'path';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -6,7 +6,6 @@ import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
 import emoji from 'remark-emoji';
 import remarkGfm from 'remark-gfm';
-import { remarkAlert } from 'remark-github-blockquote-alert';
 import remarkMath from 'remark-math';
 
 import computedFields  from './lib/contentLayer/computedFields';
@@ -80,7 +79,7 @@ export default makeSource({
       remarkMath,
       remarkImgToJsx,
       remarkLinks,
-      remarkAlert
+      remarkAlerts
     ]
   }
 });

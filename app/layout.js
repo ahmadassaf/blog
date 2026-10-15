@@ -30,7 +30,6 @@ import { pick, published, sortPosts } from '@/lib/utils/contentlayer';
 import { titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 import '@gaudi/design-system/global.css';
-import 'remark-github-blockquote-alert/alert.css';
 import './responsive.css';
 
 /**

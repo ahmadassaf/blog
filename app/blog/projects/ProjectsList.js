@@ -9,7 +9,8 @@
  * @version 1.0.0
  */
 
-import { Card, Icon, Link, Pill, Typography } from '@gaudi/design-system';
+import { Icon, Item, ItemContent, ItemDescription, ItemFooter, ItemTitle, Link, Pill } from '@gaudi/design-system';
+import PageHeader from '@gaudi/design-system/layout/PageHeader';
 
 /**
  * Projects list displaying GitHub projects in an interactive grid
@@ -25,23 +26,10 @@ export default function ProjectsList({ projects }) {
 
   return (
     <>
-      <div className='mx-auto max-w-6xl divide-y divide-gray-200 dark:divide-gray-700'>
-        <header className='space-y-2 pt-2 pb-6'>
-          <Typography variant='title-md'>
-            Projects
-          </Typography>
-        </header>
+      <div className='mx-auto max-w-6xl'>
+        <PageHeader title='Projects' divider className='pt-2 pb-6' />
         <div className='mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 py-5'>
-          {projects.map((project) => (
-            <Link
-              href={ `/blog/${project.externalLink}` }
-              key={ project?.externalLink }
-              variant='bare'
-              className='block h-full'
-            >
-              <ProjectCard project={ project } />
-            </Link>
-          ))}
+          {projects.map((project) => <ProjectCard key={ project.externalLink } project={ project } />)}
         </div>
       </div>
     </>
@@ -49,11 +37,11 @@ export default function ProjectsList({ projects }) {
 }
 
 /**
- * Clean project card component following blog design patterns
+ * A project as a linked, outlined Gaudi Item: title, summary, and GitHub stars, forks and language
  *
  * @param {Object} props - Component props
  * @param {Object} props.project - Project data object
- * @returns {JSX.Element} Clean project card with typography-focused design
+ * @returns {JSX.Element} Linked project card
  */
 const ProjectCard = ({ project }) => {
   const hasStars = Number.isFinite(project.meta.stargazers_count);
@@ -61,38 +49,30 @@ const ProjectCard = ({ project }) => {
   const hasMetadata = hasStars || hasForks || project.meta.language;
 
   return (
-    <Card interactive className='h-full' padding='sm' variant='outline'>
-      <article className='flex h-full flex-col'>
-        <Typography variant='heading-sm' as='h3' className='mb-1.5 text-sm leading-5 md:text-base md:leading-5'>
-          {project.title}
-        </Typography>
-
-        <Typography variant='paragraph-sm' className='mb-2 flex-grow text-xs leading-4'>
-          {project.subtitle}
-        </Typography>
-
+    <Item asChild variant='outline' className='h-full flex-col flex-nowrap items-stretch'>
+      <Link href={ `/blog/${project.externalLink}` } variant='bare'>
+        <ItemContent>
+          <ItemTitle>{project.title}</ItemTitle>
+          <ItemDescription>{project.subtitle}</ItemDescription>
+        </ItemContent>
         {hasMetadata && (
-          <Typography as='div' variant='metadata' className='flex flex-wrap items-center gap-2 text-[11px] leading-4 normal-case'>
+          <ItemFooter className='mt-auto basis-auto justify-start pt-2 text-xs text-text-muted tabular-nums'>
             {hasStars && (
-              <div className='flex items-center gap-1'>
+              <span className='inline-flex items-center gap-1'>
                 <Icon name='Star' size='xs' decorative />
-                <span>{project.meta.stargazers_count}</span>
-              </div>
+                {project.meta.stargazers_count}
+              </span>
             )}
             {hasForks && (
-              <div className='flex items-center gap-1'>
+              <span className='inline-flex items-center gap-1'>
                 <Icon name='Fork' size='xs' decorative />
-                <span>{project.meta.forks_count}</span>
-              </div>
+                {project.meta.forks_count}
+              </span>
             )}
-            {project.meta.language && (
-              <Pill tone='gray' variant='soft' size='xs' className='my-0 px-1.5 py-0 text-[10px] leading-4'>
-                {project.meta.language}
-              </Pill>
-            )}
-          </Typography>
+            {project.meta.language && <Pill tone='gray' variant='soft' size='xs'>{project.meta.language}</Pill>}
+          </ItemFooter>
         )}
-      </article>
-    </Card>
+      </Link>
+    </Item>
   );
 };

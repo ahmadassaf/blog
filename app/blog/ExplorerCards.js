@@ -2,14 +2,14 @@
  * Explorer Card Components
  *
  * @description Presentational pieces shared by the categories and tags
- * explorers: the stat tile, the post summary row, and the short date
- * formatter they both render.
+ * explorers: the linked post summary (Gaudi's Item) and the short date
+ * formatter it renders.
  *
  * @author Ahmad Assaf
- * @version 1.0.0
+ * @version 2.0.0
  */
 
-import { Card, Icon, Typography } from '@gaudi/design-system';
+import { Icon, Item, ItemContent, ItemDescription, ItemFooter, ItemTitle, Link } from '@gaudi/design-system';
 
 const SHORT_DATE_FORMAT = new Intl.DateTimeFormat('en-US', {
   'day': 'numeric',
@@ -26,50 +26,29 @@ const SHORT_DATE_FORMAT = new Intl.DateTimeFormat('en-US', {
 export const formatShortDate = (date) => SHORT_DATE_FORMAT.format(new Date(date));
 
 /**
- * Stat tile showing an icon, a value, and a label
+ * A post as a linked Gaudi Item: title, clamped excerpt, date and a "Read" affordance
  *
  * @param {Object} props - Component props
- * @param {string} props.icon - Icon name from the design-system registry
- * @param {string} props.label - Stat label
- * @param {number} props.value - Stat value
- * @returns {JSX.Element} Outlined stat card
+ * @param {Object} props.post - Stripped post object with slug, title, summary/description and date
+ * @param {'default'|'outline'} [props.variant='default'] - Item variant; outline for card grids
+ * @param {Function} [props.onClick] - Called when the link is followed, such as closing a drawer
+ * @returns {JSX.Element} Linked post summary
  */
-export const StatCard = ({ icon, label, value }) => (
-  <Card variant='outline' padding='sm'>
-    <div className='flex items-center gap-2.5'>
-      <Icon name={ icon } size='sm' decorative color='primary' />
-      <div>
-        <Typography variant='heading-sm' className='text-base leading-5'>{value}</Typography>
-        <Typography variant='metadata' className='text-[10px] leading-4'>{label}</Typography>
-      </div>
-    </div>
-  </Card>
-);
-
-/**
- * Post summary row with title, excerpt, date, and a "Read" affordance
- *
- * @param {Object} props - Component props
- * @param {Object} props.post - Stripped post object with title, summary/description, and date
- * @param {string} [props.summaryClamp='line-clamp-2'] - Line-clamp class for the excerpt
- * @returns {JSX.Element} Post summary article
- */
-export const PostSummary = ({ post, summaryClamp = 'line-clamp-2' }) => (
-  <article>
-    <Typography variant='heading-sm' as='h3' className='mb-1.5 line-clamp-2 text-sm leading-5 md:text-base md:leading-5'>
-      {post.title}
-    </Typography>
-    <Typography variant='paragraph-sm' className={ `mb-2 text-xs leading-4 ${summaryClamp}` }>
-      {post.summary || post.description}
-    </Typography>
-    <div className='flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between'>
-      <Typography as='time' variant='metadata' className='text-[11px] leading-4 normal-case'>
-        {formatShortDate(post.date)}
-      </Typography>
-      <Typography as='span' variant='metadata' className='inline-flex items-center gap-1 text-[11px] leading-4 normal-case'>
-        Read
-        <Icon name='ChevronRight' size='xs' decorative />
-      </Typography>
-    </div>
-  </article>
+export const PostSummary = ({ onClick, post, variant = 'default' }) => (
+  <Item asChild variant={ variant } className={ variant === 'outline' ? 'h-full flex-col flex-nowrap items-stretch' : 'items-start' }>
+    <Link href={ `/blog/${post.slug}` } variant='bare' onClick={ onClick }>
+      <ItemContent>
+        <ItemTitle className='line-clamp-2'>{post.title}</ItemTitle>
+        {post.summary || post.description || post.subtitle ? <ItemDescription>{post.summary || post.description || post.subtitle}</ItemDescription> : null}
+      </ItemContent>
+      {/* In a stacked card the footer's full-width basis would be a height, so it sizes to content there */}
+      <ItemFooter className={ variant === 'outline' ? 'mt-auto basis-auto pt-2 text-xs text-text-muted' : 'text-xs text-text-muted' }>
+        <time dateTime={ post.date }>{formatShortDate(post.date)}</time>
+        <span className='inline-flex items-center gap-1'>
+          Read
+          <Icon name='ChevronRight' size='xs' decorative />
+        </span>
+      </ItemFooter>
+    </Link>
+  </Item>
 );

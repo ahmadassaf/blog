@@ -23,7 +23,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@gaudi/design-system": "github:g-udi/design-system#f6d29baefe4cb7dde9e054fa72d49671a22d2f59",
+    "@gaudi/design-system": "github:g-udi/design-system#465dd7a94a3d459e83092a1add7173547bf4ec58",
     "@giscus/react": "^3.1.0",
     "@tailwindcss/postcss": "^4.1.4",
     "@vercel/analytics": "^1.5.0",

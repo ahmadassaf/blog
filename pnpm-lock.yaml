@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@gaudi/design-system':
-        specifier: github:g-udi/design-system#f6d29baefe4cb7dde9e054fa72d49671a22d2f59
-        version: github.com/g-udi/design-system/f6d29baefe4cb7dde9e054fa72d49671a22d2f59(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3)
+        specifier: github:g-udi/design-system#465dd7a94a3d459e83092a1add7173547bf4ec58
+        version: github.com/g-udi/design-system/465dd7a94a3d459e83092a1add7173547bf4ec58(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3)
       '@giscus/react':
         specifier: ^3.1.0
         version: 3.1.0(react-dom@19.2.8)(react@19.2.8)
@@ -12241,9 +12241,9 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  github.com/g-udi/design-system/f6d29baefe4cb7dde9e054fa72d49671a22d2f59(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3):
-    resolution: {tarball: https://codeload.github.com/g-udi/design-system/tar.gz/f6d29baefe4cb7dde9e054fa72d49671a22d2f59}
-    id: github.com/g-udi/design-system/f6d29baefe4cb7dde9e054fa72d49671a22d2f59
+  github.com/g-udi/design-system/465dd7a94a3d459e83092a1add7173547bf4ec58(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3):
+    resolution: {tarball: https://codeload.github.com/g-udi/design-system/tar.gz/465dd7a94a3d459e83092a1add7173547bf4ec58}
+    id: github.com/g-udi/design-system/465dd7a94a3d459e83092a1add7173547bf4ec58
     name: '@gaudi/design-system'
     version: 0.1.7
     hasBin: true

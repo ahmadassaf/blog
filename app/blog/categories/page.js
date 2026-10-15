@@ -41,7 +41,11 @@ export default function Categories() {
 
   // Get sample posts for each category, stripped to the fields the client needs
   const categoriesWithPosts = sortedCategories.map((category) => {
-    const categoryPosts = posts.filter((post) => post.category && slugify(post.category) === category.slug);
+
+    // The cards show publication dates, so the latest posts are the newest by `date`, not `updated`
+    const categoryPosts = posts
+      .filter((post) => post.category && slugify(post.category) === category.slug)
+      .sort((a, b) => (a.date > b.date ? -1 : 1));
 
     return {
       ...category,

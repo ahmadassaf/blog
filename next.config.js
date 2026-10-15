@@ -119,7 +119,9 @@ module.exports = () => {
         }
       ];
     },
-    'transpilePackages': [ '@gaudi/design-system' ],
+
+    // Shiki is Gaudi's dependency, not this app's, so it is bundled rather than loaded as an external.
+    'transpilePackages': [ '@gaudi/design-system', 'shiki' ],
     'turbopack': {
 
       /*

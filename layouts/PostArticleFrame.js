@@ -1,59 +1,36 @@
 'use client';
 
-import { useState } from 'react';
-import { ArticleContentLayout,
-  Button,
-  Icon,
-  PostHeader,
-  TableOfContents } from '@gaudi/design-system';
+import { useRef } from 'react';
+import { ArticleContentLayout, PostHeader, TableOfContents } from '@gaudi/design-system';
+import { ReadingIndicator } from '@gaudi/design-system/core/ReadingIndicator';
+import { ScrollEdges } from '@gaudi/design-system/core/ScrollArea';
 
-const shouldShowTableOfContents = (content) => content.tableOfContents === true;
+// Short posts read fine without a contents rail.
 const hasTableOfContents = (toc) => toc.length > 3;
 
-const ContentsToggle = ({ isOpen, onToggle }) => (
-  <span className='hidden items-center gap-3 lg:inline-flex'>
-    <Button
-      variant='subtle'
-      tone='gray'
-      size='xs'
-      aria-expanded={ isOpen }
-      aria-label={ `${isOpen ? 'Hide' : 'Show'} table of contents` }
-      aria-pressed={ isOpen }
-      className='ds-control-hit-target relative min-h-8 gap-2 p-0 text-xs font-normal'
-      onClick={ onToggle }
-    >
-      <Icon name='List' size='sm' decorative className='text-gray-400' />
-      <span>{isOpen ? 'Hide contents' : 'Show contents'}</span>
-    </Button>
-    <span aria-hidden='true' className='text-gray-300 dark:text-gray-600'>·</span>
-  </span>
-);
-
-export default function PostArticleFrame({
-  children,
-  content,
-  locale,
-  padding,
-  toc
-}) {
+/**
+ * The reading frame for posts and projects, composed from Gaudi's article parts: the post header,
+ * a collapsible contents rail whose table of contents follows the article, reading progress across
+ * the article only, and soft edges where the page continues. The page scrolls natively.
+ */
+export default function PostArticleFrame({ children, content, locale, padding, toc }) {
+  const articleRef = useRef(null);
   const hasToc = hasTableOfContents(toc);
-  const [ isTocOpen, setIsTocOpen ] = useState(shouldShowTableOfContents(content));
 
   return (
-    <>
-      <PostHeader
-        frontMatter={ content }
-        siteMetadata={{ locale }}
-        tocControl={ hasToc ? <ContentsToggle isOpen={ isTocOpen } onToggle={ () => setIsTocOpen((current) => !current) } /> : null }
-      />
-
+    <div ref={ articleRef }>
+      <ReadingIndicator contentRef={ articleRef } label='Reading progress' />
+      <PostHeader frontMatter={ content } siteMetadata={{ locale }} />
       <ArticleContentLayout
-        aside={ isTocOpen ? <TableOfContents toc={ toc } /> : null }
-        hasAside={ hasToc && isTocOpen }
+        collapsibleAside
+        defaultAsideOpen={ content.tableOfContents === true }
+        hasAside={ hasToc }
+        aside={ hasToc ? <TableOfContents toc={ toc } contentRef={ articleRef } aria-label='Post contents' /> : null }
         padding={ padding }
       >
         {children}
       </ArticleContentLayout>
-    </>
+      <ScrollEdges />
+    </div>
   );
 }

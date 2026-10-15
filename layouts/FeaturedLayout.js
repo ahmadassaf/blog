@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import { Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
+import { Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
 import formatDate from '@/lib/utils/formatDate';
 
@@ -106,7 +106,7 @@ export default function FeaturedLayout({ posts }) {
         </article>
 
         {displayPosts.length > 0 && (
-          <Grid columns='2' gap='md' className='mt-6 w-full border-t border-border-muted pt-6 dark:border-border-dark'>
+          <div className='mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 w-full border-t border-border-muted pt-6 dark:border-border-dark'>
             {displayPosts.map((post) => (
               <article key={ post.slug } className='group'>
                 <PostMetaRow post={ post } />
@@ -122,7 +122,7 @@ export default function FeaturedLayout({ posts }) {
                 </Typography>
               </article>
             ))}
-          </Grid>
+          </div>
         )}
       </section>
     </div>

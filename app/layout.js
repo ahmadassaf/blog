@@ -11,7 +11,7 @@
 
 import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';
 import CitationTracker from '@gaudi/design-system/mdx/CitationTracker';
-import CodeGroupTabs from '@gaudi/design-system/mdx/CodeGroupTabs';
+import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { allPosts, allProjects } from 'contentlayer/generated';
 import { Inter } from 'next/font/google';
@@ -23,6 +23,7 @@ import { metadataGenerator } from '@/data/meta/generator/blog';
 import { website } from '@/data/meta/JSON-LD/website';
 import siteMetadata from '@/data/meta/metadata';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
+import SiteLogo from '@/layouts/SiteLogo';
 import { pick, published, sortPosts } from '@/lib/utils/contentlayer';
 import { titleFromSlug } from '@/lib/utils/slugs.mjs';
 
@@ -133,11 +134,30 @@ const MENU_FIELDS = [ 'category', 'date', 'slug', 'subtitle', 'summary', 'title'
 const toMenuItems = (docs) => sortPosts(published(docs)).map((doc) => pick(doc, MENU_FIELDS));
 
 const menuProps = {
+
+  // Gaudi's Blog panel: categories and recent posts, or a Categories menu on blog routes.
+  'blogLink': { 'href': '/blog', 'title': 'Blog' },
   categories,
+  'logo': <SiteLogo />,
   'posts': toMenuItems(allPosts),
   'projects': toMenuItems(allProjects),
   publications,
   tags
+};
+
+/*
+ * Link previews come from this app's /api/preview route. Gaudi derives no images, so the blog maps
+ * link kinds to its own image sources: YouTube thumbnails, GitHub cards, Wikipedia's excerpt instead
+ * of an image, and a page screenshot otherwise. Plain data, so the server layout can pass it.
+ */
+const preview = {
+  'endpoint': '/api/preview',
+  'resolveImage': {
+    'default': 'https://api.microlink.io/?url={url}&screenshot=true&meta=false&embed=screenshot.url',
+    'repository': 'https://opengraph.githubassets.com/1/{owner}/{repo}',
+    'video': 'https://img.youtube.com/vi/{videoId}/maxresdefault.jpg',
+    'wikipedia': null
+  }
 };
 
 /**
@@ -162,14 +182,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en' className={ `${font.variable}` } suppressHydrationWarning>
       <body>
-        <CodeGroupTabs />
         <CitationTracker />
         <LayoutContainer
+          analytics={ <Analytics /> }
           footerProps={ footerProps }
           jsonLd={ website }
           menuProps={ menuProps }
           metadata={ siteMetadata }
           navigation={ NavigationMetadata }
+          preview={ preview }
         >
           {children}
         </LayoutContainer>

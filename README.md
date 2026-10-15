@@ -25,7 +25,7 @@ The site is built with Next.js, React, Tailwind CSS, Contentlayer, and MDX. Its 
 | --- | --- | --- |
 | Blog engine | Routes, layouts, content compilation, metadata, feeds, and deployment | This repository |
 | Content bundle | Articles, projects, and article-specific visualisations | [`ahmadassaf/blog-posts`](https://github.com/ahmadassaf/blog-posts), mounted at `data/blog` |
-| Design system | Tokens, components, layouts, and reusable MDX primitives | [`@gaudi/design-system`](https://github.com/ahmadassaf/design-system) |
+| Design system | Tokens, components, layouts, and reusable MDX primitives | [`@gaudi/design-system`](https://github.com/g-udi/design-system) |
 
 The separation is deliberate:
 
@@ -89,7 +89,7 @@ The Storybook commands expect the design-system repository to be checked out bes
 
 ## Gaudi design system
 
-[Gaudi](https://github.com/ahmadassaf/design-system) is the editorial React design system behind the site. It is installed from GitHub as `@gaudi/design-system` and pinned to an exact revision in `package.json`, so application builds do not silently change when the design-system repository advances.
+[Gaudi](https://github.com/g-udi/design-system) is the editorial React design system behind the site. It is installed from GitHub as `@gaudi/design-system` and pinned to an exact revision in `package.json`, so application builds do not silently change when the design-system repository advances.
 
 Gaudi's creative direction is **“The Editorial Instrument”**: a restrained system for reading, navigating, and composing technical writing. It favors clear hierarchy, compact controls, neutral surfaces, visible focus, and rare blue accents reserved for action, selection, links, and wayfinding. Borders provide most structural separation; shadows are reserved for surfaces that genuinely float. Dark mode is composed as its own reading environment rather than produced by mechanically inverting the light theme.
 
@@ -117,12 +117,10 @@ The root layout imports Gaudi's global stylesheet and uses its server-aware `Lay
 ```jsx
 import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';
 import CitationTracker from '@gaudi/design-system/mdx/CitationTracker';
-import CodeGroupTabs from '@gaudi/design-system/mdx/CodeGroupTabs';
 
 import '@gaudi/design-system/global.css';
 
 <>
-  <CodeGroupTabs />
   <CitationTracker />
   <LayoutContainer
     metadata={siteMetadata}
@@ -145,6 +143,7 @@ The content-owned renderer then combines Gaudi's authoring primitives with artic
 
 import Callout from '@gaudi/design-system/mdx/Callout';
 import Chart from '@gaudi/design-system/mdx/Chart';
+import { CodeFence, CodeGroup } from '@gaudi/design-system/mdx/Code';
 import { MDXLayoutRenderer } from '@gaudi/design-system/mdx/runtime';
 
 import { VisualisationComponents } from './index';
@@ -152,6 +151,8 @@ import { VisualisationComponents } from './index';
 const components = {
   Callout,
   Chart,
+  CodeGroup,
+  pre: CodeFence,
   ...VisualisationComponents
 };
 
@@ -168,12 +169,13 @@ Gaudi separates its entrypoints to keep server, client, and heavyweight article 
 
 | Import | Purpose |
 | --- | --- |
-| `@gaudi/design-system` | Convenience barrel for foundations, core UI, navigation, post components, blocks, tokens, and lightweight utilities |
+| `@gaudi/design-system` | Convenience barrel for foundations, core UI, post components, blocks, tokens, and lightweight utilities |
 | `@gaudi/design-system/core/*` | Leaf imports for individual core primitives such as `Button`, `Card`, `Icon`, and `Link` |
-| `@gaudi/design-system/layout/*` | Application layout, footer, search, newsletter, and article-layout components |
+| `@gaudi/design-system/layout/*` | Application layout, footer, newsletter, and article-layout components |
 | `@gaudi/design-system/layout/LayoutContainer` | Server-aware application shell; kept out of shared barrels because it uses Next.js server APIs |
-| `@gaudi/design-system/navigation/*` | Desktop, mobile, floating, logo, blog, and search navigation pieces |
-| `@gaudi/design-system/post/*` | Article header, navigation, sharing, series, disclaimer, and table-of-contents components |
+| `@gaudi/design-system/blocks/Navigation` | The site header (`Menu`) and its search entry (`MenuSearch`) |
+| `@gaudi/design-system/core/ScrollArea` | Scroll areas and `ScrollEdges`, the soft blurred edges where a page continues |
+| `@gaudi/design-system/post/*` | Article header, previous/next navigation, series, and table-of-contents components |
 | `@gaudi/design-system/mdx/*` | Leaf imports for rich MDX primitives without pulling in the full catalogue |
 | `@gaudi/design-system/mdx` | Complete MDX catalogue when the entire component map is intentionally required |
 | `@gaudi/design-system/mdx/runtime` | `MDXLayoutRenderer` and `useMDXComponent` for compiled MDX |
@@ -248,21 +250,14 @@ Many primitives expose compound parts and reusable variants—for example the br
 | `LayoutWrapper` | Shared centered page frame and width behavior |
 | `ArticleContentLayout` | Editorial reading column and article-side layout |
 | `Footer` | Configurable editorial footer with navigation and social groups |
-| `Aurora` | Token-driven atmospheric background treatment used without replacing content hierarchy |
-| `Search` | Search and discovery surface |
-| `NewsletterForm` / `BlogNewsletterForm` | Reusable newsletter signup layouts for application and article contexts |
+| `NewsletterForm` | Reusable newsletter signup layout |
 
 #### Navigation
 
 | Component | Role |
 | --- | --- |
-| `Menu` | Composed responsive navigation system |
-| `MenuMain` | Primary desktop navigation |
-| `MenuBlog` | Content-aware blog navigation |
-| `MenuMobile` | Mobile overlay navigation with focus handling |
+| `Menu` | The responsive site header: primary links, the Blog panel (categories and recent posts; a Categories menu on blog routes), search, theme switch, and a phone sheet with focus handling. The blog passes its own mark as `logo` (`layouts/SiteLogo.js`) and `blogLink` through `LayoutContainer` `menuProps` |
 | `MenuSearch` | Search and command-launch entrypoint |
-| `MenuLogo` | Brand and home navigation |
-| `DropDown` | Compact navigation disclosure |
 | `FloatingMenu` | Floating navigation treatment for contextual movement |
 
 #### Article and post chrome
@@ -270,19 +265,19 @@ Many primitives expose compound parts and reusable variants—for example the br
 | Component | Role |
 | --- | --- |
 | `Post` | Reusable article-preview presentation |
-| `PostHeader` | Title, subtitle, publication metadata, tags, and project context |
-| `Breadcrumbs` | Category and article hierarchy |
+| `PostHeader` | Title, subtitle, publication metadata, reading time, tags, and series context |
 | `TableOfContents` | Heading hierarchy, active-section tracking, and a generated “Diagrams & tables” index |
 | `PostSeriesBox` | Ordered series context and movement between installments |
 | `PostNavigation` | Previous and next content navigation |
-| `PostSharing` | Consistent social-sharing actions |
-| `Disclaimer` | Standard article disclaimer treatment |
+| `ReadingIndicator` | Reading progress across the article only |
+
+`layouts/PostArticleFrame.js` composes these into the post page: the header, `ArticleContentLayout` with its built-in Show/Hide contents rail (sticky beside the prose on wide screens, above it on phones), a `TableOfContents` that follows the article, a `ReadingIndicator` scoped to the article, and page-level `ScrollEdges`. The page itself scrolls natively.
 
 The table of contents does more than list headings: it discovers captioned figures and tables inside the article, assigns stable fragments when needed, and tracks the currently active visual as the reader moves through the page.
 
 #### Blocks and utilities
 
-Gaudi currently includes the composed `ThoughtsSection` editorial block, the `Typography` foundation with reusable variants, a registry-backed `Icon` API, site configuration context, date and content helpers, class-name composition, and a small variants utility. These are shared implementation tools, not places to put route-specific application state.
+Gaudi also supplies the `Typography` foundation with reusable variants, a registry-backed `Icon` API, site configuration context, date and content helpers, class-name composition, and a small variants utility. These are shared implementation tools, not places to put route-specific application state.
 
 ### Accessibility and quality
 
@@ -433,7 +428,7 @@ The blog deliberately exposes a focused subset of Gaudi's MDX catalogue. These n
 | `Tooltip` | Optional inline definitions or context | Mouse, focus, and click interaction with Escape dismissal |
 | `a` | Ordinary links emitted by MDX | Uses Gaudi's link semantics and internal/external behavior |
 
-Citation and code-group infrastructure is mounted outside the article body. `CitationTracker` and `CodeGroupTabs` are global singletons in the root layout; `CitationPopover` and `Footnote` are mounted beside each rendered article. Authors therefore use citation, footnote, and code-group syntax without embedding those runtime components manually.
+`CitationTracker` is mounted in the root layout; `CitationPopover` and `Footnote` are mounted beside each rendered article. Code fences and `::: code-group` directives are prepared by Gaudi’s `remarkCode` plugin and rendered through the content renderer’s `pre: CodeFence` and `CodeGroup` mappings. Titles, highlighting, tabs and copy controls all use Core CodeBlock. The local `remarkCodeTitles` plugin only normalizes legacy `js:filename.js` metadata before `remarkCode`; it produces no presentation markup.
 
 ##### Callouts, asides, highlights, and tooltips
 
@@ -522,7 +517,7 @@ For multiple series, provide stable data keys and reader-facing labels:
 ]} />
 
 <Preview
-  url='https://github.com/ahmadassaf/design-system'
+  url='https://github.com/g-udi/design-system'
   title='Gaudi design system'
 />
 ```
@@ -542,7 +537,7 @@ Gaudi contains additional rich components that are available to other consumers 
 | `Video` | Thumbnail-driven video dialog with keyboard control, focus management, YouTube URL normalization, and selectable entrance motion |
 | `BlogNewsletterForm` | Article-context newsletter signup |
 | `ImageModal` | Full-screen image inspection used internally by `Image` |
-| `CitationPopover`, `CitationTracker`, `Footnote`, `CodeGroupTabs` | Runtime enhancement for generated citation, footnote, and grouped-code markup |
+| `CitationPopover`, `CitationTracker`, `Footnote` | Runtime enhancement for generated citation and footnote markup |
 
 To make another Gaudi component authorable, import it in `data/blog/visualisations/MDXLayoutRenderer.js` and add it to `BlogMDXComponents`. Keep the map intentionally small: adding a component makes its runtime part of the article boundary, and heavyweight dependencies should remain leaf-imported or dynamically loaded.
 

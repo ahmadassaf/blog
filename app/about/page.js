@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import { Grid, Icon, Typography } from '@gaudi/design-system';
+import { Icon, Typography } from '@gaudi/design-system';
 import Preview from '@gaudi/design-system/mdx/Preview';
 
 import { metadataGenerator } from '@/data/meta/generator/blog';
@@ -121,7 +121,7 @@ export default function About() {
           </Typography>
         </div>
 
-        <Grid columns='3' gap='lg' className='mt-10'>
+        <div className='mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mt-10'>
           {values.map((value) => (
             <section key={ value.name }>
               <div className='mb-3 text-gray-700 dark:text-gray-300'>
@@ -137,7 +137,7 @@ export default function About() {
               </Typography>
             </section>
           ))}
-        </Grid>
+        </div>
       </section>
     </article>
   );

@@ -10,7 +10,7 @@
  * @version 1.0.0
  */
 
-import { AccordionGroup, Card, Grid, Link, Pill, Typography } from '@gaudi/design-system';
+import { AccordionGroup, Card, Link, Pill, Typography } from '@gaudi/design-system';
 
 /**
  * Publications list with year-based grouping and interactive disclosure panels
@@ -50,13 +50,13 @@ export default function PublicationsList({ publications }) {
           items={ years.map((publicationsGroup) => {
             return {
               'content': (
-                <Grid columns='3' gap='sm' className='pb-3'>
+                <div className='mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 pb-3'>
                   {publicationsGroups[publicationsGroup].map((publication) => (
                     <Link href={ publication.href } key={ publication.href } variant='bare' className='block h-full'>
                       <PublicationCard publication={ publication } />
                     </Link>
                   ))}
-                </Grid>
+                </div>
               ),
               'title': publicationsGroup,
               'value': publicationsGroup

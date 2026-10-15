@@ -12,7 +12,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Button, Card, FieldInput, Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
+import { Button, Card, FieldInput, Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
 import { PostSummary, StatCard } from '@/app/blog/ExplorerCards';
 
@@ -126,11 +126,11 @@ export default function TagsExplorer({ posts, tags }) {
         </header>
 
         <div className='pt-5'>
-          <Grid columns='3' gap='sm' className='mb-5'>
+          <div className='mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 mb-5'>
             <StatCard icon='FolderOpen' value={ tags.length } label='Tags' />
             <StatCard icon='FileText' value={ totalArticles } label='Articles' />
             <StatCard icon='Flame' value={ mostPopularTag?.count || 0 } label='Most popular' />
-          </Grid>
+          </div>
 
           <div className='relative mb-6 w-full'>
             <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400'>

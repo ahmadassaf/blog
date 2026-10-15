@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import { Card, Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
+import { Card, Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
 /**
  * Projects list displaying GitHub projects in an interactive grid
@@ -31,7 +31,7 @@ export default function ProjectsList({ projects }) {
             Projects
           </Typography>
         </header>
-        <Grid columns='3' gap='sm' className='py-5'>
+        <div className='mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 py-5'>
           {projects.map((project) => (
             <Link
               href={ `/blog/${project.externalLink}` }
@@ -42,7 +42,7 @@ export default function ProjectsList({ projects }) {
               <ProjectCard project={ project } />
             </Link>
           ))}
-        </Grid>
+        </div>
       </div>
     </>
   );

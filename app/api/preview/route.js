@@ -249,7 +249,63 @@ async function readHtmlHeadWithCap(response) {
 /**
  * Extract metadata from HTML document
  */
-function extractMetadata(doc, url, status) {
+// Resolves a possibly relative or protocol-relative URL against the page that answered.
+function absoluteUrl(value, baseUrl) {
+  if (!value) return null;
+  try {
+    return new URL(value, baseUrl).href;
+  } catch {
+    return null;
+  }
+}
+
+/*
+ * A declared image can move, redirect to an HTML page, or forbid embedding on other sites; browsers
+ * block all of these. Keep it only when it answers with an image that other sites may show, at the
+ * address it finally answers from.
+ */
+async function verifiedImage(src) {
+  if (!src) return null;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+  try {
+    const response = await safeFetch(src, controller.signal, { 'maxRedirects': MAX_REDIRECTS });
+    const type = (response.headers.get('content-type') || '').toLowerCase();
+    const policy = (response.headers.get('cross-origin-resource-policy') || '').toLowerCase();
+
+    if (response.body) await response.body.cancel();
+
+    return response.ok && type.startsWith('image/') && policy !== 'same-origin' && policy !== 'same-site' ? response.url : null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+/*
+ * Favicons are served through this site's image optimizer, so readers' browsers load them from this
+ * origin: no cross-origin blocking and no third-party request. One the optimizer cannot fetch is
+ * dropped, and Gaudi shows the link-type icon instead.
+ */
+async function proxiedFavicon(src, origin) {
+  if (!src) return null;
+  const proxied = `/_next/image?url=${encodeURIComponent(src)}&w=32&q=75`;
+
+  try {
+    const response = await fetch(new URL(proxied, origin), { 'signal': globalThis.AbortSignal.timeout(8000) });
+    const type = (response.headers.get('content-type') || '').toLowerCase();
+
+    if (response.body) await response.body.cancel();
+
+    return response.ok && type.startsWith('image/') ? proxied : null;
+  } catch {
+    return null;
+  }
+}
+
+function extractMetadata(doc, url, status, baseUrl = url) {
   const data = { status };
 
   // Extract title with multiple fallbacks
@@ -272,8 +328,11 @@ function extractMetadata(doc, url, status) {
     doc.querySelector('meta[name="twitter:image"]')?.getAttribute('content') ||
     doc.querySelector('meta[property="og:image:url"]')?.getAttribute('content');
 
-  // Use screenshot service as fallback for image
-  if (!data.image) data.image = `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`;
+  /*
+   * Relative images resolve against the page that answered; pages without one get the image the
+   * layout's preview.resolveImage maps for their link kind.
+   */
+  data.image = absoluteUrl(data.image, baseUrl);
 
   // Extract favicon with fallback
   let favicon =
@@ -281,17 +340,9 @@ function extractMetadata(doc, url, status) {
     doc.querySelector('link[rel="shortcut icon"]')?.getAttribute('href') ||
     doc.querySelector('link[rel="apple-touch-icon"]')?.getAttribute('href');
 
-  // Handle relative favicon URLs
-  if (favicon && !favicon.startsWith('http')) try {
-    const urlObj = new URL(url);
+  favicon = absoluteUrl(favicon, baseUrl);
 
-    favicon = new URL(favicon, urlObj.origin).href;
-  } catch {
-    favicon = null;
-  }
-
-  // Fallback to Google's favicon service
-  data.favicon = favicon || `https://www.google.com/s2/favicons?domain=${url}&sz=32`;
+  data.favicon = favicon || null;
 
   // Extract additional metadata
   data.siteName = doc.querySelector('meta[property="og:site_name"]')?.getAttribute('content');
@@ -462,7 +513,9 @@ export async function GET(request) {
     const html = await readHtmlHeadWithCap(response);
     const doc = parse(html);
 
-    const data = extractMetadata(doc, url, response.status);
+    const data = extractMetadata(doc, url, response.status, response.url);
+
+    [ data.image, data.favicon ] = await Promise.all([ verifiedImage(data.image), proxiedFavicon(data.favicon, new URL(request.url).origin) ]);
 
     // Cache the result
     cache.set(cacheKey, data);

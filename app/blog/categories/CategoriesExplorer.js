@@ -12,7 +12,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Card, Grid, Icon, Link, Pill, Typography } from '@gaudi/design-system';
+import { Button, Card, Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
 import { formatShortDate, PostSummary, StatCard } from '@/app/blog/ExplorerCards';
 import { titleFromSlug } from '@/lib/utils/slugs.mjs';
@@ -45,11 +45,11 @@ export default function CategoriesExplorer({ categoriesWithPosts }) {
         </header>
 
         <div className='pt-5'>
-          <Grid columns='3' gap='sm' className='mb-5'>
+          <div className='mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 mb-5'>
             <StatCard icon='FolderOpen' value={ categoriesWithPosts.length } label='Categories' />
             <StatCard icon='FileText' value={ totalArticles } label='Articles' />
             <StatCard icon='Flame' value={ mostPopularCount } label='Most popular' />
-          </Grid>
+          </div>
 
           <div className='mb-6 flex justify-end'>
             <div className='inline-flex gap-2'>
@@ -109,7 +109,7 @@ export default function CategoriesExplorer({ categoriesWithPosts }) {
                   </div>
                 )}
                 {category.samplePosts.length > 0 && viewMode === 'cards' && (
-                  <Grid columns='3' gap='sm'>
+                  <div className='mx-auto grid grid-cols-1 md:grid-cols-3 gap-3'>
                     {category.samplePosts.map((post) => (
                       <Link
                         key={ post.slug }
@@ -120,7 +120,7 @@ export default function CategoriesExplorer({ categoriesWithPosts }) {
                         <PostSummaryCard post={ post } />
                       </Link>
                     ))}
-                  </Grid>
+                  </div>
                 )}
                 {category.samplePosts.length > 0 && viewMode === 'list' && (
                   <div className='divide-y divide-gray-200 dark:divide-gray-800'>

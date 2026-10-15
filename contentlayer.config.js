@@ -1,9 +1,8 @@
+import { remarkCode } from '@gaudi/design-system/mdx/remark';
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
 import path from 'path';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeCodeGroup from 'rehype-code-group-next';
 import rehypeKatex from 'rehype-katex';
-import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import emoji from 'remark-emoji';
 import remarkGfm from 'remark-gfm';
@@ -67,11 +66,9 @@ export default makeSource({
       rehypeSlug,
       rehypeAutolinkHeadings,
       rehypeKatex,
-      rehypeCodeGroup,
       [ rehypeSimpleCitations, { 'citationsPaths': [ path.join(root, 'data', 'meta', 'bibliography', 'references.bib'), path.join(root, 'data', 'meta', 'bibliography', 'kg.bib') ], 'showBibliography': true }],
       rehypeFootnotePopoverV2,
-      rehypeInternalLinks,
-      [ rehypePrettyCode, { 'theme': 'aurora-x' }]
+      rehypeInternalLinks
 
     ],
     'remarkPlugins': [
@@ -79,6 +76,7 @@ export default makeSource({
       remarkFootnoteData,
       emoji,
       remarkCodeTitles,
+      remarkCode,
       remarkMath,
       remarkImgToJsx,
       remarkLinks,

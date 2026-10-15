@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@gaudi/design-system':
-        specifier: github:ahmadassaf/design-system#0a047d044f25d6b774f4397256e05b2f3efb0e56
-        version: github.com/ahmadassaf/design-system/0a047d044f25d6b774f4397256e05b2f3efb0e56(@heroicons/react@2.2.0)(@radix-ui/react-hover-card@1.1.20)(@vercel/analytics@1.6.1)(clsx@2.1.1)(cookies-next@5.1.0)(framer-motion@12.42.2)(katex@0.18.4)(lucide-react@0.544.0)(mermaid@11.16.0)(mini-svg-data-uri@1.4.4)(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react-icons@5.7.0)(react@19.2.8)(recharts@3.10.1)(tailwind-merge@3.6.0)(tailwindcss@4.3.3)
+        specifier: link:../design-system
+        version: link:../design-system
       '@giscus/react':
         specifier: ^3.1.0
         version: 3.1.0(react-dom@19.2.8)(react@19.2.8)
@@ -107,15 +107,9 @@ importers:
       rehype-autolink-headings:
         specifier: ^7.1.0
         version: 7.1.0
-      rehype-code-group-next:
-        specifier: ^0.3.1
-        version: 0.3.1
       rehype-katex:
         specifier: ^7.0.0
         version: 7.0.1
-      rehype-pretty-code:
-        specifier: ^0.14.1
-        version: 0.14.4(shiki@3.23.0)
       rehype-slug:
         specifier: ^6.0.0
         version: 6.0.0
@@ -137,9 +131,6 @@ importers:
       sharp:
         specifier: ^0.34.1
         version: 0.34.5
-      shiki:
-        specifier: ^3.3.0
-        version: 3.23.0
       tailwind-merge:
         specifier: ^3.2.0
         version: 3.6.0
@@ -3531,53 +3522,6 @@ packages:
   /@resvg/resvg-wasm@2.4.0:
     resolution: {integrity: sha512-C7c51Nn4yTxXFKvgh2txJFNweaVcfUPQxwEUFw4aWsCmfiBDJsTSwviIF8EcwjQ6k8bPyMWCl1vw4BdxE569Cg==}
     engines: {node: '>= 10'}
-    dev: false
-
-  /@shikijs/core@3.23.0:
-    resolution: {integrity: sha512-NSWQz0riNb67xthdm5br6lAkvpDJRTgB36fxlo37ZzM2yq0PQFFzbd8psqC2XMPgCzo1fW6cVi18+ArJ44wqgA==}
-    dependencies:
-      '@shikijs/types': 3.23.0
-      '@shikijs/vscode-textmate': 10.0.2
-      '@types/hast': 3.0.5
-      hast-util-to-html: 9.0.5
-    dev: false
-
-  /@shikijs/engine-javascript@3.23.0:
-    resolution: {integrity: sha512-aHt9eiGFobmWR5uqJUViySI1bHMqrAgamWE1TYSUoftkAeCCAiGawPMwM+VCadylQtF4V3VNOZ5LmfItH5f3yA==}
-    dependencies:
-      '@shikijs/types': 3.23.0
-      '@shikijs/vscode-textmate': 10.0.2
-      oniguruma-to-es: 4.3.6
-    dev: false
-
-  /@shikijs/engine-oniguruma@3.23.0:
-    resolution: {integrity: sha512-1nWINwKXxKKLqPibT5f4pAFLej9oZzQTsby8942OTlsJzOBZ0MWKiwzMsd+jhzu8YPCHAswGnnN1YtQfirL35g==}
-    dependencies:
-      '@shikijs/types': 3.23.0
-      '@shikijs/vscode-textmate': 10.0.2
-    dev: false
-
-  /@shikijs/langs@3.23.0:
-    resolution: {integrity: sha512-2Ep4W3Re5aB1/62RSYQInK9mM3HsLeB91cHqznAJMuylqjzNVAVCMnNWRHFtcNHXsoNRayP9z1qj4Sq3nMqYXg==}
-    dependencies:
-      '@shikijs/types': 3.23.0
-    dev: false
-
-  /@shikijs/themes@3.23.0:
-    resolution: {integrity: sha512-5qySYa1ZgAT18HR/ypENL9cUSGOeI2x+4IvYJu4JgVJdizn6kG4ia5Q1jDEOi7gTbN4RbuYtmHh0W3eccOrjMA==}
-    dependencies:
-      '@shikijs/types': 3.23.0
-    dev: false
-
-  /@shikijs/types@3.23.0:
-    resolution: {integrity: sha512-3JZ5HXOZfYjsYSk0yPwBrkupyYSLpAE26Qc0HLghhZNGTZg/SKxXIIgoxOpmmeQP0RRSDJTk1/vPfw9tbw+jSQ==}
-    dependencies:
-      '@shikijs/vscode-textmate': 10.0.2
-      '@types/hast': 3.0.5
-    dev: false
-
-  /@shikijs/vscode-textmate@10.0.2:
-    resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
     dev: false
 
   /@shuding/opentype.js@1.4.0-beta.0:
@@ -8166,18 +8110,6 @@ packages:
       mimic-function: 5.0.1
     dev: true
 
-  /oniguruma-parser@0.12.2:
-    resolution: {integrity: sha512-6HVa5oIrgMC6aA6WF6XyyqbhRPJrKR02L20+2+zpDtO5QAzGHAUGw5TKQvwi5vctNnRHkJYmjAhRVQF2EKdTQw==}
-    dev: false
-
-  /oniguruma-to-es@4.3.6:
-    resolution: {integrity: sha512-csuQ9x3Yr0cEIs/Zgx/OEt9iBw9vqIunAPQkx19R/fiMq2oGVTgcMqO/V3Ybqefr1TBvosI6jU539ksaBULJyA==}
-    dependencies:
-      oniguruma-parser: 0.12.2
-      regex: 6.1.0
-      regex-recursion: 6.0.2
-    dev: false
-
   /oo-ascii-tree@1.139.0:
     resolution: {integrity: sha512-Sv9334UvsBcvYh9xkcBtheWjH+mkhXLmuhOm+/OTGVFUCsvdVdXwDMTbYZHpJaTSbhaHScPbHqjAPECAFwlgtg==}
     engines: {node: '>= 14.17.0'}
@@ -8275,10 +8207,6 @@ packages:
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
     dev: true
-
-  /parse-numeric-range@1.3.0:
-    resolution: {integrity: sha512-twN+njEipszzlMJd4ONUYgSfZPDxgHhT9Ahed5uTigpQn90FggW4SA/AIPq/6a149fTbE9qBEcSwE3FAEp6wQQ==}
-    dev: false
 
   /parse5@7.3.0:
     resolution: {integrity: sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==}
@@ -8596,22 +8524,6 @@ packages:
     resolution: {integrity: sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==}
     dev: true
 
-  /regex-recursion@6.0.2:
-    resolution: {integrity: sha512-0YCaSCq2VRIebiaUviZNs0cBz1kg5kVS2UKUfNIx8YVs1cN3AV7NTctO5FOKBA+UT2BPJIWZauYHPqJODG50cg==}
-    dependencies:
-      regex-utilities: 2.3.0
-    dev: false
-
-  /regex-utilities@2.3.0:
-    resolution: {integrity: sha512-8VhliFJAWRaUiVvREIiW2NXXTmHs4vMNnSzuJVhscgmGav3g9VDxLrQndI3dZZVVdp0ZO/5v0xmX516/7M9cng==}
-    dev: false
-
-  /regex@6.1.0:
-    resolution: {integrity: sha512-6VwtthbV4o/7+OaAF9I5L5V3llLEsoPyq9P1JVXkedTP33c7MfCG0/5NOPcSJn0TzXcG9YUrR0gQSWioew3LDg==}
-    dependencies:
-      regex-utilities: 2.3.0
-    dev: false
-
   /regexp.prototype.flags@1.5.4:
     resolution: {integrity: sha512-dYqgNSZbDwkaJ2ceRd9ojCGjBq+mOm9LmtXnAnEGyHhN/5R7iDW2TRw3h+o/jCFxus3P2LfWIIiwowAjANm7IA==}
     engines: {node: '>= 0.4'}
@@ -8658,21 +8570,6 @@ packages:
       unist-util-visit: 5.1.0
     dev: false
 
-  /rehype-code-group-next@0.3.1:
-    resolution: {integrity: sha512-t6FXF3EH4TyekNCDTG4F4hNfrnPhTq19ZzWqzh7tEebCadNoQSD8gt9/NVQPEOSCvtRbr37yWnqR3DRzqJskzw==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      hast-util-to-string: 3.0.1
-      rehype: 13.0.2
-      unified: 11.0.5
-      unist-util-visit: 5.1.0
-    dev: false
-
   /rehype-katex@7.0.1:
     resolution: {integrity: sha512-OiM2wrZ/wuhKkigASodFoo8wimG3H12LWQaH8qSPVJn9apWKFSH3YOCtbKpBorTVw/eI7cuT21XBbvwEswbIOA==}
     dependencies:
@@ -8683,29 +8580,6 @@ packages:
       katex: 0.16.47
       unist-util-visit-parents: 6.0.2
       vfile: 6.0.3
-    dev: false
-
-  /rehype-parse@9.0.1:
-    resolution: {integrity: sha512-ksCzCD0Fgfh7trPDxr2rSylbwq9iYDkSn8TCDmEJ49ljEUBxDVCzCHv7QNzZOfODanX4+bWQ4WZqLCRWYLfhag==}
-    dependencies:
-      '@types/hast': 3.0.5
-      hast-util-from-html: 2.0.3
-      unified: 11.0.5
-    dev: false
-
-  /rehype-pretty-code@0.14.4(shiki@3.23.0):
-    resolution: {integrity: sha512-FKPkiSnTqtJHKjCwfqfQs0tXSkmcq7K3jsryZI0rpazo2kWgSYw+sk18GAhxDzKdPk004WWWZ5yiZFEUQhN4Bg==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      shiki: ^1.0.0 || ^2.0.0 || ^3.0.0 || ^4.0.0
-    dependencies:
-      '@types/hast': 3.0.5
-      hast-util-to-string: 3.0.1
-      parse-numeric-range: 1.3.0
-      rehype-parse: 9.0.1
-      shiki: 3.23.0
-      unified: 11.0.5
-      unist-util-visit: 5.1.0
     dev: false
 
   /rehype-recma@1.0.0:
@@ -8733,15 +8607,6 @@ packages:
     dependencies:
       '@types/hast': 3.0.5
       hast-util-to-html: 9.0.5
-      unified: 11.0.5
-    dev: false
-
-  /rehype@13.0.2:
-    resolution: {integrity: sha512-j31mdaRFrwFRUIlxGeuPXXKWQxet52RBQRvCmzl5eCefn/KGbomK5GMHNMsOJf55fgo3qw5tST5neDuarDYR2A==}
-    dependencies:
-      '@types/hast': 3.0.5
-      rehype-parse: 9.0.1
-      rehype-stringify: 10.0.1
       unified: 11.0.5
     dev: false
 
@@ -9088,19 +8953,6 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
-
-  /shiki@3.23.0:
-    resolution: {integrity: sha512-55Dj73uq9ZXL5zyeRPzHQsK7Nbyt6Y10k5s7OjuFZGMhpp4r/rsLBH0o/0fstIzX1Lep9VxefWljK/SKCzygIA==}
-    dependencies:
-      '@shikijs/core': 3.23.0
-      '@shikijs/engine-javascript': 3.23.0
-      '@shikijs/engine-oniguruma': 3.23.0
-      '@shikijs/langs': 3.23.0
-      '@shikijs/themes': 3.23.0
-      '@shikijs/types': 3.23.0
-      '@shikijs/vscode-textmate': 10.0.2
-      '@types/hast': 3.0.5
-    dev: false
 
   /side-channel-list@1.0.1:
     resolution: {integrity: sha512-mjn/0bi/oUURjc5Xl7IaWi/OJJJumuoJFQJfDDyO46+hBWsfaVM65TBHq2eoZBhzl9EchxOijpkbRC8SVBQU0w==}
@@ -9958,53 +9810,4 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
-    dev: false
-
-  github.com/ahmadassaf/design-system/0a047d044f25d6b774f4397256e05b2f3efb0e56(@heroicons/react@2.2.0)(@radix-ui/react-hover-card@1.1.20)(@vercel/analytics@1.6.1)(clsx@2.1.1)(cookies-next@5.1.0)(framer-motion@12.42.2)(katex@0.18.4)(lucide-react@0.544.0)(mermaid@11.16.0)(mini-svg-data-uri@1.4.4)(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react-icons@5.7.0)(react@19.2.8)(recharts@3.10.1)(tailwind-merge@3.6.0)(tailwindcss@4.3.3):
-    resolution: {tarball: https://codeload.github.com/ahmadassaf/design-system/tar.gz/0a047d044f25d6b774f4397256e05b2f3efb0e56}
-    id: github.com/ahmadassaf/design-system/0a047d044f25d6b774f4397256e05b2f3efb0e56
-    name: '@gaudi/design-system'
-    version: 0.1.6
-    peerDependencies:
-      '@heroicons/react': ^2.2.0
-      '@radix-ui/react-hover-card': ^1.1.15
-      '@vercel/analytics': ^1.5.0
-      clsx: ^2.1.1
-      cookies-next: ^5.1.0
-      framer-motion: ^12.9.2
-      katex: ^0.18.1
-      lucide-react: ^0.544.0
-      mermaid: ^11.12.0
-      mini-svg-data-uri: ^1.4.0
-      next: '>=15.0.0'
-      next-themes: ^0.4.6
-      react: '>=19.0.0'
-      react-dom: '>=19.0.0'
-      react-icons: ^5.5.0
-      recharts: ^3.10.0
-      socket.io-client: ^4.7.2
-      tailwind-merge: ^3.2.0
-      tailwindcss: '>=4.0.0'
-    peerDependenciesMeta:
-      socket.io-client:
-        optional: true
-    dependencies:
-      '@heroicons/react': 2.2.0(react@19.2.8)
-      '@radix-ui/react-hover-card': 1.1.20(react-dom@19.2.8)(react@19.2.8)
-      '@vercel/analytics': 1.6.1(next@15.5.9)(react@19.2.8)
-      clsx: 2.1.1
-      cookies-next: 5.1.0(next@15.5.9)(react@19.2.8)
-      framer-motion: 12.42.2(react-dom@19.2.8)(react@19.2.8)
-      katex: 0.18.4
-      lucide-react: 0.544.0(react@19.2.8)
-      mermaid: 11.16.0
-      mini-svg-data-uri: 1.4.4
-      next: 15.5.9(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(react-dom@19.2.8)(react@19.2.8)
-      next-themes: 0.4.6(react-dom@19.2.8)(react@19.2.8)
-      react: 19.2.8
-      react-dom: 19.2.8(react@19.2.8)
-      react-icons: 5.7.0(react@19.2.8)
-      recharts: 3.10.1(react-dom@19.2.8)(react-is@19.2.8)(react@19.2.8)(redux@5.0.1)
-      tailwind-merge: 3.6.0
-      tailwindcss: 4.3.3
     dev: false

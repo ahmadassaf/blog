@@ -14,6 +14,37 @@
 }
 
 /*
+ * The About background spans the full window behind the header. Its canvas is opaque, so it fades in
+ * at the top and out at the bottom to melt into the page; the page clips the full-width layer so it
+ * never adds a horizontal scrollbar.
+ */
+html:has(.about-backdrop-layer) {
+  overflow-x: clip;
+}
+
+.about-backdrop {
+  background: transparent !important;
+}
+
+/* Faint behind the text column on the left, full strength in the open space on the right. */
+.about-backdrop canvas {
+  mask-composite: intersect;
+  mask-image:
+    linear-gradient(to right, rgb(0 0 0 / 18%), rgb(0 0 0 / 28%) 45%, black 80%),
+    linear-gradient(to bottom, transparent, black 14%, black 70%, transparent);
+}
+
+/* A soft halo in the page colour keeps the header text crisp against the pixels. */
+.about-backdrop-layer ~ header :is(h1, p) {
+  text-shadow: 0 0 0.5rem var(--ds-color-surface), 0 0 1.5rem var(--ds-color-surface);
+}
+
+/* Articles read sharp to the bottom: the site's blurred page edge is for the other pages. */
+body:has([data-article-frame]) [data-slot='scroll-edge'][data-page] {
+  display: none;
+}
+
+/*
  * A softened charcoal canvas keeps dark mode comfortable without losing the
  * depth between the page and the design system's muted surfaces.
  */

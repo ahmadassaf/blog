@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { ArticleContentLayout, PostHeader, TableOfContents } from '@gaudi/design-system';
 import { ReadingIndicator } from '@gaudi/design-system/core/ReadingIndicator';
-import { ScrollEdges } from '@gaudi/design-system/core/ScrollArea';
+import { SmoothScroll } from '@gaudi/design-system/core/ScrollArea';
 
 // Short posts read fine without a contents rail.
 const hasTableOfContents = (toc) => toc.length > 3;
@@ -11,14 +11,15 @@ const hasTableOfContents = (toc) => toc.length > 3;
 /**
  * The reading frame for posts and projects, composed from Gaudi's article parts: the post header,
  * a collapsible contents rail whose table of contents follows the article, reading progress across
- * the article only, and soft edges where the page continues. The page scrolls natively.
+ * the article only, and eased wheel scrolling. data-article-frame turns off the site's blurred page
+ * edge (app/responsive.css) so articles read sharp to the bottom.
  */
 export default function PostArticleFrame({ children, content, locale, padding, toc }) {
   const articleRef = useRef(null);
   const hasToc = hasTableOfContents(toc);
 
   return (
-    <div ref={ articleRef }>
+    <div ref={ articleRef } data-article-frame=''>
       <ReadingIndicator contentRef={ articleRef } label='Reading progress' />
       <PostHeader frontMatter={ content } siteMetadata={{ locale }} />
       <ArticleContentLayout
@@ -30,7 +31,7 @@ export default function PostArticleFrame({ children, content, locale, padding, t
       >
         {children}
       </ArticleContentLayout>
-      <ScrollEdges />
+      <SmoothScroll />
     </div>
   );
 }

@@ -80,7 +80,7 @@ export default function FeaturedLayout({ posts }) {
         <article className='w-full group'>
           <PostMetaRow post={ featuredPost } leading={ <Pill tone='blue' variant='solid' radius='full' size='sm'>{featuredLabel}</Pill> } />
 
-          <Typography variant='index-hero-title' as='h2' className='mb-3 max-w-none tracking-[-0.02em] sm:text-5xl sm:leading-[1.08]'>
+          <Typography variant='index-hero-title' as='h2' className='mb-3 max-w-none tracking-[-0.02em] sm:text-4xl sm:leading-[1.12]'>
             <Link
               href={ `/blog/${featuredPost.slug}` }
               variant='bare'

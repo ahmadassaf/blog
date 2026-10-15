@@ -37,7 +37,7 @@ export default function Home() {
     <>
       <div>
         <header className='mb-6 space-y-2 pb-5 pt-6 md:space-y-3 md:pt-8'>
-          <Typography variant='author-name' className='text-5xl uppercase sm:text-7xl md:text-7xl lg:text-8xl lg:leading-none'>
+          <Typography variant='author-name' className='text-5xl font-bold uppercase sm:text-6xl md:text-6xl lg:text-7xl lg:leading-none'>
             {siteMetadata.author}
           </Typography>
           <Typography variant='heading-lg' as='h2' className='font-bold tracking-tight'>

@@ -23,7 +23,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@gaudi/design-system": "link:../design-system",
+    "@gaudi/design-system": "github:g-udi/design-system#36991b2b4e03210036fe546098ef60ab6dfab67c",
     "@giscus/react": "^3.1.0",
     "@heroicons/react": "^2.2.0",
     "@radix-ui/react-hover-card": "^1.1.15",

@@ -284,6 +284,41 @@ async function verifiedImage(src) {
   }
 }
 
+// Cuts text at a word boundary so excerpts never end mid-word.
+const clip = (text, limit) => (text.length <= limit ? text : `${text.slice(0, text.lastIndexOf(' ', limit))}…`);
+
+/*
+ * Wikipedia's own summary API gives the article's lead paragraph and short description; its page
+ * markup changes too often to scrape a first paragraph reliably.
+ */
+async function wikipediaSummary(url) {
+  const { hostname, pathname } = new URL(url);
+  const article = pathname.match(/\/wiki\/(?<title>[^#?]+)/)?.groups.title;
+
+  if (!article) return null;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+  try {
+    const response = await safeFetch(`https://${hostname}/api/rest_v1/page/summary/${article}`, controller.signal, { 'maxRedirects': MAX_REDIRECTS });
+
+    if (!response.ok) {
+      if (response.body) await response.body.cancel();
+
+      return null;
+    }
+
+    // SafeFetch hands back a web stream body, not a full Response
+    const summary = await new Response(response.body).json();
+
+    return { 'description': summary.description || '', 'excerpt': summary.extract ? clip(summary.extract, 320) : '' };
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 /*
  * Favicons are served through this site's image optimizer, so readers' browsers load them from this
  * origin: no cross-origin blocking and no third-party request. One the optimizer cannot fetch is
@@ -398,11 +433,6 @@ function extractMetadata(doc, url, status, baseUrl = url) {
 
     if (articleMatch) data.articleName = decodeURIComponent(articleMatch.groups.article.replace(/_/g, ' '));
 
-    // Try to get the first paragraph as excerpt
-    const firstParagraph = doc.querySelector('#mw-content-text p:not(.mw-empty-elt)');
-
-    if (firstParagraph) data.excerpt = `${firstParagraph.textContent.trim().substring(0, 300)}...`;
-
   }
 
   return data;
@@ -515,7 +545,16 @@ export async function GET(request) {
 
     const data = extractMetadata(doc, url, response.status, response.url);
 
-    [ data.image, data.favicon ] = await Promise.all([ verifiedImage(data.image), proxiedFavicon(data.favicon, new URL(request.url).origin) ]);
+    // Many sites (w3.org among them) declare no icon and serve the conventional /favicon.ico
+    data.favicon ||= new URL('/favicon.ico', response.url).href;
+
+    const [ image, favicon, summary ] = await Promise.all([
+      verifiedImage(data.image),
+      proxiedFavicon(data.favicon, new URL(request.url).origin),
+      data.type === 'wikipedia' ? wikipediaSummary(url) : null
+    ]);
+
+    Object.assign(data, { favicon, image }, summary);
 
     // Cache the result
     cache.set(cacheKey, data);

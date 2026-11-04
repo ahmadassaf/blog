@@ -22,7 +22,11 @@ export default function PostArticleFrame({ children, content, locale, padding, t
   const hasToc = hasTableOfContents(toc);
   const [ contentsOpen, setContentsOpen ] = useState(content.tableOfContents === true);
 
-  // The header leaves out the reading time and links the category and tags to their listings.
+  /*
+   * The header leaves out the reading time and links the category and tags to their listings.
+   * PostSeriesBox wants each part as { id, href, title, series, order } plus the current post's id;
+   * the resolver hands back slugs, so the slug doubles as the id here.
+   */
   const frontMatter = useMemo(() => {
     const category = content.category ? { 'href': `/blog/categories/${slugify(content.category)}`, 'label': titleFromSlug(content.category) } : undefined;
 
@@ -30,7 +34,11 @@ export default function PostArticleFrame({ children, content, locale, padding, t
       return { 'href': `/blog/tags/${slugify(tag)}`, 'id': tag, 'label': tag };
     });
 
-    return { ...content, category, 'readingTime': undefined, tags };
+    const seriesPosts = content.seriesPosts?.map((part) => {
+      return { ...part, 'href': `/blog/${part.slug}`, 'id': part.slug };
+    });
+
+    return { ...content, category, 'id': content.slug, 'readingTime': undefined, seriesPosts, tags };
   }, [ content ]);
 
   // A sidebar icon in the header opens and closes the contents; Gaudi's Toggle shows it pressed while open.

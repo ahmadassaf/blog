@@ -46,11 +46,12 @@ export default function PostArticleFrame({ children, content, locale, padding, t
   return (
     <div ref={ articleRef }>
       <PageChrome scrollEdges={ false } />
+      {/* The subtitle runs as wide as the title; PostHeader's 3xl cap wraps it a word early. */}
       <PostHeader
         frontMatter={ frontMatter }
         siteMetadata={{ locale }}
         tocControl={ contentsToggle }
-        classNames={{ 'title': 'text-5xl md:text-6xl' }}
+        classNames={{ 'subtitle': 'max-w-none', 'title': 'text-5xl md:text-6xl' }}
       />
       <ArticleContentLayout
         collapsibleAside

@@ -38,7 +38,11 @@ export default function PostArticleFrame({ children, content, locale, padding, t
       return { ...part, 'href': `/blog/${part.slug}`, 'id': part.slug };
     });
 
-    return { ...content, category, 'id': content.slug, 'readingTime': undefined, seriesPosts, tags };
+    // Bare calendar dates: DS formatDate pins only YYYY-MM-DD strings to UTC, so ISO timestamps would shift a day west of UTC and mismatch the server.
+    const date = content.date?.slice(0, 10);
+    const updated = content.updated?.slice(0, 10);
+
+    return { ...content, category, date, 'id': content.slug, 'readingTime': undefined, seriesPosts, tags, updated };
   }, [ content ]);
 
   // A sidebar icon in the header opens and closes the contents; Gaudi's Toggle shows it pressed while open.

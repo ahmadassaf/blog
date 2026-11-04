@@ -56,7 +56,7 @@ export const metadata = {
  * Generates viewport configuration for the application
  *
  * @description Generates viewport settings for responsive design and mobile optimization.
- * Separated from metadata to comply with Next.js 15+ requirements.
+ * Separated from metadata as Next.js 14 requires (viewport moved out of the metadata export).
  *
  * @returns {Object} The viewport configuration object
  */
@@ -199,7 +199,7 @@ export default function RootLayout({ children }) {
           {children}
         </LayoutContainer>
         <SpeedInsights />
-        {/* A soft blur where the page continues below; articles turn it off (app/responsive.css). */}
+        {/* A soft blur where the page continues below; articles turn it off via PostArticleFrame's <PageChrome scrollEdges={ false } />. */}
         <ScrollEdges edges='bottom' />
       </body>
     </html>

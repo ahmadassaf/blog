@@ -20,10 +20,16 @@ const token = process.env.GIT_CONTENT_TOKEN;
  * the URL recorded in .gitmodules, which is how the token gets injected
  * without ever being committed.
  */
-if (token) execFileSync('git', [
-  'config',
-  'submodule.data/blog.url',
-  `https://x-access-token:${token}@github.com/ahmadassaf/blog-posts.git`
-]);
+if (token) try {
+  execFileSync('git', [
+    'config',
+    'submodule.data/blog.url',
+    `https://x-access-token:${token}@github.com/ahmadassaf/blog-posts.git`
+  ]);
+} catch (error) {
+
+  // Git echoes its arguments into the error; never let the token reach logs
+  throw new Error(String(error?.message ?? error).replaceAll(token, '***'));
+}
 
 run([ 'submodule', 'update', '--init', '--recursive', 'data/blog' ]);

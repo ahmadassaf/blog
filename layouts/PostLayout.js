@@ -39,6 +39,9 @@ import 'katex/dist/katex.css';
  *   <MDXContent />
  * </PostLayout>
  */
+/** PostNavigation wants a ready href; the resolver hands back the neighbour's slug. */
+const toNavigationTarget = (neighbour) => (neighbour?.slug ? { 'href': `/blog/${neighbour.slug}`, 'title': neighbour.title } : null);
+
 export default function PostLayout({ content, next, prev, toc, children }) {
   const isProject = content.type === 'Project';
 
@@ -48,7 +51,7 @@ export default function PostLayout({ content, next, prev, toc, children }) {
         {children}
         {!isProject && <Callout type='info' className='mt-8'>{disclaimer}</Callout>}
       </PostArticleFrame>
-      <PostNavigation next={ next } prev={ prev } type={ content.type }></PostNavigation>
+      <PostNavigation next={ toNavigationTarget(next) } prev={ toNavigationTarget(prev) } type={ content.type } />
       {(isProject || content.comments) && <PostComments/>}
     </article>
   );

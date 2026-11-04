@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@gaudi/design-system':
-        specifier: github:g-udi/design-system#465dd7a94a3d459e83092a1add7173547bf4ec58
-        version: github.com/g-udi/design-system/465dd7a94a3d459e83092a1add7173547bf4ec58(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3)
+        specifier: github:g-udi/design-system#555adb560f8a0255820848799dc1a6f7c826a56d
+        version: github.com/g-udi/design-system/555adb560f8a0255820848799dc1a6f7c826a56d(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3)
       '@giscus/react':
         specifier: ^3.1.0
         version: 3.1.0(react-dom@19.2.8)(react@19.2.8)
@@ -6436,7 +6436,7 @@ packages:
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
     dependencies:
       mdn-data: 2.0.28
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
     dev: true
 
   /css-tree@2.3.1:
@@ -6444,7 +6444,7 @@ packages:
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0}
     dependencies:
       mdn-data: 2.0.30
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
     dev: true
 
   /css-what@6.2.2:
@@ -11374,11 +11374,11 @@ packages:
   /source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
+    dev: false
 
   /source-map-js@1.2.2:
     resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
     engines: {node: '>=0.10.0'}
-    dev: false
 
   /source-map-support@0.5.21:
     resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
@@ -12241,9 +12241,9 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  github.com/g-udi/design-system/465dd7a94a3d459e83092a1add7173547bf4ec58(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3):
-    resolution: {tarball: https://codeload.github.com/g-udi/design-system/tar.gz/465dd7a94a3d459e83092a1add7173547bf4ec58}
-    id: github.com/g-udi/design-system/465dd7a94a3d459e83092a1add7173547bf4ec58
+  github.com/g-udi/design-system/555adb560f8a0255820848799dc1a6f7c826a56d(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3):
+    resolution: {tarball: https://codeload.github.com/g-udi/design-system/tar.gz/555adb560f8a0255820848799dc1a6f7c826a56d}
+    id: github.com/g-udi/design-system/555adb560f8a0255820848799dc1a6f7c826a56d
     name: '@gaudi/design-system'
     version: 0.1.7
     hasBin: true

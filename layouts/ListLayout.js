@@ -66,12 +66,14 @@ export default function ListLayout({ posts, listTitle, baseURL, paginationURL, c
         </ul>
 
         {pageCount > 1 && (
-          <PaginationBar
-            currentPage={ currentPage }
-            totalPages={ pageCount }
-            firstPageHref={ `/${baseURL}` }
-            hrefTemplate={ `/${paginationURL}/{page}` }
-          />
+          <div className='mt-12'>
+            <PaginationBar
+              currentPage={ currentPage }
+              totalPages={ pageCount }
+              firstPageHref={ `/${baseURL}` }
+              hrefTemplate={ `/${paginationURL}/{page}` }
+            />
+          </div>
         )}
       </section>
     </div>

@@ -8,6 +8,8 @@
  * @version 1.0.0
  */
 
+import siteMetadata from '@/data/meta/metadata';
+
 /**
  * Generates robots.txt configuration for search engine crawlers
  *
@@ -18,8 +20,10 @@
  * const robotsConfig = robots();
  */
 export default function robots() {
+  const { siteUrl } = siteMetadata;
+
   return {
-    'host': 'https://assaf.website',
+    'host': siteUrl,
     'rules': [
       {
         'allow': [ '/', '/api/og', '/api/og/*' ],
@@ -27,6 +31,6 @@ export default function robots() {
         'userAgent': '*'
       }
     ],
-    'sitemap': 'https://assaf.website/sitemap.xml'
+    'sitemap': `${siteUrl}/sitemap.xml`
   };
 }

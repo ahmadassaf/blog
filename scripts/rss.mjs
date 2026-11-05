@@ -19,14 +19,14 @@ import { published, sortPosts } from '../lib/utils/contentlayer.js';
  * Escapes special XML characters in interpolated text content
  *
  * @param {*} value - Raw value to escape (coerced to string)
- * @returns {string} XML-safe string with & < > " ' replaced by entities
+ * @returns {string} XML-safe string with & < > " ' replaced by entities (&#39; for the apostrophe: &apos; is not an HTML 4 entity, which some readers still parse)
  */
 const _escapeXml = (value) => String(value ?? '')
   .replace(/&/g, '&amp;')
   .replace(/</g, '&lt;')
   .replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;')
-  .replace(/'/g, '&apos;');
+  .replace(/'/g, '&#39;');
 
 const _generateRssItem = (post) => `
   <item>
@@ -40,7 +40,13 @@ const _generateRssItem = (post) => `
   </item>
 `;
 
-const _generateRss = (posts) => `
+const _lastBuildDate = (posts) => {
+  const latest = Math.max(...posts.map((post) => new Date(post.updated || post.date).getTime()));
+
+  return new Date(Number.isFinite(latest) ? latest : Date.now()).toUTCString();
+};
+
+const _generateRss = (posts) => `<?xml version="1.0" encoding="UTF-8"?>
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
       <title>${_escapeXml(siteMetadata.title)}</title>
@@ -49,7 +55,7 @@ const _generateRss = (posts) => `
       <language>${siteMetadata.language}</language>
       <managingEditor>${_escapeXml(siteMetadata.email)} (${_escapeXml(siteMetadata.author)})</managingEditor>
       <webMaster>${_escapeXml(siteMetadata.email)} (${_escapeXml(siteMetadata.author)})</webMaster>
-      <lastBuildDate>${new Date(posts[0]?.date ?? Date.now()).toUTCString()}</lastBuildDate>
+      <lastBuildDate>${_lastBuildDate(posts)}</lastBuildDate>
       <atom:link href="${siteMetadata.siteUrl}/feed.xml" rel="self" type="application/rss+xml"/>
       ${posts.map((post) => _generateRssItem(post)).join('')}
     </channel>

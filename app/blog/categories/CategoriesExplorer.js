@@ -59,36 +59,38 @@ const CategoryCard = ({ category }) => {
   const href = `/blog/categories/${category.slug}`;
 
   return (
-    <CardRoot as='section' aria-labelledby={ `category-${category.slug}` } className='h-full'>
-      <CardHeader>
-        <CardTitle as='h2' id={ `category-${category.slug}` } className='flex items-baseline justify-between gap-3 text-lg font-semibold'>
-          <Link href={ href } tone='neutral' className='font-semibold'>{titleFromSlug(category.title)}</Link>
-          <span className='shrink-0 text-sm font-normal tabular-nums text-text-muted'>{articleCount(category.count)}</span>
-        </CardTitle>
-        {category.description ? <CardDescription>{category.description}</CardDescription> : null}
-      </CardHeader>
+    <section aria-labelledby={ `category-${category.slug}` } className='h-full'>
+      <CardRoot className='h-full'>
+        <CardHeader>
+          <CardTitle as='h2' id={ `category-${category.slug}` } className='flex items-baseline justify-between gap-3 text-lg font-semibold'>
+            <Link href={ href } tone='neutral' className='font-semibold'>{titleFromSlug(category.title)}</Link>
+            <span className='shrink-0 text-sm font-normal tabular-nums text-text-muted'>{articleCount(category.count)}</span>
+          </CardTitle>
+          {category.description ? <CardDescription>{category.description}</CardDescription> : null}
+        </CardHeader>
 
-      <CardContent className='flex-1'>
-        {category.samplePosts.length === 0 ? <EmptyState compact title='No articles yet' /> : (
-          <ul aria-label={ `Latest in ${titleFromSlug(category.title)}` } className='-mx-2 flex flex-col'>
-            {category.samplePosts.map((post) => (
-              <li key={ post.slug }>
-                <Link href={ `/blog/${post.slug}` } variant='bare' className='flex items-baseline justify-between gap-4 rounded-md px-2 py-2 text-sm hover:bg-surface-muted'>
-                  <span className='line-clamp-1 font-medium text-text'>{post.title}</span>
-                  <time dateTime={ post.date } className='shrink-0 text-xs tabular-nums text-text-muted'>{formatShortDate(post.date)}</time>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-      </CardContent>
+        <CardContent className='flex-1'>
+          {category.samplePosts.length === 0 ? <EmptyState compact title='No articles yet' /> : (
+            <ul aria-label={ `Latest in ${titleFromSlug(category.title)}` } className='-mx-2 flex flex-col'>
+              {category.samplePosts.map((post) => (
+                <li key={ post.slug }>
+                  <Link href={ `/blog/${post.slug}` } variant='bare' className='flex items-baseline justify-between gap-4 rounded-md px-2 py-2 text-sm hover:bg-surface-muted'>
+                    <span className='line-clamp-1 font-medium text-text'>{post.title}</span>
+                    <time dateTime={ post.date } className='shrink-0 text-xs tabular-nums text-text-muted'>{formatShortDate(post.date)}</time>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </CardContent>
 
-      <CardFooter className='border-t border-border-muted'>
-        <Link href={ href } tone='accent' className='inline-flex items-center gap-1 text-sm'>
-          View all {articleCount(category.count)}
-          <Icon name='ArrowRight' size='xs' decorative />
-        </Link>
-      </CardFooter>
-    </CardRoot>
+        <CardFooter className='border-t border-border-muted'>
+          <Link href={ href } tone='accent' className='inline-flex items-center gap-1 text-sm'>
+            View all {articleCount(category.count)}
+            <Icon name='ArrowRight' size='xs' decorative />
+          </Link>
+        </CardFooter>
+      </CardRoot>
+    </section>
   );
 };

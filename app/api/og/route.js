@@ -12,7 +12,7 @@
 
 import { OgCard, ogImageSize } from '@gaudi/design-system/post/OgCard';
 import { ImageResponse } from '@vercel/og';
-import { allPosts } from 'contentlayer/generated';
+import { allPosts, allProjects } from 'contentlayer/generated';
 import { NextResponse } from 'next/server';
 
 import siteMetadata from '@/data/meta/metadata';
@@ -83,7 +83,7 @@ function getFonts() {
  * GET handler for Open Graph image generation
  *
  * @description Generates dynamic Open Graph images for blog posts based on the slug parameter.
- * If no matching post is found, falls back to default site metadata. The generated image
+ * Posts and projects are looked up by slug; unknown or draft slugs return 404. The generated image
  * includes the post title, category, subtitle, and site branding elements.
  *
  * @param {Request} request - The incoming HTTP request with search parameters
@@ -93,8 +93,8 @@ function getFonts() {
  * // Generate OG image for a specific post
  * GET /api/og?slug=my-blog-post
  *
- * // Generate default OG image
- * GET /api/og?slug=default
+ * // Generate OG image for a project
+ * GET /api/og?slug=category/projects/my-project
  */
 export async function GET(request) {
   const slugParam = request.nextUrl.searchParams.get('slug');
@@ -106,18 +106,12 @@ export async function GET(request) {
   try {
 
     const slug = slugParam.replace('category/', '');
-    let post = allPosts.find((_post) => _post.slug.replace('category/', '') === slug);
+    const post = [ ...allPosts, ...allProjects ].find((_post) => _post.slug.replace('category/', '') === slug);
 
-    // Never leak unpublished titles through OG images
-    if (post?.draft) return NextResponse.json(
+    // Never leak unpublished titles through OG images, and never render arbitrary text for unknown slugs
+    if (!post || post.draft) return NextResponse.json(
       { 'error': 'Post not found', 'status': 404 }, { 'status': 404 }
     );
-
-    if (!post) post = {
-      'category': slug,
-      'subtitle': siteMetadata.description,
-      'title': siteMetadata.title
-    };
 
     // Render with the default font if the custom fonts could not be downloaded
     const fonts = await getFonts();

@@ -58,10 +58,12 @@ export default function sitemap() {
     };
   });
 
-  const routes = NavigationMetadata.links.map((route) => {
+  // Home and the tags index are not navigation links; trailing slashes 308-redirect, so strip them (except the root).
+  const staticPaths = [ '/', '/blog/tags', ...NavigationMetadata.links.map((route) => route.href) ];
+  const routes = staticPaths.map((path) => {
     return {
       'lastModified': today,
-      'url': `${siteUrl}${route.href}`
+      'url': `${siteUrl}${path === '/' ? '' : path.replace(/\/+$/, '')}`
     };
   });
 

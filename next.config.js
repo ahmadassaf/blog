@@ -92,6 +92,12 @@ module.exports = () => {
       'dangerouslyAllowSVG': true,
       'formats': [ 'image/webp', 'image/avif' ],
       'minimumCacheTTL': 60,
+
+      /*
+       * Any HTTPS host on purpose: post images and link-preview favicons (app/api/preview) come from
+       * arbitrary sites and are served through this origin. The optimizer only returns resized
+       * images, so this is an image proxy rather than an open one.
+       */
       'remotePatterns': [
         {
           'hostname': '**',

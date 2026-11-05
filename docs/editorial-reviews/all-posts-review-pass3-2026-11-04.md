@@ -8,7 +8,11 @@ Scope: code (app, layouts, lib, scripts, config), all 21 interactive diagrams, a
 - Code (blog PR #6): table-of-contents anchors now use github-slugger so they match rehype-slug (dead anchors fixed; new tests); post dates passed as YYYY-MM-DD to avoid a hydration mismatch west of UTC; OG route 404s on unknown slugs and finds projects; categories page uses a real section landmark; sitemap includes / and /blog/tags and drops the trailing slash; robots.js uses siteMetadata.siteUrl; checkout-content redacts the token on failure; RSS has an XML declaration, &#39;, and a correct lastBuildDate; stale JSDoc fixed; stale test expectation fixed.
 - Diagrams (blog-posts PR #11): see the commit "fix(visualisations): diagram bugs from the third review".
 
-## Diagram verdicts (reviewer's assessment; decisions pending)
+## Diagram verdicts (closed 5 November 2026)
+
+Decisions: generative routing, growth levels and Ditto stages replaced by their reworks; gaudiBar keeps the original scene with the config panel added beneath it; pipeline and the quality framework keep their originals; RDF triple, RDF blank node and JSON-LD graph left as they are by choice. One version of every diagram remains (blog-posts #13, blog #9).
+
+Original reviewer table, for the record:
 
 | Explorer | Post | Verdict | Why |
 | --- | --- | --- | --- |
@@ -35,7 +39,9 @@ Scope: code (app, layouts, lib, scripts, config), all 21 interactive diagrams, a
 
 Cross-cutting (not applied): the SVG role=button props factory is copy-pasted in seven explorers; the scroll-frame, sr-only and readout CSS is duplicated across nine to thirteen modules; three explorers hand-roll tabs the design system's ToggleGroup already provides; the Kata post's step names differ from the explorer's.
 
-## Code decisions left to the author
+## Code decisions (closed 5 November 2026)
+
+All items below were resolved in blog commits 5ebe840 ("close the pass-3 review's code items") and eb6d61a (dead Tailwind config removed; any-host image optimiser kept and documented). Kept for the record:
 
 - Comments never render on posts: `content.comments` is not a declared field, so only projects show Giscus. Enable for posts, or drop the gate.
 - `tailwind.config.js` is dead under Tailwind v4 (only ESLint reads it). Delete, or wire it with `@config`.

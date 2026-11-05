@@ -6,7 +6,11 @@ import { SmoothScroll } from '@gaudi/design-system/core/ScrollArea';
 import Tooltip from '@gaudi/design-system/core/Tooltip';
 import PageChrome from '@gaudi/design-system/layout/PageChrome';
 
+import tagIndex from '@/app/content/tags.json';
 import { slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
+
+// Tag pages are built from posts only, so a project-only tag has no page to link to.
+const taggedSlugs = new Set(tagIndex.map((tag) => tag.slug));
 
 // Short posts read fine without a contents rail.
 const hasTableOfContents = (toc) => toc.length > 3;
@@ -31,7 +35,7 @@ export default function PostArticleFrame({ children, content, locale, padding, t
     const category = content.category ? { 'href': `/blog/categories/${slugify(content.category)}`, 'label': titleFromSlug(content.category) } : undefined;
 
     const tags = content.tags?.map((tag) => {
-      return { 'href': `/blog/tags/${slugify(tag)}`, 'id': tag, 'label': tag };
+      return { 'href': taggedSlugs.has(slugify(tag)) ? `/blog/tags/${slugify(tag)}` : undefined, 'id': tag, 'label': tag };
     });
 
     const seriesPosts = content.seriesPosts?.map((part) => {

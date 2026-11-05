@@ -501,18 +501,24 @@ export async function GET(request) {
 
     const controller = new AbortController();
 
+    /*
+     * One deadline covers the headers and the body read below: a server that answers headers and
+     * then trickles the page would otherwise hold the request open indefinitely.
+     */
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
 
     let response;
 
     try {
       response = await safeFetch(normalizedUrl, controller.signal, { 'maxRedirects': MAX_REDIRECTS });
-    } finally {
+    } catch (error) {
       clearTimeout(timeoutId);
+      throw error;
     }
 
     // Handle non-OK responses gracefully instead of throwing
     if (!response.ok) {
+      clearTimeout(timeoutId);
       const errorData = createErrorData(url, {
         'errorMessage': `HTTP ${response.status}: ${response.statusText || 'Not Found'}`,
         'status': response.status
@@ -528,6 +534,7 @@ export async function GET(request) {
     const contentType = (response.headers.get('content-type') || '').toLowerCase();
 
     if (!contentType.startsWith('text/html')) {
+      clearTimeout(timeoutId);
       if (response.body) await response.body.cancel();
 
       const errorData = createErrorData(url, {
@@ -540,7 +547,13 @@ export async function GET(request) {
       return jsonResponse(errorData);
     }
 
-    const html = await readHtmlHeadWithCap(response);
+    let html;
+
+    try {
+      html = await readHtmlHeadWithCap(response);
+    } finally {
+      clearTimeout(timeoutId);
+    }
     const doc = parse(html);
 
     const data = extractMetadata(doc, url, response.status, response.url);

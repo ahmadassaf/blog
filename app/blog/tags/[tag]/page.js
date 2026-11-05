@@ -13,6 +13,7 @@ import { allPosts } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
 import tags from '@/app/content/tags';
+import { metadataGenerator } from '@/data/meta/generator/blog';
 import ListLayout from '@/layouts/ListLayout';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
@@ -42,10 +43,7 @@ export async function generateMetadata({ params }) {
 
   if (tag === null) return { 'title': 'Tag not found' };
 
-  return {
-    'alternates': { 'canonical': `/blog/tags/${tag}` },
-    'title': `Tag: ${titleFromSlug(tag)}`
-  };
+  return metadataGenerator({ 'path': `/blog/tags/${tag}`, 'title': `Tag: ${titleFromSlug(tag)}` });
 }
 
 /**

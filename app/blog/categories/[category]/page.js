@@ -13,6 +13,7 @@ import { allPosts } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
 import categories from '@/app/content/categories';
+import { metadataGenerator } from '@/data/meta/generator/blog';
 import ListLayout from '@/layouts/ListLayout';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
@@ -42,10 +43,7 @@ export async function generateMetadata({ params }) {
 
   if (category === null) return { 'title': 'Category not found' };
 
-  return {
-    'alternates': { 'canonical': `/blog/categories/${category}` },
-    'title': `Category: ${titleFromSlug(category)}`
-  };
+  return metadataGenerator({ 'path': `/blog/categories/${category}`, 'title': `Category: ${titleFromSlug(category)}` });
 }
 
 /**

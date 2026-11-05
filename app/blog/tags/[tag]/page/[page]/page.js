@@ -14,6 +14,7 @@ import { allPosts } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
 import tags from '@/app/content/tags';
+import { metadataGenerator } from '@/data/meta/generator/blog';
 import ListLayout from '@/layouts/ListLayout';
 import { getPublishedPosts, paginate, paginationPageNumbers, published } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
@@ -45,10 +46,7 @@ export async function generateMetadata({ params }) {
 
   const pageNumber = Number(pageParam);
 
-  return {
-    'alternates': { 'canonical': `/blog/tags/${tag}/page/${pageNumber}` },
-    'title': `Tag: ${titleFromSlug(tag)} | Page ${pageNumber}`
-  };
+  return metadataGenerator({ 'path': `/blog/tags/${tag}/page/${pageNumber}`, 'title': `Tag: ${titleFromSlug(tag)} | Page ${pageNumber}` });
 }
 
 /**

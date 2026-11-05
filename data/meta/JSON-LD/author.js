@@ -6,12 +6,12 @@ import { organisation } from './organisation';
 export const author = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+
+  // City and country only: a street address and postcode on every page is more than search needs
   'address': {
     '@type': 'PostalAddress',
     'addressLocality': 'London',
-    'addressRegion': 'United Kingdom',
-    'postalCode': 'SW3 5AF',
-    'streetAddress': 'Beaufort Street'
+    'addressRegion': 'United Kingdom'
   },
   'affiliation': organisation,
   'alumniOf': alumni,

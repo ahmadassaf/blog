@@ -51,7 +51,7 @@ const Publications = [
   },
   {
     'authors': 'A Assaf, R Troncy, A Senart',
-    'href': "https://github.com/ahmadassaf/PhD/blob/b8583a70090bf59dcbb0868719029a9bb1feb9fd/Papers/PROFILES'15%20-%20HDL%20-%20Towards%20A%20Harmonized%20Dataset%20Model%20for%20Open%20Data%20Portals/HDL.pdf",
+    'href': "https://github.com/ahmadassaf/PhD/blob/b8583a70090bf59dcbb0868719029a9bb1feb9fd/Papers/WWW'15%20-%20Automatic%20Validation,%20Correction%20and%20Generation%20of%20Dataset%20Metadata%20-%20Enhancing%20Dataset%20Search%20and%20Spam%20Detection/www15-demo.pdf",
     'title': 'Roomba - Automatic Validation, Correction and Generation of Dataset Metadata',
     'venue': 'International World Wide Web Conference (Demo Track) WWW15',
     'venueType': 'Demo',

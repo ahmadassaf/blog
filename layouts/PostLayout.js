@@ -3,8 +3,8 @@
  *
  * @description The layout for individual post and project pages. Provides a structured
  * layout with post header, content area, table of contents, navigation, disclaimer, and
- * comments section. Projects get wider content padding, skip the disclaimer, and always
- * show comments; posts gate comments on their frontmatter flag.
+ * comments section. Projects get wider content padding and skip the disclaimer; posts and
+ * projects both show comments.
  *
  * @author Ahmad Assaf
  * @version 2.0.0
@@ -52,7 +52,7 @@ export default function PostLayout({ content, next, prev, toc, children }) {
         {!isProject && <Callout type='info' className='mt-8'>{disclaimer}</Callout>}
       </PostArticleFrame>
       <PostNavigation next={ toNavigationTarget(next) } prev={ toNavigationTarget(prev) } type={ content.type } />
-      {(isProject || content.comments) && <PostComments/>}
+      <PostComments/>
     </article>
   );
 }

@@ -10,7 +10,7 @@
  * @version 2.0.0
  */
 
-import { PostNavigation } from '@gaudi/design-system';
+import { Link, PostNavigation } from '@gaudi/design-system';
 import Callout from '@gaudi/design-system/mdx/Callout';
 
 import siteMetadata from '@/data/meta/metadata';
@@ -49,7 +49,15 @@ export default function PostLayout({ content, next, prev, toc, children }) {
     <article>
       <PostArticleFrame content={ content } locale={ siteMetadata.locale } toc={ toc } padding={ isProject ? 'lg' : undefined }>
         {children}
-        {!isProject && <Callout type='info' className='mt-8'>{disclaimer}</Callout>}
+        {!isProject && (
+          <Callout type='info' className='mt-8' classNames={{ 'body': 'text-sm leading-7' }}>
+            <p>{disclaimer}</p>
+            <p>
+              I also offer consulting and mentoring in AI strategy, engineering leadership, and scaling teams.{' '}
+              <Link href={ `mailto:${siteMetadata.email}` } tone='blue'>Get in touch</Link> if I can help.
+            </p>
+          </Callout>
+        )}
       </PostArticleFrame>
       <PostNavigation next={ toNavigationTarget(next) } prev={ toNavigationTarget(prev) } type={ content.type } />
       <PostComments/>

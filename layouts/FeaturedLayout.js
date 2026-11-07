@@ -86,7 +86,7 @@ export default function FeaturedLayout({ posts }) {
             </Link>
           </Typography>
 
-          <Typography variant='index-hero-summary' className='mb-4 max-w-4xl text-pretty'>
+          <Typography variant='index-hero-summary' className='mb-5 w-full max-w-none text-pretty leading-[1.7] md:leading-[1.7]'>
             {featuredPost.summary}
           </Typography>
 
@@ -101,9 +101,9 @@ export default function FeaturedLayout({ posts }) {
         </article>
 
         {displayPosts.length > 0 && (
-          <div className='mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 w-full border-t border-border-muted pt-6'>
+          <div className='mx-auto mt-6 grid w-full grid-cols-1 gap-4 border-t border-border-muted pt-6 md:grid-cols-2 md:gap-y-0'>
             {displayPosts.map((post) => (
-              <article key={ post.slug } className='group'>
+              <article key={ post.slug } className='group min-w-0 md:row-span-3 md:grid md:grid-rows-subgrid'>
                 <PostMetaRow post={ post } />
 
                 <Typography variant='index-feature-title' as='h2' className='mb-2'>
@@ -112,7 +112,7 @@ export default function FeaturedLayout({ posts }) {
                   </Link>
                 </Typography>
 
-                <Typography variant='index-feature-summary' className='text-pretty'>
+                <Typography variant='index-feature-summary' className='max-w-none text-pretty'>
                   {post.summary}
                 </Typography>
               </article>

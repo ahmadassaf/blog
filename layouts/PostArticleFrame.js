@@ -2,9 +2,8 @@
 
 import { useMemo, useRef, useState } from 'react';
 import { ArticleContentLayout, Icon, PostHeader, TableOfContents, Toggle } from '@gaudi/design-system';
-import { SmoothScroll } from '@gaudi/design-system/core/ScrollArea';
+import { ScrollEdges, SmoothScroll } from '@gaudi/design-system/core/ScrollArea';
 import Tooltip from '@gaudi/design-system/core/Tooltip';
-import PageChrome from '@gaudi/design-system/layout/PageChrome';
 
 import tagIndex from '@/app/content/tags.json';
 import { slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
@@ -18,8 +17,8 @@ const hasTableOfContents = (toc) => toc.length > 3;
 /**
  * The reading frame for posts and projects, composed from Gaudi's article parts: the post header,
  * a contents rail whose table of contents follows the article, and eased wheel scrolling. A sidebar
- * icon in the header shows and hides the contents; hiding them lets the article take the full width. PageChrome turns off the site's blurred page edge so
- * articles read sharp to the bottom.
+ * icon in the header shows and hides the contents; hiding them lets the article take the full width.
+ * Only blog posts get a blurred bottom edge where more content continues below the viewport.
  */
 export default function PostArticleFrame({ children, content, locale, padding, toc }) {
   const articleRef = useRef(null);
@@ -61,7 +60,6 @@ export default function PostArticleFrame({ children, content, locale, padding, t
 
   return (
     <div ref={ articleRef }>
-      <PageChrome scrollEdges={ false } />
       {/* The subtitle runs as wide as the title; PostHeader's 3xl cap wraps it a word early. */}
       <PostHeader
         frontMatter={ frontMatter }
@@ -77,10 +75,12 @@ export default function PostArticleFrame({ children, content, locale, padding, t
         hasAside={ hasToc }
         aside={ hasToc ? <TableOfContents toc={ toc } contentRef={ articleRef } aria-label='Post contents' /> : null }
         padding={ padding }
+        contentClassName={ content.type === 'Post' ? 'post-reading' : undefined }
       >
         {children}
       </ArticleContentLayout>
       <SmoothScroll />
+      {content.type === 'Post' && <ScrollEdges edges='bottom' />}
     </div>
   );
 }

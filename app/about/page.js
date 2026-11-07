@@ -9,14 +9,19 @@
  * @version 1.0.0
  */
 
-import { Icon, IconTile, Typography } from '@gaudi/design-system';
+import { Icon, IconTile, Link, Typography } from '@gaudi/design-system';
 import PageChrome from '@gaudi/design-system/layout/PageChrome';
 import Preview from '@gaudi/design-system/mdx/Preview';
 
 import { metadataGenerator } from '@/data/meta/generator/blog';
+import siteMetadata from '@/data/meta/metadata';
 import PageBackdrop from '@/layouts/PageBackdrop';
 
-export const metadata = metadataGenerator({ 'path': '/about', 'title': 'About' });
+export const metadata = metadataGenerator({
+  'description': "I'm Ahmad Assaf, CTO at Mav9. I offer consulting, advisory support, and mentoring in AI strategy, engineering leadership, and scaling teams.",
+  'path': '/about',
+  'title': 'About'
+});
 
 /**
  * About page component displaying professional background and services
@@ -31,32 +36,32 @@ export default function About() {
 
   const values = [
     {
-      'description': 'Providing strategic guidance to help you navigate complex business challenges and make informed decisions.',
+      'description': 'I help you identify where AI can be useful, assess opportunities, and turn ideas into a practical plan for your product and team.',
       'icon': <Icon name='ChessKnight' decorative />,
-      'name': 'Advisory Services'
+      'name': 'AI Strategy and Consulting'
     },
     {
-      'description': 'Offering personalized mentorship to emerging leaders and teams, fostering growth and development.',
+      'description': 'I work with emerging leaders and teams on leadership, career decisions, AI, and productivity.',
       'icon': <Icon name='HandshakeLine' decorative />,
       'name': 'Mentorship'
     },
     {
-      'description': 'Assisting in scaling operations and accelerating growth through proven strategies and industry insights.',
+      'description': 'I help you plan the team structure, engineering practices, and technical changes your next stage of growth needs.',
       'icon': <Icon name='ChartArea' decorative />,
-      'name': 'Scaling and Growth'
+      'name': 'Scaling Teams and Systems'
     },
     {
-      'description': 'Leading technical teams with a focus on innovation, efficiency, and achieving business goals.',
+      'description': 'I help founders and engineering leaders clarify priorities, improve how teams work, and connect technical decisions to product goals.',
       'icon': <Icon name='Cubes' decorative />,
       'name': 'Technical Leadership'
     },
     {
-      'description': 'Developing and implementing robust technical strategies that align with your business objectives and drive competitive advantage.',
+      'description': 'I help you shape technical roadmaps, weigh trade-offs, and decide where to invest based on your business goals.',
       'icon': <Icon name='Codepen' decorative />,
       'name': 'Technical Strategy'
     },
     {
-      'description': 'Conducting thorough assessments of AI and technology systems to ensure they meet industry standards and support business growth, while identifying potential risks and opportunities.',
+      'description': 'I assess AI capabilities, architecture, and engineering practices to identify technical risks, gaps, and opportunities.',
       'icon': <Icon name='Robot' decorative />,
       'name': 'AI and Tech Due Diligence'
     }
@@ -70,11 +75,18 @@ export default function About() {
         <header className='pb-24 pt-5 sm:pb-32 sm:pt-8'>
           <div className='max-w-2xl'>
             <Typography variant='title-xl' className='text-4xl leading-[1.05] sm:text-5xl md:text-6xl md:leading-[1.02] lg:text-6xl'>
-            Artificial Intelligence Leader, Advisor and Mentor
+              AI &amp; Engineering Leader, Consultant and Mentor
             </Typography>
             <Typography variant='paragraph-md' className='mt-5 max-w-[68ch]'>
-          Ahmad is CTO at Mav9 and a seasoned AI and data leader with more than a decade of experience scaling SaaS and technology businesses across engineering, data, and AI. He has a proven track record in engineering leadership, encompassing engineering operations, innovation strategy, and product development.
+              I'm Ahmad Assaf, CTO at Mav9. I've spent more than a decade building and scaling SaaS businesses across engineering, data, and AI. My work spans technology strategy, engineering leadership, and product development.
             </Typography>
+            <Typography variant='paragraph-md' className='mt-4 max-w-[68ch]'>
+              I offer consulting, advisory support, and mentoring to founders, technology leaders, and teams.
+            </Typography>
+            <Link href='#work-with-me' tone='blue' className='mt-6 inline-flex max-w-full items-center gap-2'>
+              Work with me
+              <Icon name='ArrowRight' decorative size='xs' />
+            </Link>
           </div>
         </header>
       </PageBackdrop>
@@ -84,13 +96,13 @@ export default function About() {
         <div className='mt-6 flex flex-col gap-8 lg:flex-row lg:gap-16'>
           <div className='max-w-[68ch] flex-1 space-y-6'>
             <Typography variant='paragraph-md'>
-              I am currently CTO at <Preview url='https://mav9.com' title='Mav9' />, where I lead technology strategy across AI, data, knowledge graphs, and product engineering. Before Mav9, as a founding engineer at <Preview url='https://beamery.com' title='Beamery' />, I had the unique opportunity to shape the company's technological journey from its inception. Starting with a hands-on approach, I transitioned into leadership roles, serving as Head of Engineering and VP of AI and Data, building the AI and Data Science functions at the core of Beamery's R&D and innovation efforts.
+              At <Preview url='https://mav9.com' title='Mav9' />, I lead technology strategy across AI, data, knowledge graphs, and product engineering. My work connects technical decisions with the products we build and the people who use them.
             </Typography>
             <Typography variant='paragraph-md'>
-              As a continuous learner, I love working in collaborative environments, tackling challenging problems with my team and providing strategic leadership to achieve product-market fit and growth. I have vast expertise at aligning technology with business objectives and effectively communicating transformative and innovative strategies to the market.
+              Before Mav9, I was a founding engineer at <Preview url='https://beamery.com' title='Beamery' />, then Head of Engineering and VP of AI and Data. I built its AI and Data Science functions as the company grew, moving from hands-on engineering into leading teams.
             </Typography>
             <Typography variant='paragraph-md'>
-              In addition to my technical and leadership roles, I am deeply committed to fostering a culture of growth and continuous learning. As a coach and mentor, I provide guidance on AI, growth strategies, and productivity, helping both individuals and teams to unlock their full potential.
+              My background combines research, hands-on engineering, and team leadership. It shapes how I work: connect technical decisions to product goals, make trade-offs clear, and help people grow. As a coach and mentor, I also provide guidance on AI, leadership, and productivity.
             </Typography>
           </div>
 
@@ -119,12 +131,16 @@ export default function About() {
         </div>
       </section>
 
-      <section className='mt-16 pt-12 sm:mt-20 sm:pt-14'>
+      <section id='work-with-me' aria-labelledby='services-heading' className='mt-16 scroll-mt-24 pt-12 sm:mt-20 sm:pt-14'>
         <div className='max-w-2xl'>
-          <Typography variant='heading-lg' as='h2'>How Can I Help?</Typography>
+          <Typography variant='heading-lg' as='h2' id='services-heading'>Consulting, Advisory and Mentoring</Typography>
           <Typography variant='paragraph-md' className='mt-5'>
-            As an experienced leader in the technology and SaaS industry, I am committed to helping businesses achieve their full potential. My approach is grounded in core values of collaboration, innovation, and integrity, which guide all aspects of my work. Whether you're an individual, a startup looking to scale or an established company seeking to refine your strategy, I can provide the expertise and guidance you need to succeed.
+            I can help you shape your AI strategy, strengthen engineering leadership, scale your team, or assess technical risks. Tell me what you're working on and where you need support, and we can discuss how I can help.
           </Typography>
+          <Link href={ `mailto:${siteMetadata.email}` } tone='blue' className='mt-5 inline-flex max-w-full items-center gap-2'>
+            Get in touch to discuss working together
+            <Icon name='ArrowRight' decorative size='xs' />
+          </Link>
         </div>
 
         <div className='mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mt-10'>

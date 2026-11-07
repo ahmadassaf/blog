@@ -180,6 +180,26 @@ function createGithubPreview(url) {
   };
 }
 
+/*
+ * SAP's homepage rejects PreviewBot requests. Use its official logo for these known homepage
+ * addresses; deeper links still go through the normal fetch so missing pages are not masked.
+ * Logo source: https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg
+ */
+function createSapPreview(url) {
+  const target = new URL(url);
+
+  if (target.origin !== 'https://www.sap.com' || ![ '/', '/index.html' ].includes(target.pathname)) return null;
+
+  return {
+    'favicon': '/static/favicons/sap.svg',
+    'siteName': 'SAP',
+    'status': 200,
+    'title': 'SAP',
+    'type': 'website',
+    url
+  };
+}
+
 /**
  * Checks if a URL is a YouTube video URL
  */
@@ -488,13 +508,13 @@ export async function GET(request) {
 
     if (cachedPreview) return jsonResponse(cachedPreview);
 
-    // GitHub repository previews are synthesized without an outbound request
-    const githubPreview = createGithubPreview(normalizedUrl);
+    // Known previews avoid metadata requests rejected by these sites.
+    const knownPreview = createGithubPreview(normalizedUrl) || createSapPreview(normalizedUrl);
 
-    if (githubPreview) {
-      cache.set(cacheKey, githubPreview);
+    if (knownPreview) {
+      cache.set(cacheKey, knownPreview);
 
-      return jsonResponse(githubPreview);
+      return jsonResponse(knownPreview);
     }
 
     // Fetch the URL with timeout, validating every redirect hop

@@ -9,7 +9,6 @@
  * @version 1.0.0
  */
 
-import { ScrollEdges } from '@gaudi/design-system/core/ScrollArea';
 import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';
 import CitationTracker from '@gaudi/design-system/mdx/CitationTracker';
 import { Analytics } from '@vercel/analytics/react';
@@ -199,8 +198,6 @@ export default function RootLayout({ children }) {
           {children}
         </LayoutContainer>
         <SpeedInsights />
-        {/* A soft blur where the page continues below; articles turn it off via PostArticleFrame's <PageChrome scrollEdges={ false } />. */}
-        <ScrollEdges edges='bottom' />
       </body>
     </html>
   );

@@ -46,6 +46,55 @@ html:has(.page-backdrop-layer) {
   --ds-color-surface: #222425;
 }
 
+/* Long inline examples wrap on phones; fenced code keeps its own horizontal scrolling. */
+.prose code:not(pre code) {
+  overflow-wrap: anywhere;
+}
+
+/* Larger reading text and more space between paragraphs. */
+.home-biography,
+.post-reading {
+  --blog-reading-size: 1.0625rem;
+  --blog-reading-leading: 1.875rem;
+  --blog-paragraph-gap: 1.5rem;
+}
+
+.home-biography {
+  display: grid;
+  gap: var(--blog-paragraph-gap);
+}
+
+/* Gaudi's MDX renderer is the first child of the article prose container. */
+.home-biography > p,
+.post-reading > div:first-child > :where(p, ul, ol, blockquote) {
+  font-size: var(--blog-reading-size);
+  line-height: var(--blog-reading-leading);
+}
+
+.home-biography > p {
+  margin-block: 0;
+}
+
+.post-reading > div:first-child > p {
+  margin-block: var(--blog-paragraph-gap);
+}
+
+.post-reading > div:first-child > p:first-child {
+  margin-block-start: 0;
+}
+
+.post-reading > div:first-child > p:last-child {
+  margin-block-end: 0;
+}
+
+@media (min-width: 48rem) {
+  .home-biography,
+  .post-reading {
+    --blog-reading-size: 1.125rem;
+    --blog-reading-leading: 2rem;
+  }
+}
+
 /* A quiet editorial grid, scoped to the About page and faded behind the copy. */
 .about-grid {
   isolation: isolate;

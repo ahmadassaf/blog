@@ -75,7 +75,7 @@ export function generateViewport() {
  * tokens. next/font only accepts unquoted option keys.
  */
 // eslint-disable-next-line quote-props
-const font = PlusJakartaSans({ display: 'swap', subsets: [ 'latin' ], variable: '--font-body' });
+const font = PlusJakartaSans({ display: 'swap', style: [ 'normal', 'italic' ], subsets: [ 'latin' ], variable: '--font-body' });
 
 const footerProps = {
   'brandDescription': 'Writing about AI, semantic systems, data products, and engineering practice.',

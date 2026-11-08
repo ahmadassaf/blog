@@ -3,7 +3,7 @@
  *
  * @description The blog index layout: a display-scale page header, optional curated
  * content (featured posts), and the full archive under a sticky title bar that pins
- * to the viewport while the year-grouped post list scrolls past with the page.
+ * to the viewport while recent year groups and older writing scroll past.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
@@ -34,20 +34,26 @@ export default function ArchiveLayout({ beforeList, description, listTitle, post
   const listTitleId = 'article-list-title';
 
   /*
-   * Year markers give the archive a typographic rhythm and make long lists scannable at a glance.
-   * The shared sort key is `updated || date`, but the archive labels rows by publication date, so
-   * it re-sorts on `date` locally to keep every post under the year marker its metadata shows.
+   * Keep the last two years grouped by publication year, then collect older writing under one label.
+   * The shared sort key is `updated || date`; use publication dates here so edits do not move old
+   * posts out of the archive. Compare calendar dates in UTC, matching Contentlayer's date fields.
    */
+  const archiveCutoff = new Date();
+
+  archiveCutoff.setUTCFullYear(archiveCutoff.getUTCFullYear() - 2);
+  archiveCutoff.setUTCHours(0, 0, 0, 0);
+
   const archiveRows = [];
-  const archivePosts = [ ...posts ].sort((a, b) => (a.date > b.date ? -1 : 1));
-  let lastYear = null;
+  const sortedPosts = [ ...posts ].sort((a, b) => new Date(b.date) - new Date(a.date));
+  let lastGroup = null;
 
-  for (const frontMatter of archivePosts) {
-    const year = new Date(frontMatter.date).getFullYear();
+  for (const frontMatter of sortedPosts) {
+    const publicationDate = new Date(frontMatter.date);
+    const label = publicationDate < archiveCutoff ? 'Long time ago' : publicationDate.getUTCFullYear();
 
-    if (year !== lastYear) {
-      archiveRows.push({ 'type': 'year', year });
-      lastYear = year;
+    if (label !== lastGroup) {
+      archiveRows.push({ label, 'type': 'group' });
+      lastGroup = label;
     }
 
     archiveRows.push({ frontMatter, 'type': 'post' });
@@ -72,10 +78,10 @@ export default function ArchiveLayout({ beforeList, description, listTitle, post
 
         {!posts.length && <EmptyState title='No posts found' description='There is nothing published here yet. New writing will land soon.' />}
         <ul aria-label={ `${listTitle} archive` } className='pt-2'>
-          {archiveRows.map((row) => (row.type === 'year' ? (
-            <li key={ `year-${row.year}` } role='presentation' className='pb-2 pt-8 first:pt-2'>
+          {archiveRows.map((row) => (row.type === 'group' ? (
+            <li key={ `group-${row.label}` } role='presentation' className='pb-2 pt-8 first:pt-2'>
               <span className='block text-3xl font-extrabold leading-none tracking-tighter tabular-nums text-text-subtle/60'>
-                {row.year}
+                {row.label}
               </span>
             </li>
           ) : (

@@ -63,7 +63,10 @@ const PostMetaRow = ({ post, leading }) => (
  * // - Responsive design with proper spacing and hover effects
  */
 export default function FeaturedLayout({ posts }) {
-  const featuredPosts = posts.filter((post) => post.featured);
+
+  // Keep the editorial order stable when several featured posts are revised together.
+  const featuredPosts = posts.filter((post) => post.featured)
+    .sort((first, second) => second.date.localeCompare(first.date));
 
   // Extract the first featured post for hero display, falling back to the newest post
   const featuredPost = featuredPosts[0] || posts[0];

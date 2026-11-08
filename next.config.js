@@ -110,7 +110,7 @@ module.exports = () => {
 
     'reactStrictMode': true,
 
-    // Permanent redirects for slugs that carried typos before being renamed
+    // Preserve links to renamed and consolidated articles.
     async redirects() {
       return [
         {
@@ -122,6 +122,11 @@ module.exports = () => {
           'destination': '/blog/category/data/introduction-multi-dimensional-dbs',
           'permanent': true,
           'source': '/blog/category/data/introduction-multi-dimenstional-dbs'
+        },
+        {
+          'destination': '/blog/category/management/becoming-a-cto-compliance-at-ai-speed',
+          'permanent': true,
+          'source': '/blog/category/management/becoming-a-cto-compliance-is-a-mirror'
         }
       ];
     },

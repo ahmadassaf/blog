@@ -2,7 +2,7 @@
  * Blog Main Page
  *
  * @description Main blog page component that displays featured posts
- * and the complete year-grouped archive of all blog posts.
+ * and recent posts by year, with older writing grouped under "Long time ago".
  *
  * @author Ahmad Assaf
  * @version 1.0.0
@@ -16,6 +16,9 @@ import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 
 export const metadata = metadataGenerator({ 'path': '/blog', 'title': 'Blog' });
+
+// Refresh the rolling two-year archive cutoff daily when the page is statically cached.
+export const revalidate = 86400;
 
 /**
  * Main blog page component with featured posts and full listing

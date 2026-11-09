@@ -84,5 +84,10 @@
       "eslint --fix"
     ]
   },
-  "packageManager": "pnpm@8.15.2"
+  "packageManager": "pnpm@8.15.2",
+  "pnpm": {
+    "patchedDependencies": {
+      "@gaudi/design-system@0.1.7": "patches/@gaudi__design-system@0.1.7.patch"
+    }
+  }
 }

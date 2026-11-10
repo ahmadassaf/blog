@@ -45,13 +45,14 @@ const ArchiveEntry = ({ post }) => (
  * @param {string} [props.description] - Introductory copy under the page title
  * @param {Array} props.posts - Sorted, published core-content posts
  * @param {string} props.title - Page-level heading
+ * @param {string} [props.titleClassName] - Page-specific heading typography
  *
  * @returns {JSX.Element} The rendered archive layout
  *
  * @example
  * <ArchiveLayout posts={posts} title='Blog' description='...' />
  */
-export default function ArchiveLayout({ beforeList, description, posts, title }) {
+export default function ArchiveLayout({ beforeList, description, posts, title, titleClassName }) {
 
   /*
    * Keep the last two years grouped by publication year, then collect older writing under one label.
@@ -87,7 +88,7 @@ export default function ArchiveLayout({ beforeList, description, posts, title })
 
   return (
     <div>
-      <PageHeader title={ title } description={ description } classNames={{ 'description': 'max-w-none text-lg leading-8' }} />
+      <PageHeader title={ title } description={ description } classNames={{ 'description': 'max-w-none text-lg leading-8', 'title': titleClassName }} />
 
       {beforeList ? <div>{beforeList}</div> : null}
 

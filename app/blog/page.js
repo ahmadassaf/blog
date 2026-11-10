@@ -15,7 +15,7 @@ import ArchiveLayout from '@/layouts/ArchiveLayout';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 
-export const metadata = metadataGenerator({ 'path': '/blog', 'title': 'Blog' });
+export const metadata = metadataGenerator({ 'path': '/blog', 'title': 'Ahmad Assaf’s Blog' });
 
 // Refresh the rolling two-year archive cutoff daily when the page is statically cached.
 export const revalidate = 86400;
@@ -35,7 +35,8 @@ export default function Blog() {
   return (
     <ArchiveLayout
       posts={ posts }
-      title='Blog'
+      title='Ahmad Assaf’s Blog'
+      titleClassName='text-[2.5rem]/[1.15] sm:text-5xl/[1.15] lg:text-6xl/[1.15]'
       description='Writing about AI, semantic systems, data products, and engineering practice.'
       beforeList={ <div className='pt-8 sm:pt-12'><FeaturedPostsLayout posts={ posts } /></div> }
     />

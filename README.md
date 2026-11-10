@@ -52,7 +52,7 @@ pnpm install
 pnpm dev
 ```
 
-Open [localhost:3000](http://localhost:3000). The development command checks out the pinned content bundle, compiles the MDX, generates the derived content files, and starts Next.js with Turbopack.
+Open [localhost:3000](http://localhost:3000). The development command initializes the pinned content bundle if it is missing, compiles the MDX, generates the derived content files, and starts Next.js with Turbopack. An existing content checkout and its local changes are preserved.
 
 If the repository was cloned without submodules, initialize the content separately:
 
@@ -79,7 +79,7 @@ pnpm dev:no-github
 | `pnpm lint:check` | Check the application with ESLint |
 | `pnpm lint` | Run ESLint and apply safe fixes |
 | `pnpm analyze` | Build with the Next.js bundle analyzer enabled |
-| `pnpm content:checkout` | Initialize or restore the pinned content submodule |
+| `pnpm content:checkout` | Initialize missing content at the pinned revision; preserve an existing checkout |
 | `pnpm content:update` | Advance the content submodule to the latest configured branch revision |
 | `pnpm storybook` | Start the sibling Gaudi Storybook on port 6006 |
 | `pnpm storybook:build` | Build the sibling Gaudi Storybook |
@@ -606,7 +606,7 @@ Content-owned components execute as trusted application code in the browser. The
 
 The production build is a sequence rather than a single Next.js command:
 
-1. `content:checkout` restores the exact `data/blog` submodule revision committed by the engine.
+1. `content:checkout` initializes a missing `data/blog` submodule at the revision committed by the engine. Existing checkouts are preserved; advancing content is an explicit `content:update` action.
 2. Contentlayer reads authors, posts, and projects, validates their schemas, compiles MDX, and writes generated modules under `.contentlayer`.
 3. The custom Remark and Rehype stack adds GFM, emoji, math, headings, link previews, image conversion, code titles and groups, alerts, citations, footnotes, and syntax highlighting.
 4. `scripts/build.mjs` filters published posts, validates tag coverage and normalization, and generates category, tag, and publication data under `app/content`.
@@ -627,7 +627,7 @@ At runtime, server components consume the generated Contentlayer modules. Public
 | `/blog/category/[...slug]` | Individual post routes |
 | `/blog/categories` | Category explorer |
 | `/blog/categories/[category]` | Category archive |
-| `/blog/categories/[category]/page/[page]` | Paginated category archives |
+| `/blog/categories/[category]/page/[page]` | Legacy links permanently redirect to the category archive |
 | `/blog/tags` | Searchable tag explorer |
 | `/blog/tags/[tag]` | Tag archive |
 | `/blog/tags/[tag]/page/[page]` | Paginated tag archives |
@@ -641,12 +641,14 @@ At runtime, server components consume the generated Contentlayer modules. Public
 
 The global command launcher receives a deliberately reduced representation of posts, projects, categories, publications, and tags. Full Contentlayer documents are not serialized into every page's React Server Component payload.
 
+The homepage and blog share one featured layout: a lead article and one supporting article. Blog and category archives group posts by year, using plain rows without dividers. Recent groups remain fully visible; “Long time ago” shows five posts followed by a native expand/collapse control. Tag archives retain their paginated cards.
+
 ## Configuration
 
 Common customisation points:
 
-- Site identity and canonical URL: `data/meta/siteMetadata.js`
-- Author and social profiles: `data/meta/authorMetadata.js`
+- Site identity, canonical URL, and social profiles: `data/meta/metadata.js`
+- Author structured data: `data/meta/JSON-LD/author.js`
 - Primary navigation and category descriptions: `data/meta/navigationMetadata.mjs`
 - Citations and bibliography: `data/meta/bibliography`
 - Content rules and MDX plugins: `contentlayer.config.js`
@@ -657,6 +659,7 @@ Common customisation points:
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `GITHUB_TOKEN` | No | Authenticates project metadata requests and raises the GitHub API rate limit |
+| `GIT_CONTENT_TOKEN` | Optional | Read-only GitHub authentication when the environment requires it; supplied to the Git child process without storing it in repository config |
 | `SKIP_GITHUB_API=true` | No | Disables live project metadata requests for deterministic or offline builds |
 | `ANALYZE=true` | No | Enables the bundle analyzer during a build |
 
@@ -670,7 +673,7 @@ pnpm test
 pnpm build:no-github
 ```
 
-CI runs on Node.js 22, installs from the frozen pnpm lockfile, checks out submodules recursively, and builds without relying on the GitHub API.
+CI runs on Node.js 22, installs from the frozen pnpm lockfile, checks out submodules recursively, runs lint and the engine/content tests, and builds without relying on the GitHub API.
 
 ## Deployment
 

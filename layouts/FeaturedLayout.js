@@ -1,28 +1,8 @@
-/**
- * FeaturedLayout Component
- *
- * @description Layout component for displaying featured blog posts in a prominent grid format.
- * Shows the first featured post as a large hero section, followed by additional featured posts
- * in a responsive grid layout.
- *
- * @author Ahmad Assaf
- * @version 1.0.0
- */
-
 import { Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
 import formatDate from '@/lib/utils/formatDate';
 import { slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
-/**
- * Meta row shared by the hero and grid cards: optional leading pill, date, and the category as a
- * linked pill styled like Gaudi's Post rows
- *
- * @param {Object} props - Component props
- * @param {Object} props.post - Core-content post document
- * @param {React.ReactNode} [props.leading] - Optional element rendered before the date (e.g. the Featured pill)
- * @returns {JSX.Element} The post meta row
- */
 const PostMetaRow = ({ post, leading }) => (
   <div className='mb-2 flex flex-wrap items-center gap-x-3 gap-y-2'>
     {leading}
@@ -31,7 +11,7 @@ const PostMetaRow = ({ post, leading }) => (
     </Typography>
     {post.category && (
       <>
-        <Typography as='span' variant='post-meta'>·</Typography>
+        <Typography as='span' variant='post-meta' aria-hidden='true'>·</Typography>
         <Pill href={ `/blog/categories/${slugify(post.category)}` } tone='blue' variant='subtle' size='xs' radius='md'>
           {titleFromSlug(post.category)}
         </Pill>
@@ -40,89 +20,49 @@ const PostMetaRow = ({ post, leading }) => (
   </div>
 );
 
-/**
- * Renders a featured posts layout with hero post and grid
- *
- * @description Displays featured blog posts in a hierarchical layout with the first featured post
- * as a prominent hero section and additional featured posts in a responsive 2-column grid.
- * Automatically filters posts by 'featured' flag and handles responsive design. Falls back to
- * the newest post when no post is flagged as featured, and renders nothing when no posts exist.
- *
- * @param {Object} props - Component props
- * @param {Array<Object>} props.posts - Sorted, published core-content posts (page computes these once and shares them with its list layout)
- * @returns {JSX.Element|null} Featured posts layout with hero and grid sections
- *
- * @example
- * // Basic usage
- * <FeaturedLayout posts={getPublishedPosts(allPosts)} />
- *
- * @example
- * // Layout structure:
- * // - First featured post: Large hero section with title, date, summary
- * // - Additional featured posts: 2-column grid (1-column on mobile)
- * // - Responsive design with proper spacing and hover effects
- */
+/** Shared homepage/blog feature: a lead article and one supporting post. */
 export default function FeaturedLayout({ posts }) {
-
-  // Keep the editorial order stable when several featured posts are revised together.
   const featuredPosts = posts.filter((post) => post.featured)
     .sort((first, second) => second.date.localeCompare(first.date));
-
-  // Extract the first featured post for hero display, falling back to the newest post
   const featuredPost = featuredPosts[0] || posts[0];
-  const featuredLabel = featuredPosts[0] ? 'Featured' : 'Latest';
-
-  // Get additional featured posts for grid display (posts 2-3)
-  const displayPosts = featuredPosts.slice(1, 3);
+  const featuredLabel = featuredPosts.length ? 'Featured' : 'Latest';
+  const supportingPost = featuredPosts[1];
 
   if (!featuredPost) return null;
 
   return (
-    <div className='pb-6'>
-      <section aria-label='Featured writing'>
-        <article className='w-full group'>
-          <PostMetaRow post={ featuredPost } leading={ <Pill tone='blue' variant='solid' radius='full' size='sm'>{featuredLabel}</Pill> } />
-
-          <Typography variant='index-hero-title' as='h2' className='mb-3 max-w-none tracking-[-0.02em] sm:text-4xl sm:leading-[1.12]'>
-            <Link href={ `/blog/${featuredPost.slug}` } tone='neutral' className='font-bold'>
-              {featuredPost.title}
-            </Link>
-          </Typography>
-
-          <Typography variant='index-hero-summary' className='mb-5 w-full max-w-none text-pretty leading-[1.7] md:leading-[1.7]'>
-            {featuredPost.summary}
-          </Typography>
-
-          <Link
-            href={ `/blog/${featuredPost.slug}` }
-            tone='blue'
-            className='inline-flex max-w-full items-center gap-2'
-          >
-            Read Full Article
-            <Icon name='ArrowRight' decorative size='xs' />
+    <section id='featured-writing' aria-label='Featured writing' className='pb-6'>
+      <article className='w-full group'>
+        <PostMetaRow post={ featuredPost } leading={ <Pill tone='blue' variant='solid' radius='full' size='sm'>{featuredLabel}</Pill> } />
+        <Typography variant='index-hero-title' as='h2' className='mb-3 max-w-none tracking-[-0.02em] sm:text-4xl sm:leading-[1.12]'>
+          <Link href={ `/blog/${featuredPost.slug}` } tone='neutral' className='font-bold'>
+            {featuredPost.title}
           </Link>
-        </article>
+        </Typography>
+        <Typography variant='index-hero-summary' className='mb-5 w-full max-w-none text-pretty leading-[1.7] md:leading-[1.7]'>
+          {featuredPost.summary}
+        </Typography>
+        <Link href={ `/blog/${featuredPost.slug}` } tone='blue' className='inline-flex max-w-full items-center gap-2'>
+          Read Full Article
+          <Icon name='ArrowRight' decorative size='xs' />
+        </Link>
+      </article>
 
-        {displayPosts.length > 0 && (
-          <div className='mx-auto mt-6 grid w-full grid-cols-1 gap-4 border-t border-border-muted pt-6 md:grid-cols-2 md:gap-y-0'>
-            {displayPosts.map((post) => (
-              <article key={ post.slug } className='group min-w-0 md:row-span-3 md:grid md:grid-rows-subgrid'>
-                <PostMetaRow post={ post } />
-
-                <Typography variant='index-feature-title' as='h2' className='mb-2'>
-                  <Link href={ `/blog/${post.slug}` } tone='neutral' className='font-bold'>
-                    {post.title}
-                  </Link>
-                </Typography>
-
-                <Typography variant='index-feature-summary' className='max-w-none text-pretty'>
-                  {post.summary}
-                </Typography>
-              </article>
-            ))}
-          </div>
-        )}
-      </section>
-    </div>
+      {supportingPost && (
+        <div className='mt-6 w-full border-t border-border-muted pt-6'>
+          <article className='group min-w-0'>
+            <PostMetaRow post={ supportingPost } />
+            <Typography variant='index-feature-title' as='h2' className='mb-2'>
+              <Link href={ `/blog/${supportingPost.slug}` } tone='neutral' className='font-bold'>
+                {supportingPost.title}
+              </Link>
+            </Typography>
+            <Typography variant='index-feature-summary' className='max-w-none text-pretty'>
+              {supportingPost.summary}
+            </Typography>
+          </article>
+        </div>
+      )}
+    </section>
   );
 }

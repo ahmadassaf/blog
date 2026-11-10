@@ -15,11 +15,11 @@
     "storybook": "pnpm --dir ../design-system storybook",
     "storybook:build": "pnpm --dir ../design-system build-storybook",
     "test:ds-contracts": "pnpm --dir ../design-system test:contracts",
-    "test": "node --test $(find lib data/blog/visualisations -name '*.test.*' | sort)",
+    "test": "node --test $(find lib scripts data/meta data/blog/visualisations -name '*.test.*' | sort)",
     "serve": "cross-env INIT_CWD=\"$PWD\" next start",
     "analyze": "cross-env INIT_CWD=\"$PWD\" ANALYZE=true next build",
     "lint": "pnpm lint:check --fix",
-    "lint:check": "cross-env INIT_CWD=\"$PWD\" eslint app layouts lib scripts next.config.js postcss.config.js",
+    "lint:check": "cross-env INIT_CWD=\"$PWD\" eslint app layouts lib scripts data/meta contentlayer.config.js eslint.config.js next.config.js postcss.config.js",
     "prepare": "husky install"
   },
   "dependencies": {

@@ -55,5 +55,8 @@ jobs:
       - name: Lint
         run: pnpm lint:check
 
+      - name: Test
+        run: pnpm test
+
       - name: Build (content pipeline + Next.js, GitHub API skipped)
         run: pnpm build:no-github

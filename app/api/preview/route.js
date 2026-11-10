@@ -14,6 +14,7 @@ import { NextResponse } from 'next/server';
 import { TextDecoder } from 'node:util';
 import { parse } from 'node-html-parser';
 
+import { findPublishedDocument } from '@/lib/contentLayer/findPublishedDocument';
 import { safeFetch } from '@/lib/preview/safeFetch.mjs';
 
 /*
@@ -102,16 +103,7 @@ function getInternalPreviewData(url) {
 
   if (!pathname.startsWith('/blog/')) return null;
 
-  let slug;
-
-  if (pathname.startsWith('/blog/category/'))
-    slug = pathname.slice('/blog/'.length);
-  else if (pathname.startsWith('/blog/projects/'))
-    slug = `category/projects/${pathname.slice('/blog/projects/'.length)}`;
-  else
-    slug = `category/${pathname.slice('/blog/'.length)}`;
-
-  const post = [ ...allPosts, ...allProjects ].find((entry) => entry.slug === slug && entry.draft !== true);
+  const post = findPublishedDocument([ ...allPosts, ...allProjects ], pathname);
 
   if (!post) return null;
 
@@ -492,7 +484,11 @@ export async function GET(request) {
 
     // Validate URL format
     try {
-      normalizedUrl = new URL(url).href;
+      const target = new URL(url);
+
+      if (![ 'http:', 'https:' ].includes(target.protocol)) return jsonResponse({ 'error': 'Only HTTP(S) URLs are allowed', 'status': 400 }, 400);
+
+      normalizedUrl = target.href;
     } catch {
       return jsonResponse({ 'error': 'Invalid URL format', 'status': 400 }, 400);
     }
@@ -528,51 +524,34 @@ export async function GET(request) {
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
 
     let response;
+    let html;
 
     try {
       response = await safeFetch(normalizedUrl, controller.signal, { 'maxRedirects': MAX_REDIRECTS });
-    } catch (error) {
-      clearTimeout(timeoutId);
-      throw error;
-    }
+      const contentType = (response.headers.get('content-type') || '').toLowerCase();
+      let errorData;
 
-    // Handle non-OK responses gracefully instead of throwing
-    if (!response.ok) {
-      clearTimeout(timeoutId);
-      const errorData = createErrorData(url, {
+      if (!response.ok) errorData = createErrorData(url, {
         'errorMessage': `HTTP ${response.status}: ${response.statusText || 'Not Found'}`,
         'status': response.status
       });
-
-      // Cache the error result briefly to prevent repeated failed requests
-      cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
-
-      return jsonResponse(errorData);
-    }
-
-    // Only parse HTML documents
-    const contentType = (response.headers.get('content-type') || '').toLowerCase();
-
-    if (!contentType.startsWith('text/html')) {
-      clearTimeout(timeoutId);
-      if (response.body) await response.body.cancel();
-
-      const errorData = createErrorData(url, {
+      else if (!contentType.startsWith('text/html')) errorData = createErrorData(url, {
         'errorMessage': 'Unsupported content type',
         'status': 415
       });
 
-      cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
+      if (errorData) {
+        cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
 
-      return jsonResponse(errorData);
-    }
+        return jsonResponse(errorData);
+      }
 
-    let html;
-
-    try {
       html = await readHtmlHeadWithCap(response);
     } finally {
       clearTimeout(timeoutId);
+
+      // Close the request on every exit, including unconsumed HTTP error responses.
+      controller.abort();
     }
     const doc = parse(html);
 
@@ -619,12 +598,7 @@ export async function GET(request) {
     }
 
     // Cache error responses briefly to prevent repeated failed requests
-    if (!isAbortError(error))
-      try {
-        cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
-      } catch (cacheError) {
-        console.error('Failed to cache error response:', cacheError);
-      }
+    if (!isAbortError(error)) cache.set(cacheKey, errorData, ERROR_CACHE_TTL);
 
     // Always return 200 with error data for consistent client-side handling
     return jsonResponse(errorData);

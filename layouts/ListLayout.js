@@ -2,7 +2,7 @@
  * List Layout Component
  *
  * @description Layout for displaying a titled list of blog posts with pagination.
- * Used by the category and tag listing pages. The blog index uses ArchiveLayout.
+ * Used by tag listing pages. The blog index and categories use ArchiveLayout.
  *
  * @author Ahmad Assaf
  * @version 2.0.0
@@ -14,6 +14,8 @@ import { EmptyState,
 import PageHeader from '@gaudi/design-system/layout/PageHeader';
 
 import PostPreview from '@/layouts/PostPreview';
+
+import cardStyles from './PostPreview.module.css';
 
 /**
  * List layout component for displaying blog posts with pagination
@@ -59,7 +61,7 @@ export default function ListLayout({ posts, listTitle, baseURL, paginationURL, c
 
       <section aria-labelledby={ listTitleId }>
         {!posts.length && <EmptyState title='No posts found' description='There is nothing published here yet. New writing will land soon.' />}
-        <ul className='pt-2'>
+        <ul className={ cardStyles.grid }>
           {displayPosts.map((frontMatter) => (
             <PostPreview key={ frontMatter.slug } frontMatter={ frontMatter } titleAs='h2' />
           ))}

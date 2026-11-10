@@ -14,12 +14,15 @@ import { notFound } from 'next/navigation';
 
 import categories from '@/app/content/categories';
 import { metadataGenerator } from '@/data/meta/generator/blog';
-import ListLayout from '@/layouts/ListLayout';
+import ArchiveLayout from '@/layouts/ArchiveLayout';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 // Every valid category comes from generateStaticParams; unknown slugs must 404 instead of rendering empty lists
 export const dynamicParams = false;
+
+// Keep rolling year groups in sync with the blog index.
+export const revalidate = 86400;
 
 /**
  * Generates metadata for the category filter page
@@ -73,7 +76,7 @@ export const generateStaticParams = async() => {
  *
  * @description Renders a filtered list of blog posts that belong to the specified category.
  * Decodes the category parameter, filters posts by matching category, and displays them
- * using the ListLayout component with appropriate pagination URLs.
+ * in the same complete, year-grouped archive used by the blog index.
  *
  * @param {Object} props - Component props
  * @param {Object} props.params - Route parameters
@@ -89,17 +92,13 @@ export default async function Page({ params }) {
   const { 'category': categoryParam } = await params;
   const category = safeDecodeURI(categoryParam);
 
-  if (category === null) notFound();
+  if (category === null || !categories.some((entry) => entry.slug === category)) notFound();
 
   const title = titleFromSlug(category);
   const sortedPosts = getPublishedPosts(allPosts);
   const filteredPosts = sortedPosts.filter((post) => slugify(post.category) === category);
 
   return (
-    <>
-      <div>
-        <ListLayout posts={ filteredPosts } listTitle={ `${title} Posts` } paginationURL={ `blog/categories/${category}/page` } baseURL={ `blog/categories/${category}` }/>
-      </div>
-    </>
+    <ArchiveLayout posts={ filteredPosts } title={ `${title} Posts` } />
   );
 }

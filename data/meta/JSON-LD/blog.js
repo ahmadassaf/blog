@@ -1,6 +1,6 @@
-import metadata from '../metadata';
+import metadata from '../metadata.js';
 
-import { website } from './website';
+import { website } from './website.js';
 
 export const blog = {
   ...website,

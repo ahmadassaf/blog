@@ -37,7 +37,6 @@ export default function Blog() {
       posts={ posts }
       title='Blog'
       description='Writing about AI, semantic systems, data products, and engineering practice.'
-      listTitle='All Posts'
       beforeList={ <div className='pt-8 sm:pt-12'><FeaturedPostsLayout posts={ posts } /></div> }
     />
   );

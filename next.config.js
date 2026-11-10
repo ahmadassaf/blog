@@ -74,7 +74,7 @@ module.exports = () => {
 
   return plugins.reduce((acc, next) => next(acc), {
     'eslint': {
-      'dirs': [ 'app', 'layouts', 'lib', 'scripts' ]
+      'dirs': [ 'app', 'layouts', 'lib', 'scripts', 'data/meta' ]
     },
     'experimental': {
       'optimizePackageImports': [ 'framer-motion' ]

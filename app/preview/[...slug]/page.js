@@ -1,10 +1,7 @@
-import CitationPopover from '@gaudi/design-system/mdx/CitationPopover';
-import Footnote from '@gaudi/design-system/mdx/Footnote';
 import { allPosts } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
-import MDXLayoutRenderer from '@/data/blog/visualisations/MDXLayoutRenderer';
-import PostLayout from '@/layouts/PostLayout';
+import ContentDocument from '@/layouts/ContentDocument';
 import { coreContent } from '@/lib/utils/contentlayer';
 import { safeDecodeURI } from '@/lib/utils/slugs.mjs';
 
@@ -26,11 +23,5 @@ export default async function PreviewPage({ params }) {
 
   if (!post) notFound();
 
-  return (
-    <PostLayout content={ coreContent(post) } toc={ post.toc }>
-      <MDXLayoutRenderer code={ post.body.code } />
-      <CitationPopover />
-      <Footnote />
-    </PostLayout>
-  );
+  return <ContentDocument content={ coreContent(post) } document={ post } />;
 }

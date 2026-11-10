@@ -12,7 +12,7 @@
 import { CardContent, CardDescription, CardFooter, CardHeader, CardRoot, CardTitle, EmptyState, Icon, Link } from '@gaudi/design-system';
 import PageHeader from '@gaudi/design-system/layout/PageHeader';
 
-import { formatShortDate } from '@/app/blog/ExplorerCards';
+import { formatShortDate } from '@/lib/utils/formatDate';
 import { titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 const articleCount = (count) => `${count} ${count === 1 ? 'article' : 'articles'}`;

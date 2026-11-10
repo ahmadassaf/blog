@@ -10,7 +10,7 @@
  * @version 2.0.0
  */
 
-import siteMetadata from '../metadata';
+import siteMetadata from '../metadata.js';
 
 /**
  * Generates metadata configuration for a page

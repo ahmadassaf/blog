@@ -13,6 +13,17 @@
   --ds-font-sans: var(--font-body), system-ui, sans-serif;
 }
 
+/* Give page content more breathing room below the shared navigation. */
+#main-content {
+  margin-block-start: 2rem;
+}
+
+@media (min-width: 64rem) {
+  #main-content {
+    margin-block-start: 3rem;
+  }
+}
+
 /* The blog's aurora palette: soft blues and indigo in light mode. */
 :root {
   --blog-aurora-1: rgb(191 219 254);
@@ -46,9 +57,18 @@ html:has(.page-backdrop-layer) {
   --ds-color-surface: #222425;
 }
 
-/* Long inline examples wrap on phones; fenced code keeps its own horizontal scrolling. */
-.prose code:not(pre code) {
+/* Long tokens wrap on phones; fenced code keeps its own horizontal scrolling. */
+.prose {
   overflow-wrap: anywhere;
+}
+
+/* Let callout content shrink so nested code blocks scroll within the article. */
+.post-reading [data-slot='alert-description'] {
+  min-width: 0;
+}
+
+.post-reading [data-slot='code-block'] {
+  max-width: 100%;
 }
 
 /* A lone adjacent-article link can use the space normally shared by two links. */

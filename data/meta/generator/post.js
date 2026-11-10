@@ -9,12 +9,13 @@
  * @version 2.0.0
  */
 
-import { safeDecodeURI, slugify } from '../../../lib/utils/slugs';
-import { author } from '../JSON-LD/author';
-import { blog } from '../JSON-LD/blog';
-import siteMetadata from '../metadata';
+import { findPublishedDocument } from '../../../lib/contentLayer/findPublishedDocument.js';
+import { slugify } from '../../../lib/utils/slugs.mjs';
+import { author } from '../JSON-LD/author.js';
+import { blog } from '../JSON-LD/blog.js';
+import siteMetadata from '../metadata.js';
 
-import { metadataGenerator } from './blog';
+import { metadataGenerator } from './blog.js';
 
 /**
  * Resolves the site-relative path a post is served from
@@ -43,8 +44,7 @@ function postPath(post) {
  * const metadata = postMetadataGenerator({ slug: ['my-blog-post'] }, allPosts);
  */
 export function postMetadataGenerator(params, allPosts) {
-  const slug = safeDecodeURI(params.slug.join('/'));
-  const post = slug === null ? undefined : allPosts.find((_post) => _post.slug === slug || _post.slug.replace('category/', '') === slug);
+  const post = findPublishedDocument(allPosts, params.slug.join('/'));
 
   if (!post) return {
     'title': 'Post not found'
@@ -52,7 +52,7 @@ export function postMetadataGenerator(params, allPosts) {
 
   return metadataGenerator({
     'description': post.summary,
-    'image': `/api/og?slug=${post.slug}`,
+    'image': `/api/og?slug=${encodeURIComponent(post.slug)}`,
     'path': postPath(post),
     'publishedTime': new Date(post.date).toISOString(),
     'title': post.title,
@@ -76,7 +76,7 @@ export function postMetadataGenerator(params, allPosts) {
  */
 export function linkedDataGenerator(post) {
   const postUrl = `${siteMetadata.siteUrl}${postPath(post)}`;
-  const ogImage = `${siteMetadata.siteUrl}/api/og?slug=${post.slug}`;
+  const ogImage = `${siteMetadata.siteUrl}/api/og?slug=${encodeURIComponent(post.slug)}`;
 
   return {
     '@context': 'https://schema.org',

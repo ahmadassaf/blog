@@ -78,7 +78,7 @@ export function generateViewport() {
 const font = PlusJakartaSans({ display: 'swap', style: [ 'normal', 'italic' ], subsets: [ 'latin' ], variable: '--font-body' });
 
 const footerProps = {
-  'brandDescription': 'Writing about AI, semantic systems, data products, and engineering practice.',
+  'brandDescription': <span className='block leading-6'>Writing about AI, semantic systems, data products, and engineering practice.</span>,
   'className': '[&_p]:max-w-none',
   'copyrightName': siteMetadata.author,
   'sections': [

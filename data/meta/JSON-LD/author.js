@@ -1,7 +1,7 @@
-import metadata from '../metadata';
+import metadata from '../metadata.js';
 
-import { alumni } from './alumni';
-import { organisation } from './organisation';
+import { alumni } from './alumni.js';
+import { organisation } from './organisation.js';
 
 export const author = {
   '@context': 'https://schema.org',

@@ -1,18 +1,41 @@
 /**
  * Archive Layout Component
  *
- * @description The blog index layout: a display-scale page header, optional curated
- * content (featured posts), and the full archive under a sticky title bar that pins
- * to the viewport while recent year groups and older writing scroll past.
+ * @description The blog/category archive: a standard page header, optional curated
+ * content (featured posts), and a year-grouped archive with expandable older posts.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
  */
 
-import { EmptyState, Typography } from '@gaudi/design-system';
+import { EmptyState, Icon, Link, Typography } from '@gaudi/design-system';
 import PageHeader from '@gaudi/design-system/layout/PageHeader';
 
-import PostPreview from '@/layouts/PostPreview';
+import formatDate from '@/lib/utils/formatDate';
+import { slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
+
+import styles from './ArchiveLayout.module.css';
+
+const olderPostsPreviewCount = 5;
+
+/** A compact entry shared by the blog archive and complete category lists. */
+const ArchiveEntry = ({ post }) => (
+  <li>
+    <article className={ styles.row }>
+      <Typography as='h3' variant='index-list-title' className={ styles.title }>
+        <Link href={ `/blog/${post.slug}` } tone='neutral'>{post.title}</Link>
+      </Typography>
+      <Typography as='time' variant='post-meta' dateTime={ post.date } className={ styles.date }>
+        {formatDate(post.date)}
+      </Typography>
+      {post.category && (
+        <Link href={ `/blog/categories/${slugify(post.category)}` } tone='blue' className={ styles.category }>
+          {titleFromSlug(post.category)}
+        </Link>
+      )}
+    </article>
+  </li>
+);
 
 /**
  * Archive layout for the blog index
@@ -20,18 +43,15 @@ import PostPreview from '@/layouts/PostPreview';
  * @param {Object} props - Component props
  * @param {React.ReactNode} [props.beforeList] - Curated content shown between the header and the archive
  * @param {string} [props.description] - Introductory copy under the page title
- * @param {string} props.listTitle - Title shown in the sticky archive bar
  * @param {Array} props.posts - Sorted, published core-content posts
  * @param {string} props.title - Page-level heading
  *
  * @returns {JSX.Element} The rendered archive layout
  *
  * @example
- * <ArchiveLayout posts={posts} title='Blog' listTitle='All Posts' description='...' />
+ * <ArchiveLayout posts={posts} title='Blog' description='...' />
  */
-export default function ArchiveLayout({ beforeList, description, listTitle, posts, title }) {
-
-  const listTitleId = 'article-list-title';
+export default function ArchiveLayout({ beforeList, description, posts, title }) {
 
   /*
    * Keep the last two years grouped by publication year, then collect older writing under one label.
@@ -44,49 +64,59 @@ export default function ArchiveLayout({ beforeList, description, listTitle, post
   archiveCutoff.setUTCHours(0, 0, 0, 0);
 
   const archiveRows = [];
+  const collapsedPosts = [];
   const sortedPosts = [ ...posts ].sort((a, b) => new Date(b.date) - new Date(a.date));
   let lastGroup = null;
+  let olderPostCount = 0;
 
   for (const frontMatter of sortedPosts) {
     const publicationDate = new Date(frontMatter.date);
-    const label = publicationDate < archiveCutoff ? 'Long time ago' : publicationDate.getUTCFullYear();
+    const isOlder = publicationDate < archiveCutoff;
+    const label = isOlder ? 'Long time ago' : publicationDate.getUTCFullYear();
 
     if (label !== lastGroup) {
       archiveRows.push({ label, 'type': 'group' });
       lastGroup = label;
     }
 
-    archiveRows.push({ frontMatter, 'type': 'post' });
+    if (isOlder) olderPostCount += 1;
+
+    if (isOlder && olderPostCount > olderPostsPreviewCount) collapsedPosts.push(frontMatter);
+    else archiveRows.push({ frontMatter, 'type': 'post' });
   }
 
   return (
     <div>
-      <PageHeader title={ title } titleVariant='display-lg' description={ description } classNames={{ 'description': 'max-w-none text-lg leading-8' }} />
+      <PageHeader title={ title } description={ description } classNames={{ 'description': 'max-w-none text-lg leading-8' }} />
 
       {beforeList ? <div>{beforeList}</div> : null}
 
-      <section aria-labelledby={ listTitleId }>
-        <PageHeader
-          sticky
-          titleAs='h2'
-          titleVariant='heading-lg'
-          titleId={ listTitleId }
-          title={ listTitle }
-          classNames={{ 'root': 'items-baseline border-border-muted' }}
-          actions={ <Typography as='span' variant='post-meta' className='font-medium'>{`${posts.length} ${posts.length === 1 ? 'post' : 'posts'}`}</Typography> }
-        />
-
+      <section aria-label={ `${title} archive` }>
         {!posts.length && <EmptyState title='No posts found' description='There is nothing published here yet. New writing will land soon.' />}
-        <ul aria-label={ `${listTitle} archive` } className='pt-2'>
+        <ul aria-label='Posts by year' className={ styles.list }>
           {archiveRows.map((row) => (row.type === 'group' ? (
-            <li key={ `group-${row.label}` } role='presentation' className='pb-2 pt-8 first:pt-2'>
-              <span className='block text-3xl font-extrabold leading-none tracking-tighter tabular-nums text-text-subtle/60'>
+            <li key={ `group-${row.label}` } role='presentation' className={ styles.group }>
+              <h2 className='block text-3xl font-extrabold leading-none tracking-tighter tabular-nums text-text-subtle/60'>
                 {row.label}
-              </span>
+              </h2>
             </li>
           ) : (
-            <PostPreview key={ row.frontMatter.slug } frontMatter={ row.frontMatter } titleAs='h3' />
+            <ArchiveEntry key={ row.frontMatter.slug } post={ row.frontMatter } />
           )))}
+          {collapsedPosts.length > 0 && (
+            <li>
+              <details className={ styles.olderPosts }>
+                <summary className={ styles.expandToggle }>
+                  <span className={ styles.expandLabel }>Show {collapsedPosts.length} more {collapsedPosts.length === 1 ? 'post' : 'posts'}</span>
+                  <span className={ styles.collapseLabel }>Show fewer posts</span>
+                  <Icon name='ChevronDown' decorative size='sm' className={ styles.expandIcon } />
+                </summary>
+                <ul aria-label='More posts from long time ago'>
+                  {collapsedPosts.map((post) => <ArchiveEntry key={ post.slug } post={ post } />)}
+                </ul>
+              </details>
+            </li>
+          )}
         </ul>
       </section>
     </div>

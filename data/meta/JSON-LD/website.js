@@ -1,6 +1,6 @@
-import metadata from '../metadata';
+import metadata from '../metadata.js';
 
-import { author } from './author';
+import { author } from './author.js';
 
 export const website = {
   '@context': 'https://schema.org',

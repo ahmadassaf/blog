@@ -17,6 +17,7 @@ import { NextResponse } from 'next/server';
 
 import siteMetadata from '@/data/meta/metadata';
 import SiteMark from '@/layouts/SiteMark';
+import { findPublishedDocument } from '@/lib/contentLayer/findPublishedDocument';
 import { titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 // Module-scope cache so fonts are downloaded at most once per instance
@@ -105,11 +106,10 @@ export async function GET(request) {
 
   try {
 
-    const slug = slugParam.replace('category/', '');
-    const post = [ ...allPosts, ...allProjects ].find((_post) => _post.slug.replace('category/', '') === slug);
+    const post = findPublishedDocument([ ...allPosts, ...allProjects ], slugParam);
 
     // Never leak unpublished titles through OG images, and never render arbitrary text for unknown slugs
-    if (!post || post.draft) return NextResponse.json(
+    if (!post) return NextResponse.json(
       { 'error': 'Post not found', 'status': 404 }, { 'status': 404 }
     );
 

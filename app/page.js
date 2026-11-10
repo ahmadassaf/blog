@@ -55,7 +55,7 @@ export default function Home() {
             Press <Kbd keys='command,k' size='sm' /> to start
           </p>
         </header>
-        <FeaturedPostsLayout posts={ posts } />
+        <FeaturedPostsLayout posts={ posts } showArchiveLink />
       </div>
     </>
   );

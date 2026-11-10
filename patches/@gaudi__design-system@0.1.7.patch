@@ -1,10 +1,73 @@
+diff --git a/src/components/blocks/Navigation/Menu.jsx b/src/components/blocks/Navigation/Menu.jsx
+--- a/src/components/blocks/Navigation/Menu.jsx
++++ b/src/components/blocks/Navigation/Menu.jsx
+@@ -22,7 +22,6 @@
+ import MenuSearch from './MenuSearch.jsx';
+ import ThemeSwitch from './ThemeSwitch.jsx';
+ import { coreContent, sortPosts } from '../../../utilities/content';
+-import formatDate from '../../../utilities/formatDate';
+ import { useSiteConfig } from '../../../context';
+
+ /** Category destinations for a Blog or Categories panel. */
+@@ -38,18 +37,28 @@
+   </ul>
+ );
+
+-/** The Blog panel's second block: the three most recent posts and a See all link. */
+-const RecentPosts = ({ locale, posts, blogLink }) => (
+-  <NavigationMenuAside title='Recent posts' action={blogLink ? { href: blogLink.href, label: 'See all' } : undefined}>
+-    <ul className='m-0 grid list-none gap-0.5 p-0'>
++/** The Blog panel's recent posts; the overview replaces its compact archive action when supplied. */
++const RecentPosts = ({ posts, blogLink }) => (
++  <NavigationMenuAside action={blogLink && !blogLink.overview ? { href: blogLink.href, label: 'See all' } : undefined}>
++    <ul aria-label='Recent posts' className='m-0 grid list-none gap-0.5 p-0'>
+       {posts.slice(0, 3).map((post) => (
+         <li key={ post.id ?? post.slug ?? post.href }>
+-          <NavigationMenuLink variant='panel' href={ post.href } description={ formatDate(post.date, locale) }>
+-            <span className='block truncate'>{post.title}</span>
++          <NavigationMenuLink variant='panel' href={ post.href }>
++            <span className='block text-pretty'>{post.title}</span>
+           </NavigationMenuLink>
+         </li>
+       ))}
+     </ul>
++    {blogLink?.overview ? (
++      <div className='mt-3'>
++        <NavigationMenuLink variant='panel' href={blogLink.href} description={blogLink.overview.description}>
++          <span className='flex items-center justify-between gap-3 font-semibold text-accent'>
++            {blogLink.overview.label}
++            <Icon name='ArrowRight' decorative size='sm' />
++          </span>
++        </NavigationMenuLink>
++      </div>
++    ) : null}
+   </NavigationMenuAside>
+ );
+
+@@ -57,6 +66,7 @@
+  * Renders the site header
+  *
+  * @param {Object} props - Searchable content collections for the Blog panel and the command launcher
++ * @param {Object} [props.blogLink.overview] - Optional prominent archive link with label and description
+  * @param {React.ReactNode} [props.logo] - Brand shown in the home link; defaults to the Gaudi brand mark
+  * @returns {JSX.Element} The site header
+  *
+@@ -121,7 +131,7 @@
+                 <CategoryLinks categories={ menuCategories } />
+               </NavigationMenuDropdown>
+             ) : (
+-              <NavigationMenuDropdown label={blogLink.title} align='center' width='2xl' aside={ <RecentPosts posts={ posts } locale={ metadata.locale } blogLink={blogLink} /> }>
++              <NavigationMenuDropdown label={blogLink.title} align='center' width='2xl' aside={ <RecentPosts posts={ posts } blogLink={blogLink} /> }>
+                 <CategoryLinks categories={ menuCategories } />
+               </NavigationMenuDropdown>
+             ) : null}
 diff --git a/src/components/post/TableOfContents/TableOfContents.js b/src/components/post/TableOfContents/TableOfContents.js
 index 3ae57113..5bb3497b 100644
 --- a/src/components/post/TableOfContents/TableOfContents.js
 +++ b/src/components/post/TableOfContents/TableOfContents.js
 @@ -1,6 +1,6 @@
  'use client';
- 
+
 -import { useEffect, useMemo, useState } from 'react';
 +import { useEffect, useMemo, useRef, useState } from 'react';
  import Button from '../../core/Button';
@@ -38,7 +101,7 @@ index 3ae57113..5bb3497b 100644
 +    const viewport = contentsViewportRef.current;
 +    viewport?.scrollTo({ top: viewport.scrollHeight, behavior: smooth && !reducedMotion ? 'smooth' : 'auto' });
 +  }, [visuals, visualsOpen, smooth, reducedMotion]);
- 
+
    const diagrams = visuals.filter(visual => visual.kind === 'diagram').length;
    const tables = visuals.length - diagrams;
    if (!toc.length && !visuals.length) return null;

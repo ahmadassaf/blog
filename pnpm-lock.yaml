@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@gaudi/design-system@0.1.7':
-    hash: 6vd4kpk6z3p7lho5z2rf4vafle
+    hash: gskpft73gqdvw6uetdkq6vcn7y
     path: patches/@gaudi__design-system@0.1.7.patch
 
 importers:
@@ -15,7 +15,7 @@ importers:
     dependencies:
       '@gaudi/design-system':
         specifier: github:g-udi/design-system#555adb560f8a0255820848799dc1a6f7c826a56d
-        version: github.com/g-udi/design-system/555adb560f8a0255820848799dc1a6f7c826a56d(patch_hash=6vd4kpk6z3p7lho5z2rf4vafle)(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3)
+        version: github.com/g-udi/design-system/555adb560f8a0255820848799dc1a6f7c826a56d(patch_hash=gskpft73gqdvw6uetdkq6vcn7y)(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3)
       '@giscus/react':
         specifier: ^3.1.0
         version: 3.1.0(react-dom@19.2.8)(react@19.2.8)
@@ -12249,7 +12249,7 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  github.com/g-udi/design-system/555adb560f8a0255820848799dc1a6f7c826a56d(patch_hash=6vd4kpk6z3p7lho5z2rf4vafle)(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3):
+  github.com/g-udi/design-system/555adb560f8a0255820848799dc1a6f7c826a56d(patch_hash=gskpft73gqdvw6uetdkq6vcn7y)(next-themes@0.4.6)(next@15.5.9)(react-dom@19.2.8)(react@19.2.8)(recharts@3.10.1)(tailwindcss@4.3.3):
     resolution: {tarball: https://codeload.github.com/g-udi/design-system/tar.gz/555adb560f8a0255820848799dc1a6f7c826a56d}
     id: github.com/g-udi/design-system/555adb560f8a0255820848799dc1a6f7c826a56d
     name: '@gaudi/design-system'

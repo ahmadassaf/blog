@@ -139,8 +139,12 @@ const toMenuItems = (docs, hrefOf = (doc) => `/blog/${doc.slug}`) => sortPosts(p
 const menuProps = {
 
   // Gaudi's Blog panel: categories and recent posts, or a Categories menu on blog routes.
-  'blogLink': { 'href': '/blog', 'title': 'Blog' },
-  categories,
+  'blogLink': {
+    'href': '/blog',
+    'overview': { 'description': 'Latest writing and the full archive', 'label': 'View all posts' },
+    'title': 'Blog'
+  },
+  'categories': [ ...categories ].sort((first, second) => first.title.localeCompare(second.title)),
   'logo': <SiteLogo />,
   'posts': toMenuItems(allPosts),
   'projects': toMenuItems(allProjects, (project) => `/blog/${project.externalLink}`),

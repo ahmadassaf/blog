@@ -1,3 +1,5 @@
+const { createHash } = require('node:crypto');
+const { readFileSync } = require('node:fs');
 const path = require('node:path');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -6,6 +8,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const { withContentlayer } = require('next-contentlayer2');
 
 const rootDir = process.cwd();
+const dependencyCacheKey = createHash('sha256')
+  .update(readFileSync(path.join(rootDir, 'pnpm-lock.yaml')))
+  .digest('hex');
 
 /*
  * You might need to insert additional domains in script-src if you are using external services.
@@ -149,6 +154,11 @@ module.exports = () => {
       }
     },
     'webpack': (config) => {
+
+      // Pnpm patches keep the package version; their lockfile hashes must invalidate cached dependency code.
+      if (config.cache?.type === 'filesystem')
+        config.cache.version = `${config.cache.version || ''}:${dependencyCacheKey}`;
+
       config.resolve.alias = {
         ...config.resolve.alias,
         '@/app': path.join(rootDir, 'app'),

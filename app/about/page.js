@@ -73,14 +73,14 @@ export default function About() {
       <PageChrome background={ false } />
       <PageBackdrop className='about-backdrop' intensity={ 0.6 }>
         <header className='pb-24 pt-5 sm:pb-32 sm:pt-8'>
-          <div className='max-w-2xl'>
+          <div>
             <Typography variant='title-xl' className='text-4xl leading-[1.05] sm:text-5xl md:text-6xl md:leading-[1.02] lg:text-6xl'>
               AI &amp; Engineering Leader, Consultant and Mentor
             </Typography>
-            <Typography variant='paragraph-md' className='mt-5 max-w-[68ch]'>
+            <Typography variant='paragraph-md' className='mt-5 max-w-[68ch] text-pretty'>
               I'm Ahmad Assaf, CTO at Mav9. I've spent more than a decade building and scaling SaaS businesses across engineering, data, and AI. My work spans technology strategy, engineering leadership, and product development.
             </Typography>
-            <Typography variant='paragraph-md' className='mt-4 max-w-[68ch]'>
+            <Typography variant='paragraph-md' className='mt-4 max-w-[68ch] text-pretty'>
               I offer consulting, advisory support, and mentoring to founders, technology leaders, and teams.
             </Typography>
             <Link href='#work-with-me' tone='blue' className='mt-6 inline-flex max-w-full items-center gap-2'>
@@ -132,9 +132,9 @@ export default function About() {
       </section>
 
       <section id='work-with-me' aria-labelledby='services-heading' className='mt-16 scroll-mt-24 pt-12 sm:mt-20 sm:pt-14'>
-        <div className='max-w-2xl'>
+        <div>
           <Typography variant='heading-lg' as='h2' id='services-heading'>Consulting, Advisory and Mentoring</Typography>
-          <Typography variant='paragraph-md' className='mt-5'>
+          <Typography variant='paragraph-md' className='mt-5 max-w-[68ch] text-pretty'>
             I can help you shape your AI strategy, strengthen engineering leadership, scale your team, or assess technical risks. Tell me what you're working on and where you need support, and we can discuss how I can help.
           </Typography>
           <Link href={ `mailto:${siteMetadata.email}` } tone='blue' className='mt-5 inline-flex max-w-full items-center gap-2'>
@@ -150,7 +150,7 @@ export default function About() {
               <Typography variant='heading-sm' as='h3'>
                 {value.name}
               </Typography>
-              <Typography variant='paragraph-sm' className='mt-2 max-w-sm'>
+              <Typography variant='paragraph-sm' className='mt-2'>
                 {value.description}
               </Typography>
             </section>

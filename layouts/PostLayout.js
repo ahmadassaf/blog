@@ -39,14 +39,14 @@ const disclaimer = 'The opinions and views expressed on this blog are solely my 
  *   <MDXContent />
  * </PostLayout>
  */
-/** PostNavigation wants a ready href; the resolver hands back the neighbour's slug. */
-const toNavigationTarget = (neighbour) => (neighbour?.slug ? { 'href': `/blog/${neighbour.slug}`, 'title': neighbour.title } : null);
+/** Explicitly target the page top instead of relying on route-change scroll heuristics. */
+const toNavigationTarget = (neighbour) => (neighbour?.slug ? { 'href': `/blog/${neighbour.slug}#top`, 'title': neighbour.title } : null);
 
 export default function PostLayout({ content, next, prev, toc, children }) {
   const isProject = content.type === 'Project';
 
   return (
-    <article>
+    <article className='post-layout'>
       <PostArticleFrame content={ content } locale={ siteMetadata.locale } toc={ toc } padding={ isProject ? 'lg' : undefined }>
         {children}
         {!isProject && (

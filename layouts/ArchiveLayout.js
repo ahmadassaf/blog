@@ -61,7 +61,7 @@ export default function ArchiveLayout({ beforeList, description, listTitle, post
 
   return (
     <div>
-      <PageHeader title={ title } titleVariant='display-lg' description={ description } classNames={{ 'description': 'text-lg leading-8' }} />
+      <PageHeader title={ title } titleVariant='display-lg' description={ description } classNames={{ 'description': 'max-w-none text-lg leading-8' }} />
 
       {beforeList ? <div>{beforeList}</div> : null}
 

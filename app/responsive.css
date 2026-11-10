@@ -51,6 +51,11 @@ html:has(.page-backdrop-layer) {
   overflow-wrap: anywhere;
 }
 
+/* A lone adjacent-article link can use the space normally shared by two links. */
+.post-layout > nav > div > a:only-child {
+  max-width: 100%;
+}
+
 /* Larger reading text and more space between paragraphs. */
 .home-biography,
 .post-reading {

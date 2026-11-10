@@ -79,6 +79,7 @@ const font = PlusJakartaSans({ display: 'swap', style: [ 'normal', 'italic' ], s
 
 const footerProps = {
   'brandDescription': 'Writing about AI, semantic systems, data products, and engineering practice.',
+  'className': '[&_p]:max-w-none',
   'copyrightName': siteMetadata.author,
   'sections': [
     {

@@ -142,6 +142,7 @@
 .chapterList {
   margin: 0;
   padding: 0;
+  padding-inline-start: 1rem;
   list-style: none;
 }
 
@@ -175,6 +176,14 @@
 }
 
 @media (min-width: 48rem) {
+  .chapterList {
+    padding-inline-start: 0;
+  }
+
+  .chapterList .titleCell {
+    padding-inline-start: 1rem;
+  }
+
   .row {
     grid-template-columns: 9.5rem minmax(0, 1fr) auto;
     column-gap: 1.25rem;

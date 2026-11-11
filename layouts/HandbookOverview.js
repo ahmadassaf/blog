@@ -82,7 +82,7 @@ export default function HandbookOverview({ handbook }) {
           <Link href={ handbook.updatesHref } className={ styles.moreChanges }>All updates<Icon name='ArrowRight' size='sm' decorative /></Link>
           <div className={ styles.about }>
             <h3>Written in practice</h3>
-            <p>Lessons from two startups, what I think we should do now, and the CTO’s part in each decision. The current chapters draw mainly on our work at Mav9.</p>
+            <p>Lessons from two startups, what I think we should do now, and the CTO’s part in each decision. I’ll use examples from my experience to show how the practices can look at different company stages.</p>
             <Link href={ `/blog/${handbook.index.slug}` }>How to read this handbook<Icon name='ArrowUpRight' size='sm' decorative /></Link>
           </div>
         </aside>

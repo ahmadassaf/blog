@@ -13,5 +13,5 @@
 
 # Handbook card appearance
 
-- Use Gaudi's Soft Aurora (`Borealis` with `variant='soft'`) and a glowing border for the homepage handbook card. The user selected it from the animated-background comparison.
+- Use Gaudi's Soft Aurora (`Borealis` with `variant='soft'`) for the homepage handbook card. The border must match the Mav9 DS ChatInput “Opt-in glow” / Card `glow` effect: the travelling ocean-palette highlight from `border-beam`, not a static conic outline or full-card halo.
 - If the user revisits this choice, their other preference is Soft Grainient (Gaudi's `Grainient` with gentle grain and motion). Keep Soft Aurora until they ask to change it.

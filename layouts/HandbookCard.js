@@ -6,6 +6,8 @@ import Borealis from '@gaudi/design-system/animations/Borealis';
 
 import { formatShortDate } from '@/lib/utils/formatDate';
 
+import HandbookCardGlow from './HandbookCardGlow';
+
 import styles from './HandbookCard.module.css';
 
 const colors = [ 'var(--ds-color-accent)', 'var(--ds-color-chart-3)', 'var(--ds-color-chart-2)' ];
@@ -42,6 +44,7 @@ export default function HandbookCard({ handbook }) {
             </div>
           </div>
         </CardRoot>
+        <HandbookCardGlow paused={ paused } />
       </div>
     </section>
   );

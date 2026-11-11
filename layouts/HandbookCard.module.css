@@ -4,14 +4,11 @@
   scroll-margin-block-start: 6rem;
 }
 
-/* Gaudi's Hero glowing-mark treatment, using the same theme tokens as the aurora. */
 .frame {
+  position: relative;
   padding: 1px;
   border-radius: var(--ds-radius-card);
-  background: conic-gradient(from 200deg, var(--ds-color-chart-2), var(--ds-color-chart-3), var(--ds-color-accent), var(--ds-color-chart-2));
-  box-shadow:
-    0 0 18px color-mix(in srgb, var(--ds-color-chart-2) 18%, transparent),
-    0 0 40px color-mix(in srgb, var(--ds-color-chart-3) 9%, transparent);
+  background: var(--ds-color-border);
 }
 
 .card {

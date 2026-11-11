@@ -29,6 +29,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/og": "^0.6.8",
     "@vercel/speed-insights": "^1.2.0",
+    "border-beam": "1.3.0",
     "citation-js": "^0.7.20",
     "contentlayer2": "^0.5.5",
     "esbuild": "^0.25.3",

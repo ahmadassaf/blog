@@ -77,7 +77,6 @@ export default function HandbookOverview({ handbook }) {
 
         <aside className={ styles.latest } aria-labelledby='handbook-latest'>
           <div className={ styles.sectionHeading }><h2 id='handbook-latest'>Latest changes</h2><Icon name='History' size='sm' decorative /></div>
-          <p className={ styles.latestIntro }>New chapters, substantial sections and changes in approach.</p>
           {handbook.updates.length ? <HandbookUpdateList updates={ handbook.updates.slice(0, 3) } compact /> : <p className={ styles.latestIntro }>No updates published yet.</p>}
           <Link href={ handbook.updatesHref } className={ styles.moreChanges }>All updates<Icon name='ArrowRight' size='sm' decorative /></Link>
           <div className={ styles.about }>

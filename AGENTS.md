@@ -5,10 +5,13 @@
 - Keep post-level changelogs empty until explicitly requested too. Omit empty changelog sections and introductory promises of a changelog; show “View changes” only when parsed entries exist.
 - When explicitly requested, log only the requested major milestone: a new chapter or part, a substantial section, or a methodology change. Public entries are authored in `data/blog/management/cto-handbook.mdx`; chapter edits must not populate the feed.
 
-# Handbook framing
+# Author's voice across all posts
 
 - The author knowingly signed up for company-building responsibilities beyond engineering and is happy to take them on. Present that work as normal for a founding role. Do not invent reluctance, surprise at the scope, or regret about taking it on; later handovers concern how ownership changes as the company grows.
 - Do not invent first-person reflections, regrets, motives or claims about what the author wishes he had done. Ground personal statements in the user’s own account; earlier assistant drafts and editorial checks are not evidence that the user said something. Hypothetical guidance must not become autobiographical hindsight.
+
+# Handbook framing
+
 - Keep the handbook independent of named employers or companies. Frame examples around how the author works now, how a practice fits a startup, and how it can change as the company scales. Use labels such as “How I do it now”, “How I approached it at a startup” and “As the company grows”, with proposals identified separately. Preserve the substance and tense of real experiences without naming the company; do not invent scale-up experience or present recommendations as established practice. Keep source citations and named tools intact.
 - Organise chapters around the author's startup responsibilities and CTO experience. Develop the handbook's own structure and sections; books may be referenced lightly as sources, but must not supply its chapter structure.
 - Prefer sharp, one-word chapter names.

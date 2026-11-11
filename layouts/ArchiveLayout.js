@@ -20,7 +20,7 @@ import styles from './ArchiveLayout.module.css';
 const olderPostsPreviewCount = 5;
 
 /** The same date, title and category columns for posts and handbook chapters. */
-const ArchiveRow = ({ post, disclosure }) => (
+const ArchiveRow = ({ post, disclosure, description }) => (
   <article className={ styles.row }>
     <div className={ styles.titleCell }>
       <Typography as='h3' variant='index-list-title' className={ styles.title }>
@@ -28,6 +28,7 @@ const ArchiveRow = ({ post, disclosure }) => (
         {post.handbook && !disclosure && <Pill tone='gray' variant='soft' size='xs' className={ styles.kind }>Handbook</Pill>}
       </Typography>
       {disclosure}
+      {description && <p className={ styles.chapterDescription }>{description}</p>}
     </div>
     <Typography as='time' variant='post-meta' dateTime={ post.date } className={ styles.date }>
       {formatDate(post.date)}
@@ -55,7 +56,7 @@ const ArchiveEntry = ({ post }) => {
         ) } />
         <CollapsibleContent>
           <ol aria-label={ `Chapters of ${post.title}` } className={ styles.chapterList }>
-            {post.chapters.map((chapter) => <li key={ chapter.slug }><ArchiveRow post={ chapter } /></li>)}
+            {post.chapters.map((chapter) => <li key={ chapter.slug }><ArchiveRow post={ chapter } description={ chapter.subtitle || chapter.summary } /></li>)}
           </ol>
         </CollapsibleContent>
       </li>

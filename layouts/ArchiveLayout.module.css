@@ -145,6 +145,16 @@
   list-style: none;
 }
 
+.chapterDescription {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--ds-color-text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
 @media (min-width: 48rem) {
   .row {
     grid-template-columns: 9.5rem minmax(0, 1fr) auto;

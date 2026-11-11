@@ -14,7 +14,7 @@
 # Series in lists
 
 - Series collapsing is opt-in through `series.collapseInLists` on the lowest-order published post. Default to `false`; the handbook index explicitly opts in, while ordinary series stay uncollapsed unless the user asks otherwise.
-- Collapsed series use smaller, indented installments with descriptions and aligned date/category columns. Resolve grouping before filtering and pagination.
+- Collapsed series use smaller, indented installments with descriptions and aligned dates. Show the category on the parent entry only, not on its children. Resolve grouping before filtering and pagination.
 
 # Handbook card appearance
 

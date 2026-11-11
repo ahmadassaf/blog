@@ -18,8 +18,8 @@ import styles from './ArchiveLayout.module.css';
 
 const olderPostsPreviewCount = 5;
 
-/** The same date, title and category columns for posts and series installments. */
-const ArchiveRow = ({ post, disclosure, description }) => (
+/** Nested installments retain dates and descriptions; the parent carries the category. */
+const ArchiveRow = ({ post, disclosure, description, showCategory = true }) => (
   <article className={ styles.row }>
     <div className={ styles.titleCell }>
       <Typography as='h3' variant='index-list-title' className={ styles.title }>
@@ -32,7 +32,7 @@ const ArchiveRow = ({ post, disclosure, description }) => (
     <Typography as='time' variant='post-meta' dateTime={ post.date } className={ styles.date }>
       {formatDate(post.date)}
     </Typography>
-    {post.category && (
+    {showCategory && post.category && (
       <Link href={ `/blog/categories/${slugify(post.category)}` } tone='blue' className={ styles.category }>
         {titleFromSlug(post.category)}
       </Link>
@@ -58,7 +58,7 @@ const ArchiveEntry = ({ post }) => {
         ) } />
         <CollapsibleContent>
           <ol aria-label={ `${post.handbook ? 'Chapters' : 'More posts'} in ${post.series.title}` } className={ styles.seriesList }>
-            {post.seriesPosts.map((part) => <li key={ part.slug }><ArchiveRow post={ part } description={ part.subtitle || part.summary } /></li>)}
+            {post.seriesPosts.map((part) => <li key={ part.slug }><ArchiveRow post={ part } description={ part.subtitle || part.summary } showCategory={ false } /></li>)}
           </ol>
         </CollapsibleContent>
       </li>

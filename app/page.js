@@ -15,7 +15,9 @@ import { allPosts } from 'contentlayer/generated';
 
 import siteMetadata from '@/data/meta/metadata';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
+import HandbookCard from '@/layouts/HandbookCard';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
+import { getHandbook } from '@/lib/utils/handbooks';
 
 /**
  * Home page component that renders the main landing page
@@ -32,6 +34,7 @@ import { getPublishedPosts } from '@/lib/utils/contentlayer';
  */
 export default function Home() {
   const posts = getPublishedPosts(allPosts);
+  const handbook = getHandbook(allPosts);
 
   return (
     <>
@@ -56,6 +59,7 @@ export default function Home() {
           </p>
         </header>
         <FeaturedPostsLayout posts={ posts } showArchiveLink />
+        {handbook && <HandbookCard handbook={ handbook } />}
       </div>
     </>
   );

@@ -8,34 +8,60 @@
  * @version 1.0.0
  */
 
-import { EmptyState, Icon, Link, Typography } from '@gaudi/design-system';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, EmptyState, Icon, Link, Pill, Typography } from '@gaudi/design-system';
 import PageHeader from '@gaudi/design-system/layout/PageHeader';
 
 import formatDate from '@/lib/utils/formatDate';
+import { groupHandbooks } from '@/lib/utils/handbooks';
 import { slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 import styles from './ArchiveLayout.module.css';
 
 const olderPostsPreviewCount = 5;
 
-/** A compact entry shared by the blog archive and complete category lists. */
-const ArchiveEntry = ({ post }) => (
-  <li>
-    <article className={ styles.row }>
+/** The same date, title and category columns for posts and handbook chapters. */
+const ArchiveRow = ({ post, disclosure }) => (
+  <article className={ styles.row }>
+    <div className={ styles.titleCell }>
       <Typography as='h3' variant='index-list-title' className={ styles.title }>
         <Link href={ `/blog/${post.slug}` } tone='neutral'>{post.title}</Link>
+        {post.handbook && !disclosure && <Pill tone='gray' variant='soft' size='xs' className={ styles.kind }>Handbook</Pill>}
       </Typography>
-      <Typography as='time' variant='post-meta' dateTime={ post.date } className={ styles.date }>
-        {formatDate(post.date)}
-      </Typography>
-      {post.category && (
-        <Link href={ `/blog/categories/${slugify(post.category)}` } tone='blue' className={ styles.category }>
-          {titleFromSlug(post.category)}
-        </Link>
-      )}
-    </article>
-  </li>
+      {disclosure}
+    </div>
+    <Typography as='time' variant='post-meta' dateTime={ post.date } className={ styles.date }>
+      {formatDate(post.date)}
+    </Typography>
+    {post.category && (
+      <Link href={ `/blog/categories/${slugify(post.category)}` } tone='blue' className={ styles.category }>
+        {titleFromSlug(post.category)}
+      </Link>
+    )}
+  </article>
 );
+
+/** A compact entry shared by the blog archive and complete category lists. */
+const ArchiveEntry = ({ post }) => {
+  if (!post.chapters?.length) return <li><ArchiveRow post={ post } /></li>;
+
+  return (
+    <Collapsible asChild>
+      <li>
+        <ArchiveRow post={ post } disclosure={ (
+          <CollapsibleTrigger className={ styles.chaptersToggle } aria-label={ `Toggle ${post.chapters.length} chapters of ${post.title}` }>
+            <span>{post.chapters.length} {post.chapters.length === 1 ? 'chapter' : 'chapters'}</span>
+            <Icon name='ChevronDown' decorative size='sm' className={ styles.expandIcon } />
+          </CollapsibleTrigger>
+        ) } />
+        <CollapsibleContent>
+          <ol aria-label={ `Chapters of ${post.title}` } className={ styles.chapterList }>
+            {post.chapters.map((chapter) => <li key={ chapter.slug }><ArchiveRow post={ chapter } /></li>)}
+          </ol>
+        </CollapsibleContent>
+      </li>
+    </Collapsible>
+  );
+};
 
 /**
  * Archive layout for the blog index
@@ -43,7 +69,7 @@ const ArchiveEntry = ({ post }) => (
  * @param {Object} props - Component props
  * @param {React.ReactNode} [props.beforeList] - Curated content shown between the header and the archive
  * @param {string} [props.description] - Introductory copy under the page title
- * @param {Array} props.posts - Sorted, published core-content posts
+ * @param {Array} props.posts - Sorted, published core-content posts; handbook chapters fold under their index post
  * @param {string} props.title - Page-level heading
  * @param {string} [props.titleClassName] - Page-specific heading typography
  *
@@ -66,7 +92,7 @@ export default function ArchiveLayout({ beforeList, description, posts, title, t
 
   const archiveRows = [];
   const collapsedPosts = [];
-  const sortedPosts = [ ...posts ].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const sortedPosts = groupHandbooks(posts).sort((a, b) => new Date(b.date) - new Date(a.date));
   let lastGroup = null;
   let olderPostCount = 0;
 

@@ -17,7 +17,7 @@ export const HandbookNavigation = ({ handbook, current }) => (
   </nav>
 );
 
-/** Dated changes come from the authored chapter changelogs, never a second copy. */
+/** Public milestones come from the handbook index's curated changelog. */
 export const HandbookUpdateList = ({ updates, compact = false }) => (
   <ol className={ compact ? styles.recentChanges : styles.updateList }>
     {updates.map((update, index) => (
@@ -77,8 +77,8 @@ export default function HandbookOverview({ handbook }) {
 
         <aside className={ styles.latest } aria-labelledby='handbook-latest'>
           <div className={ styles.sectionHeading }><h2 id='handbook-latest'>Latest changes</h2><Icon name='History' size='sm' decorative /></div>
-          <p className={ styles.latestIntro }>The handbook changes as the work does. Each chapter keeps a record.</p>
-          {handbook.updates.length ? <HandbookUpdateList updates={ handbook.updates.slice(0, 3) } compact /> : <p className={ styles.latestIntro }>Chapter updates will appear here.</p>}
+          <p className={ styles.latestIntro }>New chapters, substantial sections and changes in approach.</p>
+          {handbook.updates.length ? <HandbookUpdateList updates={ handbook.updates.slice(0, 3) } compact /> : <p className={ styles.latestIntro }>Major handbook updates will appear here.</p>}
           <Link href={ handbook.updatesHref } className={ styles.moreChanges }>All updates<Icon name='ArrowRight' size='sm' decorative /></Link>
           <div className={ styles.about }>
             <h3>Written in practice</h3>
@@ -97,11 +97,11 @@ export function HandbookUpdates({ handbook }) {
       <HandbookNavigation handbook={ handbook } current='updates' />
       <header className={ styles.updatesHeader }>
         <h1>What’s changed</h1>
-        <p>The change history of <Link href={ handbook.href }>{handbook.index.title}</Link>. New chapters, revised practices, and the details that changed along the way.</p>
+        <p>Major additions to <Link href={ handbook.href }>{handbook.index.title}</Link>: new chapters, substantial sections and changes in methodology.</p>
       </header>
       <section aria-label='Handbook change history' className={ styles.history }>
-        <div className={ styles.historyNote }><h2>A record of the work</h2><p>Newest changes first. Open a chapter to read its full history in context.</p></div>
-        {handbook.updates.length ? <HandbookUpdateList updates={ handbook.updates } /> : <p>Chapter updates will appear here.</p>}
+        <div className={ styles.historyNote }><h2>Handbook milestones</h2><p>The substantial changes, newest first.</p></div>
+        {handbook.updates.length ? <HandbookUpdateList updates={ handbook.updates } /> : <p>Major handbook updates will appear here.</p>}
       </section>
     </div>
   );

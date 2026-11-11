@@ -1,6 +1,6 @@
 # Startup Handbook
 
-Mode: Read. The user approved a distinct editorial landing page, chapter layout and aggregated updates view on 11 November 2026.
+Mode: Read. The user approved a distinct editorial landing page, chapter layout and curated updates view on 11 November 2026.
 
 ## Direction
 
@@ -14,11 +14,15 @@ Start reading, select a chapter, or inspect updates. The chapter layout has a qu
 
 ## Implemented surface
 
-- `/blog/handbook` is the title page and numbered chapter directory. Its latest-changes column shows the three newest authored entries; `/blog/handbook/updates` shows the complete history, newest first. Entries link to the original article's `#changelog`.
+- `/blog/handbook` is the title page and numbered chapter directory. Its latest-changes column shows the three newest curated milestones from the handbook index's changelog; `/blog/handbook/updates` shows that milestone history, newest first. Entries link to the index's `#changelog`.
 - The title and introduction, directory and latest changes, and update-history introduction and entries form two-column layouts from 48rem (768px). Below that width they follow their reading order in one column.
 - The chapter layout uses a 13rem sticky navigation rail from 64rem (1024px), with its own vertical scrolling when needed. Smaller screens use a native Chapters disclosure. The article is capped at 72ch, and On this page remains collapsed unless its existing frontmatter explicitly enables it.
 - Chapter selection uses the established blue accent and a light token-based surface tint. Practice sections share that restrained tint. Directory and update rows have no separators; the rules above the directory, full history and adjacent-chapter navigation mark section boundaries.
-- `HandbookOverview`, `HandbookLayout` and `HandbookChapterNav` own this presentation. `ContentDocument` selects the handbook layout while retaining the original article URLs, MDX renderer, citations and footnotes. Chapter order follows `series.order`; authored changelog dates feed both the combined history and Updated labels.
+- `HandbookOverview`, `HandbookLayout` and `HandbookChapterNav` own this presentation. `ContentDocument` selects the handbook layout while retaining the original article URLs, MDX renderer, citations and footnotes. Chapter order follows `series.order`. Updated labels still consider dates across all published members; chapter edits do not automatically enter the public feed.
+
+## Update policy
+
+Log meaningful milestones: a new chapter or part, a substantial new section, or a change in methodology or recommended practice. Write one handbook-level entry for a coherent addition spanning several chapters. Do not log routine wording, formatting, corrections, extra examples, renamed labels or individual drafting passes. Chapter histories remain local. Curate public milestones in `management/cto-handbook.mdx`; do not infer importance from keywords or automatically promote every chapter entry. This policy was explicitly requested by the user on 11 November 2026.
 
 ## Relationship to the site
 

@@ -59,7 +59,7 @@ export default function sitemap() {
   });
 
   // Home and the tags index are not navigation links; trailing slashes 308-redirect, so strip them (except the root).
-  const staticPaths = [ '/', '/blog/tags', ...NavigationMetadata.links.map((route) => route.href) ];
+  const staticPaths = [ '/', '/blog/tags', '/blog/handbook/updates', ...NavigationMetadata.links.map((route) => route.href) ];
   const routes = staticPaths.map((path) => {
     return {
       'lastModified': today,

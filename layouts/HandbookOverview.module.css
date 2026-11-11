@@ -1,0 +1,415 @@
+.handbook {
+  min-width: 0;
+  padding-block-end: 3rem;
+}
+
+.handbook a:focus-visible {
+  outline: 2px solid var(--ds-color-accent);
+  outline-offset: 4px;
+  box-shadow: none;
+}
+
+.navigation,
+.tabs,
+.back,
+.byline,
+.start,
+.sectionHeading,
+.moreChanges,
+.about a {
+  display: flex;
+  align-items: center;
+}
+
+.navigation {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.8125rem;
+}
+
+.navigation a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.back {
+  gap: 0.5rem;
+}
+
+.tabs {
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.tabs a[aria-current='page'] {
+  color: var(--ds-color-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+}
+
+.cover {
+  display: grid;
+  align-items: start;
+  gap: 2.5rem;
+  padding-block: 3rem 3.5rem;
+}
+
+.cover h1,
+.updatesHeader h1 {
+  max-width: 10ch;
+  margin: 0;
+  font-size: clamp(3.25rem, 8vw, 6rem);
+  font-weight: 750;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.byline {
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin-block: 1.75rem 0;
+  color: var(--ds-color-text-muted);
+  font-size: 0.8125rem;
+}
+
+.introduction {
+  max-width: 34rem;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.readingNote {
+  margin-block: 1rem 1.5rem;
+  color: var(--ds-color-text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
+
+.start {
+  justify-content: space-between;
+  gap: 2rem;
+  width: fit-content;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--ds-radius-button);
+  background: var(--ds-color-accent);
+  color: var(--ds-color-accent-foreground);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.start:hover {
+  background: var(--ds-color-accent-dark);
+}
+
+.updated {
+  margin-block: 1rem 0;
+  color: var(--ds-color-text-muted);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.directoryGrid {
+  display: grid;
+  align-items: start;
+  gap: 3rem;
+  padding-block-start: 2rem;
+  border-block-start: 1px solid var(--ds-color-border);
+}
+
+.sectionHeading {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  min-height: 2rem;
+  margin-block-end: 1.5rem;
+}
+
+.sectionHeading h2,
+.historyNote h2 {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 650;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+.sectionHeading > span {
+  color: var(--ds-color-text-muted);
+  font-size: 0.75rem;
+}
+
+.chapterList,
+.recentChanges,
+.updateList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chapterList > li + li {
+  margin-block-start: 0.75rem;
+}
+
+.chapterLink {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 1rem;
+  align-items: start;
+  gap: 0.75rem;
+  margin-inline: -0.75rem;
+  padding: 1rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.chapterLink:hover {
+  background: color-mix(in srgb, var(--ds-color-accent) 4%, var(--ds-color-surface));
+}
+
+.chapterNumber {
+  color: var(--ds-color-accent);
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.chapterCopy {
+  min-width: 0;
+}
+
+.chapterCopy h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 550;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+.chapterCopy p {
+  max-width: 47ch;
+  margin-block: 0.375rem 0.75rem;
+  color: var(--ds-color-text-muted);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.chapterDate {
+  color: var(--ds-color-text-muted);
+  font-size: 0.6875rem;
+  font-weight: 400;
+}
+
+.chapterArrow {
+  margin-block-start: 0.5rem;
+  color: var(--ds-color-text-muted);
+}
+
+.latest {
+  min-width: 0;
+}
+
+.latestIntro,
+.about p,
+.historyNote p {
+  margin-block: 0 1.75rem;
+  color: var(--ds-color-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.8;
+}
+
+.recentChanges > li + li {
+  margin-block-start: 1.75rem;
+}
+
+.recentChanges time,
+.updateList time {
+  display: block;
+  margin-block-end: 0.5rem;
+  color: var(--ds-color-text-muted);
+  font-size: 0.75rem;
+}
+
+.updateTitle {
+  display: inline-block;
+  min-height: 2.75rem;
+  padding-block: 0.625rem;
+  margin-block: -0.625rem 0;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.updateTitle:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.recentChanges p,
+.updateList p {
+  margin-block: 0.25rem 0;
+  color: var(--ds-color-text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.moreChanges,
+.about a {
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  width: fit-content;
+  margin-block-start: 1.5rem;
+  color: var(--ds-color-accent);
+  font-size: 0.8125rem;
+}
+
+.about {
+  margin-block-start: 3rem;
+  padding: 1.5rem;
+  background: color-mix(in srgb, var(--ds-color-accent) 4%, var(--ds-color-surface));
+}
+
+.about h3 {
+  margin-block: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.about p {
+  margin: 0;
+  font-size: 0.8125rem;
+}
+
+.about a {
+  margin-block: 1rem -0.5rem;
+}
+
+.updatesHeader {
+  padding-block: 3rem 3.5rem;
+}
+
+.updatesHeader h1 {
+  max-width: 14ch;
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+}
+
+.updatesHeader > p {
+  max-width: 56ch;
+  margin-block: 1.5rem 0;
+  color: var(--ds-color-text-muted);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+.history {
+  display: grid;
+  align-items: start;
+  gap: 1.5rem 3rem;
+  padding-block-start: 2rem;
+  border-block-start: 1px solid var(--ds-color-border);
+}
+
+.historyNote h2 {
+  margin-block-end: 0.75rem;
+}
+
+.updateList > li {
+  padding-block: 0.5rem 2.5rem;
+}
+
+.updateList .updateTitle {
+  font-size: 1.0625rem;
+}
+
+.updateList p {
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 48rem) {
+  .tabs {
+    column-gap: 1.5rem;
+  }
+
+  .cover {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 3rem;
+    padding-block: 4rem;
+  }
+
+  .directoryGrid {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 3rem;
+    padding-block-start: 2.5rem;
+  }
+
+  .chapterLink {
+    grid-template-columns: 3rem minmax(0, 1fr) 1rem;
+    gap: 1rem;
+  }
+
+  .chapterCopy h3 {
+    font-size: 1.375rem;
+  }
+
+  .chapterNumber {
+    font-size: 2rem;
+  }
+
+  .history {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .cover {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 5rem;
+    padding-block: 4.5rem 5rem;
+  }
+
+  .directoryGrid {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 5rem;
+  }
+
+  .chapterLink {
+    grid-template-columns: 3.5rem minmax(0, 1fr) 1rem;
+  }
+
+  .chapterCopy h3 {
+    font-size: 1.5rem;
+  }
+
+  .chapterNumber {
+    font-size: 2.25rem;
+  }
+
+  .chapterDate {
+    font-size: 0.75rem;
+  }
+
+  .updateList > li {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handbook a {
+    transition: none;
+  }
+}

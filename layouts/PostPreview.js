@@ -18,7 +18,7 @@ const prepare = (post) => {
     ...post,
     'category': post.category ? { 'href': `/blog/categories/${slugify(post.category)}`, 'label': titleFromSlug(post.category) } : undefined,
     'date': post.date?.slice(0, 10),
-    'href': `/blog/${post.slug}`
+    'href': post.handbook ? '/blog/handbook' : `/blog/${post.slug}`
   };
 };
 
@@ -30,8 +30,8 @@ const PostPreview = ({ frontMatter, titleAs }) => (
     layout='stacked'
     className={ styles.card }
     footer={ (
-      <Link href={ `/blog/${frontMatter.slug}` } tone='blue' className={ styles.readMore } aria-label={ `Read ${frontMatter.title}` }>
-        Read article
+      <Link href={ frontMatter.handbook ? '/blog/handbook' : `/blog/${frontMatter.slug}` } tone='blue' className={ styles.readMore } aria-label={ `Read ${frontMatter.title}` }>
+        {frontMatter.handbook ? 'Read handbook' : 'Read article'}
         <Icon name='ArrowRight' size='sm' decorative />
       </Link>
     ) }

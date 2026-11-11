@@ -24,7 +24,7 @@ const ArchiveRow = ({ post, disclosure }) => (
   <article className={ styles.row }>
     <div className={ styles.titleCell }>
       <Typography as='h3' variant='index-list-title' className={ styles.title }>
-        <Link href={ `/blog/${post.slug}` } tone='neutral'>{post.title}</Link>
+        <Link href={ post.handbook ? '/blog/handbook' : `/blog/${post.slug}` } tone='neutral'>{post.title}</Link>
         {post.handbook && !disclosure && <Pill tone='gray' variant='soft' size='xs' className={ styles.kind }>Handbook</Pill>}
       </Typography>
       {disclosure}

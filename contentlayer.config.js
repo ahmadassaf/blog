@@ -15,6 +15,7 @@ import { remarkCodeTitles, remarkImgToJsx, remarkLinks } from './lib/mdx/index.j
 import remarkFootnoteData from './lib/mdx/remark-footnote-data.js';
 import rehypeFootnotePopoverV2 from './lib/rehype-footnote-popover-v2.js';
 import rehypeInternalLinks from './lib/rehype-internal-links.js';
+import rehypePracticeSections from './lib/rehype-practice-sections.js';
 import rehypeSimpleCitations from './lib/rehype-simple-citations.js';
 
 const root = process.cwd();
@@ -67,6 +68,7 @@ export default makeSource({
       rehypeKatex,
       [ rehypeSimpleCitations, { 'citationsPaths': [ path.join(root, 'data', 'meta', 'bibliography', 'references.bib'), path.join(root, 'data', 'meta', 'bibliography', 'kg.bib') ], 'showBibliography': true }],
       rehypeFootnotePopoverV2,
+      rehypePracticeSections,
       rehypeInternalLinks
 
     ],

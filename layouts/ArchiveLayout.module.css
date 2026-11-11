@@ -145,12 +145,31 @@
   list-style: none;
 }
 
+.chapterList .row {
+  row-gap: 0.125rem;
+  padding-block: 0.375rem;
+}
+
+.chapterList .titleCell {
+  row-gap: 0.125rem;
+}
+
+.chapterList .title {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.chapterList .date,
+.chapterList .category {
+  font-size: 0.75rem;
+}
+
 .chapterDescription {
   flex-basis: 100%;
   margin: 0;
   color: var(--ds-color-text-muted);
   font-size: 0.8125rem;
-  line-height: 1.65;
+  line-height: 1.55;
   text-wrap: pretty;
   overflow-wrap: anywhere;
 }

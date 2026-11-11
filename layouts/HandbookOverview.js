@@ -78,7 +78,7 @@ export default function HandbookOverview({ handbook }) {
         <aside className={ styles.latest } aria-labelledby='handbook-latest'>
           <div className={ styles.sectionHeading }><h2 id='handbook-latest'>Latest changes</h2><Icon name='History' size='sm' decorative /></div>
           <p className={ styles.latestIntro }>New chapters, substantial sections and changes in approach.</p>
-          {handbook.updates.length ? <HandbookUpdateList updates={ handbook.updates.slice(0, 3) } compact /> : <p className={ styles.latestIntro }>Major handbook updates will appear here.</p>}
+          {handbook.updates.length ? <HandbookUpdateList updates={ handbook.updates.slice(0, 3) } compact /> : <p className={ styles.latestIntro }>No updates published yet.</p>}
           <Link href={ handbook.updatesHref } className={ styles.moreChanges }>All updates<Icon name='ArrowRight' size='sm' decorative /></Link>
           <div className={ styles.about }>
             <h3>Written in practice</h3>
@@ -101,7 +101,7 @@ export function HandbookUpdates({ handbook }) {
       </header>
       <section aria-label='Handbook change history' className={ styles.history }>
         <div className={ styles.historyNote }><h2>Handbook milestones</h2><p>The substantial changes, newest first.</p></div>
-        {handbook.updates.length ? <HandbookUpdateList updates={ handbook.updates } /> : <p>Major handbook updates will appear here.</p>}
+        {handbook.updates.length ? <HandbookUpdateList updates={ handbook.updates } /> : <p>No updates published yet.</p>}
       </section>
     </div>
   );

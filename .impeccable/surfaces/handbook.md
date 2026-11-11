@@ -22,7 +22,9 @@ Start reading, select a chapter, or inspect updates. The chapter layout has a qu
 
 ## Update policy
 
-Log meaningful milestones: a new chapter or part, a substantial new section, or a change in methodology or recommended practice. Write one handbook-level entry for a coherent addition spanning several chapters. Do not log routine wording, formatting, corrections, extra examples, renamed labels or individual drafting passes. Chapter histories remain local. Curate public milestones in `management/cto-handbook.mdx`; do not infer importance from keywords or automatically promote every chapter entry. This policy was explicitly requested by the user on 11 November 2026.
+Keep the public Updates feed empty until the user explicitly asks to publish an entry. Never add update or changelog entries automatically when editing content, adding chapters, changing methodology or committing work. This explicit-request-only rule was requested by the user on 11 November 2026 and supersedes any assumption that major changes should be logged automatically.
+
+When requested, log only the requested meaningful milestone: a new chapter or part, a substantial new section, or a change in methodology or recommended practice. Use one handbook-level entry for a coherent addition spanning several chapters. Do not log routine wording, formatting, corrections, extra examples, renamed labels or individual drafting passes. Existing chapter histories remain local. Curate explicitly requested public milestones in `management/cto-handbook.mdx`; do not infer importance from keywords or automatically promote chapter entries. The initial two public milestones were removed at the user's request.
 
 ## Relationship to the site
 

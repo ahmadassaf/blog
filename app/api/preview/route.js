@@ -110,7 +110,7 @@ function getInternalPreviewData(url) {
   return {
     'category': post.category,
     'description': post.summary,
-    'favicon': '/static/images/logo.svg',
+    'favicon': '/static/favicons/favicon-32x32.png',
     'publishedTime': post.date,
     'readingTime': post.readingTime?.text,
     'siteName': 'Internal',

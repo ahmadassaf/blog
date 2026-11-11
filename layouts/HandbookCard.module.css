@@ -1,13 +1,46 @@
 .section {
   margin-block: 1.5rem 3rem;
   min-width: 0;
+  scroll-margin-block-start: 6rem;
+}
+
+/* Gaudi's Hero glowing-mark treatment, using the same theme tokens as the aurora. */
+.frame {
+  padding: 1px;
+  border-radius: var(--ds-radius-card);
+  background: conic-gradient(from 200deg, var(--ds-color-chart-2), var(--ds-color-chart-3), var(--ds-color-accent), var(--ds-color-chart-2));
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--ds-color-chart-2) 18%, transparent),
+    0 0 40px color-mix(in srgb, var(--ds-color-chart-3) 9%, transparent);
 }
 
 .card {
-  padding: clamp(1.25rem, 3vw, 2rem);
-  border-color: color-mix(in srgb, var(--ds-color-accent) 20%, var(--ds-color-border));
-  background: color-mix(in srgb, var(--ds-color-accent) 4%, var(--ds-color-surface));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 0;
+  border-radius: max(0px, calc(var(--ds-radius-card) - 1px));
+  background: var(--ds-color-surface);
   box-shadow: none;
+}
+
+.background {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.content {
+  min-width: 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: linear-gradient(to top,
+      color-mix(in srgb, var(--ds-color-surface) 94%, transparent),
+      color-mix(in srgb, var(--ds-color-surface) 72%, transparent) 22%,
+      transparent 42%), linear-gradient(105deg,
+      color-mix(in srgb, var(--ds-color-surface) 94%, transparent),
+      color-mix(in srgb, var(--ds-color-surface) 78%, transparent) 58%,
+      color-mix(in srgb, var(--ds-color-surface) 72%, transparent));
 }
 
 .title {
@@ -21,19 +54,32 @@
 }
 
 .summary {
-  max-width: 80ch;
+  max-width: 68ch;
   margin: 0.875rem 0 0;
-  color: var(--ds-color-text-muted);
+  color: var(--ds-color-text);
   font-size: 0.9375rem;
   line-height: 1.8;
   text-wrap: pretty;
 }
 
 .footer,
+.details,
 .metadata,
 .read {
   display: flex;
   align-items: center;
+}
+
+.details {
+  min-width: 0;
+  gap: 0.5rem;
+}
+
+.pause {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--ds-color-text-muted);
 }
 
 .footer {
@@ -70,4 +116,12 @@
   outline-offset: 4px;
   border-radius: var(--ds-radius-button);
   box-shadow: none;
+}
+
+@media (max-width: 639px) {
+  .content {
+    background: linear-gradient(110deg,
+        color-mix(in srgb, var(--ds-color-surface) 94%, transparent),
+        color-mix(in srgb, var(--ds-color-surface) 78%, transparent));
+  }
 }

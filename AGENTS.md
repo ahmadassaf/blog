@@ -10,3 +10,8 @@
 - Organise chapters around the author's startup responsibilities and CTO experience. Develop the handbook's own structure and sections; books may be referenced lightly as sources, but must not supply its chapter structure.
 - Prefer sharp, one-word chapter names. Expanded chapters should use smaller titles and tighter spacing than their parent handbook row, while retaining their descriptions and aligned date/category columns.
 - Handbook chapters use the `HandbookChapter` content type. Keep them out of recent-post menus, featured writing and the ordinary RSS feed. Include them in handbook navigation, grouped archives, search, direct routes, previews and the sitemap through the shared blog-document collection.
+
+# Handbook card appearance
+
+- Use Gaudi's Soft Aurora (`Borealis` with `variant='soft'`) and a glowing border for the homepage handbook card. The user selected it from the animated-background comparison.
+- If the user revisits this choice, their other preference is Soft Grainient (Gaudi's `Grainient` with gentle grain and motion). Keep Soft Aurora until they ask to change it.

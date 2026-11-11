@@ -5,7 +5,11 @@ import { metadataGenerator } from '@/data/meta/generator/blog';
 import { HandbookUpdates } from '@/layouts/HandbookOverview';
 import { getHandbook } from '@/lib/utils/handbooks';
 
-export const metadata = metadataGenerator({ 'description': 'The change history of The CTO Handbook: new chapters, revised practices and ongoing updates.', 'path': '/blog/handbook/updates', 'title': 'Handbook updates' });
+export function generateMetadata() {
+  const handbook = getHandbook(allPosts);
+
+  return metadataGenerator({ 'description': `The change history of ${handbook?.index.title || 'the handbook'}: new chapters, revised practices and ongoing updates.`, 'path': '/blog/handbook/updates', 'title': 'Handbook updates' });
+}
 
 export default function HandbookUpdatesPage() {
   const handbook = getHandbook(allPosts);

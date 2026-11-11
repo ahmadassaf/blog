@@ -45,7 +45,7 @@ export default function HandbookOverview({ handbook }) {
         </div>
         <div className={ styles.introduction }>
           <p className={ styles.subtitle }>{handbook.index.subtitle}</p>
-          <p className={ styles.readingNote }>Read from the beginning, find the part you need, or catch up on what has changed.</p>
+          <p className={ styles.readingNote }>{handbook.index.summary}</p>
           {firstChapter && (
             <Link href={ `/blog/${firstChapter.slug}` } variant='bare' className={ styles.start }>
               Start reading<Icon name='ArrowRight' size='sm' decorative />
@@ -82,7 +82,7 @@ export default function HandbookOverview({ handbook }) {
           <Link href={ handbook.updatesHref } className={ styles.moreChanges }>All updates<Icon name='ArrowRight' size='sm' decorative /></Link>
           <div className={ styles.about }>
             <h3>Written in practice</h3>
-            <p>What I have learned, alongside how we do it at Mav9. These chapters are a working reference that I will keep editing.</p>
+            <p>Lessons from two startups, what I think we should do now, and the CTO’s part in each decision. The current chapters draw mainly on our work at Mav9.</p>
             <Link href={ `/blog/${handbook.index.slug}` }>How to read this handbook<Icon name='ArrowUpRight' size='sm' decorative /></Link>
           </div>
         </aside>

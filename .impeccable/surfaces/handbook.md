@@ -1,8 +1,10 @@
-# CTO Handbook
+# Startup Handbook
 
 Mode: Read. The user approved a distinct editorial landing page, chapter layout and aggregated updates view on 11 November 2026.
 
 ## Direction
+
+The Startup Handbook draws on the author's experience in two startups: being part of one company's growth from six people to 400 and unicorn status, then building again from scratch at Mav9 as CTO. Keep the first company unnamed in this introduction and do not imply the author was its CTO. The company-wide subjects carry a CTO perspective; distinguish experience, recommendations and current Mav9 practice. Most existing chapters currently describe Mav9.
 
 Extend the existing site identity with a typographic title page and a readable chapter directory. Use the existing Plus Jakarta Sans family and Gaudi palette. Large chapter numerals express reading order; they are not decorative section counts. Keep rows unboxed and without bottom separators. The latest changes sit beside the directory on desktop and follow it on mobile.
 

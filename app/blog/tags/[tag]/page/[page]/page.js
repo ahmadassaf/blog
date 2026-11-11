@@ -5,8 +5,8 @@ import tags from '@/app/content/tags';
 import { metadataGenerator } from '@/data/meta/generator/blog';
 import ListLayout from '@/layouts/ListLayout';
 import { allBlogDocuments } from '@/lib/contentLayer/collections';
-import { getPublishedPosts, paginate, paginationPageNumbers } from '@/lib/utils/contentlayer';
-import { handbookRowsForTag } from '@/lib/utils/handbooks';
+import { getBlogListing } from '@/lib/utils/blogListing';
+import { paginate, paginationPageNumbers } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify } from '@/lib/utils/slugs.mjs';
 
 export const dynamicParams = false;
@@ -21,9 +21,9 @@ export async function generateMetadata({ params }) {
   return metadataGenerator({ 'path': `${tag.href}/page/${pageParam}`, 'title': `Tag: ${tag.title} | Page ${pageParam}` });
 }
 
-const rowsForTag = (slug) => handbookRowsForTag(getPublishedPosts(allBlogDocuments), (post) => post.tags.some((name) => slugify(name) === slug));
+const rowsForTag = (slug) => getBlogListing(allBlogDocuments, (post) => post.tags.some((name) => slugify(name) === slug)).posts;
 
-// Page counts follow the listing rows: a handbook is one row however many of its chapters carry the tag.
+// Page counts follow the listing rows: only explicitly opted-in series are grouped before pagination.
 export const generateStaticParams = () => tags.flatMap((tag) => paginationPageNumbers(rowsForTag(tag.slug).length, POSTS_PER_PAGE).map((page) => {
   return { 'page': String(page), 'tag': tag.slug };
 }));

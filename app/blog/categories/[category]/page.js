@@ -15,7 +15,7 @@ import categories from '@/app/content/categories';
 import { metadataGenerator } from '@/data/meta/generator/blog';
 import ArchiveLayout from '@/layouts/ArchiveLayout';
 import { allBlogDocuments } from '@/lib/contentLayer/collections';
-import { getPublishedPosts } from '@/lib/utils/contentlayer';
+import { getBlogListing } from '@/lib/utils/blogListing';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 // Every valid category comes from generateStaticParams; unknown slugs must 404 instead of rendering empty lists
@@ -95,8 +95,7 @@ export default async function Page({ params }) {
   if (category === null || !categories.some((entry) => entry.slug === category)) notFound();
 
   const title = titleFromSlug(category);
-  const sortedPosts = getPublishedPosts(allBlogDocuments);
-  const filteredPosts = sortedPosts.filter((post) => slugify(post.category) === category);
+  const { 'posts': filteredPosts } = getBlogListing(allBlogDocuments, (post) => slugify(post.category) === category);
 
   return (
     <ArchiveLayout posts={ filteredPosts } title={ `${title} Posts` } />

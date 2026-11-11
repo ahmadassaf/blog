@@ -4,8 +4,7 @@ import tags from '@/app/content/tags';
 import { metadataGenerator } from '@/data/meta/generator/blog';
 import ListLayout from '@/layouts/ListLayout';
 import { allBlogDocuments } from '@/lib/contentLayer/collections';
-import { getPublishedPosts } from '@/lib/utils/contentlayer';
-import { handbookRowsForTag } from '@/lib/utils/handbooks';
+import { getBlogListing } from '@/lib/utils/blogListing';
 import { safeDecodeURI, slugify } from '@/lib/utils/slugs.mjs';
 
 export const dynamicParams = false;
@@ -31,7 +30,7 @@ export default async function Page({ params }) {
 
   if (!tag) notFound();
 
-  const posts = handbookRowsForTag(getPublishedPosts(allBlogDocuments), (post) => post.tags.some((name) => slugify(name) === slug));
+  const { posts } = getBlogListing(allBlogDocuments, (post) => post.tags.some((name) => slugify(name) === slug));
 
   return <ListLayout posts={ posts } listTitle={ `${tag.title} Posts` } paginationURL={ `blog/tags/${slug}/page` } baseURL={ `blog/tags/${slug}` } />;
 }

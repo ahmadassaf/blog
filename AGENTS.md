@@ -8,10 +8,16 @@
 
 - Keep the handbook independent of named employers or companies. Frame examples around how the author works now, how a practice fits a startup, and how it can change as the company scales. Use labels such as “How I do it now”, “How I approached it at a startup” and “As the company grows”, with proposals identified separately. Preserve the substance and tense of real experiences without naming the company; do not invent scale-up experience or present recommendations as established practice. Keep source citations and named tools intact.
 - Organise chapters around the author's startup responsibilities and CTO experience. Develop the handbook's own structure and sections; books may be referenced lightly as sources, but must not supply its chapter structure.
-- Prefer sharp, one-word chapter names. Expanded chapters should use smaller titles and tighter spacing than their parent handbook row, while retaining their descriptions and aligned date/category columns.
-- Handbook chapters use the `HandbookChapter` content type. Keep them out of recent-post menus, featured writing and the ordinary RSS feed. Include them in handbook navigation, grouped archives, search, direct routes, previews and the sitemap through the shared blog-document collection.
+- Prefer sharp, one-word chapter names.
+- Handbook chapters use the `HandbookChapter` content type. Keep them out of recent-post menus, featured writing and the ordinary RSS feed. Include them in handbook navigation, grouped archives, search, direct routes, previews and the sitemap through the shared blog-document collection. Keep the handbook card on the homepage; blog/category/tag lists use the handbook entry with its chapter dropdown.
+
+# Series in lists
+
+- Series collapsing is opt-in through `series.collapseInLists` on the lowest-order published post. Default to `false`; the handbook index explicitly opts in, while ordinary series stay uncollapsed unless the user asks otherwise.
+- Collapsed series use smaller, indented installments with descriptions and aligned date/category columns. Resolve grouping before filtering and pagination.
 
 # Handbook card appearance
 
 - Use Gaudi's Soft Aurora (`Borealis` with `variant='soft'`) for the homepage handbook card. The border must match the Mav9 DS ChatInput “Opt-in glow” / Card `glow` effect: the travelling ocean-palette highlight from `border-beam`, not a static conic outline or full-card halo.
 - If the user revisits this choice, their other preference is Soft Grainient (Gaudi's `Grainient` with gentle grain and motion). Keep Soft Aurora until they ask to change it.
+- Do not show a pause control on the handbook card. Continue respecting reduced-motion preferences automatically.

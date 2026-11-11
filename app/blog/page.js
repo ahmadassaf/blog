@@ -14,6 +14,7 @@ import { metadataGenerator } from '@/data/meta/generator/blog';
 import ArchiveLayout from '@/layouts/ArchiveLayout';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import { allBlogDocuments } from '@/lib/contentLayer/collections';
+import { getBlogListing } from '@/lib/utils/blogListing';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 
 export const metadata = metadataGenerator({ 'path': '/blog', 'title': 'Ahmad Assaf’s Blog' });
@@ -32,7 +33,7 @@ export const revalidate = 86400;
  */
 export default function Blog() {
   const posts = getPublishedPosts(allPosts);
-  const archive = getPublishedPosts(allBlogDocuments);
+  const { 'posts': archive } = getBlogListing(allBlogDocuments);
 
   return (
     <ArchiveLayout

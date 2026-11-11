@@ -12,14 +12,13 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger, EmptyState, Icon, 
 import PageHeader from '@gaudi/design-system/layout/PageHeader';
 
 import formatDate from '@/lib/utils/formatDate';
-import { groupHandbooks } from '@/lib/utils/handbooks';
 import { slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 import styles from './ArchiveLayout.module.css';
 
 const olderPostsPreviewCount = 5;
 
-/** The same date, title and category columns for posts and handbook chapters. */
+/** The same date, title and category columns for posts and series installments. */
 const ArchiveRow = ({ post, disclosure, description }) => (
   <article className={ styles.row }>
     <div className={ styles.titleCell }>
@@ -28,7 +27,7 @@ const ArchiveRow = ({ post, disclosure, description }) => (
         {post.handbook && !disclosure && <Pill tone='gray' variant='soft' size='xs' className={ styles.kind }>Handbook</Pill>}
       </Typography>
       {disclosure}
-      {description && <p className={ styles.chapterDescription }>{description}</p>}
+      {description && <p className={ styles.seriesDescription }>{description}</p>}
     </div>
     <Typography as='time' variant='post-meta' dateTime={ post.date } className={ styles.date }>
       {formatDate(post.date)}
@@ -43,20 +42,23 @@ const ArchiveRow = ({ post, disclosure, description }) => (
 
 /** A compact entry shared by the blog archive and complete category lists. */
 const ArchiveEntry = ({ post }) => {
-  if (!post.chapters?.length) return <li><ArchiveRow post={ post } /></li>;
+  if (!post.seriesPosts?.length) return <li><ArchiveRow post={ post } /></li>;
+
+  const singular = post.seriesPosts.length === 1;
+  const membersLabel = `${post.handbook ? 'chapter' : 'more post'}${singular ? '' : 's'}`;
 
   return (
     <Collapsible asChild>
       <li>
         <ArchiveRow post={ post } disclosure={ (
-          <CollapsibleTrigger className={ styles.chaptersToggle } aria-label={ `Toggle ${post.chapters.length} chapters of ${post.title}` }>
-            <span>{post.chapters.length} {post.chapters.length === 1 ? 'chapter' : 'chapters'}</span>
+          <CollapsibleTrigger className={ styles.seriesToggle } aria-label={ `Toggle ${post.seriesPosts.length} ${membersLabel} in ${post.series.title}` }>
+            <span>{post.seriesPosts.length} {membersLabel}</span>
             <Icon name='ChevronDown' decorative size='sm' className={ styles.expandIcon } />
           </CollapsibleTrigger>
         ) } />
         <CollapsibleContent>
-          <ol aria-label={ `Chapters of ${post.title}` } className={ styles.chapterList }>
-            {post.chapters.map((chapter) => <li key={ chapter.slug }><ArchiveRow post={ chapter } description={ chapter.subtitle || chapter.summary } /></li>)}
+          <ol aria-label={ `${post.handbook ? 'Chapters' : 'More posts'} in ${post.series.title}` } className={ styles.seriesList }>
+            {post.seriesPosts.map((part) => <li key={ part.slug }><ArchiveRow post={ part } description={ part.subtitle || part.summary } /></li>)}
           </ol>
         </CollapsibleContent>
       </li>
@@ -70,7 +72,7 @@ const ArchiveEntry = ({ post }) => {
  * @param {Object} props - Component props
  * @param {React.ReactNode} [props.beforeList] - Curated content shown between the header and the archive
  * @param {string} [props.description] - Introductory copy under the page title
- * @param {Array} props.posts - Sorted, published core-content posts; handbook chapters fold under their index post
+ * @param {Array} props.posts - Published listing rows, with explicitly collapsed series already grouped
  * @param {string} props.title - Page-level heading
  * @param {string} [props.titleClassName] - Page-specific heading typography
  *
@@ -93,7 +95,7 @@ export default function ArchiveLayout({ beforeList, description, posts, title, t
 
   const archiveRows = [];
   const collapsedPosts = [];
-  const sortedPosts = groupHandbooks(posts).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const sortedPosts = [ ...posts ].sort((a, b) => new Date(b.date) - new Date(a.date));
   let lastGroup = null;
   let olderPostCount = 0;
 

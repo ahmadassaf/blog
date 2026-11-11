@@ -16,7 +16,7 @@ const connectPalette = (node) => {
   if (node?.dataset.beam) node.style.setProperty('--surface-glow-angle', `var(--beam-angle-${node.dataset.beam})`);
 };
 
-export default function HandbookCardGlow({ paused }) {
+export default function HandbookCardGlow() {
   const root = useRef(null);
   const [ radius, setRadius ] = useState(null);
   const [ viewRef, inView ] = useInView();
@@ -29,9 +29,8 @@ export default function HandbookCardGlow({ paused }) {
   const reduced = usePrefersReducedMotion();
   const visible = usePageVisibility();
   const { resolvedTheme } = useTheme();
-  const running = !paused && !reduced && inView && visible && radius !== null && Boolean(resolvedTheme);
-  const still = paused || reduced;
-  const inactiveState = still ? 'still' : 'suspended';
+  const running = !reduced && inView && visible && radius !== null && Boolean(resolvedTheme);
+  const inactiveState = reduced ? 'still' : 'suspended';
 
   return (
     <div ref={ ref } aria-hidden='true' className={ styles.glow } data-theme={ radius === null ? undefined : resolvedTheme }

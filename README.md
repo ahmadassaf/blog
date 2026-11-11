@@ -341,11 +341,26 @@ tableOfContents: true
 | `draft` | Optional | — | Excludes a post from public routes, metadata, feeds, previews, and sitemap generation |
 | `layout` | Optional | Required | Selects an application layout; projects normally use `ProjectLayout` |
 | `tableOfContents` | Optional | Optional | Requests the desktop table-of-contents panel when the article has enough headings |
-| `series` | Optional | — | Ordered series metadata with a required `title` and numeric `order` |
+| `series` | Optional | — | Ordered series metadata with a required `title` and numeric `order`; `collapseInLists` defaults to `false` |
 | `bibliography` | Optional | — | Declares the bibliography files relevant to citation-heavy content |
 | `github` | — | Required | Repository in `owner/name` form for project metadata |
 
 Authors use a separate document schema. `name` is required; `avatar`, `company`, `email`, `github`, `layout`, `linkedin`, `occupation`, and `twitter` are optional.
+
+#### Series in archives
+
+Series posts appear as individual entries by default. To fold the remaining installments beneath the first published post in blog, category, and tag lists, set this on that post:
+
+```yaml
+series:
+  title: 'Building a data platform'
+  order: 1
+  collapseInLists: true
+```
+
+The published post with the lowest `series.order` controls the whole series. Set `collapseInLists: false` or omit it to show separate entries. Ordinary series currently use that default; the handbook explicitly opts in on its index post. Later installments cannot override the first post. Grouping happens before category/tag filtering and pagination, so a matching installment keeps its series discoverable.
+
+Handbook chapters use `type: 'HandbookChapter'`. The homepage shows the handbook card below Featured; blog, category, and tag lists show its index with an expandable chapter list. Chapters stay out of recent-post menus, featured writing, and RSS. An ordinary post sharing the handbook's series title remains an ordinary post.
 
 Contentlayer also computes fields that authors must not duplicate in frontmatter:
 

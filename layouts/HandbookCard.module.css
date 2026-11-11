@@ -60,23 +60,10 @@
 }
 
 .footer,
-.details,
 .metadata,
 .read {
   display: flex;
   align-items: center;
-}
-
-.details {
-  min-width: 0;
-  gap: 0.5rem;
-}
-
-.pause {
-  flex-shrink: 0;
-  width: 2.75rem;
-  height: 2.75rem;
-  color: var(--ds-color-text-muted);
 }
 
 .footer {

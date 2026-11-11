@@ -31,18 +31,18 @@ const PostPreview = ({ frontMatter, titleAs }) => (
     className={ styles.card }
     footer={ (
       <div className={ styles.footer }>
-        {frontMatter.chapters?.length > 0 && (
-          <details className={ styles.chapters }>
-            <summary className={ styles.chaptersToggle }>
-              <span className={ styles.expandLabel }>Show {frontMatter.chapters.length} {frontMatter.chapters.length === 1 ? 'chapter' : 'chapters'}</span>
-              <span className={ styles.collapseLabel }>Hide chapters</span>
-              <Icon name='ChevronDown' decorative size='sm' className={ styles.chaptersIcon } />
+        {frontMatter.seriesPosts?.length > 0 && (
+          <details className={ styles.series }>
+            <summary className={ styles.seriesToggle }>
+              <span className={ styles.expandLabel }>Show {frontMatter.seriesPosts.length} {frontMatter.handbook ? 'chapter' : 'more post'}{frontMatter.seriesPosts.length === 1 ? '' : 's'}</span>
+              <span className={ styles.collapseLabel }>Hide {frontMatter.handbook ? 'chapters' : 'series posts'}</span>
+              <Icon name='ChevronDown' decorative size='sm' className={ styles.seriesIcon } />
             </summary>
-            <ol aria-label={ `Chapters of ${frontMatter.title}` } className={ styles.chapterList }>
-              {frontMatter.chapters.map((chapter, index) => (
-                <li key={ chapter.slug } className={ styles.chapter }>
-                  <span aria-hidden='true' className={ styles.chapterNumber }>{index + 1}</span>
-                  <Link href={ `/blog/${chapter.slug}` } tone='neutral' className={ styles.chapterLink }>{chapter.title}</Link>
+            <ol aria-label={ `${frontMatter.handbook ? 'Chapters' : 'More posts'} in ${frontMatter.series.title}` } className={ styles.seriesList }>
+              {frontMatter.seriesPosts.map((part, index) => (
+                <li key={ part.slug } className={ styles.part }>
+                  <span aria-hidden='true' className={ styles.partNumber }>{index + (frontMatter.handbook ? 1 : 2)}</span>
+                  <Link href={ `/blog/${part.slug}` } tone='neutral' className={ styles.partLink }>{part.title}</Link>
                 </li>
               ))}
             </ol>

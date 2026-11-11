@@ -1,10 +1,10 @@
 import { POSTS_PER_PAGE } from '@gaudi/design-system';
-import { allPosts } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
 import tags from '@/app/content/tags';
 import { metadataGenerator } from '@/data/meta/generator/blog';
 import ListLayout from '@/layouts/ListLayout';
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { getPublishedPosts, paginate, paginationPageNumbers } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify } from '@/lib/utils/slugs.mjs';
 
@@ -32,7 +32,7 @@ export default async function Page({ params }) {
 
   if (!tag) notFound();
 
-  const posts = getPublishedPosts(allPosts).filter((post) => post.tags.some((name) => slugify(name) === slug));
+  const posts = getPublishedPosts(allBlogDocuments).filter((post) => post.tags.some((name) => slugify(name) === slug));
   const page = paginate(posts, pageParam, POSTS_PER_PAGE);
 
   if (!page) notFound();

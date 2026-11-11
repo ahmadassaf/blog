@@ -22,6 +22,7 @@ const hasTableOfContents = (toc) => toc.length > 3;
  */
 export default function PostArticleFrame({ children, content, locale, padding, toc }) {
   const articleRef = useRef(null);
+  const isBlogDocument = content.type === 'Post' || content.type === 'HandbookChapter';
   const hasToc = hasTableOfContents(toc);
   const [ contentsOpen, setContentsOpen ] = useState(content.tableOfContents === true);
 
@@ -75,12 +76,12 @@ export default function PostArticleFrame({ children, content, locale, padding, t
         hasAside={ hasToc }
         aside={ hasToc ? <TableOfContents toc={ toc } contentRef={ articleRef } aria-label='Post contents' /> : null }
         padding={ padding }
-        contentClassName={ content.type === 'Post' ? 'post-reading' : undefined }
+        contentClassName={ isBlogDocument ? 'post-reading' : undefined }
       >
         {children}
       </ArticleContentLayout>
       <SmoothScroll />
-      {content.type === 'Post' && <ScrollEdges edges='bottom' />}
+      {isBlogDocument && <ScrollEdges edges='bottom' />}
     </div>
   );
 }

@@ -9,11 +9,10 @@
  * @version 9.0.0
  */
 
-import { allPosts } from 'contentlayer/generated';
-
 import TagsExplorer from '@/app/blog/tags/TagsExplorer';
 import tags from '@/app/content/tags';
 import { metadataGenerator } from '@/data/meta/generator/blog';
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { published, sortPosts } from '@/lib/utils/contentlayer';
 import { slugify } from '@/lib/utils/slugs.mjs';
 
@@ -37,7 +36,7 @@ export default function Tags() {
    * Only the fields the drawer renders ride the RSC payload: the excerpt is
    * coalesced server-side and tag names are pre-normalized to route slugs.
    */
-  const posts = sortPosts(published(allPosts)).map((post) => {
+  const posts = sortPosts(published(allBlogDocuments)).map((post) => {
     return {
       'date': post.date,
       'slug': post.slug,

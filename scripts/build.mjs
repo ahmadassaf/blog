@@ -11,7 +11,8 @@
 
 import { mkdirSync } from 'fs';
 
-import { allPosts, allProjects } from '../.contentlayer/generated/index.mjs';
+import { allProjects } from '../.contentlayer/generated/index.mjs';
+import { allBlogDocuments } from '../lib/contentLayer/collections.js';
 import getAllPublications from '../lib/contentLayer/generatePublications.mjs';
 import { getAllCategories, getAllTags } from '../lib/contentLayer/generateTaxonomies.mjs';
 import validateTags from '../lib/contentLayer/validateTags.mjs';
@@ -49,10 +50,10 @@ async function postbuild() {
   mkdirSync('./app/content', { 'recursive': true });
   mkdirSync('./public', { 'recursive': true });
 
-  const posts = published(allPosts);
+  const posts = published(allBlogDocuments);
 
   // Fail the content build when tag coverage or normalization drifts
-  validateTags([ ...allPosts, ...allProjects ]);
+  validateTags([ ...allBlogDocuments, ...allProjects ]);
 
   // Generate tag taxonomy from all blog posts
   getAllTags(posts);

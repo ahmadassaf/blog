@@ -9,11 +9,10 @@
  * @version 9.0.0
  */
 
-import { allPosts } from 'contentlayer/generated';
-
 import CategoriesExplorer from '@/app/blog/categories/CategoriesExplorer';
 import categories from '@/app/content/categories';
 import { metadataGenerator } from '@/data/meta/generator/blog';
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { pick, published, sortPosts } from '@/lib/utils/contentlayer';
 import { slugify } from '@/lib/utils/slugs.mjs';
 
@@ -37,7 +36,7 @@ export default function Categories() {
   const sortedCategories = [ ...categories ].sort((a, b) => b.count - a.count);
 
   // Get all published posts for categories
-  const posts = sortPosts(published(allPosts));
+  const posts = sortPosts(published(allBlogDocuments));
 
   // Get sample posts for each category, stripped to the fields the client needs
   const categoriesWithPosts = sortedCategories.map((category) => {

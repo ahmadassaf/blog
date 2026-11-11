@@ -9,12 +9,13 @@
  * @version 1.0.0
  */
 
-import { allPosts, allProjects } from 'contentlayer/generated';
+import { allProjects } from 'contentlayer/generated';
 
 import categories from '@/app/content/categories';
 import tags from '@/app/content/tags';
 import siteMetadata from '@/data/meta/metadata';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { published } from '@/lib/utils/contentlayer';
 
 /**
@@ -30,7 +31,7 @@ export default function sitemap() {
   const { siteUrl } = siteMetadata;
   const today = new Date().toISOString().split('T')[0];
 
-  const blogRoutes = published(allPosts).map((post) => {
+  const blogRoutes = published(allBlogDocuments).map((post) => {
     return {
       'lastModified': post.updated || post.date,
       'url': `${siteUrl}/blog/${post.slug}`

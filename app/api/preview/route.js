@@ -9,11 +9,12 @@
  * @version 1.2.0
  */
 
-import { allPosts, allProjects } from 'contentlayer/generated';
+import { allProjects } from 'contentlayer/generated';
 import { NextResponse } from 'next/server';
 import { TextDecoder } from 'node:util';
 import { parse } from 'node-html-parser';
 
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { findPublishedDocument } from '@/lib/contentLayer/findPublishedDocument';
 import { safeFetch } from '@/lib/preview/safeFetch.mjs';
 
@@ -103,7 +104,7 @@ function getInternalPreviewData(url) {
 
   if (!pathname.startsWith('/blog/')) return null;
 
-  const post = findPublishedDocument([ ...allPosts, ...allProjects ], pathname);
+  const post = findPublishedDocument([ ...allBlogDocuments, ...allProjects ], pathname);
 
   if (!post) return null;
 

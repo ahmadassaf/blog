@@ -16,6 +16,7 @@ import { allPosts } from 'contentlayer/generated';
 import siteMetadata from '@/data/meta/metadata';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import HandbookCard from '@/layouts/HandbookCard';
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 import { getHandbook } from '@/lib/utils/handbooks';
 
@@ -34,7 +35,7 @@ import { getHandbook } from '@/lib/utils/handbooks';
  */
 export default function Home() {
   const posts = getPublishedPosts(allPosts);
-  const handbook = getHandbook(allPosts);
+  const handbook = getHandbook(allBlogDocuments);
 
   return (
     <>

@@ -45,6 +45,19 @@ export const Post = defineDocumentType(() => {
   };
 });
 
+export const HandbookChapter = defineDocumentType(() => {
+  return {
+    'computedFields': { ...computedFields },
+    'contentType': 'mdx',
+    'fields': {
+      ...contentFields.post,
+      'series': { ...contentFields.post.series, 'required': true }
+    },
+    'filePathPattern': 'blog/**/*.mdx',
+    'name': 'HandbookChapter'
+  };
+});
+
 export const Author = defineDocumentType(() => {
   return {
     'contentType': 'mdx',
@@ -59,7 +72,7 @@ export default makeSource({
   'contentDirInclude': [ 'authors', 'blog' ],
   'contentDirPath': 'data',
   'disableImportAliasWarning': true,
-  'documentTypes': [ Author, Project, Post ],
+  'documentTypes': [ Author, Project, Post, HandbookChapter ],
   'mdx': {
     'cwd': process.cwd(),
     'rehypePlugins': [

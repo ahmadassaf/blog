@@ -25,6 +25,7 @@ import siteMetadata from '@/data/meta/metadata';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
 import SiteBackdrop from '@/layouts/SiteBackdrop';
 import SiteLogo from '@/layouts/SiteLogo';
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { pick, published, sortPosts } from '@/lib/utils/contentlayer';
 import { titleFromSlug } from '@/lib/utils/slugs.mjs';
 
@@ -149,6 +150,7 @@ const menuProps = {
   'posts': toMenuItems(allPosts),
   'projects': toMenuItems(allProjects, (project) => `/blog/${project.externalLink}`),
   publications,
+  'searchPosts': toMenuItems(allBlogDocuments),
   tags
 };
 

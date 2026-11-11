@@ -9,12 +9,12 @@
  * @version 1.0.0
  */
 
-import { allPosts } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
 import categories from '@/app/content/categories';
 import { metadataGenerator } from '@/data/meta/generator/blog';
 import ArchiveLayout from '@/layouts/ArchiveLayout';
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
 
@@ -95,7 +95,7 @@ export default async function Page({ params }) {
   if (category === null || !categories.some((entry) => entry.slug === category)) notFound();
 
   const title = titleFromSlug(category);
-  const sortedPosts = getPublishedPosts(allPosts);
+  const sortedPosts = getPublishedPosts(allBlogDocuments);
   const filteredPosts = sortedPosts.filter((post) => slugify(post.category) === category);
 
   return (

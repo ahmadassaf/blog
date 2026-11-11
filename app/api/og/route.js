@@ -12,11 +12,12 @@
 
 import { OgCard, ogImageSize } from '@gaudi/design-system/post/OgCard';
 import { ImageResponse } from '@vercel/og';
-import { allPosts, allProjects } from 'contentlayer/generated';
+import { allProjects } from 'contentlayer/generated';
 import { NextResponse } from 'next/server';
 
 import siteMetadata from '@/data/meta/metadata';
 import SiteMark from '@/layouts/SiteMark';
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { findPublishedDocument } from '@/lib/contentLayer/findPublishedDocument';
 import { titleFromSlug } from '@/lib/utils/slugs.mjs';
 
@@ -106,7 +107,7 @@ export async function GET(request) {
 
   try {
 
-    const post = findPublishedDocument([ ...allPosts, ...allProjects ], slugParam);
+    const post = findPublishedDocument([ ...allBlogDocuments, ...allProjects ], slugParam);
 
     // Never leak unpublished titles through OG images, and never render arbitrary text for unknown slugs
     if (!post) return NextResponse.json(

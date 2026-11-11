@@ -1,7 +1,7 @@
-import { allPosts } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 
 import ContentDocument from '@/layouts/ContentDocument';
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { coreContent } from '@/lib/utils/contentlayer';
 import { safeDecodeURI } from '@/lib/utils/slugs.mjs';
 
@@ -19,7 +19,7 @@ export default async function PreviewPage({ params }) {
 
   if (slug === null) notFound();
 
-  const post = allPosts.find((candidate) => candidate.slug === `category/${slug}`);
+  const post = allBlogDocuments.find((candidate) => candidate.slug === `category/${slug}`);
 
   if (!post) notFound();
 

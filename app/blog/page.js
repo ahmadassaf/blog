@@ -13,6 +13,7 @@ import { allPosts } from 'contentlayer/generated';
 import { metadataGenerator } from '@/data/meta/generator/blog';
 import ArchiveLayout from '@/layouts/ArchiveLayout';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
+import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 
 export const metadata = metadataGenerator({ 'path': '/blog', 'title': 'Ahmad Assaf’s Blog' });
@@ -31,10 +32,11 @@ export const revalidate = 86400;
  */
 export default function Blog() {
   const posts = getPublishedPosts(allPosts);
+  const archive = getPublishedPosts(allBlogDocuments);
 
   return (
     <ArchiveLayout
-      posts={ posts }
+      posts={ archive }
       title='Ahmad Assaf’s Blog'
       titleClassName='text-[2.5rem]/[1.15] sm:text-5xl/[1.15] lg:text-6xl/[1.15]'
       description='Writing about AI, semantic systems, data products, and engineering practice.'

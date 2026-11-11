@@ -45,15 +45,32 @@ diff --git a/src/components/blocks/Navigation/Menu.jsx b/src/components/blocks/N
    </NavigationMenuAside>
  );
 
-@@ -57,6 +66,7 @@
+@@ -57,6 +66,8 @@
   * Renders the site header
   *
   * @param {Object} props - Searchable content collections for the Blog panel and the command launcher
++ * @param {Array<Object>} [props.searchPosts] - Optional command-launcher collection; defaults to the recent-post collection
 + * @param {Object} [props.blogLink.overview] - Optional prominent archive link with label and description
   * @param {React.ReactNode} [props.logo] - Brand shown in the home link; defaults to the Gaudi brand mark
   * @returns {JSX.Element} The site header
   *
-@@ -121,7 +131,7 @@
+@@ -70,6 +81,7 @@
+   posts: postsProp,
+   projects: projectsProp,
+   publications: publicationsProp,
++  searchPosts: searchPostsProp,
+   tags: tagsProp,
+   thoughts: thoughtsProp
+ }) => {
+@@ -78,6 +90,7 @@
+
+   // Memoize expensive operations
+   const posts = useMemo(() => coreContent(sortPosts(postsProp || [])), [ postsProp ]);
++  const searchPosts = useMemo(() => searchPostsProp === undefined ? posts : coreContent(sortPosts(searchPostsProp)), [ posts, searchPostsProp ]);
+   const projects = useMemo(() => coreContent(sortPosts(projectsProp || [])), [ projectsProp ]);
+   const thoughts = useMemo(() => coreContent(sortPosts(thoughtsProp || [])), [ thoughtsProp ]);
+   const menuCategories = categoriesProp || [];
+@@ -121,7 +134,7 @@
                  <CategoryLinks categories={ menuCategories } />
                </NavigationMenuDropdown>
              ) : (
@@ -62,6 +79,15 @@ diff --git a/src/components/blocks/Navigation/Menu.jsx b/src/components/blocks/N
                  <CategoryLinks categories={ menuCategories } />
                </NavigationMenuDropdown>
              ) : null}
+@@ -149,7 +162,7 @@
+         <CommandLauncher
+           tags={ menuTags }
+           projects={ projects }
+-          posts={ posts }
++          posts={ searchPosts }
+           thoughts={ thoughts }
+           publications={ menuPublications }
+           open={ LauncherOpen }
 diff --git a/src/components/post/TableOfContents/TableOfContents.js b/src/components/post/TableOfContents/TableOfContents.js
 index 3ae57113..5bb3497b 100644
 --- a/src/components/post/TableOfContents/TableOfContents.js

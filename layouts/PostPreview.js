@@ -30,10 +30,29 @@ const PostPreview = ({ frontMatter, titleAs }) => (
     layout='stacked'
     className={ styles.card }
     footer={ (
-      <Link href={ frontMatter.handbook ? '/blog/handbook' : `/blog/${frontMatter.slug}` } tone='blue' className={ styles.readMore } aria-label={ `Read ${frontMatter.title}` }>
-        {frontMatter.handbook ? 'Read handbook' : 'Read article'}
-        <Icon name='ArrowRight' size='sm' decorative />
-      </Link>
+      <div className={ styles.footer }>
+        {frontMatter.chapters?.length > 0 && (
+          <details className={ styles.chapters }>
+            <summary className={ styles.chaptersToggle }>
+              <span className={ styles.expandLabel }>Show {frontMatter.chapters.length} {frontMatter.chapters.length === 1 ? 'chapter' : 'chapters'}</span>
+              <span className={ styles.collapseLabel }>Hide chapters</span>
+              <Icon name='ChevronDown' decorative size='sm' className={ styles.chaptersIcon } />
+            </summary>
+            <ol aria-label={ `Chapters of ${frontMatter.title}` } className={ styles.chapterList }>
+              {frontMatter.chapters.map((chapter, index) => (
+                <li key={ chapter.slug } className={ styles.chapter }>
+                  <span aria-hidden='true' className={ styles.chapterNumber }>{index + 1}</span>
+                  <Link href={ `/blog/${chapter.slug}` } tone='neutral' className={ styles.chapterLink }>{chapter.title}</Link>
+                </li>
+              ))}
+            </ol>
+          </details>
+        )}
+        <Link href={ frontMatter.handbook ? '/blog/handbook' : `/blog/${frontMatter.slug}` } tone='blue' className={ styles.readMore } aria-label={ `Read ${frontMatter.title}` }>
+          {frontMatter.handbook ? 'Read handbook' : 'Read article'}
+          <Icon name='ArrowRight' size='sm' decorative />
+        </Link>
+      </div>
     ) }
   />
 );

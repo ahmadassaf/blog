@@ -6,4 +6,4 @@
 
 # Handbook framing
 
-- Describe the examples as drawn from the author's experience and show how practices can look at different company stages. Do not frame the handbook as mainly examples from one company. Preserve the context of specific experiences and distinguish proposals from established practice.
+- Keep the handbook independent of named employers or companies. Frame examples around how the author works now, how a practice fits a startup, and how it can change as the company scales. Use labels such as “How I do it now”, “How I approached it at a startup” and “As the company grows”, with proposals identified separately. Preserve the substance and tense of real experiences without naming the company; do not invent scale-up experience or present recommendations as established practice. Keep source citations and named tools intact.

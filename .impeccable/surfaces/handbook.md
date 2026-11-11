@@ -4,13 +4,13 @@ Mode: Read. The user approved a distinct editorial landing page, chapter layout 
 
 ## Direction
 
-The Startup Handbook draws on the author's experience in two startups: being part of one company's growth from six people to 400 and unicorn status, then building again from scratch at Mav9 as CTO. Keep the first company unnamed in this introduction and do not imply the author was its CTO. The company-wide subjects carry a CTO perspective; distinguish experience, recommendations and current Mav9 practice. Frame the examples as drawn from experience, showing how practices can look at different company stages. Do not describe the handbook as mainly examples from one company. Preserve the context of specific experiences and distinguish proposals from established practice.
+The Startup Handbook draws on the author's experience in two startups: being part of one company's growth from six people to 400 and unicorn status, then building again from scratch as CTO. Keep both companies unnamed throughout the handbook and do not imply the author was CTO of the first. Frame guidance around how the author works now, what fits a startup, and how practices can change as it scales. Preserve the substance and tense of lived experiences; distinguish these from recommendations, proposals and unfinished work. Do not invent experience at a larger company to fill a stage comparison. Named tools and source citations remain intact.
 
 Extend the existing site identity with a typographic title page and a readable chapter directory. Use the existing Plus Jakarta Sans family and Gaudi palette. Large chapter numerals express reading order; they are not decorative section counts. Keep rows unboxed and without bottom separators. The latest changes sit beside the directory on desktop and follow it on mobile.
 
 ## Reading path
 
-Start reading, select a chapter, or inspect updates. The chapter layout has a quiet persistent chapter rail on desktop and a collapsible chapter menu on smaller screens. Updated dates are explicitly labelled, and each chapter links to its authored change history. Mav9 practice sections use a restrained surface treatment.
+Start reading, select a chapter, or inspect updates. The chapter layout has a quiet persistent chapter rail on desktop and a collapsible chapter menu on smaller screens. Updated dates are explicitly labelled, and chapters with authored change histories link to them. Practice sections use a restrained surface treatment for “How I do it now”, “How I approached it at a startup”, “What I am trying now” and “As the company grows”.
 
 ## Implemented surface
 

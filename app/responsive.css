@@ -62,6 +62,11 @@ html:has(.page-backdrop-layer) {
   overflow-wrap: anywhere;
 }
 
+/* Internal previews use the site's black SVG mark, inverted to white in dark mode. */
+.dark [data-slot='link-preview-favicon'][src='/static/images/logo.svg'] {
+  filter: invert(1);
+}
+
 /* Let callout content shrink so nested code blocks scroll within the article. */
 .post-reading [data-slot='alert-description'] {
   min-width: 0;

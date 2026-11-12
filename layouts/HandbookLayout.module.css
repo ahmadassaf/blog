@@ -171,10 +171,6 @@
 }
 
 .metadata {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.25rem 1.25rem;
   margin-block-start: 1.5rem;
   color: var(--ds-color-text-muted);
   font-size: 0.75rem;
@@ -182,7 +178,10 @@
 }
 
 .metadata > span {
+  display: inline-block;
+  margin-inline-end: 1.25rem;
   padding-block: 0.25rem;
+  vertical-align: middle;
 }
 
 .changesLink {
@@ -190,22 +189,27 @@
   align-items: center;
   gap: 0.375rem;
   min-height: 2.75rem;
+  margin-inline-end: 1.25rem;
   color: var(--ds-color-accent);
+  vertical-align: middle;
   white-space: nowrap;
 }
 
 .contents {
-  margin-block-start: 0.75rem;
+  display: inline;
 }
 
 .contentsToggle {
+  display: inline-flex;
   width: fit-content;
   max-width: 100%;
   color: var(--ds-color-text-muted);
+  vertical-align: middle;
 }
 
 .contentsBody {
   max-width: 100%;
+  margin-block-start: 0.5rem;
   padding: 1rem;
   background: var(--ds-color-surface-muted);
 }

@@ -26,19 +26,19 @@ export default function HandbookLayout({ children, content, next, prev, toc = []
             <span>{handbook.chapterNumber === null ? 'About the handbook' : `Chapter ${handbook.chapterNumber} of ${handbook.chapterCount}`}</span>
             <span>Updated <time dateTime={ updated }>{formatDate(updated)}</time></span>
             {hasChanges && <Link href='#changelog' variant='bare' className={ styles.changesLink }>View changes <Icon name='ArrowDown' decorative size='xs' /></Link>}
+            {toc.length > 0 && (
+              <details className={ styles.contents } open={ content.tableOfContents === true }>
+                <summary className={ styles.contentsToggle }>
+                  <Icon name='List' decorative size='sm' />
+                  On this page
+                  <Icon name='ChevronDown' decorative size='xs' className={ styles.menuIcon } />
+                </summary>
+                <div className={ styles.contentsBody }>
+                  <TableOfContents toc={ toc } indexVisuals={ false } aria-label='Chapter contents' />
+                </div>
+              </details>
+            )}
           </div>
-          {toc.length > 0 && (
-            <details className={ styles.contents } open={ content.tableOfContents === true }>
-              <summary className={ styles.contentsToggle }>
-                <Icon name='List' decorative size='sm' />
-                On this page
-                <Icon name='ChevronDown' decorative size='xs' className={ styles.menuIcon } />
-              </summary>
-              <div className={ styles.contentsBody }>
-                <TableOfContents toc={ toc } indexVisuals={ false } aria-label='Chapter contents' />
-              </div>
-            </details>
-          )}
         </header>
         <div className={ `prose dark:prose-invert post-reading ${styles.body}` }>
           {children}

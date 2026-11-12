@@ -7,6 +7,7 @@
 
 # Author's voice across all posts
 
+- The author has not been involved in fundraising. Do not imply personal experience of raising money or present fundraising advice as learned from doing it. Beginnings assumes the funding is already in place.
 - The author knowingly signed up for company-building responsibilities beyond engineering and is happy to take them on. Present that work as normal for a founding role. Do not invent reluctance, surprise at the scope, or regret about taking it on; later handovers concern how ownership changes as the company grows.
 - Do not invent first-person reflections, regrets, motives or claims about what the author wishes he had done. Ground personal statements in the user’s own account; earlier assistant drafts and editorial checks are not evidence that the user said something. Hypothetical guidance must not become autobiographical hindsight.
 

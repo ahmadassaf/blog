@@ -13,7 +13,7 @@
 
 # Handbook framing
 
-- Do not link public posts or handbook pages to internal documents, private workspace pages, or company systems. Internal material may inform the writing; keep necessary attribution as plain text. Preserve links to genuinely public references.
+- Internal documents and private workspace pages are background for drafting, not reader-facing sources. Do not link to them, name them as authorities, or explain that a chapter draws on or adapts them. Write the useful explanation directly and make it self-contained, while preserving the distinction between experience, recommendations and examples. Preserve genuinely public references and citations.
 - Keep the handbook independent of named employers or companies. Frame examples around how the author works now, how a practice fits a startup, and how it can change as the company scales. Use labels such as “How I do it now”, “How I approached it at a startup” and “As the company grows”, with proposals identified separately. Preserve the substance and tense of real experiences without naming the company; do not invent scale-up experience or present recommendations as established practice. Keep source citations and named tools intact.
 - Organise chapters around the author's startup responsibilities and CTO experience. Develop the handbook's own structure and sections; books may be referenced lightly as sources, but must not supply its chapter structure.
 - Prefer sharp, one-word chapter names.

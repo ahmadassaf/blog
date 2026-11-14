@@ -45,3 +45,6 @@ app/content/
 
 # Local agent runtime state
 .claude/scheduled_tasks.lock
+
+# Generated editorial audits, draft snapshots and preview captures
+/.impeccable/review/

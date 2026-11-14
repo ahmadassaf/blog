@@ -22,6 +22,21 @@
   #main-content {
     margin-block-start: 3rem;
   }
+
+  /* Give the Blog menu's categories and recent titles more room. */
+  header [data-slot='navigation-menu-content']:has(> [data-slot='navigation-menu-aside']) {
+    width: 56rem;
+  }
+
+  header [data-slot='navigation-menu-aside']:has(> ul[aria-label='Recent posts']) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header [data-slot='navigation-menu-aside'] > ul[aria-label='Recent posts'] + div {
+    margin-block-start: auto;
+    padding-block-start: 0.75rem;
+  }
 }
 
 /* The blog's aurora palette: soft blues and indigo in light mode. */

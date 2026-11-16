@@ -14,12 +14,9 @@ export default function PageBackdrop({ children, className, intensity = 0.6 }) {
 
   return (
     <div ref={ ref } className={ cn('relative', className) }>
-      <div aria-hidden='true' className={ styles.about }>
-        {animate && (
-          <div className={ styles.motion }>
-            <PixelBlast height='100%' intensity={ intensity } transparent mask='text' className='rounded-none' />
-          </div>
-        )}
+      <div aria-hidden='true' className={ cn('page-backdrop-layer', styles.about) }>
+        {/* Keep the last pixel frame visible when its opening motion settles. */}
+        <PixelBlast paused={ !animate } height='100%' intensity={ intensity } transparent mask='text' className='rounded-none' />
       </div>
       {children}
     </div>

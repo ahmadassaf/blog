@@ -27,7 +27,7 @@ export default function HandbookCard({ handbook }) {
             {animate && <div className={ motionStyles.motion }><Borealis height='100%' variant='soft' amplitude={ 1.25 } blend={ 0.65 } speed={ 1.25 } intensity={ 1.15 } fadeEdges={ false } colors={ colors } /></div>}
           </div>
           <div className={ styles.content }>
-            <CardTitle as='h2' id='home-handbook-title' className={ styles.title }>The Startup CTO’s Handbook</CardTitle>
+            <CardTitle as='h2' id='home-handbook-title' className={ styles.title }>{handbook.index.title}</CardTitle>
             <p className={ styles.summary }>{handbook.index.summary}</p>
             <div className={ styles.footer }>
               <p className={ styles.metadata }>

@@ -67,9 +67,9 @@ export default function About() {
   ];
 
   return (
-    <article className='relative isolate mx-auto max-w-6xl pb-6'>
+    <article className='about-grid relative isolate mx-auto max-w-6xl pb-6'>
       <PageBackdrop className='about-backdrop' intensity={ 0.6 }>
-        <header className='pb-24 pt-5 sm:pb-32 sm:pt-8'>
+        <header className='about-intro pt-5 sm:pt-8'>
           <div>
             <Typography variant='title-xl' className='wrap-anywhere text-4xl leading-[1.05] sm:text-5xl md:text-6xl md:leading-[1.02] lg:text-6xl'>
               AI &amp; Engineering Leader, Consultant and Mentor
@@ -88,7 +88,7 @@ export default function About() {
         </header>
       </PageBackdrop>
 
-      <section className='pt-12 sm:pt-14'>
+      <section className='pt-16 sm:pt-20'>
         <Typography variant='heading-lg' as='h2'>A Brief History</Typography>
         <div className='mt-6 flex flex-col gap-8 lg:flex-row lg:gap-16'>
           <div className='max-w-[68ch] flex-1 space-y-6'>
@@ -128,7 +128,7 @@ export default function About() {
         </div>
       </section>
 
-      <section id='work-with-me' aria-labelledby='services-heading' className='mt-16 scroll-mt-24 pt-12 sm:mt-20 sm:pt-14'>
+      <section id='work-with-me' aria-labelledby='services-heading' className='scroll-mt-24 pt-16 sm:pt-20'>
         <div>
           <Typography variant='heading-lg' as='h2' id='services-heading' className='wrap-anywhere'>Consulting, Advisory and Mentoring</Typography>
           <Typography variant='paragraph-md' className='mt-5 max-w-[68ch] text-pretty'>

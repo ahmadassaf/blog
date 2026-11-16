@@ -8,7 +8,7 @@ web
 
 ## Product Purpose
 
-Ahmad Assaf's personal site publishes his writing, projects and publications. The Startup Handbook is a living reference within the blog, with an overview, eight ordered chapters and dated change histories.
+Ahmad Assaf's personal site publishes his writing, projects and publications. The Startup CTO’s Handbook is a living reference within the blog, with an overview, eight ordered chapters and dated change histories.
 
 ## Capabilities and Constraints
 

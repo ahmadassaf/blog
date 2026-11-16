@@ -5,12 +5,20 @@
 }
 
 .about {
-  --backdrop-motion-opacity: 0.45;
   position: absolute;
-  inset: 0;
-  z-index: -1;
+  /* Carry the pixel fade into the history section over the continuous page grid. */
+  inset-block: 0 -8rem;
+  left: 50%;
+  z-index: -10;
+  width: 100vw;
   pointer-events: none;
-  background: radial-gradient(ellipse at 78% 12%, color-mix(in srgb, var(--blog-aurora-2) 45%, transparent), transparent 60%);
+  transform: translateX(-50%);
+}
+
+@media (min-width: 40rem) {
+  .about {
+    inset-block-end: -12rem;
+  }
 }
 
 .motion {

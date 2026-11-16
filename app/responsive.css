@@ -18,6 +18,18 @@
   margin-block-start: 2rem;
 }
 
+/* Let enlarged navigation text wrap without widening the page. */
+header:has([aria-label='Main navigation']),
+header:has([aria-label='Main navigation']) > div {
+  flex-wrap: wrap;
+}
+
+header [aria-label='Main navigation'] {
+  min-width: 0;
+  max-width: 100%;
+  flex-shrink: 1;
+}
+
 @media (min-width: 64rem) {
   #main-content {
     margin-block-start: 3rem;
@@ -73,6 +85,13 @@
 
 /* Long tokens wrap on phones; fenced code keeps its own horizontal scrolling. */
 .prose {
+  overflow-wrap: anywhere;
+}
+
+#main-content [aria-label='Tags'] > li,
+#main-content [aria-label='Tags'] > li > a {
+  max-width: 100%;
+  white-space: normal;
   overflow-wrap: anywhere;
 }
 

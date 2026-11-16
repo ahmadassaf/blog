@@ -53,15 +53,14 @@
   --blog-aurora-3: color-mix(in srgb, rgb(30 58 138) 22%, var(--ds-color-surface));
 }
 
-/* The About page's full-width PixelBlast layer (layouts/PageBackdrop.js) never adds a horizontal scrollbar. */
-html:has(.page-backdrop-layer) {
-  overflow-x: clip;
-}
-
 /* A soft halo in the page colour keeps page titles and the About intro crisp against the backgrounds. */
 #main-content h1,
 .about-backdrop header p {
   text-shadow: 0 0 0.5rem var(--ds-color-surface), 0 0 1.5rem var(--ds-color-surface);
+}
+
+.about-backdrop header p {
+  color: var(--ds-color-text);
 }
 
 /*
@@ -75,6 +74,11 @@ html:has(.page-backdrop-layer) {
 /* Long tokens wrap on phones; fenced code keeps its own horizontal scrolling. */
 .prose {
   overflow-wrap: anywhere;
+}
+
+/* Internal preview links use text alone, including when the favicon falls back to an icon. */
+[data-slot='link-preview'][data-preview-internal='true'] > :is([data-slot='link-preview-favicon'], svg):first-child {
+  display: none;
 }
 
 /* Keep the original logo tile; its white background becomes black in dark mode. */
@@ -138,32 +142,4 @@ html:has(.page-backdrop-layer) {
     --blog-reading-size: 1.125rem;
     --blog-reading-leading: 2rem;
   }
-}
-
-/* A quiet editorial grid, scoped to the About page and faded behind the copy. */
-.about-grid {
-  isolation: isolate;
-  position: relative;
-}
-
-.about-grid::before {
-  --about-grid-line: color-mix(in srgb, var(--ds-color-text) 2.5%, transparent);
-
-  background-image:
-    linear-gradient(to right, var(--about-grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--about-grid-line) 1px, transparent 1px);
-  background-position: center top;
-  background-size: 12rem 12rem;
-  content: '';
-  inset-block: -2rem 0;
-  left: 50%;
-  mask-image:
-    linear-gradient(to right, transparent, black 12%, black 88%, transparent),
-    linear-gradient(to bottom, transparent, black 10rem, black 76%, transparent);
-  mask-composite: intersect;
-  pointer-events: none;
-  position: absolute;
-  transform: translateX(-50%);
-  width: 100vw;
-  z-index: -1;
 }

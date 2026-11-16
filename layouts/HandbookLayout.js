@@ -2,6 +2,7 @@ import { Icon, Link, TableOfContents } from '@gaudi/design-system';
 
 import formatDate from '@/lib/utils/formatDate';
 
+import HandbookBody from './HandbookBody';
 import HandbookChapterNav from './HandbookChapterNav';
 import PostComments from './PostComments';
 
@@ -40,9 +41,9 @@ export default function HandbookLayout({ children, content, next, prev, toc = []
             )}
           </div>
         </header>
-        <div className={ `prose dark:prose-invert post-reading ${styles.body}` }>
+        <HandbookBody key={ content.slug } className={ `prose dark:prose-invert post-reading ${styles.body}` }>
           {children}
-        </div>
+        </HandbookBody>
         <nav aria-label='Adjacent handbook chapters' className={ styles.adjacent }>
           {prev ? (
             <Link href={ previousIsOverview ? handbook.href : `/blog/${prev.slug}#top` } variant='bare' className={ styles.previous }>

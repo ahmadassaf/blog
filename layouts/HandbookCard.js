@@ -2,26 +2,32 @@
 
 import { CardRoot, CardTitle, Icon, Link } from '@gaudi/design-system';
 import Borealis from '@gaudi/design-system/animations/Borealis';
+import { useInView } from '@gaudi/design-system/hooks/layout/use-in-view';
 
 import { formatShortDate } from '@/lib/utils/formatDate';
 
 import HandbookCardGlow from './HandbookCardGlow';
+import useBackdropMotion from './useBackdropMotion';
 
+import motionStyles from './BackdropMotion.module.css';
 import styles from './HandbookCard.module.css';
 
 const colors = [ 'var(--ds-color-accent)', 'var(--ds-color-chart-3)', 'var(--ds-color-chart-2)' ];
 
-/** Homepage entry into the handbook, using its published title and metadata. */
+/** Homepage entry into the handbook, framed around the author’s CTO perspective. */
 export default function HandbookCard({ handbook }) {
+  const [ ref, inView ] = useInView();
+  const animate = useBackdropMotion(inView);
+
   return (
-    <section id='home-handbook' aria-labelledby='home-handbook-title' className={ styles.section }>
+    <section ref={ ref } id='home-handbook' aria-labelledby='home-handbook-title' className={ styles.section }>
       <div className={ styles.frame }>
         <CardRoot variant='flat' padding='none' className={ styles.card }>
           <div className={ styles.background } aria-hidden='true'>
-            <Borealis height='100%' variant='soft' amplitude={ 0.8 } blend={ 0.75 } speed={ 0.45 } fadeEdges={ false } colors={ colors } />
+            {animate && <div className={ motionStyles.motion }><Borealis height='100%' variant='soft' amplitude={ 1.25 } blend={ 0.65 } speed={ 1.25 } intensity={ 1.15 } fadeEdges={ false } colors={ colors } /></div>}
           </div>
           <div className={ styles.content }>
-            <CardTitle as='h2' id='home-handbook-title' className={ styles.title }>{handbook.index.title}</CardTitle>
+            <CardTitle as='h2' id='home-handbook-title' className={ styles.title }>The Startup CTO’s Handbook</CardTitle>
             <p className={ styles.summary }>{handbook.index.summary}</p>
             <div className={ styles.footer }>
               <p className={ styles.metadata }>
@@ -34,7 +40,7 @@ export default function HandbookCard({ handbook }) {
             </div>
           </div>
         </CardRoot>
-        <HandbookCardGlow />
+        <HandbookCardGlow animate={ animate } />
       </div>
     </section>
   );

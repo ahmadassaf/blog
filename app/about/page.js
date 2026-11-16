@@ -9,8 +9,7 @@
  * @version 1.0.0
  */
 
-import { Icon, IconTile, Link, Typography } from '@gaudi/design-system';
-import PageChrome from '@gaudi/design-system/layout/PageChrome';
+import { Icon, Link, Typography } from '@gaudi/design-system';
 import Preview from '@gaudi/design-system/mdx/Preview';
 
 import { metadataGenerator } from '@/data/meta/generator/blog';
@@ -68,13 +67,11 @@ export default function About() {
   ];
 
   return (
-    <article className='about-grid mx-auto max-w-6xl pb-6'>
-      {/* About has its own PixelBlast header, so the site's aurora band steps aside */}
-      <PageChrome background={ false } />
+    <article className='relative isolate mx-auto max-w-6xl pb-6'>
       <PageBackdrop className='about-backdrop' intensity={ 0.6 }>
         <header className='pb-24 pt-5 sm:pb-32 sm:pt-8'>
           <div>
-            <Typography variant='title-xl' className='text-4xl leading-[1.05] sm:text-5xl md:text-6xl md:leading-[1.02] lg:text-6xl'>
+            <Typography variant='title-xl' className='wrap-anywhere text-4xl leading-[1.05] sm:text-5xl md:text-6xl md:leading-[1.02] lg:text-6xl'>
               AI &amp; Engineering Leader, Consultant and Mentor
             </Typography>
             <Typography variant='paragraph-md' className='mt-5 max-w-[68ch] text-pretty'>
@@ -83,7 +80,7 @@ export default function About() {
             <Typography variant='paragraph-md' className='mt-4 max-w-[68ch] text-pretty'>
               I offer consulting, advisory support, and mentoring to founders, technology leaders, and teams.
             </Typography>
-            <Link href='#work-with-me' tone='blue' className='mt-6 inline-flex max-w-full items-center gap-2'>
+            <Link href='#work-with-me' tone='blue' className='mt-6 inline-flex min-h-11 max-w-full items-center gap-2'>
               Work with me
               <Icon name='ArrowRight' decorative size='xs' />
             </Link>
@@ -106,7 +103,7 @@ export default function About() {
             </Typography>
           </div>
 
-          <aside className='pt-2 lg:w-72 lg:pl-8 lg:pt-0'>
+          <div className='pt-2 lg:w-72 lg:pl-8 lg:pt-0'>
             <dl className='space-y-7'>
               <div className='space-y-1.5'>
                 <Typography as='dt' variant='heading-sm'>CTO</Typography>
@@ -127,29 +124,31 @@ export default function About() {
                 </Typography>
               </div>
             </dl>
-          </aside>
+          </div>
         </div>
       </section>
 
       <section id='work-with-me' aria-labelledby='services-heading' className='mt-16 scroll-mt-24 pt-12 sm:mt-20 sm:pt-14'>
         <div>
-          <Typography variant='heading-lg' as='h2' id='services-heading'>Consulting, Advisory and Mentoring</Typography>
+          <Typography variant='heading-lg' as='h2' id='services-heading' className='wrap-anywhere'>Consulting, Advisory and Mentoring</Typography>
           <Typography variant='paragraph-md' className='mt-5 max-w-[68ch] text-pretty'>
             I can help you shape your AI strategy, strengthen engineering leadership, scale your team, or assess technical risks. Tell me what you're working on and where you need support, and we can discuss how I can help.
           </Typography>
-          <Link href={ `mailto:${siteMetadata.email}` } tone='blue' className='mt-5 inline-flex max-w-full items-center gap-2'>
+          <Link href={ `mailto:${siteMetadata.email}` } tone='blue' className='mt-5 inline-flex min-h-11 max-w-full items-center gap-2'>
             Get in touch to discuss working together
             <Icon name='ArrowRight' decorative size='xs' />
           </Link>
         </div>
 
-        <div className='mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mt-10'>
+        <div className='mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
           {values.map((value) => (
             <section key={ value.name }>
-              <IconTile variant='outline' className='mb-3 text-text-muted'>{value.icon}</IconTile>
-              <Typography variant='heading-sm' as='h3'>
-                {value.name}
-              </Typography>
+              <div className='flex items-center gap-3'>
+                <span className='inline-flex shrink-0 text-text-muted'>{value.icon}</span>
+                <Typography variant='heading-sm' as='h3' className='min-w-0'>
+                  {value.name}
+                </Typography>
+              </div>
               <Typography variant='paragraph-sm' className='mt-2'>
                 {value.description}
               </Typography>

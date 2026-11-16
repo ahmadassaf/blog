@@ -16,7 +16,7 @@ const connectPalette = (node) => {
   if (node?.dataset.beam) node.style.setProperty('--surface-glow-angle', `var(--beam-angle-${node.dataset.beam})`);
 };
 
-export default function HandbookCardGlow() {
+export default function HandbookCardGlow({ animate }) {
   const root = useRef(null);
   const [ radius, setRadius ] = useState(null);
   const [ viewRef, inView ] = useInView();
@@ -29,7 +29,7 @@ export default function HandbookCardGlow() {
   const reduced = usePrefersReducedMotion();
   const visible = usePageVisibility();
   const { resolvedTheme } = useTheme();
-  const running = !reduced && inView && visible && radius !== null && Boolean(resolvedTheme);
+  const running = animate && !reduced && inView && visible && radius !== null && Boolean(resolvedTheme);
   const inactiveState = reduced ? 'still' : 'suspended';
 
   return (

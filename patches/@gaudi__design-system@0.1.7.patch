@@ -7,21 +7,21 @@ diff --git a/src/components/blocks/Navigation/Menu.jsx b/src/components/blocks/N
  import { coreContent, sortPosts } from '../../../utilities/content';
 -import formatDate from '../../../utilities/formatDate';
  import { useSiteConfig } from '../../../context';
-
+ 
  /** Category destinations for a Blog or Categories panel. */
 @@ -38,18 +37,28 @@
    </ul>
  );
-
+ 
 -/** The Blog panel's second block: the three most recent posts and a See all link. */
 -const RecentPosts = ({ locale, posts, blogLink }) => (
 -  <NavigationMenuAside title='Recent posts' action={blogLink ? { href: blogLink.href, label: 'See all' } : undefined}>
 -    <ul className='m-0 grid list-none gap-0.5 p-0'>
+-      {posts.slice(0, 3).map((post) => (
 +/** The Blog panel's recent posts; the overview replaces its compact archive action when supplied. */
 +const RecentPosts = ({ posts, blogLink }) => (
 +  <NavigationMenuAside action={blogLink && !blogLink.overview ? { href: blogLink.href, label: 'See all' } : undefined}>
 +    <ul aria-label='Recent posts' className='m-0 grid list-none gap-0.5 p-0'>
--      {posts.slice(0, 3).map((post) => (
 +      {posts.slice(0, 7).map((post) => (
          <li key={ post.id ?? post.slug ?? post.href }>
 -          <NavigationMenuLink variant='panel' href={ post.href } description={ formatDate(post.date, locale) }>
@@ -44,7 +44,7 @@ diff --git a/src/components/blocks/Navigation/Menu.jsx b/src/components/blocks/N
 +    ) : null}
    </NavigationMenuAside>
  );
-
+ 
 @@ -57,6 +66,8 @@
   * Renders the site header
   *
@@ -63,7 +63,7 @@ diff --git a/src/components/blocks/Navigation/Menu.jsx b/src/components/blocks/N
    thoughts: thoughtsProp
  }) => {
 @@ -78,6 +90,7 @@
-
+ 
    // Memoize expensive operations
    const posts = useMemo(() => coreContent(sortPosts(postsProp || [])), [ postsProp ]);
 +  const searchPosts = useMemo(() => searchPostsProp === undefined ? posts : coreContent(sortPosts(searchPostsProp)), [ posts, searchPostsProp ]);
@@ -89,18 +89,17 @@ diff --git a/src/components/blocks/Navigation/Menu.jsx b/src/components/blocks/N
            publications={ menuPublications }
            open={ LauncherOpen }
 diff --git a/src/components/post/TableOfContents/TableOfContents.js b/src/components/post/TableOfContents/TableOfContents.js
-index 3ae57113..5bb3497b 100644
 --- a/src/components/post/TableOfContents/TableOfContents.js
 +++ b/src/components/post/TableOfContents/TableOfContents.js
 @@ -1,6 +1,6 @@
  'use client';
-
+ 
 -import { useEffect, useMemo, useState } from 'react';
 +import { useEffect, useMemo, useRef, useState } from 'react';
  import Button from '../../core/Button';
  import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../core/Accordion';
  import Icon from '../../core/Icon';
-@@ -8,6 +8,7 @@ import Link from '../../core/Link';
+@@ -8,6 +8,7 @@
  import { Scrollspy } from '../../core/Scrollspy';
  import { ScrollArea } from '../../core/ScrollArea';
  import Typography from '../../../foundations/Typography';
@@ -108,7 +107,7 @@ index 3ae57113..5bb3497b 100644
  import { useCollapsibleSections } from '../../../hooks/layout/use-collapsible-sections.js';
  import { cn } from '../../../utilities/cn';
  import { assignVisualIds, collectVisuals } from './contentIndex.js';
-@@ -58,6 +59,8 @@ export default function TableOfContents({ className, contentRef, targetRef, toc
+@@ -58,6 +59,8 @@
    const [activeId, setActiveId] = useState('');
    const [visuals, setVisuals] = useState([]);
    const [visualsOpen, setVisualsOpen] = useState(false);
@@ -117,7 +116,7 @@ index 3ae57113..5bb3497b 100644
    const branches = useMemo(() => flatten(toc).filter(heading => heading.children?.length), [toc]);
    const branchIds = useMemo(() => branches.map(heading => heading.id), [branches]);
    const expandAll = toc.length <= 4;
-@@ -77,15 +80,18 @@ export default function TableOfContents({ className, contentRef, targetRef, toc
+@@ -77,15 +80,18 @@
      setVisuals(found);
    }, [contentRef, indexVisuals, toc]);
    useEffect(() => {
@@ -128,7 +127,7 @@ index 3ae57113..5bb3497b 100644
 +    const viewport = contentsViewportRef.current;
 +    viewport?.scrollTo({ top: viewport.scrollHeight, behavior: smooth && !reducedMotion ? 'smooth' : 'auto' });
 +  }, [visuals, visualsOpen, smooth, reducedMotion]);
-
+ 
    const diagrams = visuals.filter(visual => visual.kind === 'diagram').length;
    const tables = visuals.length - diagrams;
    if (!toc.length && !visuals.length) return null;
@@ -139,3 +138,197 @@ index 3ae57113..5bb3497b 100644
      <Scrollspy targetRef={targetRef} offset={offset} smooth={smooth} onUpdate={setActiveId}>
        <HeadingList headings={toc} activeId={activeId} expansion={expansion} />
      </Scrollspy>
+diff --git a/src/components/core/Commander/CommandPalette.js b/src/components/core/Commander/CommandPalette.js
+--- a/src/components/core/Commander/CommandPalette.js
++++ b/src/components/core/Commander/CommandPalette.js
+@@ -1,18 +1,19 @@
+ 'use client';
+ 
+-import { createContext, isValidElement, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
++import { createContext, isValidElement, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+ 
+ import Button from '../Button';
+ import Dialog from '../Dialog';
+ import Icon from '../Icon';
+ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './Command.jsx';
+ import { normalizeHref } from '../../../utilities/href.js';
++import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
+ 
+ const CommandPaletteContext = createContext(null);
+ 
+ const normalizeSearchValue = (value) => String(value || '').trim().toLowerCase();
+ 
+-const itemSearchFields = [ 'children', 'title', 'subtitle', 'category', 'display', 'name', 'id', 'type' ];
++const itemSearchFields = [ 'children', 'title', 'subtitle', 'summary', 'category', 'display', 'name', 'id', 'type', 'venue', 'venueType', 'authors', 'year', 'award' ];
+ 
+ const getTextFromNode = (node) => {
+   if (typeof node === 'string' || typeof node === 'number') return String(node);
+@@ -31,6 +32,7 @@
+   });
+ 
+   if (Array.isArray(item.keywords)) values.push(...item.keywords);
++  if (Array.isArray(item.tags)) values.push(...item.tags);
+ 
+   return values
+     .filter((value) => typeof value !== 'undefined' && value !== null)
+@@ -63,6 +65,7 @@
+  */
+ const CommandPalette = ({ children, footer, isOpen, onChangeOpen, onChangeSearch, page = 'root', restoreFocusRef, search = '' }) => {
+   const inputRef = useRef(null);
++  const [listNode, setListNode] = useState(null);
+   const escapeHandlerRef = useRef(null);
+ 
+   const close = useCallback(() => onChangeOpen?.(false), [ onChangeOpen ]);
+@@ -79,6 +82,43 @@
+   useEffect(() => {
+     if (isOpen) inputRef.current?.focus();
+   }, [ isOpen, page ]);
++
++  // Keep every result navigable, but size the scrolling viewport to the first five.
++  useIsomorphicLayoutEffect(() => {
++    const list = listNode;
++    if (!list) return undefined;
++    let frame;
++
++    const measure = () => {
++      const items = Array.from(list.querySelectorAll('[cmdk-item]')).filter((item) => item.getClientRects().length);
++      const height = items.length > 5 ? `${items[4].offsetTop + items[4].offsetHeight}px` : '';
++      if (list.style.getPropertyValue('--ds-command-list-height') !== height) {
++        if (height) list.style.setProperty('--ds-command-list-height', height);
++        else list.style.removeProperty('--ds-command-list-height');
++      }
++      if (height) list.dataset.commandVisibleLimit = '5';
++      else delete list.dataset.commandVisibleLimit;
++    };
++    const scheduleMeasure = () => {
++      cancelAnimationFrame(frame);
++      frame = requestAnimationFrame(measure);
++    };
++    const resizeObserver = new ResizeObserver(scheduleMeasure);
++    const observeContent = () => {
++      resizeObserver.disconnect();
++      if (list.firstElementChild) resizeObserver.observe(list.firstElementChild);
++      Array.from(list.querySelectorAll('[cmdk-item]')).slice(0, 5).forEach((item) => resizeObserver.observe(item));
++      measure();
++    };
++    const contentObserver = new MutationObserver(observeContent);
++    contentObserver.observe(list, { childList: true, subtree: true, characterData: true });
++    observeContent();
++    return () => {
++      cancelAnimationFrame(frame);
++      resizeObserver.disconnect();
++      contentObserver.disconnect();
++    };
++  }, [ listNode ]);
+ 
+   if (!isOpen) return null;
+ 
+@@ -105,6 +145,7 @@
+         <Command key={ page } shouldFilter={ false } loop label='Search commands' className='ds-command-launcher-panel h-auto w-full max-w-[44rem]'>
+           <CommandInput
+             ref={ inputRef }
++            caretMode='native'
+             placeholder='Search posts, projects, publications and tags…'
+             spellCheck={ false }
+             value={ search }
+@@ -114,7 +155,7 @@
+               <Icon name='X' size='sm' decorative />
+             </Button>
+           </CommandInput>
+-          <CommandList className='ds-command-launcher-list'>{children}</CommandList>
++          <CommandList ref={ setListNode } className='ds-command-launcher-list'>{children}</CommandList>
+           {footer}
+         </Command>
+       </Dialog>
+diff --git a/src/components/core/Commander/Commander.js b/src/components/core/Commander/Commander.js
+--- a/src/components/core/Commander/Commander.js
++++ b/src/components/core/Commander/Commander.js
+@@ -4,6 +4,7 @@
+ import { useTheme } from 'next-themes';
+ 
+ import Icon from '../Icon';
++import Pill from '../Pill';
+ import { useSiteConfig } from '../../../context';
+ import { useHotkey } from '../../../hooks/interaction/use-hotkey.js';
+ import CommandPalette, { filterItems } from './CommandPalette';
+@@ -56,11 +57,13 @@
+ const metaClass = 'truncate text-xs text-(--ds-color-launcher-heading)';
+ 
+ // Row content inside a Command item: an optional icon, the title, and type-specific metadata inline or underneath.
+-const CmdItem = ({ browse = false, category, children, count, icon, inlineMetadata = false, subtitle, title, type = 'navigation' }) => {
++const CmdItem = ({ badges = [], browse = false, category, children, count, icon, inlineMetadata = false, subtitle, title, trailingMetadata, type = 'navigation' }) => {
+   const config = itemConfig[type] || itemConfig.navigation;
+   const resolvedSubtitle = subtitle ?? (type === 'post' ? category : null) ?? (type === 'tag' && count != null ? `${count} ${count === 1 ? 'post' : 'posts'}` : null);
+   const showSubtitle = config.showSubtitle && resolvedSubtitle != null && resolvedSubtitle !== '';
+-  const label = <div className='truncate font-medium'>{title ?? children}</div>;
++  const label = <div className='truncate font-medium' data-slot='command-result-title' title={ typeof (title ?? children) === 'string' ? title ?? children : undefined }>{title ?? children}</div>;
++  const visibleBadges = Array.isArray(badges) ? badges.filter((badge) => typeof badge?.label === 'string' && badge.label.trim()) : [];
++  const hasTrailingMetadata = trailingMetadata != null && trailingMetadata !== '';
+ 
+   // Browse entries open a sub-list: show how many items it holds and a chevron.
+   if (browse) return (
+@@ -75,7 +78,7 @@
+   return (
+     <>
+       {icon ? <Icon name={ icon } decorative size='sm' /> : null}
+-      {inlineMetadata ? (
++      {inlineMetadata && !visibleBadges.length && !hasTrailingMetadata ? (
+         <>
+           <div className='min-w-0 flex-1'>{label}</div>
+           {showSubtitle ? (
+@@ -85,9 +88,17 @@
+           ) : null}
+         </>
+       ) : (
+-        <div className='min-w-0 flex-1'>
+-          {label}
+-          {showSubtitle ? <div className={ `${metaClass} mt-0.5` }>{resolvedSubtitle}</div> : null}
++        <div className='min-w-0 flex-1' data-slot='command-result'>
++          <div className='flex items-baseline gap-3' data-slot='command-result-heading'>
++            <div className='min-w-0 flex-1'>{label}</div>
++            {hasTrailingMetadata ? <span className={ `${metaClass} shrink-0 tabular-nums` } data-slot='command-result-meta'>{trailingMetadata}</span> : null}
++          </div>
++          {showSubtitle ? <div className={ `${metaClass} mt-0.5` } data-slot='command-result-description' title={ typeof resolvedSubtitle === 'string' ? resolvedSubtitle : undefined }>{resolvedSubtitle}</div> : null}
++          {visibleBadges.length ? (
++            <div className='mt-1 flex flex-wrap items-center gap-1' data-slot='command-result-badges'>
++              {visibleBadges.map((badge, index) => <Pill key={ `${badge.label}-${index}` } tone={ badge.tone || 'gray' } variant='soft' size='xs' radius='md'>{badge.label}</Pill>)}
++            </div>
++          ) : null}
+         </div>
+       )}
+     </>
+@@ -114,9 +125,9 @@
+     <CommandPalette.Page id={ id } onEscape={ () => setPage('root') }>
+       {filtered.length ? filtered.map((list) => (
+         <CommandPalette.List key={ list.id } heading={ list.heading }>
+-          {list.items.map(({ category, children, count, 'id': itemId, subtitle, title, type, ...rest }) => (
++          {list.items.map(({ badges, category, children, commandType, count, 'id': itemId, subtitle, title, trailingMetadata, type, ...rest }) => (
+             <CommandPalette.ListItem key={ itemId } value={ `${id}:${itemId}` } { ...commandItemProps(rest) }>
+-              <CmdItem inlineMetadata={ config.inlineMetadata } title={ title } subtitle={ subtitle } category={ category } count={ count } type={ type || config.type }>
++              <CmdItem badges={ badges } inlineMetadata={ config.inlineMetadata } title={ title } subtitle={ subtitle } category={ category } count={ count } trailingMetadata={ trailingMetadata } type={ commandType || type || config.type }>
+                 {children}
+               </CmdItem>
+             </CommandPalette.ListItem>
+@@ -259,9 +270,9 @@
+       <CommandPalette.Page id='root'>
+         {visibleRootItems.length ? visibleRootItems.map((list) => (
+           <CommandPalette.List key={ list.id } heading={ list.heading }>
+-            {list.items.map(({ browse, category, children, cmdIcon, count, id, subtitle, title, type, ...rest }) => (
++            {list.items.map(({ badges, browse, category, children, cmdIcon, commandType, count, id, subtitle, title, trailingMetadata, type, ...rest }) => (
+               <CommandPalette.ListItem key={ `${list.id}-${id}` } value={ `${list.id}:${id}` } { ...commandItemProps(rest) }>
+-                <CmdItem browse={ browse } title={ title } subtitle={ subtitle } category={ category } count={ count } type={ type || 'navigation' } icon={ cmdIcon }>
++                <CmdItem badges={ badges } browse={ browse } title={ title } subtitle={ subtitle } category={ category } count={ count } trailingMetadata={ trailingMetadata } type={ commandType || type || 'navigation' } icon={ cmdIcon }>
+                   {children}
+                 </CmdItem>
+               </CommandPalette.ListItem>
+diff --git a/src/components/core/Commander/commanderItems.js b/src/components/core/Commander/commanderItems.js
+--- a/src/components/core/Commander/commanderItems.js
++++ b/src/components/core/Commander/commanderItems.js
+@@ -6,6 +6,7 @@
+     children: item.children ?? item.title ?? item.display ?? item.name,
+     title: item.title ?? item.display ?? item.name,
+     type: item.type ?? type,
++    commandType: type,
+     subtitle: item.subtitle ?? (type === 'publication'
+       ? item.year
+       : type === 'project'

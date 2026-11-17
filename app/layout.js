@@ -26,11 +26,13 @@ import NavigationMetadata from '@/data/meta/navigationMetadata';
 import SiteBackdrop from '@/layouts/SiteBackdrop';
 import SiteLogo from '@/layouts/SiteLogo';
 import { allBlogDocuments } from '@/lib/contentLayer/collections';
+import { enrichCommandMetadata, enrichPublicationCommandMetadata } from '@/lib/utils/commandMetadata';
 import { pick, published, sortPosts } from '@/lib/utils/contentlayer';
 import { titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 import '@gaudi/design-system/global.css';
 import './responsive.css';
+import './command-palette.css';
 
 /**
  * Default metadata for the application including title, description, Open Graph
@@ -130,7 +132,7 @@ const footerProps = {
  * serialized — the full contentlayer documents would ride the RSC payload of
  * every page otherwise.
  */
-const MENU_FIELDS = [ 'category', 'date', 'slug', 'subtitle', 'summary', 'title', 'type' ];
+const MENU_FIELDS = [ 'category', 'date', 'slug', 'subtitle', 'summary', 'tags', 'title', 'type' ];
 
 // Gaudi links each item to the href the host gives it: posts live at /blog/<slug>, projects at /blog/<externalLink>.
 const toMenuItems = (docs, hrefOf = (doc) => `/blog/${doc.slug}`) => sortPosts(published(docs)).map((doc) => {
@@ -148,9 +150,9 @@ const menuProps = {
   'categories': [ ...categories ].sort((first, second) => first.title.localeCompare(second.title)),
   'logo': <SiteLogo />,
   'posts': toMenuItems(allPosts),
-  'projects': toMenuItems(allProjects, (project) => `/blog/${project.externalLink}`),
-  publications,
-  'searchPosts': toMenuItems(allBlogDocuments),
+  'projects': toMenuItems(allProjects, (project) => `/blog/${project.externalLink}`).map(enrichCommandMetadata),
+  'publications': publications.map(enrichPublicationCommandMetadata),
+  'searchPosts': toMenuItems(allBlogDocuments).map(enrichCommandMetadata),
   tags
 };
 

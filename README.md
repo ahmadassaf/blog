@@ -694,7 +694,7 @@ Copilot checks UI edits with the repository’s Impeccable hook. It uses the sha
 
 For a visual refresh, use `$design direction` in Codex or `/design direction` in Claude Code when Gaudi’s design skill is installed. Choose `minimalist-ui`, `industrial-brutalist-ui` or `high-end-visual-design` after `direction` to request a particular style. Use `design craft` for a build from an approved comp and `design document` for a local Stitch handoff. The [original Taste guides](https://github.com/Leonxlnx/taste-skill/tree/f70fa024ba47c722760bd7ee8acbe71c63e4b015/skills) are available to contributors independently.
 
-Five project skills remain available directly in Codex and Claude Code. Use `design-taste-frontend-v1` for the original layout and motion presets, `gpt-taste` for its GSAP landing-page workflow, `brandkit` for an identity board, `imagegen-frontend-web` for one visual per website section, and `imagegen-frontend-mobile` for a sequence of native app screens.
+When Gaudi’s image skill is installed, use `$gaudi-image` in Codex or `/gaudi-image` in Claude Code. Choose `board` for an identity board, `web` for one image per website section, or `mobile` for a sequence of native app screens. The project provides two Taste skills directly in both clients. Use `design-taste-frontend-v1` for the original layout and motion presets and `gpt-taste` for its GSAP landing-page workflow.
 
 ## Deployment
 

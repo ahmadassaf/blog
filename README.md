@@ -690,6 +690,8 @@ pnpm build:no-github
 
 CI runs on Node.js 22, installs from the frozen pnpm lockfile, checks out submodules recursively, runs lint and the engine/content tests, and builds without relying on the GitHub API.
 
+Copilot checks UI edits with the repository’s Impeccable hook. It uses the shared Gaudi design installation when available. For other contributors, the included 4.9.2 launcher downloads engine 0.1.25 on first use and verifies it against the pinned checksums. To prepare the cache before working offline, run `.github/skills/impeccable/scripts/impeccable engine-probe` from the repository root.
+
 ## Deployment
 
 The production site is deployed as a standard Next.js application. Its build environment must:

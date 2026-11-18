@@ -1,0 +1,10 @@
+#!/bin/sh
+# Repository Copilot hook. Gaudi's personal hook yields to this entry point.
+set -eu
+export IMPECCABLE_PROVIDER_ID=github IMPECCABLE_HOOK_HARNESS=github
+shared="${HOME:-}/.agents/skills/design/impeccable/scripts/impeccable"
+if [ -n "${HOME:-}" ] && [ -x "$shared" ]; then
+    exec "$shared" "$@"
+fi
+# On machines without Gaudi, use its Impeccable 4.9.2 launcher and engine pin.
+exec "${0%/*}/launcher-4.9.2" "$@"

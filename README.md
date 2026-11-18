@@ -692,6 +692,8 @@ CI runs on Node.js 22, installs from the frozen pnpm lockfile, checks out submod
 
 Copilot checks UI edits with the repository’s Impeccable hook. It uses the shared Gaudi design installation when available. For other contributors, the included 4.9.2 launcher downloads engine 0.1.25 on first use and verifies it against the pinned checksums. To prepare the cache before working offline, run `.github/skills/impeccable/scripts/impeccable engine-probe` from the repository root.
 
+For a visual refresh, use `$design direction` in Codex or `/design direction` in Claude Code when Gaudi’s design skill is installed. The [pinned Taste guide](https://github.com/Leonxlnx/taste-skill/blob/3c7017d636c3a4aad378433ea6d0cfa6c921da4a/skills/taste-skill/SKILL.md) is available to contributors independently. The project also includes `design-taste-frontend-v1` for work that calls for its original layout and motion presets.
+
 ## Deployment
 
 The production site is deployed as a standard Next.js application. Its build environment must:

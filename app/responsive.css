@@ -100,6 +100,24 @@ html:has(.about-grid) {
   overflow-wrap: anywhere;
 }
 
+/* The open series menu is portaled. Keep its trigger above the blurred page too. */
+@media screen {
+  #main-content:has(.post-series [aria-expanded='true'])::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--ds-z-overlay) - 1);
+    pointer-events: none;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+
+  .post-series:has([aria-expanded='true']) {
+    position: relative;
+    z-index: var(--ds-z-overlay);
+  }
+}
+
 /* Internal preview links use text alone, including when the favicon falls back to an icon. */
 [data-slot='link-preview'][data-preview-internal='true'] > :is([data-slot='link-preview-favicon'], svg):first-child {
   display: none;

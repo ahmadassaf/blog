@@ -67,7 +67,7 @@ export default function PostArticleFrame({ children, content, locale, padding, t
         frontMatter={ frontMatter }
         siteMetadata={{ locale }}
         tocControl={ contentsToggle }
-        classNames={{ 'subtitle': 'max-w-none', 'title': 'text-5xl md:text-6xl' }}
+        classNames={{ 'series': 'post-series', 'subtitle': 'max-w-none', 'title': 'text-5xl md:text-6xl' }}
       />
       <ArticleContentLayout
         collapsibleAside

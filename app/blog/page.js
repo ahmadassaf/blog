@@ -8,12 +8,10 @@
  * @version 1.0.0
  */
 
-import { allPosts } from 'contentlayer/generated';
-
 import { metadataGenerator } from '@/data/meta/generator/blog';
 import ArchiveLayout from '@/layouts/ArchiveLayout';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
-import { allBlogDocuments } from '@/lib/contentLayer/collections';
+import { allBlogDocuments, allPosts } from '@/lib/contentLayer/collections';
 import { getBlogListing } from '@/lib/utils/blogListing';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 

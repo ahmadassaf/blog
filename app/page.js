@@ -11,12 +11,11 @@
 
 import { Kbd, Link, TextHighlight, Typography } from '@gaudi/design-system';
 import Preview from '@gaudi/design-system/mdx/Preview';
-import { allPosts } from 'contentlayer/generated';
 
 import siteMetadata from '@/data/meta/metadata';
 import FeaturedPostsLayout from '@/layouts/FeaturedLayout';
 import HandbookCard from '@/layouts/HandbookCard';
-import { allBlogDocuments } from '@/lib/contentLayer/collections';
+import { allBlogDocuments, allPosts } from '@/lib/contentLayer/collections';
 import { getPublishedPosts } from '@/lib/utils/contentlayer';
 import { getHandbook } from '@/lib/utils/handbooks';
 

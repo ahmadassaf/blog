@@ -13,7 +13,6 @@ import { CardContent, CardDescription, CardFooter, CardHeader, CardRoot, CardTit
 import PageHeader from '@gaudi/design-system/layout/PageHeader';
 
 import { formatShortDate } from '@/lib/utils/formatDate';
-import { titleFromSlug } from '@/lib/utils/slugs.mjs';
 
 const articleCount = (count) => `${count} ${count === 1 ? 'article' : 'articles'}`;
 
@@ -63,7 +62,7 @@ const CategoryCard = ({ category }) => {
       <CardRoot className='h-full'>
         <CardHeader>
           <CardTitle as='h2' id={ `category-${category.slug}` } className='flex items-baseline justify-between gap-3 text-lg font-semibold'>
-            <Link href={ href } tone='neutral' className='font-semibold'>{titleFromSlug(category.title)}</Link>
+            <Link href={ href } tone='neutral' className='font-semibold'>{category.title}</Link>
             <span className='shrink-0 text-sm font-normal tabular-nums text-text-muted'>{articleCount(category.count)}</span>
           </CardTitle>
           {category.description ? <CardDescription>{category.description}</CardDescription> : null}
@@ -71,7 +70,7 @@ const CategoryCard = ({ category }) => {
 
         <CardContent className='flex-1'>
           {category.samplePosts.length === 0 ? <EmptyState compact title='No articles yet' /> : (
-            <ul aria-label={ `Latest in ${titleFromSlug(category.title)}` } className='-mx-2 flex flex-col'>
+            <ul aria-label={ `Latest in ${category.title}` } className='-mx-2 flex flex-col'>
               {category.samplePosts.map((post) => (
                 <li key={ post.slug }>
                   <Link href={ `/blog/${post.slug}` } variant='bare' className='flex items-baseline justify-between gap-4 rounded-md px-2 py-2 text-sm hover:bg-surface-muted'>

@@ -19,7 +19,7 @@ import siteMetadata from '@/data/meta/metadata';
 import SiteMark from '@/layouts/SiteMark';
 import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { findPublishedDocument } from '@/lib/contentLayer/findPublishedDocument';
-import { titleFromSlug } from '@/lib/utils/slugs.mjs';
+import { categoryTitleFromSlug } from '@/lib/utils/slugs.mjs';
 
 // Module-scope cache so fonts are downloaded at most once per instance
 let cachedFontsPromise = null;
@@ -124,7 +124,7 @@ export async function GET(request) {
       <OgCard
         title={ post.title }
         subtitle={ post.subtitle }
-        category={ post.category ? titleFromSlug(post.category) : undefined }
+        category={ post.category ? categoryTitleFromSlug(post.category) : undefined }
         siteName={ siteMetadata.siteUrl.replace(/^https?:\/\//, '') }
         logo={ <SiteMark width={ 120 } height={ 104 } /> }
       />, imageOptions

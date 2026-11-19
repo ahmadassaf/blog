@@ -2,12 +2,15 @@ import { notFound } from 'next/navigation';
 
 import tags from '@/app/content/tags';
 import { metadataGenerator } from '@/data/meta/generator/blog';
-import ListLayout from '@/layouts/ListLayout';
+import ArchiveLayout from '@/layouts/ArchiveLayout';
 import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { getBlogListing } from '@/lib/utils/blogListing';
 import { safeDecodeURI, slugify } from '@/lib/utils/slugs.mjs';
 
 export const dynamicParams = false;
+
+// Keep rolling year groups in sync with the blog and category archives.
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }) {
   const { 'tag': tagParam } = await params;
@@ -32,5 +35,5 @@ export default async function Page({ params }) {
 
   const { posts } = getBlogListing(allBlogDocuments, (post) => post.tags.some((name) => slugify(name) === slug));
 
-  return <ListLayout posts={ posts } listTitle={ `${tag.title} Posts` } paginationURL={ `blog/tags/${slug}/page` } baseURL={ `blog/tags/${slug}` } />;
+  return <ArchiveLayout posts={ posts } tagSlug={ slug } title={ `${tag.title} Posts` } />;
 }

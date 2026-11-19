@@ -1,7 +1,7 @@
 import { Icon, Link, Pill, Typography } from '@gaudi/design-system';
 
 import formatDate from '@/lib/utils/formatDate';
-import { slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
+import { categoryTitleFromSlug, slugify } from '@/lib/utils/slugs.mjs';
 
 const PostMetaRow = ({ post, leading }) => (
   <div className='mb-2 flex flex-wrap items-center gap-x-3 gap-y-2'>
@@ -13,7 +13,7 @@ const PostMetaRow = ({ post, leading }) => (
       <>
         <Typography as='span' variant='post-meta' aria-hidden='true'>·</Typography>
         <Pill href={ `/blog/categories/${slugify(post.category)}` } tone='blue' variant='subtle' size='xs' radius='md'>
-          {titleFromSlug(post.category)}
+          {categoryTitleFromSlug(post.category)}
         </Pill>
       </>
     )}

@@ -16,7 +16,7 @@ import { metadataGenerator } from '@/data/meta/generator/blog';
 import ArchiveLayout from '@/layouts/ArchiveLayout';
 import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { getBlogListing } from '@/lib/utils/blogListing';
-import { safeDecodeURI, slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
+import { categoryTitleFromSlug, safeDecodeURI, slugify } from '@/lib/utils/slugs.mjs';
 
 // Every valid category comes from generateStaticParams; unknown slugs must 404 instead of rendering empty lists
 export const dynamicParams = false;
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }) {
 
   if (category === null) return { 'title': 'Category not found' };
 
-  return metadataGenerator({ 'path': `/blog/categories/${category}`, 'title': `Category: ${titleFromSlug(category)}` });
+  return metadataGenerator({ 'path': `/blog/categories/${category}`, 'title': `Category: ${categoryTitleFromSlug(category)}` });
 }
 
 /**
@@ -94,10 +94,10 @@ export default async function Page({ params }) {
 
   if (category === null || !categories.some((entry) => entry.slug === category)) notFound();
 
-  const title = titleFromSlug(category);
+  const title = categoryTitleFromSlug(category);
   const { 'posts': filteredPosts } = getBlogListing(allBlogDocuments, (post) => slugify(post.category) === category);
 
   return (
-    <ArchiveLayout posts={ filteredPosts } title={ `${title} Posts` } />
+    <ArchiveLayout categorySlug={ category } posts={ filteredPosts } title={ `${title} Posts` } />
   );
 }

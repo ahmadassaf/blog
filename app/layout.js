@@ -13,7 +13,7 @@ import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';
 import CitationTracker from '@gaudi/design-system/mdx/CitationTracker';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { allPosts, allProjects } from 'contentlayer/generated';
+import { allProjects } from 'contentlayer/generated';
 import { Plus_Jakarta_Sans as PlusJakartaSans } from 'next/font/google';
 
 import categories from '@/app/content/categories';
@@ -25,10 +25,10 @@ import siteMetadata from '@/data/meta/metadata';
 import NavigationMetadata from '@/data/meta/navigationMetadata';
 import SiteBackdrop from '@/layouts/SiteBackdrop';
 import SiteLogo from '@/layouts/SiteLogo';
-import { allBlogDocuments } from '@/lib/contentLayer/collections';
+import { allBlogDocuments, allPosts } from '@/lib/contentLayer/collections';
 import { enrichCommandMetadata, enrichPublicationCommandMetadata } from '@/lib/utils/commandMetadata';
 import { pick, published, sortPosts } from '@/lib/utils/contentlayer';
-import { titleFromSlug } from '@/lib/utils/slugs.mjs';
+import { categoryLabel } from '@/lib/utils/slugs.mjs';
 
 import '@gaudi/design-system/global.css';
 import './responsive.css';
@@ -97,7 +97,7 @@ const footerProps = {
       'links': categories.slice(0, 4).reverse().map((category) => {
         return {
           'href': category.href,
-          'label': titleFromSlug(category.title)
+          'label': category.title
         };
       }),
       'title': 'Blog'
@@ -136,7 +136,7 @@ const MENU_FIELDS = [ 'category', 'date', 'slug', 'subtitle', 'summary', 'tags',
 
 // Gaudi links each item to the href the host gives it: posts live at /blog/<slug>, projects at /blog/<externalLink>.
 const toMenuItems = (docs, hrefOf = (doc) => `/blog/${doc.slug}`) => sortPosts(published(docs)).map((doc) => {
-  return { ...pick(doc, MENU_FIELDS), 'href': hrefOf(doc) };
+  return { ...pick(doc, MENU_FIELDS), 'category': categoryLabel(doc.category), 'href': hrefOf(doc) };
 });
 
 const menuProps = {

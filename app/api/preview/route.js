@@ -17,6 +17,7 @@ import { parse } from 'node-html-parser';
 import { allBlogDocuments } from '@/lib/contentLayer/collections';
 import { findPublishedDocument } from '@/lib/contentLayer/findPublishedDocument';
 import { safeFetch } from '@/lib/preview/safeFetch.mjs';
+import { categoryLabel } from '@/lib/utils/slugs.mjs';
 
 /*
  * Every response carries explicit cache headers: successful previews may be
@@ -109,7 +110,7 @@ function getInternalPreviewData(url) {
   if (!post) return null;
 
   return {
-    'category': post.category,
+    'category': categoryLabel(post.category),
     'description': post.summary,
     'favicon': '/static/favicons/favicon-32x32.png',
     'publishedTime': post.date,

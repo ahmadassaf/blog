@@ -10,7 +10,7 @@
  */
 
 import { findPublishedDocument } from '../../../lib/contentLayer/findPublishedDocument.js';
-import { slugify } from '../../../lib/utils/slugs.mjs';
+import { categoryLabel, slugify } from '../../../lib/utils/slugs.mjs';
 import { author } from '../JSON-LD/author.js';
 import { blog } from '../JSON-LD/blog.js';
 import siteMetadata from '../metadata.js';
@@ -92,7 +92,7 @@ export function linkedDataGenerator(post) {
     'dateModified': post.updated || post.date,
     'datePublished': post.date,
     'description': post.summary,
-    'genre': post.category,
+    'genre': categoryLabel(post.category),
     'headline': post.title,
     'image': {
       '@id': ogImage,

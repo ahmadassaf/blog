@@ -119,6 +119,56 @@ html:has(.about-grid) {
   max-width: 100%;
 }
 
+/* Nested examples align with their callout text instead of shrinking to the code. */
+.post-reading [data-slot='alert-description'] > [data-slot='code-block'] {
+  width: 100%;
+}
+
+.model-comparison-table table {
+  min-width: 44rem;
+  table-layout: fixed;
+}
+
+.model-comparison-table th:first-child {
+  width: 24%;
+}
+
+/* Let a phone scroll each column fully into view. */
+.model-comparison-table :is(th, td):first-child {
+  inset-inline-start: auto;
+}
+
+/* Keep aggregate expressions intact while the table scrolls on narrow screens. */
+.sparql-count-table table {
+  min-width: 26rem;
+}
+
+.sparql-count-table td:first-child code {
+  white-space: nowrap;
+}
+
+.sparql-count-table :is(th, td):first-child {
+  inset-inline-start: auto;
+}
+
+/* Keep modeling questions and expected answers readable in the table's scroll frame. */
+.modeling-guide-table table {
+  min-width: 32rem;
+  table-layout: fixed;
+}
+
+.modeling-guide-table th:first-child {
+  width: 42%;
+}
+
+.modeling-guide-table :is(th, td):first-child {
+  inset-inline-start: auto;
+}
+
+.modeling-guide-table code {
+  white-space: nowrap;
+}
+
 /* A lone adjacent-article link can use the space normally shared by two links. */
 .post-layout > nav > div > a:only-child {
   max-width: 100%;

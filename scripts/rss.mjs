@@ -11,9 +11,10 @@
 
 import { writeFileSync } from 'fs';
 
-import { allPosts } from '../.contentlayer/generated/index.mjs';
 import siteMetadata from '../data/meta/metadata.js';
+import { allPosts } from '../lib/contentLayer/collections.js';
 import { published, sortPosts } from '../lib/utils/contentlayer.js';
+import { categoryLabel } from '../lib/utils/slugs.mjs';
 
 /**
  * Escapes special XML characters in interpolated text content
@@ -36,7 +37,7 @@ const _generateRssItem = (post) => `
     ${post.summary ? `<description>${_escapeXml(post.summary)}</description>` : ''}
     <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     <author>${_escapeXml(siteMetadata.email)} (${_escapeXml(siteMetadata.author)})</author>
-    <category>${_escapeXml(post.category.replaceAll('-', ' '))}</category>
+    <category>${_escapeXml(categoryLabel(post.category).replaceAll('-', ' '))}</category>
   </item>
 `;
 

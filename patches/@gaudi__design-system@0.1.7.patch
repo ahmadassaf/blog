@@ -332,3 +332,214 @@ diff --git a/src/components/core/Commander/commanderItems.js b/src/components/co
      subtitle: item.subtitle ?? (type === 'publication'
        ? item.year
        : type === 'project'
+diff --git a/src/components/post/PostHeader/PostHeader.js b/src/components/post/PostHeader/PostHeader.js
+index 78266201..6637d810 100644
+--- a/src/components/post/PostHeader/PostHeader.js
++++ b/src/components/post/PostHeader/PostHeader.js
+@@ -20,3 +20,5 @@
+ const isValidPostDate = (date) => date && !Number.isNaN(new Date(date).getTime());
+-
++
++const utcCalendarDay = (date) => isValidPostDate(date) ? new Date(date).toISOString().slice(0, 10) : '';
++
+ const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle'>·</span>;
+@@ -27,3 +29,3 @@ const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle
+  * @param {Object} props - Component props
+- * @param {Object} [props.frontMatter={}] - Post metadata with id, prepared category/tags { id, label, href }, date, readingTime.text and seriesPosts
++ * @param {Object} [props.frontMatter={}] - Post metadata with id, prepared category/tags { id, label, href }, date, optional updatedAt, readingTime.text and seriesPosts
+  * @param {Object} [props.siteMetadata={}] - Site configuration; `locale` formats the date
+@@ -42,5 +44,8 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
+   const category = typeof frontMatter.category === 'string' ? { label: frontMatter.category } : frontMatter.category;
+-  const date = frontMatter.updated || frontMatter.date;
++  const publicationDay = utcCalendarDay(frontMatter.date);
++  const revisionDay = utcCalendarDay(frontMatter.updatedAt);
++  const showUpdated = publicationDay && revisionDay > publicationDay;
++  const date = revisionDay ? frontMatter.updatedAt : frontMatter.updated || frontMatter.date;
+   const readingTime = frontMatter.readingTime?.text;
+-  // One quiet meta line: category · date · reading time, each separated only where both sides exist.
++  // The revision pill labels its date; a plain date keeps the separator after the category.
+   const meta = [
+@@ -52,3 +57,8 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
+     ) : null,
+-    isValidPostDate(date) ? <PostDate key='date' date={ date } locale={ siteMetadata.locale } className='text-sm text-current' /> : null,
++    isValidPostDate(date) ? (
++      <span key='date' className={ showUpdated ? 'inline-flex items-baseline gap-1.5' : undefined }>
++        {showUpdated ? <Pill tone='blue' variant='soft' size='xs' className='rounded-full text-sm leading-5'>Updated at</Pill> : null}
++        <PostDate date={ date } locale={ siteMetadata.locale } className='text-sm text-current' />
++      </span>
++    ) : null,
+     readingTime ? <PostReadingTime key='reading' readingTime={ readingTime } className='text-sm text-current' /> : null
+@@ -62,3 +72,3 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
+         <span key={ item.key } className='inline-flex items-center gap-3 whitespace-nowrap'>
+-          {index > 0 ? <MetaSeparator /> : null}
++          {index > 0 && !(showUpdated && item.key === 'date') ? <MetaSeparator /> : null}
+           {item}
+diff --git a/src/components/post/PostSeriesBox/PostSeriesBox.js b/src/components/post/PostSeriesBox/PostSeriesBox.js
+--- a/src/components/post/PostSeriesBox/PostSeriesBox.js
++++ b/src/components/post/PostSeriesBox/PostSeriesBox.js
+@@ -3,26 +3,26 @@
+ /**
+  * PostSeriesBox Component
+  *
+- * @description Collapsible series navigation for a blog post that belongs to a series. The header shows the
+- * series name and reading progress; expanding it lists every part with the current post marked.
++ * @description Series navigation that opens over the article. The header shows the series name and
++ * reading progress; the popover lists every part with the current post marked.
+  *
+  * @author Ahmad Assaf
+  * @version 1.0.0
+  */
+ 
++import { useState } from 'react';
++
++import { cn } from '../../../utilities/cn';
+ import Button from '../../core/Button';
+-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../core/Accordion';
+ import Card from '../../core/Card';
+ import Icon from '../../core/Icon';
+ import Link from '../../core/Link';
+-import { ProgressRoot } from '../../core/Progress';
+-import { ScrollArea } from '../../core/ScrollArea';
+-import { cn } from '../../../utilities/cn';
++import { Popover, PopoverContent, PopoverTrigger } from '../../core/Popover';
+ 
+ const markerClasses = {
+-  current: 'bg-accent',
+-  done: 'bg-text-subtle',
+-  upcoming: 'border border-text-subtle'
++  'current': 'bg-accent',
++  'done': 'bg-text-subtle',
++  'upcoming': 'border border-text-subtle'
+ };
+ 
+ /**
+@@ -31,69 +31,80 @@
+  * @param {string|number} props.currentId - Current post's stable ID
+  * @param {string} [props.className] - Root classes
+  * @param {{ root?: string, trigger?: string, body?: string }} [props.classNames] - Part classes
+- * @returns {JSX.Element|null} Collapsible series card, or nothing when `series` is empty
++ * @returns {JSX.Element|null} Series navigation, or nothing when `series` is empty
+  *
+  * @example
+  * <PostSeriesBox series={seriesPosts} currentId='post-1' />
+  */
+ const PostSeriesBox = ({ className, classNames = {}, series, currentId }) => {
++  const [ open, setOpen ] = useState(false);
++
+   if (!series?.length) return null;
+ 
+-  const currentIndex = currentId == null ? -1 : series.findIndex((post) => post.id === currentId);
++  const currentIndex = (currentId === null || currentId === undefined) ? -1 : series.findIndex((post) => post.id === currentId);
+   const completedCount = currentIndex + 1;
+   const totalCount = series.length;
+ 
+   return (
+-    <Collapsible asChild>
+-    <Card variant='outline' padding='none' className={ cn('group/series mb-6 h-auto', className, classNames.root) }>
+-      <CollapsibleTrigger asChild>
+-      <Button
+-        variant='ghost'
+-        tone='neutral'
+-        size='sm'
+-        className={ cn('w-full rounded-none p-3 text-left font-normal hover:bg-surface-muted sm:p-4', classNames.trigger) }
++    <Popover open={ open } onOpenChange={ setOpen }>
++      <Card variant='outline' padding='none' className={ cn('mb-6 h-auto', className, classNames.root) }>
++        <PopoverTrigger asChild>
++          <Button
++            variant='ghost'
++            tone='neutral'
++            size='sm'
++            className={ cn('group/series w-full rounded-none p-3 focus-visible:-outline-offset-2 text-left font-normal hover:bg-surface-muted sm:p-4', classNames.trigger) }
++          >
++            <span className='flex min-w-0 flex-1 items-center gap-2 sm:gap-3'>
++              <Icon name='Square3Stack3DIcon' size='sm' decorative className='text-accent' />
++              <span className='min-w-0 whitespace-normal break-words text-sm font-medium text-text'>{series[0].series}</span>
++            </span>
++            <span className='flex shrink-0 items-center gap-2'>
++              <span className='whitespace-nowrap text-xs text-text-muted'>{completedCount}/{totalCount}</span>
++              <Icon
++                name='ChevronDown'
++                size='sm'
++                decorative
++                className='text-text-subtle transition-transform duration-200 group-data-[state=open]/series:rotate-180 motion-reduce:transition-none'
++              />
++            </span>
++          </Button>
++        </PopoverTrigger>
++      </Card>
++      <PopoverContent
++        aria-label={ `${series[0].series} navigation` }
++        side='bottom'
++        align='start'
++        sideOffset={ 6 }
++        collisionPadding={ 12 }
++        className='rounded-[var(--ds-radius-card)] border-border bg-surface p-0 text-text'
++        style={{ 'maxHeight': 'min(20rem, var(--radix-popover-content-available-height))', 'width': 'var(--radix-popover-trigger-width)' }}
+       >
+-        <span className='flex min-w-0 flex-1 items-center gap-2 sm:gap-3'>
+-          <Icon name='Square3Stack3DIcon' size='sm' decorative className='text-accent' />
+-          <span className='min-w-0 whitespace-normal break-words text-sm font-medium text-text'>{series[0].series}</span>
+-        </span>
+-        <span className='flex shrink-0 items-center gap-2'>
+-          <ProgressRoot aria-label='Series progress' value={ completedCount } max={ totalCount } className='w-12 sm:w-16' />
+-          <span className='whitespace-nowrap text-xs text-text-muted'>{completedCount}/{totalCount}</span>
+-          <Icon
+-            name='ChevronDown'
+-            size='sm'
+-            decorative
+-            className='text-text-subtle transition-transform duration-200 group-data-[state=open]/series:rotate-180 motion-reduce:transition-none'
+-          />
+-        </span>
+-      </Button>
+-      </CollapsibleTrigger>
++        <nav aria-label='Series parts'>
++          <ol className={ cn('m-0 grid list-none gap-2 px-3 py-3 sm:px-4 sm:py-4', classNames.body) }>
++            {series.map((post, index) => {
++              const isCurrent = index === currentIndex;
++              let state = 'upcoming';
+ 
+-      <CollapsibleContent className='border-t border-border'>
+-      <ScrollArea aria-label='Series parts' className='[&_[data-slot=scroll-area-viewport]]:max-h-80'>
+-      <ol className={ cn('grid gap-2 px-3 py-3 sm:px-4 sm:py-4', classNames.body) }>
+-        {series.map((post, index) => {
+-          const isCurrent = index === currentIndex;
+-          const state = isCurrent ? 'current' : index < currentIndex ? 'done' : 'upcoming';
++              if (index < currentIndex) state = 'done';
++              if (isCurrent) state = 'current';
+ 
+-          return (
+-            <li key={ post.id } className='flex items-baseline gap-2 text-xs sm:gap-3 sm:text-sm'>
+-              <span aria-hidden='true' className={ cn('size-2 shrink-0 self-center rounded-full', markerClasses[state]) } />
+-              {post.order != null && <span className='w-4 shrink-0 text-xs text-text-muted'>{post.order}.</span>}
+-              {isCurrent ? (
+-                <span aria-current='step' className='min-w-0 font-medium text-text'>{post.title}</span>
+-              ) : (
+-                <Link href={ post.href } variant='muted' className='min-w-0 font-normal'>{post.title}</Link>
+-              )}
+-            </li>
+-          );
+-        })}
+-      </ol>
+-      </ScrollArea>
+-      </CollapsibleContent>
+-    </Card>
+-    </Collapsible>
++              return (
++                <li key={ post.id } className='flex items-baseline gap-2 text-xs sm:gap-3 sm:text-sm'>
++                  <span aria-hidden='true' className={ cn('size-2 shrink-0 self-center rounded-full', markerClasses[state]) } />
++                  {(post.order !== null && post.order !== undefined) && <span className='w-4 shrink-0 text-xs text-text-muted'>{post.order}.</span>}
++                  {isCurrent ? (
++                    <span aria-current='step' className='min-w-0 font-medium text-text'>{post.title}</span>
++                  ) : (
++                    <Link href={ post.href } variant='muted' className='min-w-0 font-normal' onClick={ () => setOpen(false) }>{post.title}</Link>
++                  )}
++                </li>
++              );
++            })}
++          </ol>
++        </nav>
++      </PopoverContent>
++    </Popover>
+   );
+ };
+ 

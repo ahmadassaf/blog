@@ -6,7 +6,7 @@ import { ScrollEdges, SmoothScroll } from '@gaudi/design-system/core/ScrollArea'
 import Tooltip from '@gaudi/design-system/core/Tooltip';
 
 import tagIndex from '@/app/content/tags.json';
-import { slugify, titleFromSlug } from '@/lib/utils/slugs.mjs';
+import { categoryTitleFromSlug, slugify } from '@/lib/utils/slugs.mjs';
 
 // Tag pages are built from posts only, so a project-only tag has no page to link to.
 const taggedSlugs = new Set(tagIndex.map((tag) => tag.slug));
@@ -32,7 +32,7 @@ export default function PostArticleFrame({ children, content, locale, padding, t
    * the resolver hands back slugs, so the slug doubles as the id here.
    */
   const frontMatter = useMemo(() => {
-    const category = content.category ? { 'href': `/blog/categories/${slugify(content.category)}`, 'label': titleFromSlug(content.category) } : undefined;
+    const category = content.category ? { 'href': `/blog/categories/${slugify(content.category)}`, 'label': categoryTitleFromSlug(content.category) } : undefined;
 
     const tags = content.tags?.map((tag) => {
       return { 'href': taggedSlugs.has(slugify(tag)) ? `/blog/tags/${slugify(tag)}` : undefined, 'id': tag, 'label': tag };
@@ -45,8 +45,9 @@ export default function PostArticleFrame({ children, content, locale, padding, t
     // Bare calendar dates: DS formatDate pins only YYYY-MM-DD strings to UTC, so ISO timestamps would shift a day west of UTC and mismatch the server.
     const date = content.date?.slice(0, 10);
     const updated = content.updated?.slice(0, 10);
+    const updatedAt = content.updatedAt?.slice(0, 10);
 
-    return { ...content, category, date, 'id': content.slug, 'readingTime': undefined, seriesPosts, tags, updated };
+    return { ...content, category, date, 'id': content.slug, 'readingTime': undefined, seriesPosts, tags, updated, updatedAt };
   }, [ content ]);
 
   // A sidebar icon in the header opens and closes the contents; Gaudi's Toggle shows it pressed while open.

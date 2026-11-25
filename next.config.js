@@ -129,16 +129,6 @@ module.exports = () => {
           'source': '/blog/category/data/introduction-multi-dimenstional-dbs'
         },
         {
-          'destination': '/blog/category/management/becoming-a-cto-compliance-at-ai-speed',
-          'permanent': true,
-          'source': '/blog/category/management/becoming-a-cto-compliance-is-a-mirror'
-        },
-        {
-          'destination': '/blog/category/data/why-we-are-building-our-own-rdf-database',
-          'permanent': true,
-          'source': '/blog/category/engineering/why-we-are-building-our-own-rdf-database'
-        },
-        {
           'destination': '/blog/category/management/cto-handbook-beginnings',
           'permanent': true,
           'source': '/blog/category/management/cto-handbook-the-beginning'
@@ -167,16 +157,6 @@ module.exports = () => {
           'destination': '/blog/category/management/cto-handbook-habits',
           'permanent': true,
           'source': '/blog/category/management/cto-handbook-individual-habits'
-        },
-        {
-          'destination': '/blog/category/management/becoming-a-cto-ten-engineers-no-product-manager',
-          'permanent': true,
-          'source': '/blog/category/management/becoming-a-cto-building-a-team-when-there-isnt-one-yet'
-        },
-        {
-          'destination': '/blog/category/management/becoming-a-cto-my-first-year-as-cto',
-          'permanent': true,
-          'source': '/blog/category/management/becoming-a-cto-the-cto-who-does-too-much'
         }
       ];
     },

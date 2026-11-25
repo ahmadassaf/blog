@@ -132,6 +132,51 @@ module.exports = () => {
           'destination': '/blog/category/management/becoming-a-cto-compliance-at-ai-speed',
           'permanent': true,
           'source': '/blog/category/management/becoming-a-cto-compliance-is-a-mirror'
+        },
+        {
+          'destination': '/blog/category/data/why-we-are-building-our-own-rdf-database',
+          'permanent': true,
+          'source': '/blog/category/engineering/why-we-are-building-our-own-rdf-database'
+        },
+        {
+          'destination': '/blog/category/management/cto-handbook-beginnings',
+          'permanent': true,
+          'source': '/blog/category/management/cto-handbook-the-beginning'
+        },
+        {
+          'destination': '/blog/category/management/cto-handbook-people',
+          'permanent': true,
+          'source': '/blog/category/management/cto-handbook-playbooks'
+        },
+        {
+          'destination': '/blog/category/management/cto-handbook-decisions',
+          'permanent': true,
+          'source': '/blog/category/management/cto-handbook-group-habits'
+        },
+        {
+          'destination': '/blog/category/management/cto-handbook-delivery',
+          'permanent': true,
+          'source': '/blog/category/management/cto-handbook-processes'
+        },
+        {
+          'destination': '/blog/category/management/cto-handbook-operations',
+          'permanent': true,
+          'source': '/blog/category/management/cto-handbook-infrastructure'
+        },
+        {
+          'destination': '/blog/category/management/cto-handbook-habits',
+          'permanent': true,
+          'source': '/blog/category/management/cto-handbook-individual-habits'
+        },
+        {
+          'destination': '/blog/category/management/becoming-a-cto-ten-engineers-no-product-manager',
+          'permanent': true,
+          'source': '/blog/category/management/becoming-a-cto-building-a-team-when-there-isnt-one-yet'
+        },
+        {
+          'destination': '/blog/category/management/becoming-a-cto-my-first-year-as-cto',
+          'permanent': true,
+          'source': '/blog/category/management/becoming-a-cto-the-cto-who-does-too-much'
         }
       ];
     },

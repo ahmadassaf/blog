@@ -53,8 +53,8 @@ export default function PostLayout({ content, next, prev, toc, children }) {
           <Callout type='info' className='mt-8' classNames={{ 'body': 'text-sm leading-7' }}>
             <p>{disclaimer}</p>
             <p>
-              I also offer consulting and mentoring in AI strategy, engineering leadership, and scaling teams.{' '}
-              <Link href={ `mailto:${siteMetadata.email}` } tone='blue'>Get in touch</Link> if I can help.
+              I'm glad to speak at events, join a panel or a podcast, or compare notes on AI, knowledge graphs and engineering leadership.{' '}
+              <Link href={ `mailto:${siteMetadata.email}` } tone='blue'>Get in touch</Link> if you'd like to talk.
             </p>
           </Callout>
         )}

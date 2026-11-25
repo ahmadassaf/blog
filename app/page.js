@@ -45,7 +45,7 @@ export default function Home() {
           </Typography>
           <Typography variant='heading-lg' as='h2' className='font-bold tracking-tight'>
             <TextHighlight className='box-decoration-clone text-text [-webkit-box-decoration-break:clone]'>
-              CTO, AI &amp; Engineering Leader, Mentor and Advisor
+              CTO, AI &amp; Engineering Leader
             </TextHighlight>
           </Typography>
           <div className='home-biography'>

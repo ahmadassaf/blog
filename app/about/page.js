@@ -45,12 +45,12 @@ export default function About() {
       'name': 'Knowledge Graphs and Data'
     },
     {
-      'description': 'Hiring a first team, trust and ownership, and what changes between founding engineer and CTO.',
+      'description': 'Trust and ownership in a small team, and what changes between founding engineer and CTO.',
       'icon': <Icon name='ChartArea' decorative />,
       'name': 'Engineering Leadership'
     },
     {
-      'description': 'Ten years from sixth employee to co-founder: growth, layoffs, equity, and starting again.',
+      'description': 'Ten years from sixth employee to co-founder: what changes as a company grows, and starting again.',
       'icon': <Icon name='Cubes' decorative />,
       'name': 'Startups from the Inside'
     },
@@ -60,7 +60,7 @@ export default function About() {
       'name': 'Planning and Delivery'
     },
     {
-      'description': 'How review, release, and ownership change when most code is written with an assistant.',
+      'description': 'How review, release, and ownership work when code is written with an assistant.',
       'icon': <Icon name='Robot' decorative />,
       'name': 'AI-Assisted Engineering'
     }
@@ -78,7 +78,7 @@ export default function About() {
               I'm Ahmad Assaf, CTO at Mav9. I've spent more than a decade building and scaling SaaS businesses across engineering, data, and AI. My work spans technology strategy, engineering leadership, and product development.
             </Typography>
             <Typography variant='paragraph-md' className='mt-4 max-w-[68ch] text-pretty'>
-              My full-time work is building Mav9. I write about what I learn along the way, and I'm glad to speak at events or join a panel or a podcast.
+              My full-time work is building Mav9. This blog is personal writing about engineering, data, and leadership, and I'm glad to speak at events or join a panel or a podcast.
             </Typography>
             <Link href='#speaking' tone='blue' className='mt-6 inline-flex min-h-11 max-w-full items-center gap-2'>
               Invite me to speak
@@ -93,7 +93,7 @@ export default function About() {
         <div className='mt-6 flex flex-col gap-8 lg:flex-row lg:gap-16'>
           <div className='max-w-[68ch] flex-1 space-y-6'>
             <Typography variant='paragraph-md'>
-              At <Preview url='https://mav9.com' title='Mav9' />, I lead AI strategy and engineering as CTO. I hired our initial team, bringing together people I'd worked with before, and helped shape a product built around data and knowledge graphs. As we grow, I focus on where AI can be useful and on giving people clear priorities, ownership, and room to develop.
+              At <Preview url='https://mav9.com' title='Mav9' />, I lead AI strategy and engineering as CTO, on a product built around data and knowledge graphs. As we grow, I focus on where AI can be useful and on giving people clear priorities, ownership, and room to develop.
             </Typography>
             <Typography variant='paragraph-md'>
               I joined <Preview url='https://beamery.com' title='Beamery' /> in 2015 as its sixth employee and one of its founding engineers. Over the next decade, I became Head of Engineering and then VP of AI and Data, building and scaling the AI and Data Science teams as the company grew to more than four hundred people. That work took me from writing code and exploring research questions to leading teams that brought machine learning into the product.
@@ -104,7 +104,7 @@ export default function About() {
           </div>
 
           <div className='pt-2 lg:w-72 lg:pl-8 lg:pt-0'>
-            <dl className='space-y-7'>
+            <dl className='grid grid-cols-2 gap-x-8 gap-y-7 sm:grid-cols-3 lg:grid-cols-1'>
               <div className='space-y-1.5'>
                 <Typography as='dt' variant='heading-sm'>CTO</Typography>
                 <Typography as='dd' variant='paragraph-sm'>

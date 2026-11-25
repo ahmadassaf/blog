@@ -28,6 +28,8 @@ jobs:
         with:
           path: blog
           submodules: recursive
+          # The content submodule is a private repository, so the default token cannot read it.
+          token: ${{ secrets.GIT_CONTENT_TOKEN }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
